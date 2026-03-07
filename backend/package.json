@@ -1,0 +1,20 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "backend for code-battle-grounds hackathon project",
+  "homepage": "https://github.com/Kanyarasi2026/code-battle-grounds",
+  "bugs": {
+    "url": "https://github.com/Kanyarasi2026/code-battle-grounds/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kanyarasi2026/code-battle-grounds.git"
+  },
+  "license": "ISC",
+  "author": "meghan31.me",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
