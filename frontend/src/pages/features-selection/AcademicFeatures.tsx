@@ -1,9 +1,8 @@
 import { motion } from 'framer-motion';
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { BookOpen, Users, ClipboardCheck, Play } from 'lucide-react';
+import { BookOpen, Users, ClipboardCheck } from 'lucide-react';
 import { gsap } from 'gsap';
-import Button from '../../components/ui/Button';
 import './FeaturesSelection.scss';
 
 interface AcademicFeature {

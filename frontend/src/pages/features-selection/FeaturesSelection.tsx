@@ -8,13 +8,11 @@ import {
   ClipboardCheck,
   Code2,
   Lightbulb,
-  Play,
   Users,
 } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
-import Button from '../../components/ui/Button';
 import './FeaturesSelection.scss';
 
 type Role = 'academic' | 'professional';

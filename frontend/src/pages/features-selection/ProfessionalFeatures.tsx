@@ -1,9 +1,8 @@
 import { motion } from 'framer-motion';
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Briefcase, Code2, Lightbulb, Users, BookMarked, Play, BarChart3 } from 'lucide-react';
+import { Briefcase, Code2, Lightbulb, Users, BookMarked, BarChart3 } from 'lucide-react';
 import { gsap } from 'gsap';
-import Button from '../../components/ui/Button';
 import './FeaturesSelection.scss';
 
 interface ProfessionalFeature {
