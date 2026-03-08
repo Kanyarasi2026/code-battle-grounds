@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useNavStack } from '../../context/NavigationStackContext';
 import { executeCode } from '../../api/api';
 import { buildTestRunner, dsaProblems, type DSAProblem } from '../../data/dsaProblems';
 import type { Language } from '../../types';
@@ -78,6 +79,7 @@ const DIFFICULTY_COLOR: Record<string, string> = {
 export default function ChallengeSolve() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
+  const { goBack } = useNavStack();
 
   const problemIndex = dsaProblems.findIndex((p) => p.slug === slug);
   const problem = problemIndex >= 0 ? dsaProblems[problemIndex] : null;
@@ -172,7 +174,7 @@ export default function ChallengeSolve() {
     return (
       <div className="challenge-solve challenge-solve--not-found">
         <p>Problem not found.</p>
-        <button onClick={() => navigate('/practice')}>← Back to challenges</button>
+        <button onClick={() => goBack()}>← Back to challenges</button>
       </div>
     );
   }
@@ -185,7 +187,7 @@ export default function ChallengeSolve() {
       <header className="challenge-solve__topbar">
         <button
           className="challenge-solve__back"
-          onClick={() => navigate('/practice')}
+          onClick={() => goBack()}
         >
           <ChevronLeft size={16} />
           Challenges

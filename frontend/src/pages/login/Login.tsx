@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Code2 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import Button from '../../components/ui/Button';
 import Card from '../../components/ui/Card';
 import { useAuth } from '../../context/AuthContext';
@@ -18,13 +19,14 @@ const Login = () => {
         </div>
         <Card className="login__card">
           <div className="login__card-body">
-            <h2>Sign in to continue</h2>
+            <h2>Log in to continue</h2>
             <p className="login__description">Authenticate with your Google account to start collaborating in real-time.</p>
             <Button variant="secondary" className="login__google-btn" onClick={() => { void handleGoogleSignIn(); }} loading={loading}
               iconLeft={<img src="https://img.icons8.com/color/48/google-logo.png" alt="Google" width={18} height={18} />}>
-              {loading ? 'Signing in…' : 'Sign in with Google'}
+              {loading ? 'Logging in…' : 'Log in with Google'}
             </Button>
             <p className="login__secure">Secure authentication powered by Supabase</p>
+            <p className="login__switch">New user? <Link to="/signup" className="login__switch-link">Create an account</Link></p>
           </div>
         </Card>
       </motion.div>

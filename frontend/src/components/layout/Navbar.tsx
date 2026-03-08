@@ -148,7 +148,7 @@ const Navbar = () => {
             transition={SPRING}
           >
             <Link
-              to="/login"
+              to="/login1"
               style={{
                 background: 'rgba(255,255,255,0.92)',
                 color: '#0a0a0a',
@@ -175,7 +175,7 @@ const Navbar = () => {
                 e.currentTarget.style.boxShadow = '0 1px 8px rgba(0,0,0,0.22)';
               }}
             >
-              Sign in
+              Log in
             </Link>
           </motion.div>
         </div>
@@ -268,7 +268,7 @@ const Navbar = () => {
               </div>
 
               <Link
-                to="/login"
+                to="/login1"
                 style={{
                   background: 'rgba(255,255,255,0.92)',
                   color: '#0a0a0a',

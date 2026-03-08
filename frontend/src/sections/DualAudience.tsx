@@ -67,7 +67,7 @@ const DualAudience = () => {
         ))}
       </div>
       <Link
-        to="/login"
+        to="/login1"
         style={{
           display: 'inline-flex', alignItems: 'center', gap: '6px',
           background: 'transparent',

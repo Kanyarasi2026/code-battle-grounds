@@ -92,6 +92,23 @@
 		color: var(--text-tertiary);
 	}
 
+	&__switch {
+		margin-top: 14px;
+		font-size: 13px;
+		color: var(--text-secondary);
+	}
+
+	&__switch-link {
+		color: var(--accent-green);
+		text-decoration: none;
+		font-weight: 600;
+		transition: opacity var(--transition-fast);
+
+		&:hover {
+			opacity: 0.8;
+		}
+	}
+
 	&__footer {
 		position: fixed;
 		bottom: 20px;

@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavStack } from '../../context/NavigationStackContext';
 import { gsap } from 'gsap';
 import './FeaturesSelection.scss';
 
@@ -85,6 +86,7 @@ const features: FeaturesByRole = {
 const FeaturesSelection = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { goBack } = useNavStack();
   const role = (location.state as { role?: Role } | undefined)?.role || 'academic';
   const [selectedFeature, setSelectedFeature] = useState<string | null>(null);
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
@@ -212,7 +214,7 @@ const FeaturesSelection = () => {
 
       <motion.button
         className="features-selection__back"
-        onClick={() => navigate(-1)}
+        onClick={() => goBack()}
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.6, delay: 0.1 }}

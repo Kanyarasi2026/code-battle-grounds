@@ -50,7 +50,7 @@ const CTASection = () => {
           {/* Primary CTA */}
           <motion.div whileHover={{ y: -2 }} whileTap={{ y: 0 }} transition={LIFT} style={{ display: 'inline-flex' }}>
             <Link
-              to="/login"
+              to="/login1"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -85,7 +85,7 @@ const CTASection = () => {
           {/* Secondary CTA */}
           <motion.div whileHover={{ y: -1 }} whileTap={{ y: 0 }} transition={LIFT} style={{ display: 'inline-flex' }}>
             <Link
-              to="/login"
+              to="/login1"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
