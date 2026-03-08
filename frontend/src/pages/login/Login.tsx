@@ -28,7 +28,7 @@ const Login = () => {
           </div>
         </Card>
       </motion.div>
-      <footer className="login__footer"><p>Built by <a href="https://www.meghan31.me" target="_blank" rel="noreferrer">Meghan31</a></p></footer>
+      <footer className="login__footer"><p>Built by <a href="https://github.com/Kanyarasi2026/code-battle-grounds" target="_blank" rel="noreferrer">MSG-Kanyarashi</a></p></footer>
     </div>
   );
 };

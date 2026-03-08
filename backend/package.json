@@ -17,6 +17,7 @@
 	"scripts": {
 		"start": "node --loader ts-node/esm src/index.ts",
 		"dev": "nodemon --exec 'node --loader ts-node/esm' src/index.ts",
+		"devw": "nodemon --exec node --loader ts-node/esm src/index.ts",
 		"build": "tsc",
 		"typecheck": "tsc --noEmit",
 		"test": "vitest run",

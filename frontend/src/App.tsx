@@ -6,9 +6,20 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import { RoomProvider, useRoom } from './context/RoomContext';
 import AlreadyInRoom from './pages/404/AlreadyInRoom';
 import EditorPage from './pages/code-editor/EditorPage';
+import FeaturesSelection from './pages/features-selection/FeaturesSelection';
+import AssessmentMode from './pages/features/AssessmentMode';
+import ClassAnalytics from './pages/features/ClassAnalytics';
+import IntegrityTimeline from './pages/features/IntegrityTimeline';
+import MockInterview from './pages/features/MockInterview';
+import PairProgramming from './pages/features/PairProgramming';
+import PracticeSets from './pages/features/PracticeSets';
+import ProgressTracking from './pages/features/ProgressTracking';
+import SessionReplay from './pages/features/SessionReplay';
+import SoloPractice from './pages/features/SoloPractice';
 import Home from './pages/home/Home';
 import LandingPage from './pages/landing/LandingPage';
 import Login from './pages/login/Login';
+import RoleSelection from './pages/role-selection/RoleSelection';
 
 interface ErrorBoundaryState { hasError: boolean; error: Error | null; }
 
@@ -53,6 +64,20 @@ function App() {
                 <Route path="/landing" element={<LandingPage />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/already-in-room" element={<AlreadyInRoom />} />
+                <Route path="/role" element={<ProtectedRoute><RoleSelection /></ProtectedRoute>} />
+                <Route path="/features" element={<ProtectedRoute><FeaturesSelection /></ProtectedRoute>} />
+                
+                {/* Feature Pages */}
+                <Route path="/practice" element={<ProtectedRoute><SoloPractice /></ProtectedRoute>} />
+                <Route path="/pair" element={<ProtectedRoute><PairProgramming /></ProtectedRoute>} />
+                <Route path="/assess" element={<ProtectedRoute><AssessmentMode /></ProtectedRoute>} />
+                <Route path="/replay" element={<ProtectedRoute><SessionReplay /></ProtectedRoute>} />
+                <Route path="/analytics" element={<ProtectedRoute><ClassAnalytics /></ProtectedRoute>} />
+                <Route path="/integrity" element={<ProtectedRoute><IntegrityTimeline /></ProtectedRoute>} />
+                <Route path="/interview" element={<ProtectedRoute><MockInterview /></ProtectedRoute>} />
+                <Route path="/progress" element={<ProtectedRoute><ProgressTracking /></ProtectedRoute>} />
+                <Route path="/sets" element={<ProtectedRoute><PracticeSets /></ProtectedRoute>} />
+                
                 <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
                 <Route path="/editor/:roomId" element={<ProtectedRoute><EditorPage /></ProtectedRoute>} />
                 <Route path="*" element={<Navigate to="/" replace />} />

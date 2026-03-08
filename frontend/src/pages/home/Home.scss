@@ -21,6 +21,12 @@
 		gap: 10px;
 	}
 
+	&__header-right {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+	}
+
 	&__user-email {
 		font-size: 13px;
 		color: var(--text-secondary);
