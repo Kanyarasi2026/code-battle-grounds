@@ -7,6 +7,7 @@ import { RoomProvider, useRoom } from './context/RoomContext';
 import AlreadyInRoom from './pages/404/AlreadyInRoom';
 import EditorPage from './pages/code-editor/EditorPage';
 import Home from './pages/home/Home';
+import LandingPage from './pages/landing/LandingPage';
 import Login from './pages/login/Login';
 
 interface ErrorBoundaryState { hasError: boolean; error: Error | null; }
@@ -49,6 +50,7 @@ function App() {
           <Router>
             <NavigationGuard>
               <Routes>
+                <Route path="/landing" element={<LandingPage />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/already-in-room" element={<AlreadyInRoom />} />
                 <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />

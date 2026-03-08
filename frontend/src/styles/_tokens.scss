@@ -1,0 +1,78 @@
+// Import Google Fonts at top of _tokens.scss
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap');
+
+:root {
+  // Colors
+  --bg-base: #080c10;
+  --bg-surface: #0d1117;
+  --bg-elevated: #161b22;
+  --bg-hover: rgba(255,255,255,0.03);
+
+  --accent-teal: #00e5cc;
+  --accent-amber: #f5a623;
+  --accent-violet: #a78bfa;
+  --accent-red: #ff4444;
+  --accent-green: #28c840;
+
+  --text-primary: #e2e8f0;
+  --text-secondary: #9ca3af;
+  --text-muted: #6b7280;
+  --text-faint: #4a5568;
+  --text-ghost: #2d3748;
+
+  --border-subtle: rgba(255,255,255,0.06);
+  --border-light: rgba(255,255,255,0.1);
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-pill: 999px;
+
+  --shadow-card: 0 4px 24px rgba(0,0,0,0.4);
+  --shadow-terminal: 0 24px 64px rgba(0,0,0,0.6), 0 0 0 1px rgba(0,229,204,0.05);
+  --shadow-teal-lg: 0 12px 40px rgba(0,229,204,0.35);
+  --shadow-teal-sm: 0 4px 24px rgba(0,229,204,0.2);
+}
+
+// Keyframes
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+@keyframes gridFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+// Global resets
+*, *::before, *::after { box-sizing: border-box; }
+
+::selection { background: rgba(0,229,204,0.25); }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background: #080c10;
+  color: #e2e8f0;
+  font-family: 'DM Sans', sans-serif;
+}
+
+// Custom scrollbar
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #080c10; }
+::-webkit-scrollbar-thumb { background: #1e2d3d; border-radius: 2px; }
