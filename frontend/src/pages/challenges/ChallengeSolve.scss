@@ -37,9 +37,18 @@
     align-items: center;
     gap: 12px;
     padding: 12px 20px;
+    padding-right: 80px; // Space for fixed profile icon
     background: #111113;
     border-bottom: 1px solid #1e1e22;
     flex-shrink: 0;
+
+    @media (max-width: 1024px) {
+      padding-right: 72px;
+    }
+
+    @media (max-width: 768px) {
+      padding-right: 64px;
+    }
   }
 
   &__back {
@@ -513,4 +522,173 @@
 
 @keyframes spin-kf {
   to { transform: rotate(360deg); }
+}
+
+// ========================================
+// RESPONSIVE DESIGN
+// ========================================
+
+@media (max-width: 1024px) {
+  .challenge-solve {
+    &__panel {
+      &--left {
+        width: 320px;
+        min-width: 280px;
+        padding: 16px;
+      }
+    }
+
+    &__topbar {
+      padding: 10px 16px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .challenge-solve {
+    &__topbar {
+      flex-wrap: wrap;
+      padding: 8px 12px;
+      gap: 8px;
+    }
+
+    &__back {
+      padding: 4px 8px;
+      font-size: 12px;
+    }
+
+    &__meta {
+      flex: 1 1 100%;
+      order: 1;
+    }
+
+    &__nav {
+      order: 0;
+      margin-left: auto;
+    }
+
+    &__problem-title {
+      font-size: 14px;
+    }
+
+    &__body {
+      flex-direction: column;
+    }
+
+    &__panel {
+      &--left {
+        width: 100%;
+        min-width: 100%;
+        max-height: 40vh;
+        border-right: none;
+        border-bottom: 1px solid #1e1e22;
+        padding: 12px;
+      }
+
+      &--right {
+        flex: 1;
+      }
+    }
+
+    &__problem-header {
+      font-size: 14px;
+    }
+
+    &__problem-body {
+      font-size: 13px;
+
+      h3 {
+        font-size: 13px;
+      }
+
+      pre {
+        font-size: 12px;
+      }
+    }
+
+    &__example {
+      padding: 10px;
+    }
+
+    &__exec-btn {
+      font-size: 12px;
+      padding: 8px 14px;
+    }
+
+    &__nav-label {
+      font-size: 11px;
+      min-width: 35px;
+    }
+
+    &__nav-btn {
+      width: 28px;
+      height: 28px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .challenge-solve {
+    &__topbar {
+      padding: 6px 10px;
+    }
+
+    &__back {
+      span {
+        display: none;
+      }
+    }
+
+    &__diff {
+      font-size: 10px;
+      padding: 2px 6px;
+    }
+
+    &__problem-title {
+      font-size: 13px;
+    }
+
+    &__nav {
+      gap: 4px;
+    }
+
+    &__nav-label {
+      display: none;
+    }
+
+    &__panel--left {
+      padding: 10px;
+    }
+
+    &__problem-header {
+      font-size: 13px;
+    }
+
+    &__problem-body {
+      font-size: 12px;
+
+      pre {
+        font-size: 11px;
+        padding: 6px;
+      }
+    }
+
+    &__example {
+      padding: 8px;
+    }
+
+    &__tag {
+      font-size: 10px;
+      padding: 2px 6px;
+    }
+
+    &__test-row-label {
+      min-width: 70px;
+      font-size: 9px;
+    }
+
+    &__test-row-value {
+      font-size: 11px;
+    }
+  }
 }

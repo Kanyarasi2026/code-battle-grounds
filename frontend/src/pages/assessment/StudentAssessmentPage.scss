@@ -81,6 +81,15 @@
     gap: 2rem;
     margin-bottom: 2rem;
     padding-top: 0.5rem;
+    padding-right: 4rem; // Space for fixed profile icon
+
+    @media (max-width: 1024px) {
+      padding-right: 3.5rem;
+    }
+
+    @media (max-width: 768px) {
+      padding-right: 3rem;
+    }
   }
 
   &__exit-btn {

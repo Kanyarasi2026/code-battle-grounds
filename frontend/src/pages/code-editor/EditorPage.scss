@@ -15,9 +15,14 @@
 		justify-content: space-between;
 		height: 48px;
 		padding: 0 12px;
+		padding-right: 72px; // Space for fixed profile icon
 		border-bottom: 1px solid var(--border-primary);
 		flex-shrink: 0;
 		z-index: 10;
+
+		@media (max-width: 768px) {
+			padding-right: 56px;
+		}
 	}
 
 	&__header-left,

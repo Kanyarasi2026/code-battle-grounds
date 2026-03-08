@@ -19,11 +19,20 @@
     align-items: center;
     gap: 16px;
     padding: 18px 32px;
+    padding-right: 100px; // Space for fixed profile icon
     background: rgba(10, 10, 11, 0.95);
     backdrop-filter: blur(20px);
     border-bottom: 1px solid #1e1e22;
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
     flex-wrap: wrap;
+
+    @media (max-width: 1024px) {
+      padding-right: 84px;
+    }
+
+    @media (max-width: 768px) {
+      padding-right: 72px;
+    }
   }
 
   &__back {

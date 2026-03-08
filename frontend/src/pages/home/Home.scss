@@ -12,7 +12,16 @@
 		align-items: center;
 		justify-content: space-between;
 		padding: 12px 24px;
+		padding-right: 80px; // Space for fixed profile icon
 		border-bottom: 1px solid var(--border-primary);
+
+		@media (max-width: 1024px) {
+			padding-right: 72px;
+		}
+
+		@media (max-width: 768px) {
+			padding-right: 64px;
+		}
 	}
 
 	&__header-left {

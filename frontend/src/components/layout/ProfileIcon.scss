@@ -1,6 +1,7 @@
 .profile-icon {
   position: relative;
-  z-index: 200;
+  z-index: 250;
+  flex-shrink: 0;
 
   &__btn {
     display: flex;
@@ -27,8 +28,14 @@
     border: 1px solid #1e1e22;
     border-radius: 12px;
     padding: 16px;
-    z-index: 200;
+    z-index: 300;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+
+    @media (max-width: 480px) {
+      width: calc(100vw - 24px);
+      right: -12px;
+      left: auto;
+    }
   }
 
   &__info {
