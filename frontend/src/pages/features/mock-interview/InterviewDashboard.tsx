@@ -231,6 +231,14 @@ export default function InterviewDashboard() {
   const navigate = useNavigate();
   const [sessions, setSessions] = useState<InterviewSession[]>(() => loadInterviewSessions());
 
+  const handleBack = () => {
+    if (window.history.length > 1) {
+      navigate(-1);
+      return;
+    }
+    navigate('/interview', { replace: true });
+  };
+
   const deleteSession = (id: string) => {
     const updated = sessions.filter((s) => s.id !== id);
     setSessions(updated);
@@ -272,7 +280,7 @@ export default function InterviewDashboard() {
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <button
-            onClick={() => navigate('/interview')}
+            onClick={handleBack}
             style={{
               display: 'inline-flex', alignItems: 'center', gap: 6,
               background: 'transparent', border: '1px solid #2a2a30',
