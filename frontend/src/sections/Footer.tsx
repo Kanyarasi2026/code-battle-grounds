@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 
-const SMOOTH = { type: 'tween' as const, duration: 0.18, ease: [0.16, 1, 0.3, 1] as number[] };
+const SMOOTH = { type: 'tween' as const, duration: 0.18, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] };
 
 const Footer = () => {
   const links = ['Practice', 'Pair', 'Assess', 'Replay', 'Profile'];

@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const NAV_LINKS = ['Practice', 'Pair', 'Assess', 'Replay'];
 const SPRING = { type: 'spring' as const, stiffness: 380, damping: 28 };
-const SMOOTH = { type: 'tween' as const, duration: 0.22, ease: [0.16, 1, 0.3, 1] as number[] };
+const SMOOTH = { type: 'tween' as const, duration: 0.22, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] };
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);

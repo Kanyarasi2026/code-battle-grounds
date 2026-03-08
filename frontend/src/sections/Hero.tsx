@@ -100,7 +100,7 @@ function TypingTerminal() {
     if (phase === 'typing') {
       const targetLine = scenario.lines[lineIdx];
       if (targetLine === undefined) {
-        setPhase('pause');
+        timerRef.current = setTimeout(() => setPhase('pause'), 0);
         return;
       }
       if (charIdx < targetLine.length) {
