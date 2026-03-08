@@ -4,14 +4,12 @@ import {
   BarChart3,
   BookMarked,
   BookOpen,
-  Brain,
   Briefcase,
   ClipboardCheck,
   Code2,
   FileVideo,
   Lightbulb,
   Play,
-  Shield,
   Users,
 } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
@@ -39,17 +37,9 @@ interface FeaturesByRole {
 const features: FeaturesByRole = {
   academic: [
     {
-      id: 'solo-practice',
-      icon: Code2,
-      title: 'Solo Practice',
-      description: 'Solve DSA problems with tiered AI hints that guide without spoiling',
-      badge: 'Student',
-      route: '/practice',
-    },
-    {
-      id: 'pair-programming',
+      id: 'classrooms',
       icon: Users,
-      title: 'Pair Programming',
+      title: 'Classrooms',
       description: 'Real-time collaborative coding with live cursor presence',
       badge: 'Collaborative',
       route: '/pair',
@@ -78,14 +68,6 @@ const features: FeaturesByRole = {
       badge: 'Faculty',
       route: '/analytics',
     },
-    {
-      id: 'integrity-timeline',
-      icon: Shield,
-      title: 'Integrity Timeline',
-      description: 'Factual event logs without automated accusations',
-      badge: 'Transparency',
-      route: '/integrity',
-    },
   ],
   professional: [
     {
@@ -110,25 +92,11 @@ const features: FeaturesByRole = {
       route: '/pair',
     },
     {
-      id: 'progress-tracking',
-      icon: BarChart3,
-      title: 'Progress Tracking',
-      description: 'Monitor your improvement with detailed analytics',
-      route: '/progress',
-    },
-    {
       id: 'practice-sets',
       icon: BookMarked,
       title: 'Curated Practice Sets',
       description: 'Topic-based problem collections for focused learning',
       route: '/sets',
-    },
-    {
-      id: 'skill-assessment',
-      icon: Brain,
-      title: 'Skill Assessment',
-      description: 'Evaluate your coding proficiency across different domains',
-      route: '/assess',
     },
   ],
 };
@@ -272,6 +240,22 @@ const FeaturesSelection = () => {
       >
         ← Back
       </motion.button>
+
+      {role === 'professional' && (
+        <motion.button
+          className="features-selection__progress-btn"
+          onClick={() => navigate('/progress')}
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          whileHover={{ scale: 1.08 }}
+          whileTap={{ scale: 0.95 }}
+          title="Progress Tracking"
+        >
+          <BarChart3 size={18} strokeWidth={1.5} />
+          <span>Progress</span>
+        </motion.button>
+      )}
 
       <div className="features-selection__container">
         <div ref={headerRef} className="features-selection__header">

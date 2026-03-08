@@ -47,26 +47,26 @@ const DualAudience = () => {
       whileHover={{ y: -2, transition: { duration: 0.22, ease: 'easeOut' as const } }}
       onMouseEnter={e => {
         const el = e.currentTarget as HTMLElement;
-        el.style.boxShadow = '0 20px 52px rgba(0,0,0,0.40)';
-        el.style.background = 'linear-gradient(180deg, rgba(255,255,255,0.038) 0%, rgba(255,255,255,0.020) 100%)';
+        el.style.boxShadow = '0 20px 52px rgba(107, 114, 128, 0.12)';
+        el.style.background = 'linear-gradient(180deg, rgba(107, 114, 128, 0.06) 0%, rgba(107, 114, 128, 0.03) 100%)';
       }}
       onMouseLeave={e => {
         const el = e.currentTarget as HTMLElement;
-        el.style.boxShadow = '0 10px 30px rgba(0,0,0,0.28)';
-        el.style.background = 'linear-gradient(180deg, rgba(255,255,255,0.025) 0%, rgba(255,255,255,0.012) 100%)';
+        el.style.boxShadow = '0 10px 30px rgba(107, 114, 128, 0.08)';
+        el.style.background = 'linear-gradient(180deg, rgba(107, 114, 128, 0.04) 0%, rgba(107, 114, 128, 0.02) 100%)';
       }}
     >
       {/* Tapered top highlight */}
       <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: opts.topBar }} />
       <div style={{ fontSize: '22px', color: opts.accent, marginBottom: '14px', lineHeight: 1, fontFamily: 'JetBrains Mono, monospace' }}>{opts.icon}</div>
       <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', letterSpacing: '0.18em', color: opts.accent, marginBottom: '14px' }}>{opts.roleLabel}</div>
-      <h3 style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: '26px', letterSpacing: '-0.02em', color: 'rgba(255,255,255,0.96)', margin: '0 0 14px' }}>{opts.heading}</h3>
-      <p style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '15px', color: 'rgba(255,255,255,0.44)', lineHeight: 1.75, marginBottom: '28px' }}>{opts.desc}</p>
+      <h3 style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: '26px', letterSpacing: '-0.02em', color: '#2d3748', margin: '0 0 14px' }}>{opts.heading}</h3>
+      <p style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '15px', color: '#718096', lineHeight: 1.75, marginBottom: '28px' }}>{opts.desc}</p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '32px' }}>
         {opts.features.map((f, i) => (
           <div key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
             <span style={{ color: opts.accent, flexShrink: 0, fontSize: '11px', marginTop: '3px' }}>&#x25AA;</span>
-            <span style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '14px', color: 'rgba(255,255,255,0.56)' }}>{f}</span>
+            <span style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '14px', color: '#4a5568' }}>{f}</span>
           </div>
         ))}
       </div>
@@ -76,8 +76,8 @@ const DualAudience = () => {
           display: 'inline-flex',
           alignItems: 'center',
           background: 'transparent',
-          color: 'rgba(255,255,255,0.56)',
-          border: '1px solid rgba(255,255,255,0.10)',
+          color: '#718096',
+          border: '1px solid rgba(107, 114, 128, 0.2)',
           fontFamily: 'DM Sans, sans-serif',
           fontWeight: 600,
           fontSize: '14px',
@@ -89,15 +89,15 @@ const DualAudience = () => {
         }}
         onMouseEnter={e => {
           const el = e.currentTarget as HTMLElement;
-          el.style.background = 'rgba(255,255,255,0.05)';
-          el.style.borderColor = 'rgba(255,255,255,0.20)';
-          el.style.color = 'rgba(255,255,255,0.88)';
+          el.style.background = 'rgba(107, 114, 128, 0.08)';
+          el.style.borderColor = 'rgba(107, 114, 128, 0.4)';
+          el.style.color = '#6b7280';
         }}
         onMouseLeave={e => {
           const el = e.currentTarget as HTMLElement;
           el.style.background = 'transparent';
-          el.style.borderColor = 'rgba(255,255,255,0.10)';
-          el.style.color = 'rgba(255,255,255,0.56)';
+          el.style.borderColor = 'rgba(107, 114, 128, 0.2)';
+          el.style.color = '#718096';
         }}
       >
         {opts.cta}
@@ -106,7 +106,7 @@ const DualAudience = () => {
   );
 
   return (
-    <section id="audience" style={{ background: '#0a0a0a' }}>
+    <section id="audience" style={{ background: '#ffffff' }}>
       <div style={sectionStyle}>
         {/* Section header */}
         <motion.div
@@ -116,8 +116,8 @@ const DualAudience = () => {
           viewport={{ once: true, amount: 0.18 }}
           transition={{ duration: 0.65, ease: EASE }}
         >
-          <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', letterSpacing: '0.2em', color: 'rgba(255,255,255,0.32)', marginBottom: '12px' }}>CHOOSE YOUR ROLE</div>
-          <h2 style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: '42px', color: 'rgba(255,255,255,0.96)', margin: '0 0 16px' }}>Built for students.<br />Trusted by faculty.</h2>
+          <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', letterSpacing: '0.2em', color: '#a0aec0', marginBottom: '12px' }}>CHOOSE YOUR ROLE</div>
+          <h2 style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: '42px', color: '#2d3748', margin: '0 0 16px' }}>Built for students.<br />Trusted by faculty.</h2>
         </motion.div>
         <div style={gridStyle} className="hp-dual-grid">
           {renderCard({

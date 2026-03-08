@@ -7,7 +7,7 @@ const CARD_HOVER = { y: -2, transition: { duration: 0.2, ease: 'easeOut' as cons
 
 const AISection = () => {
   return (
-    <section id="ai" style={{ padding: '100px 32px', background: 'rgba(255,255,255,0.01)', borderTop: '1px solid rgba(255,255,255,0.04)' }}>
+    <section id="ai" style={{ padding: '100px 32px', background: '#ffffff', borderTop: '1px solid rgba(107, 114, 128, 0.12)' }}>
       <motion.div
         style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', alignItems: 'center' }}
         className="hp-ai-grid"
@@ -19,18 +19,18 @@ const AISection = () => {
 
         {/* Left */}
         <motion.div variants={REVEAL} transition={REVEAL_TRANSITION}>
-          <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'rgba(255,255,255,0.38)', letterSpacing: '0.2em', marginBottom: '12px' }}>AI INTEGRATION</div>
-          <h2 style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: '42px', color: 'rgba(255,255,255,0.96)', margin: '0 0 20px', lineHeight: 1.1 }}>An AI coach that teaches, not tells.</h2>
-          <p style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '16px', color: 'rgba(255,255,255,0.38)', lineHeight: 1.7, marginBottom: '32px' }}>
+          <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: '#a0aec0', letterSpacing: '0.2em', marginBottom: '12px' }}>AI INTEGRATION</div>
+          <h2 style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: '42px', color: '#2d3748', margin: '0 0 20px', lineHeight: 1.1 }}>An AI coach that teaches, not tells.</h2>
+          <p style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '16px', color: '#a0aec0', lineHeight: 1.7, marginBottom: '32px' }}>
             The Stuck Detection Copilot watches your coding patterns — repeated failures, idle periods after errors, frantic edit cycles. When it detects you're stuck, it intervenes with a calibrated nudge, not a spoiler.
           </p>
 
           {/* Tier cards */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {[
-              { badge: 'T1', badgeColor: 'rgba(255,255,255,0.48)', label: 'Small nudge', desc: 'A guiding question about the edge case' },
-              { badge: 'T2', badgeColor: 'rgba(255,255,255,0.68)', label: 'Concept hint', desc: 'The algorithmic pattern you need, explained' },
-              { badge: 'T3', badgeColor: 'rgba(255,255,255,0.90)', label: 'Stronger guidance', desc: 'Pseudocode-level breakdown (assessment: locked)' },
+              { badge: 'T1', badgeColor: '#718096', label: 'Small nudge', desc: 'A guiding question about the edge case' },
+              { badge: 'T2', badgeColor: '#4a5568', label: 'Concept hint', desc: 'The algorithmic pattern you need, explained' },
+              { badge: 'T3', badgeColor: '#2d3748', label: 'Stronger guidance', desc: 'Pseudocode-level breakdown (assessment: locked)' },
             ].map(tier => (
               <motion.div
                 key={tier.badge}
@@ -40,8 +40,8 @@ const AISection = () => {
                   gap: '16px',
                   padding: '14px 18px',
                   borderRadius: '10px',
-                  border: '1px solid rgba(255,255,255,0.08)',
-                  background: 'rgba(255,255,255,0.02)',
+                  border: '1px solid rgba(107, 114, 128, 0.15)',
+                  background: 'rgba(107, 114, 128, 0.04)',
                 }}
                 whileHover={CARD_HOVER}
               >
@@ -50,7 +50,7 @@ const AISection = () => {
                   fontSize: '11px',
                   fontWeight: 600,
                   color: tier.badgeColor,
-                  background: 'rgba(255,255,255,0.06)',
+                  background: 'rgba(107, 114, 128, 0.12)',
                   padding: '4px 10px',
                   borderRadius: '6px',
                   flexShrink: 0,
@@ -58,8 +58,8 @@ const AISection = () => {
                   {tier.badge}
                 </span>
                 <div>
-                  <div style={{ fontFamily: 'DM Sans, sans-serif', fontWeight: 600, fontSize: '14px', color: 'rgba(255,255,255,0.88)', marginBottom: '2px' }}>{tier.label}</div>
-                  <div style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '12px', color: 'rgba(255,255,255,0.38)' }}>{tier.desc}</div>
+                  <div style={{ fontFamily: 'DM Sans, sans-serif', fontWeight: 600, fontSize: '14px', color: '#2d3748', marginBottom: '2px' }}>{tier.label}</div>
+                  <div style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '12px', color: '#a0aec0' }}>{tier.desc}</div>
                 </div>
               </motion.div>
             ))}
@@ -68,13 +68,13 @@ const AISection = () => {
 
         {/* Right - Demo card */}
         <motion.div
-          style={{ border: '1px solid rgba(255,255,255,0.08)', borderRadius: '14px', overflow: 'hidden', background: '#0f0f10' }}
+          style={{ border: '1px solid rgba(107, 114, 128, 0.15)', borderRadius: '14px', overflow: 'hidden', background: '#f8f9fa' }}
           variants={REVEAL}
           transition={{ ...REVEAL_TRANSITION, delay: 0.1 }}
           whileHover={CARD_HOVER}
         >
           {/* Header */}
-          <div style={{ background: '#141416', borderBottom: '1px solid rgba(255,255,255,0.05)', padding: '12px 18px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ background: '#f1f3f5', borderBottom: '1px solid rgba(107, 114, 128, 0.12)', padding: '12px 18px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: 'rgba(255,255,255,0.72)' }}>&#x25C9; STUCK DETECTION COPILOT</span>
             <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'rgba(255,255,255,0.22)' }}>live</span>
           </div>

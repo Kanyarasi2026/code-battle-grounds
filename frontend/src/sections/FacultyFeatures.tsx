@@ -13,7 +13,7 @@ const EASE = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
 const FacultyFeatures = () => {
   return (
-    <section id="faculty" style={{ padding: '100px 32px', borderTop: '1px solid rgba(255,255,255,0.04)', background: '#0a0a0a' }}>
+    <section id="faculty" style={{ padding: '100px 32px', borderTop: '1px solid rgba(107, 114, 128, 0.12)', background: '#ffffff' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
         {/* Header row */}
         <motion.div
@@ -26,15 +26,15 @@ const FacultyFeatures = () => {
         >
           {/* Left */}
           <div style={{ flex: 1, minWidth: '280px' }}>
-            <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', letterSpacing: '0.2em', color: 'rgba(255,255,255,0.38)', marginBottom: '12px' }}>BUILT FOR EDUCATORS</div>
-            <h2 style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: '42px', color: 'rgba(255,255,255,0.96)', lineHeight: 1.1, margin: '0 0 16px' }}>Faculty tools that respect<br />your judgment.</h2>
-            <p style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '16px', color: 'rgba(255,255,255,0.38)', lineHeight: 1.7, margin: 0 }}>
+            <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', letterSpacing: '0.2em', color: '#a0aec0', marginBottom: '12px' }}>BUILT FOR EDUCATORS</div>
+            <h2 style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: '42px', color: '#2d3748', lineHeight: 1.1, margin: '0 0 16px' }}>Faculty tools that respect<br />your judgment.</h2>
+            <p style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '16px', color: '#a0aec0', lineHeight: 1.7, margin: 0 }}>
               Code Battlegrounds isn't a proctoring tool. It's a teaching tool. Every feature is designed to give you context and insight — the final call is always yours.
             </p>
           </div>
           {/* Right - Badge card */}
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px', padding: '24px 32px', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', background: 'linear-gradient(180deg, rgba(255,255,255,0.025) 0%, rgba(255,255,255,0.012) 100%)', boxShadow: '0 8px 24px rgba(0,0,0,0.24)', color: 'rgba(255,255,255,0.52)', flexShrink: 0 }}>
-            <span style={{ fontSize: '22px', fontFamily: 'JetBrains Mono, monospace', color: 'rgba(255,255,255,0.40)' }}>▣</span>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px', padding: '24px 32px', border: '1px solid rgba(107, 114, 128, 0.15)', borderRadius: '12px', background: 'linear-gradient(180deg, rgba(107, 114, 128, 0.04) 0%, rgba(107, 114, 128, 0.02) 100%)', boxShadow: '0 8px 24px rgba(107, 114, 128, 0.08)', color: '#718096', flexShrink: 0 }}>
+            <span style={{ fontSize: '22px', fontFamily: 'JetBrains Mono, monospace', color: '#6b7280' }}>▣</span>
             <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', letterSpacing: '0.1em' }}>INSTRUCTOR MODE</span>
           </div>
         </motion.div>

@@ -14,7 +14,7 @@ const HomePage = () => {
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
   return (
-    <div style={{ background: '#080c10', minHeight: '100vh', color: '#e2e8f0', fontFamily: 'DM Sans, sans-serif', overflowX: 'hidden' }}>
+    <div style={{ background: '#ffffff', minHeight: '100vh', color: '#2d3748', fontFamily: 'DM Sans, sans-serif', overflowX: 'hidden' }}>
       <Navbar />
       <Hero />
       <DualAudience />

@@ -85,9 +85,9 @@ const ModesShowcase = () => {
           viewport={{ once: true, amount: 0.18 }}
           transition={{ duration: 0.65, ease: EASE }}
         >
-          <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'rgba(255,255,255,0.32)', letterSpacing: '0.2em', marginBottom: '12px' }}>PLATFORM MODES</div>
-          <h2 style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: '42px', color: 'rgba(255,255,255,0.96)', margin: '0 0 16px' }}>Three modes. One platform.</h2>
-          <p style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '16px', color: 'rgba(255,255,255,0.36)', lineHeight: 1.7, maxWidth: '560px', margin: '0 auto' }}>
+          <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: '#a0aec0', letterSpacing: '0.2em', marginBottom: '12px' }}>PLATFORM MODES</div>
+          <h2 style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: '42px', color: '#2d3748', margin: '0 0 16px' }}>Three modes. One platform.</h2>
+          <p style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '16px', color: '#a0aec0', lineHeight: 1.7, maxWidth: '560px', margin: '0 auto' }}>
             Every mode is purpose-built. Practice AI helps freely. Assessment AI steps back. Instructor tools see everything — without judging.
           </p>
         </motion.div>
@@ -207,27 +207,27 @@ const ModesShowcase = () => {
           {/* Left */}
           <div>
             <div style={{ fontSize: '26px', color: active.accent, marginBottom: '16px', fontFamily: 'JetBrains Mono, monospace' }}>{active.icon}</div>
-            <h3 style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: '32px', color: 'rgba(255,255,255,0.96)', margin: '0 0 12px' }}>{active.title}</h3>
-            <p style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '15px', color: 'rgba(255,255,255,0.36)', lineHeight: 1.7, marginBottom: '24px' }}>{active.desc}</p>
+            <h3 style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: '32px', color: '#2d3748', margin: '0 0 12px' }}>{active.title}</h3>
+            <p style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '15px', color: '#a0aec0', lineHeight: 1.7, marginBottom: '24px' }}>{active.desc}</p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
               {active.features.map((f, i) => (
                 <div key={i} style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
                   <span style={{ color: active.accent, fontSize: '10px', flexShrink: 0 }}>&#x25A0;</span>
-                  <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '12px', color: 'rgba(255,255,255,0.54)' }}>{f}</span>
+                  <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '12px', color: '#718096' }}>{f}</span>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Right - Code preview */}
-          <div style={{ background: '#0f0f10', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '12px', overflow: 'hidden', position: 'relative' }} className="hp-code-preview">
-            <div style={{ background: '#141416', borderBottom: '1px solid rgba(255,255,255,0.05)', padding: '10px 16px', display: 'flex', justifyContent: 'flex-end' }}>
-              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: 'rgba(255,255,255,0.20)' }}>PREVIEW</span>
+          <div style={{ background: '#f8f9fa', border: '1px solid rgba(107, 114, 128, 0.15)', borderRadius: '12px', overflow: 'hidden', position: 'relative' }} className="hp-code-preview">
+            <div style={{ background: '#f1f3f5', borderBottom: '1px solid rgba(107, 114, 128, 0.12)', padding: '10px 16px', display: 'flex', justifyContent: 'flex-end' }}>
+              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: '#e2e8f0' }}>PREVIEW</span>
             </div>
-            <pre style={{ padding: '24px', fontFamily: 'JetBrains Mono, monospace', fontSize: '13px', lineHeight: 1.8, color: 'rgba(255,255,255,0.52)', whiteSpace: 'pre-wrap', margin: 0 }}>
+            <pre style={{ padding: '24px', fontFamily: 'JetBrains Mono, monospace', fontSize: '13px', lineHeight: 1.8, color: '#718096', whiteSpace: 'pre-wrap', margin: 0 }}>
               {active.codeSnippet}
             </pre>
-            <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '40px', background: 'linear-gradient(transparent, #0f0f10)', pointerEvents: 'none' }} />
+            <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '40px', background: 'linear-gradient(transparent, #f8f9fa)', pointerEvents: 'none' }} />
           </div>
         </motion.div>
         </AnimatePresence>

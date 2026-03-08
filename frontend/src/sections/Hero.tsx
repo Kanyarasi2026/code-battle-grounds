@@ -135,16 +135,16 @@ function TypingTerminal() {
   }, [phase, charIdx, lineIdx, scenarioIdx]);
 
   const containerStyle: React.CSSProperties = {
-    background: '#0f0f10',
-    border: '1px solid rgba(255,255,255,0.08)',
+    background: '#f8f9fa',
+    border: '1px solid rgba(107, 114, 128, 0.15)',
     borderRadius: '12px',
-    boxShadow: '0 32px 80px rgba(0,0,0,0.78), 0 0 0 1px rgba(255,255,255,0.05)',
+    boxShadow: '0 32px 80px rgba(107, 114, 128, 0.08), 0 0 0 1px rgba(107, 114, 128, 0.08)',
     overflow: 'hidden',
   };
 
   const headerStyle: React.CSSProperties = {
-    background: '#141416',
-    borderBottom: '1px solid rgba(255,255,255,0.05)',
+    background: '#f1f3f5',
+    borderBottom: '1px solid rgba(107, 114, 128, 0.12)',
     padding: '12px 16px',
     display: 'flex',
     alignItems: 'center',
@@ -174,21 +174,21 @@ function TypingTerminal() {
         <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: scenario.accentColor }}>
           {scenario.label}
         </span>
-        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'rgba(255,255,255,0.22)' }}>
+        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: '#e2e8f0' }}>
           code_battlegrounds
         </span>
       </div>
 
       <div style={bodyStyle}>
         {/* Command prompt line */}
-        <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: 'rgba(255,255,255,0.28)', marginBottom: '12px' }}>
+        <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: '#cbd5e0', marginBottom: '12px' }}>
           {`> cbg run --mode ${modeLabel}`}
         </div>
 
         {/* Displayed lines */}
         {displayedLines.map((line, i) => (
           <div key={i} style={{ display: 'flex', gap: '16px', lineHeight: '1.6', marginBottom: '2px' }}>
-            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '12px', color: 'rgba(255,255,255,0.14)', minWidth: '16px', textAlign: 'right' }}>
+            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '12px', color: '#edf2f7', minWidth: '16px', textAlign: 'right' }}>
               {i + 1}
             </span>
             <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '13px' }}>
@@ -200,7 +200,7 @@ function TypingTerminal() {
         {/* Currently typing line */}
         {phase === 'typing' && (
           <div style={{ display: 'flex', gap: '16px', lineHeight: '1.6' }}>
-            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '12px', color: 'rgba(255,255,255,0.14)', minWidth: '16px', textAlign: 'right' }}>
+            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '12px', color: '#edf2f7', minWidth: '16px', textAlign: 'right' }}>
               {displayedLines.length + 1}
             </span>
             <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '13px' }}>
@@ -225,7 +225,7 @@ function TypingTerminal() {
           left: 0,
           right: 0,
           height: '60px',
-          background: 'linear-gradient(transparent, rgba(15,15,16,0.95))',
+          background: 'linear-gradient(transparent, rgba(248, 249, 250, 0.95))',
           pointerEvents: 'none',
         }} />
       </div>
@@ -259,7 +259,7 @@ const Hero = () => {
   const wrapperStyle: React.CSSProperties = {
     position: 'relative',
     minHeight: '100vh',
-    background: '#0a0a0a',
+    background: '#ffffff',
   };
 
   const gridStyle: React.CSSProperties = {
@@ -288,7 +288,7 @@ const Hero = () => {
     lineHeight: 1.08,
     letterSpacing: '-0.03em',
     margin: '0 0 28px',
-    color: 'rgba(255,255,255,0.96)',
+    color: '#2d3748',
   };
 
   const primaryBtnStyle: React.CSSProperties = {
@@ -315,7 +315,7 @@ const Hero = () => {
     alignItems: 'center',
     gap: '8px',
     background: 'transparent',
-    color: 'rgba(255,255,255,0.76)',
+    color: '#4a5568',
     fontFamily: 'DM Sans, sans-serif',
     fontWeight: 500,
     fontSize: '15px',
@@ -348,7 +348,7 @@ const Hero = () => {
             <motion.div variants={HERO_ITEM}>
               <div style={statusBadgeStyle}>
                 <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'rgba(255,255,255,0.38)', animation: 'shimmer 3.5s ease-in-out infinite', display: 'inline-block', flexShrink: 0 }} />
-                <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: 'rgba(255,255,255,0.52)', letterSpacing: '0.04em' }}>
+                <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: '#718096', letterSpacing: '0.04em' }}>
                   AI-Powered · Real-Time · Fair Assessment
                 </span>
               </div>
@@ -357,7 +357,7 @@ const Hero = () => {
             {/* H1 */}
             <motion.div variants={HERO_ITEM}>
               <h1 style={h1Style} className="hp-hero-h1">
-                <span style={{ display: 'block', color: 'rgba(255,255,255,0.58)', fontWeight: 700 }}>The Arena</span>
+                <span style={{ display: 'block', color: '#4a5568', fontWeight: 700 }}>The Arena</span>
                 <span style={{ display: 'block' }}>Where Code</span>
                 <span style={{ display: 'block' }}>
                   Meets{' '}
@@ -375,7 +375,7 @@ const Hero = () => {
 
             {/* Description */}
             <motion.div variants={HERO_ITEM}>
-              <p style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '17px', color: 'rgba(255,255,255,0.68)', lineHeight: 1.75, maxWidth: '520px', margin: '0 0 28px' }}>
+              <p style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '17px', color: '#4a5568', lineHeight: 1.75, maxWidth: '520px', margin: '0 0 28px' }}>
                 One platform for solo coding practice, pair programming, and instructor-led assessments — with an AI coach that guides without spoiling and integrity tools that inform without accusing.
               </p>
             </motion.div>
@@ -383,8 +383,8 @@ const Hero = () => {
             {/* Audience pills */}
             <motion.div variants={HERO_ITEM}>
               <div style={{ display: 'flex', gap: '10px', marginBottom: '32px' }} className="hp-audience-pills">
-                <span style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.18)', color: 'rgba(255,255,255,0.88)', fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', letterSpacing: '0.05em', padding: '5px 13px', borderRadius: '999px' }}>STUDENT</span>
-                <span style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.52)', fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', letterSpacing: '0.05em', padding: '5px 13px', borderRadius: '999px' }}>FACULTY</span>
+                <span style={{ background: 'rgba(107, 114, 128, 0.12)', border: '1px solid rgba(107, 114, 128, 0.3)', color: '#4b5563', fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', letterSpacing: '0.05em', padding: '5px 13px', borderRadius: '999px' }}>STUDENT</span>
+                <span style={{ background: 'rgba(107, 114, 128, 0.06)', border: '1px solid rgba(107, 114, 128, 0.15)', color: '#a0aec0', fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', letterSpacing: '0.05em', padding: '5px 13px', borderRadius: '999px' }}>FACULTY</span>
               </div>
             </motion.div>
 
@@ -448,9 +448,9 @@ const Hero = () => {
                     onMouseEnter={() => setHoveredStat(i)}
                     onMouseLeave={() => setHoveredStat(null)}
                   >
-                    <div style={{ fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: '26px', letterSpacing: '-0.02em', color: hoveredStat === i ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.60)', transition: 'color 0.3s ease' }}>{stat.value}</div>
-                    <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', color: 'rgba(255,255,255,0.28)', letterSpacing: '0.1em', textTransform: 'uppercase', margin: '3px 0 4px' }}>{stat.label}</div>
-                    <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'rgba(255,255,255,0.18)' }}>{stat.sub}</div>
+                    <div style={{ fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: '26px', letterSpacing: '-0.02em', color: hoveredStat === i ? '#2d3748' : '#718096', transition: 'color 0.3s ease' }}>{stat.value}</div>
+                    <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', color: '#cbd5e0', letterSpacing: '0.1em', textTransform: 'uppercase', margin: '3px 0 4px' }}>{stat.label}</div>
+                    <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: '#e2e8f0' }}>{stat.sub}</div>
                   </div>
                 ))}
               </div>
@@ -465,7 +465,7 @@ const Hero = () => {
             whileHover={{ y: -2, transition: { duration: 0.3, ease: 'easeOut' } }}
           >
             <TypingTerminal />
-            <div style={{ marginTop: '12px', fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'rgba(255,255,255,0.22)' }}>
+            <div style={{ marginTop: '12px', fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: '#e2e8f0' }}>
               <span style={{ color: 'rgba(255,255,255,0.50)' }}>&#x25CF;</span> Live preview &middot; cycling through all 3 modes
             </div>
           </motion.div>

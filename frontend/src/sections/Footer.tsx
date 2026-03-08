@@ -6,7 +6,7 @@ const Footer = () => {
   const links = ['Practice', 'Pair', 'Assess', 'Replay', 'Profile'];
 
   return (
-    <footer style={{ borderTop: '1px solid rgba(255,255,255,0.042)', padding: '32px', background: '#0a0a0a' }}>
+    <footer style={{ borderTop: '1px solid rgba(107, 114, 128, 0.12)', padding: '32px', background: '#f8f9fa' }}>
       <div
         style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}
         className="hp-footer-inner"
