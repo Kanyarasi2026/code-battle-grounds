@@ -44,7 +44,7 @@
 | 💡 **AI Hints** | Tiered hints via Gemini API + ElevenLabs TTS read-aloud — nudges, not answers |
 | 🎙️ **Mock Interviews** | Voice-based interview simulation with AI-powered speech |
 | 🏋️ **Algorithm Challenges** | Curated problem sets — Blind 75, NeetCode 150, topic-based collections |
-| ⚡ **Multi-Language Execution** | Run Python, JavaScript, C++, Java, and C code via Judge0 API |
+| ⚡ **Multi-Language Execution** | Run Python, JavaScript, C++, Java, and C |
 | 🎚️ **Custom stdin** | Provide input to your programs before execution |
 | 👥 **Role-Based Access** | Separate flows for students vs. faculty, professionals vs. academic users |
 | 📊 **Progress Tracking** | Track solved problems, streaks, and challenge completion |

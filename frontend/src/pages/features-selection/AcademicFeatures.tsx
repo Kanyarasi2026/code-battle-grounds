@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
-import { gsap } from 'gsap';
-import { BookOpen, ClipboardCheck, Users } from 'lucide-react';
+// import { gsap } from 'gsap';
+// import { BookOpen, ClipboardCheck, Users } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BookOpen, Users, ClipboardCheck, Shield } from 'lucide-react';
