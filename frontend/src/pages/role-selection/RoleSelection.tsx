@@ -147,6 +147,8 @@ const RoleSelection = () => {
     setSelectedAcademicRole(role);
     setIsAnimating(true);
 
+    console.log('[RoleSelection] Academic role selected:', role);
+    
     // Set the role in auth context
     requestRole(role as UserRole);
 
@@ -154,8 +156,10 @@ const RoleSelection = () => {
       // If we're in academicOnly mode (coming from a protected route), go back
       // Otherwise, navigate to academic features page
       if (academicOnly) {
+        console.log('[RoleSelection] Returning to:', returnTo);
         navigate(returnTo, { replace: true });
       } else {
+        console.log('[RoleSelection] Navigating to academic features');
         navigate('/features/academic', { replace: true });
       }
     }, 600);

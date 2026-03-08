@@ -219,6 +219,33 @@ const StudentAssessmentPage = () => {
       <div className="student-assessment">
         <div className="student-assessment__background">
           <div className="student-assessment__grid-bg" />
+          <motion.div
+            className="student-assessment__orb student-assessment__orb--top"
+            animate={{
+              y: [0, -30, 0],
+              x: [0, 20, 0],
+              opacity: [0.1, 0.2, 0.1],
+            }}
+            transition={{
+              duration: 10,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          />
+          <motion.div
+            className="student-assessment__orb student-assessment__orb--bottom"
+            animate={{
+              y: [0, 30, 0],
+              x: [0, -20, 0],
+              opacity: [0.08, 0.18, 0.08],
+            }}
+            transition={{
+              duration: 12,
+              repeat: Infinity,
+              ease: 'easeInOut',
+              delay: 2,
+            }}
+          />
         </div>
         <div className="student-assessment__container">
           <motion.div
@@ -274,6 +301,33 @@ const StudentAssessmentPage = () => {
     <div className="student-assessment">
       <div className="student-assessment__background">
         <div className="student-assessment__grid-bg" />
+        <motion.div
+          className="student-assessment__orb student-assessment__orb--top"
+          animate={{
+            y: [0, -30, 0],
+            x: [0, 20, 0],
+            opacity: [0.1, 0.2, 0.1],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+        <motion.div
+          className="student-assessment__orb student-assessment__orb--bottom"
+          animate={{
+            y: [0, 30, 0],
+            x: [0, -20, 0],
+            opacity: [0.08, 0.18, 0.08],
+          }}
+          transition={{
+            duration: 12,
+            repeat: Infinity,
+            ease: 'easeInOut',
+            delay: 2,
+          }}
+        />
       </div>
 
       <div className="student-assessment__container">

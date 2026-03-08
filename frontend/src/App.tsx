@@ -12,7 +12,8 @@ import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { RoomProvider, useRoom } from './context/RoomContext';
 import AlreadyInRoom from './pages/404/AlreadyInRoom';
-// Faculty/Student assessment pages are imported where needed; removed unused imports
+import StudentAssessmentPage from './pages/assessment/StudentAssessmentPage';
+import FacultyAssessmentPage from './pages/assessment/FacultyAssessmentPage';
 import AlgorithmChallenges from './pages/challenges/AlgorithmChallenges';
 import ChallengeSolve from './pages/challenges/ChallengeSolve';
 import EditorPage from './pages/code-editor/EditorPage';
@@ -149,6 +150,8 @@ function App() {
                 <Route path="/practice/:slug" element={<ProtectedRoute><ChallengeSolve /></ProtectedRoute>} />
                 <Route path="/pair" element={<ProtectedRoute><PairProgramming /></ProtectedRoute>} />
                 <Route path="/assess" element={<ProtectedRoute><AssessmentMode /></ProtectedRoute>} />
+                <Route path="/assessment/student" element={<ProtectedRoute><StudentAssessmentPage /></ProtectedRoute>} />
+                <Route path="/assessment/faculty" element={<ProtectedRoute><FacultyAssessmentPage /></ProtectedRoute>} />
                 <Route path="/replay" element={<ProtectedRoute><SessionReplay /></ProtectedRoute>} />
                 <Route path="/analytics" element={<ProtectedRoute><ClassAnalytics /></ProtectedRoute>} />
                 <Route path="/integrity" element={<ProtectedRoute><IntegrityTimeline /></ProtectedRoute>} />
