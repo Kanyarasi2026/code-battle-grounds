@@ -16,7 +16,7 @@ import AlreadyInRoom from './pages/404/AlreadyInRoom';
 import AlgorithmChallenges from './pages/challenges/AlgorithmChallenges';
 import ChallengeSolve from './pages/challenges/ChallengeSolve';
 import EditorPage from './pages/code-editor/EditorPage';
-// CuratedPracticePage import removed (unused in this file)
+import CuratedPracticePage from './pages/curated-practice/CuratedPracticePage';
 import AcademicFeatures from './pages/features-selection/AcademicFeatures';
 import FeaturesSelection from './pages/features-selection/FeaturesSelection';
 import ProfessionalFeatures from './pages/features-selection/ProfessionalFeatures';
@@ -27,7 +27,6 @@ import InterviewDashboard from './pages/features/mock-interview/InterviewDashboa
 import MockInterview from './pages/features/mock-interview/MockInterview';
 import AudioInterview from './pages/features/mock-interview/video-interview/AudioInterview';
 import PairProgramming from './pages/features/PairProgramming';
-import PracticeSets from './pages/features/PracticeSets';
 import ProgressTracking from './pages/features/ProgressTracking';
 import SessionReplay from './pages/features/SessionReplay';
 import Home from './pages/home/Home';
@@ -171,7 +170,7 @@ function App() {
 									}
 								/>
                 <Route path="/progress" element={<ProtectedRoute><ProgressTracking /></ProtectedRoute>} />
-                <Route path="/sets" element={<ProtectedRoute><PracticeSets /></ProtectedRoute>} />
+                <Route path="/sets" element={<ProtectedRoute><CuratedPracticePage /></ProtectedRoute>} />
 
                 {/* Protected: home & editor */}
                 <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />

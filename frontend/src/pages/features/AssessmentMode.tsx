@@ -9,13 +9,22 @@ const AssessmentMode = () => {
   const { roleData, loading } = useAuth();
 
   useEffect(() => {
+    if (loading) return;
+
     // If user has a role, redirect to appropriate assessment page
-    if (!loading && roleData.requested) {
-      if (roleData.requested === 'faculty') {
-        navigate('/assessment/faculty', { replace: true });
-      } else if (roleData.requested === 'student') {
-        navigate('/assessment/student', { replace: true });
-      }
+    if (roleData.requested === 'faculty') {
+      navigate('/assessment/faculty', { replace: true });
+    } else if (roleData.requested === 'student') {
+      navigate('/assessment/student', { replace: true });
+    } else {
+      // No role selected - redirect to role selection
+      navigate('/role', { 
+        state: { 
+          academicOnly: true, 
+          returnTo: '/assess' 
+        }, 
+        replace: true 
+      });
     }
   }, [roleData, loading, navigate]);
 

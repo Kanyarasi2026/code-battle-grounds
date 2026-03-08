@@ -934,45 +934,47 @@ const CuratedPracticePage = () => {
   const overallProgress = calculateOverallProgress();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950 text-white">
-      <div className="max-w-[1600px] mx-auto p-6 space-y-6">
+    <div className="min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Page Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex items-center justify-between"
+          className="mb-8"
         >
-          <div className="flex items-center gap-4">
-            <div className="p-3 bg-gradient-to-br from-emerald-500/20 to-emerald-600/20 rounded-xl border border-emerald-500/30">
-              <Brain size={32} className="text-emerald-400" />
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-gradient-to-br from-emerald-500/20 to-emerald-600/20 rounded-xl border border-emerald-500/30">
+                <Brain size={32} className="text-emerald-400" />
+              </div>
+              <div>
+                <h1 className="text-3xl font-bold bg-gradient-to-r from-emerald-400 to-emerald-600 bg-clip-text text-transparent">
+                  Curated Practice Sets
+                </h1>
+                <p className="text-zinc-400 mt-1 text-sm">
+                  Build a day-by-day roadmap from your goal, time, and weaknesses
+                </p>
+              </div>
             </div>
-            <div>
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-emerald-400 to-emerald-600 bg-clip-text text-transparent">
-                Curated Practice Sets
-              </h1>
-              <p className="text-zinc-400 mt-1">
-                Build a day-by-day roadmap from your goal, time, and weaknesses
-              </p>
+            <div className="flex items-center gap-3 flex-wrap">
+              <Button variant="ghost" size="md" iconLeft={<BookmarkCheck size={16} />}>
+                Saved Plans
+              </Button>
+              <Button variant="secondary" size="md" iconLeft={<Play size={16} />}>
+                Resume Plan
+              </Button>
             </div>
-          </div>
-          <div className="flex items-center gap-3">
-            <Button variant="ghost" size="md" iconLeft={<BookmarkCheck size={16} />}>
-              View Saved Plans
-            </Button>
-            <Button variant="secondary" size="md" iconLeft={<Play size={16} />}>
-              Resume Active Plan
-            </Button>
           </div>
         </motion.div>
 
         {/* Two Column Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 xl:gap-8">
           {/* LEFT PANEL - Plan Builder (40%) */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
-            className="lg:col-span-2 space-y-6"
+            className="lg:col-span-5 space-y-6"
           >
             {/* Section 1: Learning Goal */}
             <Card className="bg-gradient-to-br from-zinc-900/90 to-zinc-800/90 border-zinc-700/50">
@@ -1099,7 +1101,7 @@ const CuratedPracticePage = () => {
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 }}
-            className="lg:col-span-3 space-y-6"
+            className="lg:col-span-7 space-y-6"
           >
             {roadmapGenerated ? (
               <>
@@ -1163,9 +1165,9 @@ const CuratedPracticePage = () => {
                 </Card>
 
                 {/* Roadmap Timeline and Progress Tracker */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
                   {/* Timeline */}
-                  <div className="lg:col-span-2">
+                  <div className="xl:col-span-2">
                     <Card className="bg-gradient-to-br from-zinc-900/90 to-zinc-800/90 border-zinc-700/50">
                       <div className="space-y-4">
                         <h3 className="text-lg font-semibold text-white flex items-center gap-2">
@@ -1192,16 +1194,17 @@ const CuratedPracticePage = () => {
                   </div>
 
                   {/* Progress Tracker */}
-                  <div className="lg:col-span-1">
-                    <Card className="bg-gradient-to-br from-zinc-900/90 to-zinc-800/90 border-zinc-700/50 sticky top-6">
-                      <div className="space-y-6">
-                        <div className="flex items-center justify-between">
-                          <h3 className="text-lg font-semibold text-white flex items-center gap-2">
-                            <TrendingUp size={20} className="text-blue-400" />
-                            Progress Tracker
-                          </h3>
-                          <LearningPaceBadge averageTimeMinutes={mockRoadmapData.progress.averageTimeMinutes} />
-                        </div>
+                  <div className="xl:col-span-1">
+                    <div className="sticky top-6">
+                      <Card className="bg-gradient-to-br from-zinc-900/90 to-zinc-800/90 border-zinc-700/50">
+                        <div className="space-y-6">
+                          <div className="flex items-center justify-between">
+                            <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+                              <TrendingUp size={20} className="text-blue-400" />
+                              Progress
+                            </h3>
+                            <LearningPaceBadge averageTimeMinutes={mockRoadmapData.progress.averageTimeMinutes} />
+                          </div>
 
                         <div className="flex justify-center">
                           <CircularProgress percentage={overallProgress.percentage} />
@@ -1256,8 +1259,9 @@ const CuratedPracticePage = () => {
                             </div>
                           </motion.div>
                         </div>
-                      </div>
-                    </Card>
+                        </div>
+                      </Card>
+                    </div>
                   </div>
                 </div>
               </>

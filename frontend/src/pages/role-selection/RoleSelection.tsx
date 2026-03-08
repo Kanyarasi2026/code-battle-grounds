@@ -116,6 +116,7 @@ const RoleSelection = () => {
   const [selectedAcademicRole, setSelectedAcademicRole] = useState<AcademicRole | null>(null);
   const [isAnimating, setIsAnimating] = useState(false);
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
+  const [showAcademicModal, setShowAcademicModal] = useState(false);
 
   // Check if we're in academic-only mode (for faculty/student selection)
   const locationState = location.state as { academicOnly?: boolean; returnTo?: string } | null;
@@ -127,10 +128,18 @@ const RoleSelection = () => {
     setSelectedRole(role);
     setIsAnimating(true);
 
-    setTimeout(() => {
-      const routePath = role === 'academic' ? '/features/academic' : '/features/professional';
-      navigate(routePath);
-    }, 600);
+    // For academic role, show the faculty/student selection modal
+    if (role === 'academic') {
+      setTimeout(() => {
+        setShowAcademicModal(true);
+        setIsAnimating(false);
+      }, 400);
+    } else {
+      // For professional, navigate to professional features
+      setTimeout(() => {
+        navigate('/features/professional');
+      }, 600);
+    }
   };
 
   const handleAcademicRoleSelect = (role: AcademicRole) => {
@@ -142,13 +151,18 @@ const RoleSelection = () => {
     requestRole(role as UserRole);
 
     setTimeout(() => {
-      // Navigate back to where they came from
-      navigate(returnTo, { replace: true });
+      // If we're in academicOnly mode (coming from a protected route), go back
+      // Otherwise, navigate to academic features page
+      if (academicOnly) {
+        navigate(returnTo, { replace: true });
+      } else {
+        navigate('/features/academic', { replace: true });
+      }
     }, 600);
   };
 
-  // If in academic-only mode, show faculty/student selection
-  if (academicOnly) {
+  // If in academic-only mode OR showAcademicModal is true, show faculty/student selection
+  if (academicOnly || showAcademicModal) {
     return (
       <div className="role-selection">
         <div className="role-selection__background">

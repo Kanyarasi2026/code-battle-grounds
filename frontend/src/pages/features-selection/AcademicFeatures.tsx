@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BookOpen, Users, ClipboardCheck } from 'lucide-react';
 import { gsap } from 'gsap';
+import { useAuth } from '../../context/AuthContext';
 import './FeaturesSelection.scss';
 
 interface AcademicFeature {
@@ -35,10 +36,26 @@ const academicFeatures: AcademicFeature[] = [
 
 const AcademicFeatures = () => {
   const navigate = useNavigate();
+  const { roleData } = useAuth();
   const [selectedFeature, setSelectedFeature] = useState<string | null>(null);
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
+
+  // Redirect to role selection if user hasn't chosen faculty/student role
+  useEffect(() => {
+    const hasAcademicRole = roleData.requested === 'faculty' || roleData.requested === 'student';
+    if (!hasAcademicRole) {
+      // Redirect to role selection with academicOnly mode
+      navigate('/role', { 
+        state: { 
+          academicOnly: true, 
+          returnTo: '/features/academic' 
+        }, 
+        replace: true 
+      });
+    }
+  }, [roleData, navigate]);
 
   useEffect(() => {
     // GSAP animations on mount
