@@ -1,17 +1,71 @@
 .auth-layout__profile {
-  position: fixed;
-  top: 16px;
-  right: 24px;
-  z-index: 250;
-  pointer-events: auto;
+	position: fixed;
+	top: 16px;
+	right: 24px;
+	z-index: 250;
+	pointer-events: auto;
 
-  @media (max-width: 1024px) {
-    top: 12px;
-    right: 16px;
-  }
+	@media (max-width: 1024px) {
+		top: 12px;
+		right: 16px;
+	}
 
-  @media (max-width: 768px) {
-    top: 10px;
-    right: 12px;
-  }
+	@media (max-width: 768px) {
+		top: 10px;
+		right: 12px;
+	}
+}
+
+.auth-layout__home {
+	position: fixed;
+	top: 16px;
+	left: 24px;
+	z-index: 250;
+	pointer-events: auto;
+
+	@media (max-width: 1024px) {
+		top: 12px;
+		left: 16px;
+	}
+
+	@media (max-width: 768px) {
+		top: 10px;
+		left: 12px;
+	}
+}
+
+.auth-layout__home-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 7px 14px 7px 10px;
+	background: rgba(255, 255, 255, 0.04);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	border-radius: 8px;
+	color: rgba(255, 255, 255, 0.6);
+	font-family:
+		'Inter',
+		-apple-system,
+		sans-serif;
+	font-size: 13px;
+	font-weight: 500;
+	cursor: pointer;
+	transition:
+		background 0.18s,
+		border-color 0.18s,
+		color 0.18s;
+
+	span {
+		letter-spacing: -0.01em;
+	}
+
+	&:hover {
+		background: rgba(255, 255, 255, 0.08);
+		border-color: rgba(255, 255, 255, 0.2);
+		color: rgba(255, 255, 255, 0.92);
+	}
+
+	&:active {
+		background: rgba(255, 255, 255, 0.12);
+	}
 }

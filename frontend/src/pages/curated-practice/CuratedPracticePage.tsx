@@ -20,7 +20,6 @@ import {
 	X,
 } from 'lucide-react';
 import { useCallback, useRef, useState, type ReactNode } from 'react';
-import { useNavStack } from '../../context/NavigationStackContext';
 import './CuratedPracticePage.scss';
 
 // ===================== TYPES =====================
@@ -706,9 +705,9 @@ function loadCompleted(): Set<string> {
 		const raw = localStorage.getItem(STORAGE_KEY);
 		return raw
 			? new Set<string>(JSON.parse(raw) as string[])
-			: new Set(['b1', 'b2', 'b8', 'b14', 'dp1', 'bs1', 't1', 't2']);
+			: new Set<string>();
 	} catch {
-		return new Set(['b1', 'b2', 'b8', 'b14', 'dp1', 'bs1', 't1', 't2']);
+		return new Set<string>();
 	}
 }
 
@@ -810,7 +809,6 @@ const SetCard = ({ set, solved, total, onClick }: SetCardProps) => {
 // ===================== MAIN COMPONENT =====================
 
 export default function CuratedPracticePage() {
-	const { goBack } = useNavStack();
 	const [category, setCategory] = useState('All');
 	const [activeSet, setActiveSet] = useState<PracticeSet | null>(null);
 	const [activeProblem, setActiveProblem] = useState<Problem | null>(null);
@@ -893,12 +891,30 @@ export default function CuratedPracticePage() {
 		}
 	};
 
+	const speakWithBrowser = (text: string) => {
+		if (!('speechSynthesis' in window)) return;
+		window.speechSynthesis.cancel();
+		const utterance = new SpeechSynthesisUtterance(text);
+		utterance.rate = 0.92;
+		utterance.pitch = 1;
+		utterance.onstart = () => setIsSpeaking(true);
+		utterance.onend = () => setIsSpeaking(false);
+		utterance.onerror = () => setIsSpeaking(false);
+		setIsSpeaking(true);
+		window.speechSynthesis.speak(utterance);
+	};
+
 	const speakHint = async () => {
 		if (!hint || isSpeaking || ttsLoading) return;
 
 		const elevenKey = import.meta.env['VITE_ELEVENLABS_API_KEY'] as string;
-		const voiceId = '21m00Tcm4TlvDq8ikWAM'; // Rachel
 
+		if (!elevenKey || elevenKey === 'your_elevenlabs_api_key') {
+			speakWithBrowser(hint);
+			return;
+		}
+
+		const voiceId = '21m00Tcm4TlvDq8ikWAM'; // Rachel
 		setTtsLoading(true);
 
 		try {
@@ -912,13 +928,13 @@ export default function CuratedPracticePage() {
 					},
 					body: JSON.stringify({
 						text: hint,
-						model_id: 'eleven_monolingual_v1',
+						model_id: 'eleven_turbo_v2_5',
 						voice_settings: { stability: 0.5, similarity_boost: 0.5 },
 					}),
 				},
 			);
 
-			if (!res.ok) throw new Error('TTS failed');
+			if (!res.ok) throw new Error(`TTS API error ${res.status}`);
 
 			const blob = await res.blob();
 			const blobUrl = URL.createObjectURL(blob);
@@ -929,12 +945,24 @@ export default function CuratedPracticePage() {
 				setIsSpeaking(false);
 				URL.revokeObjectURL(blobUrl);
 			};
+			audio.onerror = () => {
+				setIsSpeaking(false);
+				URL.revokeObjectURL(blobUrl);
+			};
 
 			setTtsLoading(false);
-			setIsSpeaking(true);
-			await audio.play();
+			try {
+				await audio.play();
+				setIsSpeaking(true);
+			} catch {
+				// Autoplay blocked or audio error — fall back to browser TTS
+				URL.revokeObjectURL(blobUrl);
+				audioRef.current = null;
+				speakWithBrowser(hint);
+			}
 		} catch {
 			setTtsLoading(false);
+			speakWithBrowser(hint);
 		}
 	};
 
@@ -944,6 +972,7 @@ export default function CuratedPracticePage() {
 			audioRef.current.currentTime = 0;
 			audioRef.current = null;
 		}
+		window.speechSynthesis?.cancel();
 		setIsSpeaking(false);
 	};
 
@@ -1269,10 +1298,6 @@ export default function CuratedPracticePage() {
 		<div className="curated-page">
 			{/* Header */}
 			<header className="curated-page__header">
-				<button className="curated-page__back" onClick={() => goBack()}>
-					<ArrowLeft size={16} />
-					<span>Back</span>
-				</button>
 				<div className="curated-page__header-title">
 					<BookOpen size={20} style={{ color: '#22c55e' }} />
 					<h1>Curated Practice Sets</h1>

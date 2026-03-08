@@ -1,5 +1,5 @@
-import { ArrowLeft, ArrowRight, BarChart3, Mic } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { ArrowRight, BarChart3, Mic } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import './MockInterview.scss';
 
@@ -8,20 +8,6 @@ const MockInterview = () => {
 
 	return (
 		<div className="mi-page">
-			{/* Header */}
-			<header className="mi-page__header">
-				<motion.button
-					className="mi-page__back"
-					onClick={() => navigate(-1)}
-					initial={{ opacity: 0, x: -12 }}
-					animate={{ opacity: 1, x: 0 }}
-					transition={{ duration: 0.35 }}
-				>
-					<ArrowLeft size={14} />
-					Back
-				</motion.button>
-			</header>
-
 			{/* Hero */}
 			<section className="mi-page__hero">
 				<motion.span
@@ -101,8 +87,8 @@ const MockInterview = () => {
 									<span className="mi-page__tag">Mixed</span>
 								</div>
 								<p className="mi-page__card-text">
-									Covers system design, algorithms, leadership scenarios, and more.
-									Each session adapts to your level.
+									Covers system design, algorithms, leadership scenarios, and
+									more. Each session adapts to your level.
 								</p>
 							</>
 						),
@@ -111,8 +97,8 @@ const MockInterview = () => {
 						title: 'Track progress',
 						content: (
 							<p className="mi-page__card-text">
-								Review past sessions, compare scores, and identify patterns in your
-								interview performance over time.
+								Review past sessions, compare scores, and identify patterns in
+								your interview performance over time.
 							</p>
 						),
 					},

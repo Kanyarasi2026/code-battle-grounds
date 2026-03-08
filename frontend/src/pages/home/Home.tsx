@@ -1,13 +1,19 @@
 import { motion } from 'framer-motion';
-import { ArrowLeft, ArrowRight, Copy, Sparkles } from 'lucide-react';
-import { useEffect, useState, type ChangeEvent, type FormEvent, type KeyboardEvent } from 'react';
+import { ArrowRight, Copy, Sparkles } from 'lucide-react';
+import {
+	useEffect,
+	useState,
+	type ChangeEvent,
+	type FormEvent,
+	type KeyboardEvent,
+} from 'react';
 import toast from 'react-hot-toast';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { v4 } from 'uuid';
+import ParticleField from '../../components/effects/ParticleField';
 import Button from '../../components/ui/Button';
 import Card from '../../components/ui/Card';
 import Input from '../../components/ui/Input';
-import ParticleField from '../../components/effects/ParticleField';
 import { useAuth } from '../../context/AuthContext';
 import './Home.scss';
 
@@ -16,12 +22,16 @@ interface LocationState {
 }
 
 const Home = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { user } = useAuth();
-  const [roomId, setRoomId] = useState('');
-  const [username, setUsername] = useState((user?.user_metadata?.['full_name'] as string | undefined) ?? user?.email ?? '');
-  const [isJoining, setIsJoining] = useState(false);
+	const navigate = useNavigate();
+	const location = useLocation();
+	const { user } = useAuth();
+	const [roomId, setRoomId] = useState('');
+	const [username, setUsername] = useState(
+		(user?.user_metadata?.['full_name'] as string | undefined) ??
+			user?.email ??
+			'',
+	);
+	const [isJoining, setIsJoining] = useState(false);
 
 	useEffect(() => {
 		const state = location.state as LocationState | null;
@@ -105,41 +115,147 @@ const Home = () => {
 		if (e.code === 'Enter') void joinRoom();
 	};
 
-  return (
-    <div className="home" style={{ position: 'relative', overflow: 'hidden' }}>
-      <ParticleField />
-      <motion.div aria-hidden="true" style={{ position: 'absolute', top: '-10%', right: '-5%', width: 500, height: 500, borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,255,255,0.02) 0%, transparent 70%)', filter: 'blur(80px)', pointerEvents: 'none', zIndex: 0 }} animate={{ y: [0, -32, 0], x: [0, 20, 0], opacity: [0.55, 1, 0.55] }} transition={{ duration: 24, repeat: Infinity, ease: 'easeInOut' }} />
-      <motion.div aria-hidden="true" style={{ position: 'absolute', bottom: '-12%', left: '-8%', width: 440, height: 440, borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,255,255,0.015) 0%, transparent 70%)', filter: 'blur(90px)', pointerEvents: 'none', zIndex: 0 }} animate={{ y: [0, 26, 0], x: [0, -18, 0], opacity: [0.45, 0.85, 0.45] }} transition={{ duration: 30, repeat: Infinity, ease: 'easeInOut', delay: 8 }} />
-      <header className="home__header" style={{ position: 'relative', zIndex: 1 }}>
-        <div className="home__header-left">
-          <button className="home__back-btn" onClick={() => navigate('/role')}>
-            <ArrowLeft size={16} />
-            Explore Features
-          </button>
-        </div>
-      </header>
-      <motion.main className="home__main" style={{ position: 'relative', zIndex: 1 }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease: 'easeOut' }}>
-        <div className="home__brand">
-          <motion.h1 initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>Code<span>Battlegrounds</span></motion.h1>
-          <p className="home__tagline">Real-time collaborative code editor</p>
-        </div>
-        <Card className="home__card">
-          <div className="home__form">
-            <Input label="Your Name" placeholder="Enter your name" value={username} onChange={(e: ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)} onKeyUp={handleInputEnter} disabled={isJoining} />
-            <Input label="Room ID" placeholder="Paste a room ID to join" value={roomId} onChange={(e: ChangeEvent<HTMLInputElement>) => setRoomId(e.target.value)} onKeyUp={handleInputEnter} disabled={isJoining}
-              suffix={<button className="home__generate-btn" onClick={generateRoomId} type="button" title="Generate Room ID"><Sparkles size={14} />Generate</button>} />
-            {roomId && (
-              <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }}>
-                <Button variant="primary" className="home__join-btn" onClick={() => { void joinRoom(); }} loading={isJoining} iconRight={<ArrowRight size={16} />}>Join Room</Button>
-              </motion.div>
-            )}
-            <div className="home__divider"><span>or</span></div>
-            <Button variant="secondary" className="home__create-btn" onClick={createRoom} iconLeft={<Copy size={14} />}>Create New Room</Button>
-          </div>
-        </Card>
-      </motion.main>
-      <footer className="home__footer"><p>Built by <a href="https://github.com/Kanyarasi2026/code-battle-grounds" target="_blank" rel="noreferrer">MSG-Kanyarasi</a></p></footer>
-    </div>
-  );
+	return (
+		<div className="home" style={{ position: 'relative', overflow: 'hidden' }}>
+			<ParticleField />
+			<motion.div
+				aria-hidden="true"
+				style={{
+					position: 'absolute',
+					top: '-10%',
+					right: '-5%',
+					width: 500,
+					height: 500,
+					borderRadius: '50%',
+					background:
+						'radial-gradient(circle, rgba(255,255,255,0.02) 0%, transparent 70%)',
+					filter: 'blur(80px)',
+					pointerEvents: 'none',
+					zIndex: 0,
+				}}
+				animate={{ y: [0, -32, 0], x: [0, 20, 0], opacity: [0.55, 1, 0.55] }}
+				transition={{ duration: 24, repeat: Infinity, ease: 'easeInOut' }}
+			/>
+			<motion.div
+				aria-hidden="true"
+				style={{
+					position: 'absolute',
+					bottom: '-12%',
+					left: '-8%',
+					width: 440,
+					height: 440,
+					borderRadius: '50%',
+					background:
+						'radial-gradient(circle, rgba(255,255,255,0.015) 0%, transparent 70%)',
+					filter: 'blur(90px)',
+					pointerEvents: 'none',
+					zIndex: 0,
+				}}
+				animate={{ y: [0, 26, 0], x: [0, -18, 0], opacity: [0.45, 0.85, 0.45] }}
+				transition={{
+					duration: 30,
+					repeat: Infinity,
+					ease: 'easeInOut',
+					delay: 8,
+				}}
+			/>
+
+			<motion.main
+				className="home__main"
+				style={{ position: 'relative', zIndex: 1 }}
+				initial={{ opacity: 0, y: 20 }}
+				animate={{ opacity: 1, y: 0 }}
+				transition={{ duration: 0.4, ease: 'easeOut' }}
+			>
+				<div className="home__brand">
+					<motion.h1
+						initial={{ opacity: 0, y: -10 }}
+						animate={{ opacity: 1, y: 0 }}
+						transition={{ delay: 0.1 }}
+					>
+						Code<span>Battlegrounds</span>
+					</motion.h1>
+					<p className="home__tagline">Real-time collaborative code editor</p>
+				</div>
+				<Card className="home__card">
+					<div className="home__form">
+						<Input
+							label="Your Name"
+							placeholder="Enter your name"
+							value={username}
+							onChange={(e: ChangeEvent<HTMLInputElement>) =>
+								setUsername(e.target.value)
+							}
+							onKeyUp={handleInputEnter}
+							disabled={isJoining}
+						/>
+						<Input
+							label="Room ID"
+							placeholder="Paste a room ID to join"
+							value={roomId}
+							onChange={(e: ChangeEvent<HTMLInputElement>) =>
+								setRoomId(e.target.value)
+							}
+							onKeyUp={handleInputEnter}
+							disabled={isJoining}
+							suffix={
+								<button
+									className="home__generate-btn"
+									onClick={generateRoomId}
+									type="button"
+									title="Generate Room ID"
+								>
+									<Sparkles size={14} />
+									Generate
+								</button>
+							}
+						/>
+						{roomId && (
+							<motion.div
+								initial={{ opacity: 0, height: 0 }}
+								animate={{ opacity: 1, height: 'auto' }}
+								exit={{ opacity: 0, height: 0 }}
+							>
+								<Button
+									variant="primary"
+									className="home__join-btn"
+									onClick={() => {
+										void joinRoom();
+									}}
+									loading={isJoining}
+									iconRight={<ArrowRight size={16} />}
+								>
+									Join Room
+								</Button>
+							</motion.div>
+						)}
+						<div className="home__divider">
+							<span>or</span>
+						</div>
+						<Button
+							variant="secondary"
+							className="home__create-btn"
+							onClick={createRoom}
+							iconLeft={<Copy size={14} />}
+						>
+							Create New Room
+						</Button>
+					</div>
+				</Card>
+			</motion.main>
+			<footer className="home__footer">
+				<p>
+					Built by{' '}
+					<a
+						href="https://github.com/Kanyarasi2026/code-battle-grounds"
+						target="_blank"
+						rel="noreferrer"
+					>
+						MSG-Kanyarasi
+					</a>
+				</p>
+			</footer>
+		</div>
+	);
 };
 export default Home;
