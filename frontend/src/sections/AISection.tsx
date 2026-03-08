@@ -6,9 +6,10 @@ const REVEAL_TRANSITION = { duration: 0.65, ease: EASE };
 const CARD_HOVER = { y: -2, transition: { duration: 0.2, ease: 'easeOut' as const } };
 
 const TIERS = [
-  { badge: 'T1', label: 'Small nudge', desc: 'A guiding question about the edge case', color: 'rgba(130,210,160,0.70)' },
-  { badge: 'T2', label: 'Concept hint', desc: 'The algorithmic pattern you need, explained', color: 'rgba(120,170,240,0.70)' },
-  { badge: 'T3', label: 'Stronger guidance', desc: 'Pseudocode-level breakdown (assessment: locked)', color: 'rgba(210,170,100,0.70)' },
+  { badge: 'T1', label: 'Nudge', desc: 'A guiding question about the edge case', color: 'rgba(130,210,160,0.70)' },
+  { badge: 'T2', label: 'Concept', desc: 'The algorithmic pattern you need, explained', color: 'rgba(120,170,240,0.70)' },
+  { badge: 'T3', label: 'Pseudocode', desc: 'Step-by-step breakdown without code (assessment: locked)', color: 'rgba(210,170,100,0.70)' },
+  { badge: 'T4', label: 'Solution', desc: 'Full solution walkthrough (assessment: locked)', color: 'rgba(200,130,200,0.70)' },
 ];
 
 const AISection = () => {
@@ -105,7 +106,7 @@ const AISection = () => {
             justifyContent: 'space-between',
             alignItems: 'center',
           }}>
-            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: 'rgba(255,255,255,0.52)', letterSpacing: '0.06em' }}>◉ STUCK DETECTION COPILOT</span>
+            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: 'rgba(255,255,255,0.52)', letterSpacing: '0.06em' }}>◉ I'M STUCK — GET A HINT</span>
             <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'rgba(130,210,160,0.60)', letterSpacing: '0.1em' }}>● live</span>
           </div>
 
@@ -125,39 +126,34 @@ const AISection = () => {
 
             {/* Hint box */}
             <div style={{ padding: '20px', borderRadius: '10px', background: 'rgba(130,210,160,0.04)', border: '1px solid rgba(130,210,160,0.12)' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
-                <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'rgba(130,210,160,0.70)', letterSpacing: '0.1em' }}>HINT · TIER 1</span>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'rgba(255,255,255,0.22)', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)', padding: '3px 8px', borderRadius: '5px' }}>T1</span>
+                  <span style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.78)' }}>Nudge</span>
+                </div>
+                <span style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '12px', fontWeight: 600, color: 'rgba(130,210,160,0.88)', letterSpacing: '0.02em' }}>Reveal</span>
               </div>
               <p style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '14px', color: 'rgba(255,255,255,0.52)', lineHeight: 1.75, fontStyle: 'italic', margin: '0 0 16px' }}>
                 Have you considered what happens when{' '}
                 <span style={{ fontFamily: 'JetBrains Mono, monospace', color: 'rgba(130,210,160,0.88)', fontStyle: 'normal' }}>nums</span>
                 {' '}contains duplicate values? Your current lookup might overwrite an earlier index.
               </p>
-              <button
-                style={{
-                  fontFamily: 'JetBrains Mono, monospace',
-                  fontSize: '11px',
-                  color: 'rgba(255,255,255,0.44)',
-                  background: 'transparent',
-                  border: '1px solid rgba(255,255,255,0.10)',
-                  padding: '6px 14px',
-                  borderRadius: '6px',
-                  cursor: 'pointer',
-                  transition: 'background 0.2s, border-color 0.2s, color 0.2s',
-                }}
-                onMouseEnter={e => {
-                  e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.18)';
-                  e.currentTarget.style.color = 'rgba(255,255,255,0.72)';
-                }}
-                onMouseLeave={e => {
-                  e.currentTarget.style.background = 'transparent';
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.10)';
-                  e.currentTarget.style.color = 'rgba(255,255,255,0.44)';
-                }}
-              >
-                Reveal Tier 2 &rarr;
-              </button>
+              {/* Locked tiers preview */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '4px' }}>
+                {[
+                  { badge: 'T2', label: 'Concept' },
+                  { badge: 'T3', label: 'Pseudocode' },
+                  { badge: 'T4', label: 'Solution' },
+                ].map(t => (
+                  <div key={t.badge} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '9px 12px', borderRadius: '8px', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'rgba(255,255,255,0.22)', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)', padding: '3px 8px', borderRadius: '5px' }}>{t.badge}</span>
+                      <span style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '13px', color: 'rgba(255,255,255,0.26)' }}>{t.label}</span>
+                    </div>
+                    <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.18)' }}>🔒</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </motion.div>
