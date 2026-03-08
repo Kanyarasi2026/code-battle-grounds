@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Activity,
   AlertCircle,
@@ -8,6 +8,7 @@ import {
   Calendar,
   CheckCircle2,
   ChevronDown,
+  ChevronRight,
   Clock,
   GraduationCap,
   Lightbulb,
@@ -64,6 +65,15 @@ const MetricCard = ({ label, value, icon }: MetricCardProps) => (
   </div>
 );
 
+interface DayCompletion {
+  tasks: boolean[];
+  problems: boolean[];
+}
+
+interface DayCompletions {
+  [key: number]: DayCompletion;
+}
+
 interface TimelineCardProps {
   day: number;
   title: string;
@@ -72,67 +82,237 @@ interface TimelineCardProps {
   problems: string[];
   badge?: ReactNode;
   isReview?: boolean;
+  isExpanded: boolean;
+  onToggleExpand: () => void;
+  completion: DayCompletion;
+  onTaskToggle: (idx: number) => void;
+  onProblemToggle: (idx: number) => void;
+  completionPercentage: number;
+  status: 'completed' | 'active' | 'upcoming';
 }
 
-const TimelineCard = ({ day, title, description, tasks, problems, badge, isReview }: TimelineCardProps) => (
-  <motion.div
-    initial={{ opacity: 0, x: -20 }}
-    animate={{ opacity: 1, x: 0 }}
-    transition={{ delay: day * 0.05 }}
-    className="relative pl-8 pb-8 border-l-2 border-zinc-700/50 last:border-transparent"
-  >
-    {/* Timeline dot */}
-    <div className="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-emerald-500 border-4 border-zinc-900" />
-    
-    <div className="bg-gradient-to-br from-zinc-800/60 to-zinc-900/60 rounded-lg border border-zinc-700/50 p-5 hover:border-emerald-500/40 transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/10">
-      <div className="flex items-start justify-between mb-3">
-        <div>
-          <div className="flex items-center gap-2 mb-1">
-            <span className="text-xs font-semibold text-zinc-500">Day {day}</span>
-            {badge}
-          </div>
-          <h4 className="text-lg font-semibold text-white flex items-center gap-2">
-            {isReview ? <RotateCcw size={16} className="text-amber-400" /> : <Target size={16} className="text-emerald-400" />}
-            {title}
-          </h4>
-          {description && <p className="text-sm text-zinc-400 mt-1">{description}</p>}
-        </div>
-      </div>
+const TimelineCard = ({ 
+  day, 
+  title, 
+  description, 
+  tasks, 
+  problems, 
+  badge, 
+  isReview,
+  isExpanded,
+  onToggleExpand,
+  completion,
+  onTaskToggle,
+  onProblemToggle,
+  completionPercentage,
+  status
+}: TimelineCardProps) => {
+  const isCompleted = completionPercentage === 100;
 
-      {/* Tasks */}
-      {tasks.length > 0 && (
-        <div className="mb-3">
-          <div className="text-xs font-medium text-zinc-500 mb-2">Tasks</div>
-          <ul className="space-y-1.5">
-            {tasks.map((task, idx) => (
-              <li key={idx} className="flex items-start gap-2 text-sm text-zinc-300">
-                <CheckCircle2 size={14} className="text-emerald-500 mt-0.5 flex-shrink-0" />
-                <span>{task}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+  const getStatusStyle = () => {
+    switch (status) {
+      case 'completed':
+        return 'border-emerald-500/50 bg-gradient-to-br from-emerald-900/30 to-zinc-900/60';
+      case 'active':
+        return 'border-blue-500/50 bg-gradient-to-br from-blue-900/30 to-zinc-900/60';
+      default:
+        return 'border-zinc-700/50 bg-gradient-to-br from-zinc-800/60 to-zinc-900/60';
+    }
+  };
 
-      {/* Problems */}
-      {problems.length > 0 && (
-        <div>
-          <div className="text-xs font-medium text-zinc-500 mb-2">Problems</div>
-          <div className="flex flex-wrap gap-2">
-            {problems.map((problem, idx) => (
-              <span
-                key={idx}
-                className="px-2.5 py-1 bg-zinc-800/80 rounded text-xs text-zinc-400 border border-zinc-700/50 hover:border-emerald-500/50 hover:text-emerald-400 transition-colors"
-              >
-                {problem}
-              </span>
-            ))}
+  const getStatusDotStyle = () => {
+    switch (status) {
+      case 'completed':
+        return 'bg-emerald-500 shadow-lg shadow-emerald-500/50';
+      case 'active':
+        return 'bg-blue-500 shadow-lg shadow-blue-500/50 animate-pulse';
+      default:
+        return 'bg-zinc-600';
+    }
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ delay: day * 0.05 }}
+      className="relative pl-8 pb-8 border-l-2 border-zinc-700/50 last:border-transparent"
+    >
+      {/* Timeline dot */}
+      <div className={`absolute left-[-9px] top-0 w-4 h-4 rounded-full border-4 border-zinc-900 transition-all duration-300 ${getStatusDotStyle()}`} />
+      
+      <motion.div
+        className={`rounded-lg border p-5 transition-all duration-300 cursor-pointer ${getStatusStyle()} hover:shadow-lg ${isExpanded ? 'shadow-lg' : ''}`}
+        onClick={onToggleExpand}
+        whileHover={{ scale: 1.01 }}
+        animate={isCompleted ? {
+          scale: [1, 1.02, 1],
+          borderColor: ['rgba(16, 185, 129, 0.5)', 'rgba(16, 185, 129, 0.8)', 'rgba(16, 185, 129, 0.5)'],
+        } : {}}
+        transition={isCompleted ? { duration: 2, repeat: 0 } : {}}
+      >
+        <div className="flex items-start justify-between">
+          <div className="flex-1">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="text-xs font-semibold text-zinc-500">Day {day}</span>
+              {badge}
+              {status === 'completed' && <Badge variant="success" icon={<CheckCircle2 size={12} />}>Completed</Badge>}
+              {status === 'active' && <Badge variant="info" icon={<Play size={12} />}>Active</Badge>}
+            </div>
+            <div className="flex items-center gap-3">
+              <h4 className="text-lg font-semibold text-white flex items-center gap-2">
+                {isReview ? <RotateCcw size={16} className="text-amber-400" /> : <Target size={16} className="text-emerald-400" />}
+                {title}
+              </h4>
+              {completionPercentage > 0 && completionPercentage < 100 && (
+                <span className="text-xs font-medium text-blue-400 bg-blue-500/20 px-2 py-0.5 rounded-full">
+                  {completionPercentage}%
+                </span>
+              )}
+            </div>
+            {description && <p className="text-sm text-zinc-400 mt-1">{description}</p>}
           </div>
+          <motion.div
+            animate={{ rotate: isExpanded ? 90 : 0 }}
+            transition={{ duration: 0.2 }}
+            className="flex-shrink-0 ml-3"
+          >
+            <ChevronRight size={20} className="text-zinc-400" />
+          </motion.div>
         </div>
-      )}
-    </div>
-  </motion.div>
-);
+
+        {/* Expanded Content */}
+        <AnimatePresence>
+          {isExpanded && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              className="overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="mt-4 pt-4 border-t border-zinc-700/50 space-y-4">
+                {/* Learning Objective */}
+                {description && (
+                  <div>
+                    <div className="text-xs font-medium text-zinc-500 mb-2 flex items-center gap-1">
+                      <Target size={12} />
+                      Learning Objective
+                    </div>
+                    <p className="text-sm text-zinc-300">{description}</p>
+                  </div>
+                )}
+
+                {/* Tasks */}
+                {tasks.length > 0 && (
+                  <div>
+                    <div className="text-xs font-medium text-zinc-500 mb-2">Tasks</div>
+                    <div className="space-y-2">
+                      {tasks.map((task, idx) => (
+                        <label
+                          key={idx}
+                          className="flex items-start gap-3 text-sm text-zinc-300 hover:text-white transition-colors cursor-pointer group"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <input
+                            type="checkbox"
+                            checked={completion.tasks[idx] || false}
+                            onChange={() => onTaskToggle(idx)}
+                            className="mt-0.5 w-4 h-4 rounded border-2 border-zinc-600 bg-zinc-800 checked:bg-emerald-500 checked:border-emerald-500 focus:ring-2 focus:ring-emerald-500/50 cursor-pointer transition-all"
+                          />
+                          <span className={`flex-1 ${completion.tasks[idx] ? 'line-through text-zinc-500' : ''}`}>
+                            {task}
+                          </span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Problems */}
+                {problems.length > 0 && (
+                  <div>
+                    <div className="text-xs font-medium text-zinc-500 mb-2 flex items-center gap-2">
+                      <span>Problems for the Day</span>
+                      <span className="text-[10px] text-zinc-600 bg-zinc-800 px-2 py-0.5 rounded-full">
+                        {problems.filter((_, idx) => completion.problems[idx]).length}/{problems.length}
+                      </span>
+                    </div>
+                    <div className="space-y-2">
+                      {problems.map((problem, idx) => (
+                        <label
+                          key={idx}
+                          className="flex items-start gap-3 text-sm text-zinc-300 hover:text-white transition-colors cursor-pointer group"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <input
+                            type="checkbox"
+                            checked={completion.problems[idx] || false}
+                            onChange={() => onProblemToggle(idx)}
+                            className="mt-0.5 w-4 h-4 rounded border-2 border-zinc-600 bg-zinc-800 checked:bg-emerald-500 checked:border-emerald-500 focus:ring-2 focus:ring-emerald-500/50 cursor-pointer transition-all"
+                          />
+                          <span className={`flex-1 ${completion.problems[idx] ? 'line-through text-zinc-500' : ''}`}>
+                            {problem}
+                          </span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Difficulty Breakdown & Estimated Time */}
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="p-3 bg-zinc-800/50 rounded-lg border border-zinc-700/50">
+                    <div className="text-xs text-zinc-500 mb-1">Difficulty</div>
+                    <div className="flex items-center gap-2">
+                      {isReview ? (
+                        <Badge variant="warning">Review</Badge>
+                      ) : (
+                        <><Badge variant="success">Easy: {Math.floor(problems.length * 0.4)}</Badge>
+                        <Badge variant="info">Med: {Math.ceil(problems.length * 0.6)}</Badge></>
+                      )}
+                    </div>
+                  </div>
+                  <div className="p-3 bg-zinc-800/50 rounded-lg border border-zinc-700/50">
+                    <div className="text-xs text-zinc-500 mb-1">Estimated Time</div>
+                    <div className="flex items-center gap-1.5 text-white font-semibold">
+                      <Clock size={14} className="text-blue-400" />
+                      <span>{isReview ? '30-45' : '45-60'} min</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
+
+      {/* Completion Animation */}
+      <AnimatePresence>
+        {isCompleted && (
+          <motion.div
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0, opacity: 0 }}
+            className="absolute -right-2 -top-2 z-10"
+          >
+            <motion.div
+              animate={{
+                scale: [1, 1.2, 1],
+                rotate: [0, 10, -10, 0],
+              }}
+              transition={{ duration: 0.6, repeat: 0 }}
+              className="bg-emerald-500 rounded-full p-2 shadow-lg shadow-emerald-500/50"
+            >
+              <CheckCircle2 size={16} className="text-white" />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+};
 
 interface CircularProgressProps {
   percentage: number;
@@ -236,15 +416,6 @@ const Toggle = ({ label, checked, onChange }: ToggleProps) => (
 );
 
 // ================= PROGRESS TRACKING =================
-
-interface ProgressData {
-  completion: number;
-  completedDays: number;
-  totalDays: number;
-  accuracy: number;
-  averageTimeMinutes: number;
-  nextCheckpoint: string;
-}
 
 type LearningPace = 'fast' | 'balanced' | 'slow';
 
@@ -394,6 +565,20 @@ const CuratedPracticePage = () => {
   const [preferredTime, setPreferredTime] = useState('Evening');
   const [includeRevision, setIncludeRevision] = useState(true);
   const [roadmapGenerated, setRoadmapGenerated] = useState(true); // Set to true to show mock data
+  
+  // Interactive roadmap state
+  const [expandedDays, setExpandedDays] = useState<Set<number>>(new Set([1])); // Day 1 expanded by default
+  const [dayCompletions, setDayCompletions] = useState<DayCompletions>(() => {
+    // Initialize completions for all days
+    const initial: DayCompletions = {};
+    mockRoadmapData.timeline.forEach(day => {
+      initial[day.day] = {
+        tasks: new Array(day.tasks.length).fill(false),
+        problems: new Array(day.problems.length).fill(false),
+      };
+    });
+    return initial;
+  });
 
   const quickExamples = [
     'Learn DSA basics in 21 days',
@@ -404,6 +589,93 @@ const CuratedPracticePage = () => {
   const handleGenerateRoadmap = () => {
     setRoadmapGenerated(true);
   };
+
+  // Toggle day expansion
+  const toggleDayExpansion = (day: number) => {
+    setExpandedDays(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(day)) {
+        newSet.delete(day);
+      } else {
+        newSet.add(day);
+      }
+      return newSet;
+    });
+  };
+
+  // Toggle task completion
+  const toggleTaskCompletion = (day: number, taskIdx: number) => {
+    setDayCompletions(prev => ({
+      ...prev,
+      [day]: {
+        ...prev[day],
+        tasks: prev[day].tasks.map((completed, idx) => 
+          idx === taskIdx ? !completed : completed
+        ),
+      },
+    }));
+  };
+
+  // Toggle problem completion
+  const toggleProblemCompletion = (day: number, problemIdx: number) => {
+    setDayCompletions(prev => ({
+      ...prev,
+      [day]: {
+        ...prev[day],
+        problems: prev[day].problems.map((completed, idx) => 
+          idx === problemIdx ? !completed : completed
+        ),
+      },
+    }));
+  };
+
+  // Calculate day completion percentage
+  const calculateDayCompletion = (day: number): number => {
+    const dayData = mockRoadmapData.timeline.find(d => d.day === day);
+    if (!dayData) return 0;
+
+    const completion = dayCompletions[day];
+    if (!completion) return 0;
+
+    const totalItems = dayData.tasks.length + dayData.problems.length;
+    if (totalItems === 0) return 100; // Review days with no tasks
+
+    const completedItems = 
+      completion.tasks.filter(Boolean).length + 
+      completion.problems.filter(Boolean).length;
+
+    return Math.round((completedItems / totalItems) * 100);
+  };
+
+  // Calculate overall progress
+  const calculateOverallProgress = () => {
+    const totalDays = mockRoadmapData.timeline.length;
+    const completedDays = mockRoadmapData.timeline.filter(
+      day => calculateDayCompletion(day.day) === 100
+    ).length;
+
+    return {
+      percentage: Math.round((completedDays / totalDays) * 100),
+      completedDays,
+      totalDays,
+    };
+  };
+
+  // Determine day status
+  const getDayStatus = (day: number): 'completed' | 'active' | 'upcoming' => {
+    const completion = calculateDayCompletion(day);
+    if (completion === 100) return 'completed';
+
+    // Find first incomplete day
+    const firstIncomplete = mockRoadmapData.timeline.find(
+      d => calculateDayCompletion(d.day) < 100
+    );
+    
+    if (firstIncomplete && firstIncomplete.day === day) return 'active';
+    return 'upcoming';
+  };
+
+  const overallProgress = calculateOverallProgress();
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950 text-white">
@@ -643,7 +915,17 @@ const CuratedPracticePage = () => {
                         </h3>
                         <div className="space-y-0">
                           {mockRoadmapData.timeline.map((day) => (
-                            <TimelineCard key={day.day} {...day} />
+                            <TimelineCard 
+                              key={day.day} 
+                              {...day}
+                              isExpanded={expandedDays.has(day.day)}
+                              onToggleExpand={() => toggleDayExpansion(day.day)}
+                              completion={dayCompletions[day.day] || { tasks: [], problems: [] }}
+                              onTaskToggle={(idx) => toggleTaskCompletion(day.day, idx)}
+                              onProblemToggle={(idx) => toggleProblemCompletion(day.day, idx)}
+                              completionPercentage={calculateDayCompletion(day.day)}
+                              status={getDayStatus(day.day)}
+                            />
                           ))}
                         </div>
                       </div>
@@ -663,7 +945,7 @@ const CuratedPracticePage = () => {
                         </div>
 
                         <div className="flex justify-center">
-                          <CircularProgress percentage={mockRoadmapData.progress.completion} />
+                          <CircularProgress percentage={overallProgress.percentage} />
                         </div>
 
                         <div className="space-y-3">
@@ -675,7 +957,7 @@ const CuratedPracticePage = () => {
                           >
                             <span className="text-sm text-zinc-400">Completed Days</span>
                             <span className="text-sm font-semibold text-emerald-400">
-                              {mockRoadmapData.progress.completedDays} / {mockRoadmapData.progress.totalDays}
+                              {overallProgress.completedDays} / {overallProgress.totalDays}
                             </span>
                           </motion.div>
 
