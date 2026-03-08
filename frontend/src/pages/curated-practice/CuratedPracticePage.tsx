@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion';
 import {
+  Activity,
+  AlertCircle,
   BookmarkCheck,
   BookOpen,
   Brain,
@@ -14,6 +16,7 @@ import {
   Sparkles,
   Target,
   TrendingUp,
+  Zap,
 } from 'lucide-react';
 import { useState, type ReactNode } from 'react';
 import Button from '../../components/ui/Button';
@@ -154,7 +157,7 @@ const CircularProgress = ({ percentage, size = 120, strokeWidth = 8 }: CircularP
           fill="none"
           className="text-zinc-800"
         />
-        <circle
+        <motion.circle
           cx={size / 2}
           cy={size / 2}
           r={radius}
@@ -162,14 +165,21 @@ const CircularProgress = ({ percentage, size = 120, strokeWidth = 8 }: CircularP
           strokeWidth={strokeWidth}
           fill="none"
           strokeDasharray={circumference}
-          strokeDashoffset={offset}
-          className="text-emerald-500 transition-all duration-500"
+          strokeDashoffset={circumference}
+          className="text-emerald-500"
           strokeLinecap="round"
+          animate={{ strokeDashoffset: offset }}
+          transition={{ duration: 1.5, ease: "easeOut" }}
         />
       </svg>
-      <div className="absolute inset-0 flex items-center justify-center">
+      <motion.div
+        className="absolute inset-0 flex items-center justify-center"
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.3, duration: 0.5 }}
+      >
         <span className="text-2xl font-bold text-white">{percentage}%</span>
-      </div>
+      </motion.div>
     </div>
   );
 };
@@ -224,6 +234,71 @@ const Toggle = ({ label, checked, onChange }: ToggleProps) => (
     </button>
   </div>
 );
+
+// ================= PROGRESS TRACKING =================
+
+interface ProgressData {
+  completion: number;
+  completedDays: number;
+  totalDays: number;
+  accuracy: number;
+  averageTimeMinutes: number;
+  nextCheckpoint: string;
+}
+
+type LearningPace = 'fast' | 'balanced' | 'slow';
+
+interface LearningPaceInfo {
+  pace: LearningPace;
+  label: string;
+  variant: 'success' | 'info' | 'warning';
+  icon: ReactNode;
+}
+
+const calculateLearningPace = (averageTimeMinutes: number): LearningPaceInfo => {
+  if (averageTimeMinutes < 15) {
+    return {
+      pace: 'fast',
+      label: 'Fast Learner',
+      variant: 'success',
+      icon: <Zap size={14} />,
+    };
+  } else if (averageTimeMinutes <= 30) {
+    return {
+      pace: 'balanced',
+      label: 'Balanced Pace',
+      variant: 'info',
+      icon: <Activity size={14} />,
+    };
+  } else {
+    return {
+      pace: 'slow',
+      label: 'Needs Improvement',
+      variant: 'warning',
+      icon: <AlertCircle size={14} />,
+    };
+  }
+};
+
+interface LearningPaceBadgeProps {
+  averageTimeMinutes: number;
+}
+
+const LearningPaceBadge = ({ averageTimeMinutes }: LearningPaceBadgeProps) => {
+  const paceInfo = calculateLearningPace(averageTimeMinutes);
+  
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ delay: 0.5, duration: 0.3 }}
+    >
+      <Badge variant={paceInfo.variant} icon={paceInfo.icon}>
+        {paceInfo.label}
+      </Badge>
+    </motion.div>
+  );
+};
 
 // ================= MOCK DATA =================
 
@@ -298,10 +373,12 @@ const mockRoadmapData = {
     },
   ],
   progress: {
-    completion: 35,
-    accuracy: 82,
-    averageTime: '23 min',
-    nextCheckpoint: 'Day 10 - Mock Interview',
+    completion: 32,
+    completedDays: 9,
+    totalDays: 30,
+    accuracy: 78,
+    averageTimeMinutes: 18,
+    nextCheckpoint: 'Day 7 - Weekly Review',
   },
 };
 
@@ -577,34 +654,66 @@ const CuratedPracticePage = () => {
                   <div className="lg:col-span-1">
                     <Card className="bg-gradient-to-br from-zinc-900/90 to-zinc-800/90 border-zinc-700/50 sticky top-6">
                       <div className="space-y-6">
-                        <h3 className="text-lg font-semibold text-white flex items-center gap-2">
-                          <TrendingUp size={20} className="text-blue-400" />
-                          Progress Tracker
-                        </h3>
+                        <div className="flex items-center justify-between">
+                          <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+                            <TrendingUp size={20} className="text-blue-400" />
+                            Progress Tracker
+                          </h3>
+                          <LearningPaceBadge averageTimeMinutes={mockRoadmapData.progress.averageTimeMinutes} />
+                        </div>
 
                         <div className="flex justify-center">
                           <CircularProgress percentage={mockRoadmapData.progress.completion} />
                         </div>
 
                         <div className="space-y-3">
-                          <div className="flex justify-between items-center p-3 bg-zinc-800/60 rounded-lg border border-zinc-700/50">
+                          <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.4 }}
+                            className="flex justify-between items-center p-3 bg-zinc-800/60 rounded-lg border border-zinc-700/50"
+                          >
+                            <span className="text-sm text-zinc-400">Completed Days</span>
+                            <span className="text-sm font-semibold text-emerald-400">
+                              {mockRoadmapData.progress.completedDays} / {mockRoadmapData.progress.totalDays}
+                            </span>
+                          </motion.div>
+
+                          <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.5 }}
+                            className="flex justify-between items-center p-3 bg-zinc-800/60 rounded-lg border border-zinc-700/50"
+                          >
                             <span className="text-sm text-zinc-400">Accuracy</span>
                             <span className="text-sm font-semibold text-emerald-400">
                               {mockRoadmapData.progress.accuracy}%
                             </span>
-                          </div>
-                          <div className="flex justify-between items-center p-3 bg-zinc-800/60 rounded-lg border border-zinc-700/50">
+                          </motion.div>
+
+                          <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.6 }}
+                            className="flex justify-between items-center p-3 bg-zinc-800/60 rounded-lg border border-zinc-700/50"
+                          >
                             <span className="text-sm text-zinc-400">Average Time</span>
                             <span className="text-sm font-semibold text-blue-400">
-                              {mockRoadmapData.progress.averageTime}
+                              {mockRoadmapData.progress.averageTimeMinutes} min
                             </span>
-                          </div>
-                          <div className="p-3 bg-gradient-to-br from-purple-900/30 to-zinc-800/60 rounded-lg border border-purple-500/30">
+                          </motion.div>
+
+                          <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.7 }}
+                            className="p-3 bg-gradient-to-br from-purple-900/30 to-zinc-800/60 rounded-lg border border-purple-500/30"
+                          >
                             <div className="text-xs text-purple-400 mb-1">Next Checkpoint</div>
                             <div className="text-sm font-semibold text-white">
                               {mockRoadmapData.progress.nextCheckpoint}
                             </div>
-                          </div>
+                          </motion.div>
                         </div>
                       </div>
                     </Card>
