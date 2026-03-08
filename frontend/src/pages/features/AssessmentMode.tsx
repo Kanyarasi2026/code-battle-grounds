@@ -9,14 +9,22 @@ const AssessmentMode = () => {
   const { roleData, loading } = useAuth();
 
   useEffect(() => {
-    if (loading) return;
+    if (loading) {
+      console.log('[AssessmentMode] Auth still loading...');
+      return;
+    }
+
+    console.log('[AssessmentMode] Role data:', roleData);
 
     // If user has a role, redirect to appropriate assessment page
     if (roleData.requested === 'faculty') {
+      console.log('[AssessmentMode] Redirecting to faculty assessment...');
       navigate('/assessment/faculty', { replace: true });
     } else if (roleData.requested === 'student') {
+      console.log('[AssessmentMode] Redirecting to student assessment...');
       navigate('/assessment/student', { replace: true });
     } else {
+      console.log('[AssessmentMode] No role selected, redirecting to role selection...');
       // No role selected - redirect to role selection
       navigate('/role', { 
         state: { 

@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Briefcase, Code2, Lightbulb, Users, BookMarked, BarChart3 } from 'lucide-react';
+import { Briefcase, Code2, Lightbulb, Users, BookMarked } from 'lucide-react';
 import { gsap } from 'gsap';
 import './FeaturesSelection.scss';
 
@@ -34,7 +34,7 @@ const professionalFeatures: ProfessionalFeature[] = [
     icon: Users,
     title: 'Pair Programming',
     description: 'Collaborate with peers on challenging problems',
-    route: '/pair',
+    route: '/home',
   },
   {
     id: 'practice-sets',
@@ -178,20 +178,6 @@ const ProfessionalFeatures = () => {
         whileTap={{ scale: 0.95 }}
       >
         ← Back
-      </motion.button>
-
-      <motion.button
-        className="features-selection__progress-btn"
-        onClick={() => navigate('/progress')}
-        initial={{ opacity: 0, x: 20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.6, delay: 0.1 }}
-        whileHover={{ scale: 1.08 }}
-        whileTap={{ scale: 0.95 }}
-        title="Progress Tracking"
-      >
-        <BarChart3 size={18} strokeWidth={1.5} />
-        <span>Progress</span>
       </motion.button>
 
       <div className="features-selection__container">

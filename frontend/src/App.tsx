@@ -8,11 +8,13 @@ import {
 	useLocation,
 } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute';
+import AuthLayout from './components/layout/AuthLayout';
 // RoleProtectedRoute not used here — import removed to satisfy linter
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { RoomProvider, useRoom } from './context/RoomContext';
 import AlreadyInRoom from './pages/404/AlreadyInRoom';
-// Faculty/Student assessment pages are imported where needed; removed unused imports
+import StudentAssessmentPage from './pages/assessment/StudentAssessmentPage';
+import FacultyAssessmentPage from './pages/assessment/FacultyAssessmentPage';
 import AlgorithmChallenges from './pages/challenges/AlgorithmChallenges';
 import ChallengeSolve from './pages/challenges/ChallengeSolve';
 import EditorPage from './pages/code-editor/EditorPage';
@@ -138,42 +140,35 @@ function App() {
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/already-in-room" element={<AlreadyInRoom />} />
 
-                {/* Protected: role & features */}
-                <Route path="/role" element={<ProtectedRoute><RoleSelection /></ProtectedRoute>} />
-                <Route path="/features" element={<ProtectedRoute><FeaturesSelection /></ProtectedRoute>} />
-                <Route path="/features/academic" element={<ProtectedRoute><AcademicFeatures /></ProtectedRoute>} />
-                <Route path="/features/professional" element={<ProtectedRoute><ProfessionalFeatures /></ProtectedRoute>} />
+                {/* Protected routes with profile icon */}
+                <Route element={<AuthLayout />}>
+                  {/* Role & features */}
+                  <Route path="/role" element={<ProtectedRoute><RoleSelection /></ProtectedRoute>} />
+                  <Route path="/features" element={<ProtectedRoute><FeaturesSelection /></ProtectedRoute>} />
+                  <Route path="/features/academic" element={<ProtectedRoute><AcademicFeatures /></ProtectedRoute>} />
+                  <Route path="/features/professional" element={<ProtectedRoute><ProfessionalFeatures /></ProtectedRoute>} />
 
-                {/* Feature pages */}
-                <Route path="/practice" element={<ProtectedRoute><AlgorithmChallenges /></ProtectedRoute>} />
-                <Route path="/practice/:slug" element={<ProtectedRoute><ChallengeSolve /></ProtectedRoute>} />
-                <Route path="/pair" element={<ProtectedRoute><PairProgramming /></ProtectedRoute>} />
-                <Route path="/assess" element={<ProtectedRoute><AssessmentMode /></ProtectedRoute>} />
-                <Route path="/replay" element={<ProtectedRoute><SessionReplay /></ProtectedRoute>} />
-                <Route path="/analytics" element={<ProtectedRoute><ClassAnalytics /></ProtectedRoute>} />
-                <Route path="/integrity" element={<ProtectedRoute><IntegrityTimeline /></ProtectedRoute>} />
-                <Route path="/interview" element={<ProtectedRoute><MockInterview /></ProtectedRoute>} />
-                <Route
-									path="/video-interview"
-									element={
-										<ProtectedRoute>
-											<AudioInterview />
-										</ProtectedRoute>
-									}
-								/>
-								<Route
-									path="/interview-dashboard"
-									element={
-										<ProtectedRoute>
-											<InterviewDashboard />
-										</ProtectedRoute>
-									}
-								/>
-                <Route path="/progress" element={<ProtectedRoute><ProgressTracking /></ProtectedRoute>} />
-                <Route path="/sets" element={<ProtectedRoute><CuratedPracticePage /></ProtectedRoute>} />
+                  {/* Feature pages */}
+                  <Route path="/practice" element={<ProtectedRoute><AlgorithmChallenges /></ProtectedRoute>} />
+                  <Route path="/practice/:slug" element={<ProtectedRoute><ChallengeSolve /></ProtectedRoute>} />
+                  <Route path="/pair" element={<ProtectedRoute><PairProgramming /></ProtectedRoute>} />
+                  <Route path="/assess" element={<ProtectedRoute><AssessmentMode /></ProtectedRoute>} />
+                <Route path="/assessment/student" element={<ProtectedRoute><StudentAssessmentPage /></ProtectedRoute>} />
+                <Route path="/assessment/faculty" element={<ProtectedRoute><FacultyAssessmentPage /></ProtectedRoute>} />
+                  <Route path="/replay" element={<ProtectedRoute><SessionReplay /></ProtectedRoute>} />
+                  <Route path="/analytics" element={<ProtectedRoute><ClassAnalytics /></ProtectedRoute>} />
+                  <Route path="/integrity" element={<ProtectedRoute><IntegrityTimeline /></ProtectedRoute>} />
+                  <Route path="/interview" element={<ProtectedRoute><MockInterview /></ProtectedRoute>} />
+                  <Route path="/video-interview" element={<ProtectedRoute><AudioInterview /></ProtectedRoute>} />
+                  <Route path="/interview-dashboard" element={<ProtectedRoute><InterviewDashboard /></ProtectedRoute>} />
+                  <Route path="/progress" element={<ProtectedRoute><ProgressTracking /></ProtectedRoute>} />
+                  <Route path="/sets" element={<ProtectedRoute><CuratedPracticePage /></ProtectedRoute>} />
 
-                {/* Protected: home & editor */}
-                <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+                  {/* Home & editor */}
+                  <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+                </Route>
+
+                {/* Editor page without profile icon (has its own header) */}
                 <Route path="/editor/:roomId" element={<ProtectedRoute><EditorPage /></ProtectedRoute>} />
 
                 <Route path="*" element={<Navigate to="/login" replace />} />

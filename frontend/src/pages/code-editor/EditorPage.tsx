@@ -6,6 +6,7 @@ import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom'
 import CodeEditor from '../../components/editor/CodeEditor';
 import Avatar from '../../components/ui/Avatar';
 import Button from '../../components/ui/Button';
+import AIChatBot from '../../components/ai/AIChatBot';
 import { useRoom } from '../../context/RoomContext';
 import type { AppSocket, Client } from '../../types';
 import ACTIONS from '../../socket/actions';
@@ -22,6 +23,7 @@ const EditorPage = () => {
   const navigate = useNavigate();
   const [clients, setClients] = useState<Client[]>([]);
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [currentCode, setCurrentCode] = useState('');
   const { activeRoomId, activeUsername, isInRoom, joinRoom, leaveRoom } = useRoom();
 
   const isValidUUID = (id: string) => /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
@@ -131,9 +133,16 @@ const EditorPage = () => {
           )}
         </AnimatePresence>
         <main className="editor-page__main">
-          <CodeEditor socketRef={socketRef} roomId={roomId} username={username} onCodeChange={(code) => { codeRef.current = code; }} />
+          <CodeEditor socketRef={socketRef} roomId={roomId} username={username} onCodeChange={(code) => { codeRef.current = code; setCurrentCode(code); }} />
         </main>
       </div>
+
+      {/* AI Chat Bot for pair programming */}
+      <AIChatBot
+        problemTitle="Pair Programming"
+        problemDescription="Collaborative coding session — ask the AI assistant for help with your code."
+        userCode={currentCode}
+      />
     </div>
   );
 };
