@@ -1,0 +1,134 @@
+// ── HintPanel – Dark theme ───────────────────────────────────────────────────
+
+.hint-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #71717a;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0 0 10px;
+  }
+
+  &__tiers {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__tier {
+    border: 1px solid #1e1e22;
+    border-radius: 7px;
+    overflow: hidden;
+    transition: border-color 0.2s ease;
+
+    &--has-hint {
+      border-color: #2a2a30;
+    }
+
+    &--expanded {
+      border-color: #3f3f46;
+    }
+  }
+
+  &__tier-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 8px 12px;
+    background: #111113;
+    border: none;
+    color: #e4e4e7;
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+
+    &:hover:not(:disabled) {
+      background: #1a1a1f;
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  }
+
+  &__tier-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__tier-num {
+    font-size: 10px;
+    font-weight: 700;
+    color: #52525b;
+    font-family: 'Fira Code', monospace;
+    background: #0a0a0b;
+    padding: 2px 5px;
+    border-radius: 3px;
+    letter-spacing: 0.03em;
+  }
+
+  &__tier-label {
+    font-weight: 500;
+  }
+
+  &__tier-right {
+    display: flex;
+    align-items: center;
+    color: #52525b;
+  }
+
+  &__tier-action {
+    font-size: 11px;
+    font-weight: 600;
+    color: #22c55e;
+    letter-spacing: 0.02em;
+  }
+
+  &__chevron {
+    transition: transform 0.2s ease;
+
+    &--open {
+      transform: rotate(90deg);
+    }
+  }
+
+  &__tier-content {
+    padding: 10px 14px;
+    font-size: 13px;
+    color: #a1a1aa;
+    line-height: 1.65;
+    background: #0d0d0f;
+    border-top: 1px solid #1e1e22;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  &__error {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #ef4444;
+    padding: 8px 0 0;
+  }
+
+  &__spin {
+    animation: hint-spin 0.7s linear infinite;
+  }
+}
+
+@keyframes hint-spin {
+  to { transform: rotate(360deg); }
+}
