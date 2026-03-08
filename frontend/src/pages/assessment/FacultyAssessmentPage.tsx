@@ -274,7 +274,7 @@ const FacultyAssessmentPage = () => {
                       <select
                         className="form-select"
                         value={difficulty}
-                        onChange={(e) => setDifficulty(e.target.value as any)}
+                        onChange={(e) => setDifficulty(e.target.value as 'Easy' | 'Medium' | 'Hard')}
                       >
                         <option>Easy</option>
                         <option>Medium</option>

@@ -153,7 +153,7 @@ export default function ChallengeSolve() {
     } finally {
       setRunning(false);
     }
-  }, [problem, code]);
+  }, [problem, code, language]);
 
   // Navigate to sibling problem
   function navigateTo(delta: number) {
