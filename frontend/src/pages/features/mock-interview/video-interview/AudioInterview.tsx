@@ -1,4 +1,4 @@
-import { Brain, Mic, MicOff, RotateCcw, SkipForward } from 'lucide-react';
+import { Mic, MicOff, RotateCcw, SkipForward } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './AudioInterview.scss';
@@ -50,13 +50,12 @@ function SetupScreen({
 			<div className="video-interview__setup-card">
 				<div className="video-interview__setup-header">
 					<div className="video-interview__setup-icon">
-						<Brain size={28} />
+						<Mic size={24} />
 					</div>
-					<h1 className="video-interview__setup-title">Live Mock Interview</h1>
+					<h1 className="video-interview__setup-title">Mock Interview</h1>
 					<p className="video-interview__setup-sub">
-						AI-powered interview simulation with real-time voice interaction.
-						<br />
-						Powered by Gemini + ElevenLabs.
+						Practice with voice-based interview simulation.
+						Choose your setup below to get started.
 					</p>
 				</div>
 
@@ -146,7 +145,7 @@ function SetupScreen({
 						</>
 					) : (
 						<>
-							<Brain size={18} />
+							<Mic size={16} />
 							Start Interview
 						</>
 					)}
@@ -352,8 +351,8 @@ export default function AudioInterview() {
 			{/* ── Header ───────────────────────────────────────────────────────── */}
 			<header className="video-interview__header">
 				<div className="video-interview__logo">
-					<Brain size={20} />
-					<span>Code</span>Battlegrounds
+					<Mic size={16} />
+					Interview
 				</div>
 
 				<div className="video-interview__progress-wrap">
@@ -421,7 +420,7 @@ export default function AudioInterview() {
 									: 'video-interview__ai-status-dot--active',
 							].join(' ')}
 						/>
-						AI Interviewer ·{' '}
+						Interviewer ·{' '}
 						{isSpeaking
 							? 'Speaking'
 							: state === 'processing'
@@ -534,7 +533,7 @@ export default function AudioInterview() {
 								>
 									<div className="video-interview__message-meta">
 										<span className="video-interview__message-role">
-											{entry.role === 'interviewer' ? 'AI Interviewer' : 'You'}
+											{entry.role === 'interviewer' ? 'Interviewer' : 'You'}
 										</span>
 										<span className="video-interview__message-time">
 											{formatTime(entry.timestamp)}
