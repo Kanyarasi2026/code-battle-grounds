@@ -2,7 +2,6 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, CheckCircle2, Lock, Play, Trophy } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useNavStack } from '../../context/NavigationStackContext';
 import {
   easyProblems,
   hardProblems,
@@ -51,7 +50,6 @@ function getCompleted(): Set<string> {
 
 export default function AlgorithmChallenges() {
   const navigate = useNavigate();
-  const { goBack } = useNavStack();
   const [active, setActive] = useState<Difficulty>('easy');
   const [completed, setCompleted] = useState<Set<string>>(getCompleted);
 
