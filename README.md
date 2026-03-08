@@ -22,33 +22,38 @@
 🌐 **https://code-battle-grounds.vercel.app/**
 
 ### Features You Can Explore
+
 - ⚔️ **Real-time Collaborative Coding** — Write code together with live cursor presence via Socket.IO
 - 🏫 **Classrooms** — Faculty create sessions, students join with a room code
 - 📝 **Assessment Mode** — Timed coding assessments with integrity tracking
 - 🧠 **AI-Powered Hints** — Gemini-driven tiered hints that nudge, not spoil
 - 🎙️ **Mock Interviews** — Voice-based interview practice with ElevenLabs TTS
+- 🗣️ **Voice & Text Chatbot** — Conversational AI assistant powered by ElevenLabs for natural speech interaction
 - 🏋️ **Algorithm Challenges** — Curated DSA problem sets (Blind 75, NeetCode, etc.)
 - 🔐 **Secure Auth** — Google OAuth via Supabase
 - 📱 **Fully Responsive** — Works seamlessly on desktop, tablet, and mobile
+- 🪄 **Antigravity Effects** — Fluid UI animations powered by the Antigravity library, bringing the interface to life
 
 ---
 
 ## 🎯 Features
 
-| Feature | Description |
-|---|---|
-| 🔄 **Real-time Collaboration** | Multiple users edit the same file live — code changes sync instantly via Socket.IO |
-| 🏫 **Classrooms** | Faculty create rooms, share codes with students — everyone sees the same editor in real-time |
-| 📝 **Assessment Mode** | Faculty create timed assessments; students take them with transparent integrity tracking |
-| 🛡️ **Integrity Insights** | Factual session timeline — tab switches, copy/paste events, neutral activity log for faculty review |
-| 💡 **AI Hints** | Tiered hints via Gemini API + ElevenLabs TTS read-aloud — nudges, not answers |
-| 🎙️ **Mock Interviews** | Voice-based interview simulation with AI-powered speech |
-| 🏋️ **Algorithm Challenges** | Curated problem sets — Blind 75, NeetCode 150, topic-based collections |
-| ⚡ **Multi-Language Execution** | Run Python, JavaScript, C++, Java, and C |
-| 🎚️ **Custom stdin** | Provide input to your programs before execution |
-| 👥 **Role-Based Access** | Separate flows for students vs. faculty, professionals vs. academic users |
-| 📊 **Progress Tracking** | Track solved problems, streaks, and challenge completion |
-| 🌙 **Dark Mode** | Sleek dark grayscale theme with glassmorphism UI |
+| Feature                         | Description                                                                                                                                                            |
+| ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 🔄 **Real-time Collaboration**  | Multiple users edit the same file live — code changes sync instantly via Socket.IO                                                                                     |
+| 🏫 **Classrooms**               | Faculty create rooms, share codes with students — everyone sees the same editor in real-time                                                                           |
+| 📝 **Assessment Mode**          | Faculty create timed assessments; students take them with transparent integrity tracking                                                                               |
+| 🛡️ **Integrity Insights**       | Factual session timeline — tab switches, copy/paste events, neutral activity log for faculty review                                                                    |
+| 💡 **AI Hints**                 | Tiered hints via Gemini API + ElevenLabs TTS read-aloud — nudges, not answers                                                                                          |
+| 🗣️ **Voice & Text Chatbot**     | Full-featured conversational chatbot with both voice and text input/output — powered by ElevenLabs, one of the best speech-to-text and text-to-speech models available |
+| 🎙️ **Mock Interviews**          | Voice-based interview simulation with AI-powered speech                                                                                                                |
+| 🏋️ **Algorithm Challenges**     | Curated problem sets — Blind 75, NeetCode 150, topic-based collections                                                                                                 |
+| 🪄 **Antigravity Effects**      | Smooth, physics-inspired UI animations via Antigravity — dramatically improved user experience and visual polish                                                       |
+| ⚡ **Multi-Language Execution** | Run Python, JavaScript, C++, Java, and C                                                                                                                               |
+| 🎚️ **Custom stdin**             | Provide input to your programs before execution                                                                                                                        |
+| 👥 **Role-Based Access**        | Separate flows for students vs. faculty, professionals vs. academic users                                                                                              |
+| 📊 **Progress Tracking**        | Track solved problems, streaks, and challenge completion                                                                                                               |
+| 🌙 **Dark Mode**                | Sleek dark grayscale theme with glassmorphism UI                                                                                                                       |
 
 ---
 
@@ -90,58 +95,59 @@
 
 ## 📊 Core Pages & Features
 
-| Page | Route | Description |
-|---|---|---|
-| Landing | `/login` | Animated landing page with Google OAuth |
-| Role Selection | `/role` | Choose Academic or Professional pathway |
-| Academic Features | `/features/academic` | Classrooms, Assessments, Integrity (faculty) |
+| Page                  | Route                    | Description                                             |
+| --------------------- | ------------------------ | ------------------------------------------------------- |
+| Landing               | `/login`                 | Animated landing page with Google OAuth                 |
+| Role Selection        | `/role`                  | Choose Academic or Professional pathway                 |
+| Academic Features     | `/features/academic`     | Classrooms, Assessments, Integrity (faculty)            |
 | Professional Features | `/features/professional` | Challenges, Interviews, Pair Programming, Practice Sets |
-| Classrooms | `/classrooms` | Faculty creates rooms, students join with code |
-| Code Editor | `/editor/:roomId` | Monaco editor with real-time sync, execution, AI hints |
-| Assessment Mode | `/assess` | Faculty creates / student takes timed assessments |
-| Algorithm Challenges | `/practice` | DSA problems by topic and difficulty |
-| Curated Practice Sets | `/sets` | Blind 75, NeetCode 150, and more |
-| Mock Interviews | `/interview` | Voice-based interview simulation |
-| Progress Tracking | `/progress` | Stats, streaks, solved problems |
-| Integrity Timeline | `/integrity` | Session activity log for faculty |
+| Classrooms            | `/classrooms`            | Faculty creates rooms, students join with code          |
+| Code Editor           | `/editor/:roomId`        | Monaco editor with real-time sync, execution, AI hints  |
+| Assessment Mode       | `/assess`                | Faculty creates / student takes timed assessments       |
+| Algorithm Challenges  | `/practice`              | DSA problems by topic and difficulty                    |
+| Curated Practice Sets | `/sets`                  | Blind 75, NeetCode 150, and more                        |
+| Mock Interviews       | `/interview`             | Voice-based interview simulation                        |
+| Progress Tracking     | `/progress`              | Stats, streaks, solved problems                         |
+| Integrity Timeline    | `/integrity`             | Session activity log for faculty                        |
 
 ---
 
 ## 🔧 Tech Stack
 
-| Category | Technology |
-|---|---|
-| **Frontend** | React 19, TypeScript, Vite 5, SCSS (BEM) |
-| **Editor** | Monaco Editor (VS Code engine in browser) |
-| **Real-time** | Socket.IO (WebSocket transport) |
-| **Animations** | Framer Motion, GSAP |
-| **Auth** | Supabase (Google OAuth) |
-| **Styling** | SCSS, CSS Variables, Glassmorphism dark theme |
-| **State** | React Context + Hooks |
-| **Backend** | Node.js, Express, TypeScript |
-| **Database** | Supabase (PostgreSQL) |
-| **Code Execution** | Judge0 API |
-| **AI Hints** | Gemini API (gemini-3-flash) |
-| **Voice** | ElevenLabs TTS + Browser SpeechSynthesis fallback |
-| **Validation** | Joi |
-| **Rate Limiting** | rate-limiter-flexible |
-| **Logging** | Winston |
-| **Testing** | Vitest + Testing Library |
-| **Deployment** | Vercel (frontend), Docker (backend) |
+| Category                 | Technology                                                                 |
+| ------------------------ | -------------------------------------------------------------------------- |
+| **Frontend**             | React 19, TypeScript, Vite 5, SCSS (BEM)                                   |
+| **Editor**               | Monaco Editor (VS Code engine in browser)                                  |
+| **Real-time**            | Socket.IO (WebSocket transport)                                            |
+| **Animations**           | Framer Motion, GSAP, Antigravity                                           |
+| **Auth**                 | Supabase (Google OAuth)                                                    |
+| **Styling**              | SCSS, CSS Variables, Glassmorphism dark theme                              |
+| **State**                | React Context + Hooks                                                      |
+| **Backend**              | Node.js, Express, TypeScript                                               |
+| **Database**             | Supabase (PostgreSQL)                                                      |
+| **Code Execution**       | Judge0 API                                                                 |
+| **AI Hints**             | Gemini API (gemini-3-flash)                                                |
+| **Voice & Text Chatbot** | ElevenLabs (industry-leading STT + TTS) + Browser SpeechSynthesis fallback |
+| **Antigravity**          | Antigravity — physics-based animation library for fluid UI interactions    |
+| **Validation**           | Joi                                                                        |
+| **Rate Limiting**        | rate-limiter-flexible                                                      |
+| **Logging**              | Winston                                                                    |
+| **Testing**              | Vitest + Testing Library                                                   |
+| **Deployment**           | Vercel (frontend), Docker (backend)                                        |
 
 ---
 
 ## 📈 Performance Metrics
 
-| Metric | Value |
-|---|---|
-| Page Load Time | < 2 seconds |
-| First Contentful Paint | < 1.2 seconds |
-| Lighthouse Score | 90+ (Performance) |
-| WebSocket Latency | < 50ms (local) |
-| Code Execution Roundtrip | < 3 seconds |
-| Bundle Size | ~150KB (gzipped) |
-| Max Clients per Room | 50 |
+| Metric                   | Value             |
+| ------------------------ | ----------------- |
+| Page Load Time           | < 2 seconds       |
+| First Contentful Paint   | < 1.2 seconds     |
+| Lighthouse Score         | 90+ (Performance) |
+| WebSocket Latency        | < 50ms (local)    |
+| Code Execution Roundtrip | < 3 seconds       |
+| Bundle Size              | ~150KB (gzipped)  |
+| Max Clients per Room     | 50                |
 
 ---
 
@@ -153,7 +159,7 @@
 - A [Supabase](https://supabase.com) project
 - A [Judge0](https://judge0.com) instance (self-hosted or RapidAPI)
 - A [Gemini API](https://aistudio.google.com) key
-- *(Optional)* An [ElevenLabs](https://elevenlabs.io) API key for voice features
+- _(Optional)_ An [ElevenLabs](https://elevenlabs.io) API key for voice features
 
 ### 1. Clone the repo
 
@@ -342,11 +348,11 @@ Contributions are welcome and appreciated! Here's how you can help:
 
 ## 👥 Authors
 
-| Name | Links |
-|---|---|
-| **Sneha Nagaraju** | [Portfolio](https://www.snehaa.me) · [LinkedIn](https://www.linkedin.com/in/snehan-raju/) · [GitHub](https://github.com/snna2069) |
-| **Meghasrivardhan Pulakhandam** | [Portfolio](https://www.meghan31.me) · [LinkedIn](https://linkedin.com/in/meghan31) · [GitHub](https://github.com/Meghan31) |
-| **Gunabhiram Aruru** | [Portfolio](https://aruru-gunabhiram.netlify.app) · [LinkedIn](https://www.linkedin.com/in/gunabhiram-aruru/) · [GitHub](https://github.com/gunabhiram) |
+| Name                            | Links                                                                                                                                                   |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Sneha Nagaraju**              | [Portfolio](https://www.snehaa.me) · [LinkedIn](https://www.linkedin.com/in/snehan-raju/) · [GitHub](https://github.com/snna2069)                       |
+| **Meghasrivardhan Pulakhandam** | [Portfolio](https://www.meghan31.me) · [LinkedIn](https://linkedin.com/in/meghan31) · [GitHub](https://github.com/Meghan31)                             |
+| **Gunabhiram Aruru**            | [Portfolio](https://aruru-gunabhiram.netlify.app) · [LinkedIn](https://www.linkedin.com/in/gunabhiram-aruru/) · [GitHub](https://github.com/gunabhiram) |
 
 ---
 
