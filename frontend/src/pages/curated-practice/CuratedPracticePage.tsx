@@ -10,12 +10,15 @@ import {
   ChevronDown,
   ChevronRight,
   Clock,
+  Flame,
   GraduationCap,
+  HelpCircle,
   Lightbulb,
   Play,
   RotateCcw,
   Sparkles,
   Target,
+  TrendingDown,
   TrendingUp,
   Zap,
 } from 'lucide-react';
@@ -414,6 +417,259 @@ const Toggle = ({ label, checked, onChange }: ToggleProps) => (
     </button>
   </div>
 );
+
+// ================= LEARNING SPEED ANALYTICS =================
+
+interface SolveTimeTrend {
+  day: string;
+  time: number; // in minutes
+}
+
+interface LearningAnalytics {
+  problemsSolved: number;
+  avgSolveTime: number; // in minutes
+  hintsUsed: number;
+  dailyStreak: number;
+  solveTimeTrend: SolveTimeTrend[];
+  insights: string[];
+  paceImprovement: number; // percentage
+}
+
+const mockAnalytics: LearningAnalytics = {
+  problemsSolved: 23,
+  avgSolveTime: 18,
+  hintsUsed: 7,
+  dailyStreak: 5,
+  solveTimeTrend: [
+    { day: 'Mon', time: 25 },
+    { day: 'Tue', time: 22 },
+    { day: 'Wed', time: 20 },
+    { day: 'Thu', time: 19 },
+    { day: 'Fri', time: 17 },
+    { day: 'Sat', time: 16 },
+    { day: 'Sun', time: 18 },
+  ],
+  insights: [
+    'Your solve time improved by 12% this week',
+    'You are spending longer on graph problems',
+    'Consider adding a revision day after Day 10',
+  ],
+  paceImprovement: 12,
+};
+
+// Mini Chart Component
+interface MiniChartProps {
+  data: SolveTimeTrend[];
+  width?: number;
+  height?: number;
+}
+
+const MiniChart = ({ data, width = 280, height = 100 }: MiniChartProps) => {
+  const padding = 20;
+  const chartWidth = width - padding * 2;
+  const chartHeight = height - padding * 2;
+  
+  const maxTime = Math.max(...data.map(d => d.time));
+  const minTime = Math.min(...data.map(d => d.time));
+  const timeRange = maxTime - minTime || 1;
+  
+  const points = data.map((d, i) => {
+    const x = padding + (i / (data.length - 1)) * chartWidth;
+    const y = padding + chartHeight - ((d.time - minTime) / timeRange) * chartHeight;
+    return { x, y, time: d.time, day: d.day };
+  });
+  
+  const pathData = points.map((p, i) => 
+    `${i === 0 ? 'M' : 'L'} ${p.x},${p.y}`
+  ).join(' ');
+  
+  const areaPathData = `${pathData} L ${points[points.length - 1].x},${height - padding} L ${padding},${height - padding} Z`;
+  
+  return (
+    <div className="relative">
+      <svg width={width} height={height} className="overflow-visible">
+        {/* Grid lines */}
+        <line
+          x1={padding}
+          y1={height - padding}
+          x2={width - padding}
+          y2={height - padding}
+          stroke="#3f3f46"
+          strokeWidth="1"
+        />
+        
+        {/* Area fill */}
+        <path
+          d={areaPathData}
+          fill="url(#gradient)"
+          opacity="0.2"
+        />
+        
+        {/* Line */}
+        <path
+          d={pathData}
+          fill="none"
+          stroke="#10b981"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        
+        {/* Points */}
+        {points.map((p, i) => (
+          <g key={i}>
+            <circle
+              cx={p.x}
+              cy={p.y}
+              r="3"
+              fill="#10b981"
+              className="hover:r-5 transition-all"
+            />
+            <text
+              x={p.x}
+              y={height - 5}
+              textAnchor="middle"
+              className="text-[10px] fill-zinc-500"
+            >
+              {p.day}
+            </text>
+          </g>
+        ))}
+        
+        {/* Gradient definition */}
+        <defs>
+          <linearGradient id="gradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#10b981" stopOpacity="0.3" />
+            <stop offset="100%" stopColor="#10b981" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+  );
+};
+
+// Learning Speed Analytics Card
+const LearningSpeedAnalytics = ({ analytics }: { analytics: LearningAnalytics }) => {
+  const paceInfo = calculateLearningPace(analytics.avgSolveTime);
+  
+  return (
+    <Card className="bg-gradient-to-br from-zinc-900/90 to-zinc-800/90 border-zinc-700/50">
+      <div className="space-y-6">
+        {/* Header */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Activity size={20} className="text-emerald-400" />
+            <h3 className="text-lg font-semibold text-white">Learning Speed Analytics</h3>
+          </div>
+          <Badge variant={paceInfo.variant} icon={paceInfo.icon}>
+            {paceInfo.label}
+          </Badge>
+        </div>
+
+        {/* Metrics Grid */}
+        <div className="grid grid-cols-2 gap-3">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="p-4 bg-gradient-to-br from-emerald-900/30 to-zinc-800/60 rounded-lg border border-emerald-500/30"
+          >
+            <div className="flex items-center gap-2 mb-1">
+              <CheckCircle2 size={16} className="text-emerald-400" />
+              <span className="text-xs text-zinc-500">Problems Solved</span>
+            </div>
+            <div className="text-2xl font-bold text-white">{analytics.problemsSolved}</div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="p-4 bg-gradient-to-br from-blue-900/30 to-zinc-800/60 rounded-lg border border-blue-500/30"
+          >
+            <div className="flex items-center gap-2 mb-1">
+              <Clock size={16} className="text-blue-400" />
+              <span className="text-xs text-zinc-500">Avg Solve Time</span>
+            </div>
+            <div className="text-2xl font-bold text-white">{analytics.avgSolveTime} min</div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="p-4 bg-gradient-to-br from-amber-900/30 to-zinc-800/60 rounded-lg border border-amber-500/30"
+          >
+            <div className="flex items-center gap-2 mb-1">
+              <HelpCircle size={16} className="text-amber-400" />
+              <span className="text-xs text-zinc-500">Hints Used</span>
+            </div>
+            <div className="text-2xl font-bold text-white">{analytics.hintsUsed}</div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="p-4 bg-gradient-to-br from-orange-900/30 to-zinc-800/60 rounded-lg border border-orange-500/30"
+          >
+            <div className="flex items-center gap-2 mb-1">
+              <Flame size={16} className="text-orange-400" />
+              <span className="text-xs text-zinc-500">Daily Streak</span>
+            </div>
+            <div className="text-2xl font-bold text-white">{analytics.dailyStreak} days</div>
+          </motion.div>
+        </div>
+
+        {/* Solve Time Trend Chart */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          className="p-4 bg-zinc-800/50 rounded-lg border border-zinc-700/50"
+        >
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2">
+              <TrendingDown size={16} className="text-emerald-400" />
+              <span className="text-sm font-medium text-zinc-300">Solve Time Trend (7 Days)</span>
+            </div>
+            <span className="text-xs text-emerald-400 font-semibold">
+              ↓ {analytics.paceImprovement}% improvement
+            </span>
+          </div>
+          <MiniChart data={analytics.solveTimeTrend} />
+        </motion.div>
+
+        {/* Insights Panel */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+          className="p-4 bg-gradient-to-br from-purple-900/20 to-zinc-800/60 rounded-lg border border-purple-500/30"
+        >
+          <div className="flex items-center gap-2 mb-3">
+            <Lightbulb size={16} className="text-purple-400" />
+            <span className="text-sm font-semibold text-purple-400">AI Insights</span>
+          </div>
+          <div className="space-y-2">
+            {analytics.insights.map((insight, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.7 + idx * 0.1 }}
+                className="flex items-start gap-2 text-sm text-zinc-300"
+              >
+                <Sparkles size={12} className="text-purple-400 mt-1 flex-shrink-0" />
+                <span>{insight}</span>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+    </Card>
+  );
+};
 
 // ================= PROGRESS TRACKING =================
 
@@ -884,6 +1140,9 @@ const CuratedPracticePage = () => {
                     </div>
                   </div>
                 </Card>
+
+                {/* Learning Speed Analytics */}
+                <LearningSpeedAnalytics analytics={mockAnalytics} />
 
                 {/* AI Insights */}
                 <Card className="bg-gradient-to-br from-purple-900/20 to-zinc-900/90 border-purple-500/30">
