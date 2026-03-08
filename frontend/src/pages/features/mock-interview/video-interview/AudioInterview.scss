@@ -1,0 +1,913 @@
+// ── AudioInterview – Clean Dark Theme ────────────────────────────────────────
+
+$bg-page: #0a0a0b;
+$bg-card: #111113;
+$bg-elevated: #1a1a1f;
+$border: #1e1e22;
+$border-hover: #2a2a30;
+
+$text-primary: #f4f4f5;
+$text-secondary: #a1a1aa;
+$text-muted: #71717a;
+$text-dim: #52525b;
+
+$green: #22c55e;
+$green-dim: rgba(34, 197, 94, 0.12);
+$red: #ef4444;
+$red-dim: rgba(239, 68, 68, 0.12);
+$amber: #f59e0b;
+$amber-dim: rgba(245, 158, 11, 0.1);
+
+$radius-sm: 6px;
+$radius-md: 10px;
+$radius-lg: 14px;
+$radius-full: 9999px;
+
+$font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+$font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+$transition: 0.2s ease;
+
+// ── Keyframes ────────────────────────────────────────────────────────────────
+@keyframes vi-fadeup {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes vi-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes vi-pulse {
+  0%, 100% { opacity: 0.6; }
+  50%      { opacity: 1; }
+}
+
+@keyframes vi-wave {
+  0%, 100% { transform: scaleY(0.3); }
+  50%      { transform: scaleY(1); }
+}
+
+@keyframes vi-ring-pulse {
+  0%   { transform: scale(1); opacity: 0.6; }
+  50%  { transform: scale(1.1); opacity: 0.3; }
+  100% { transform: scale(1); opacity: 0.6; }
+}
+
+// ── Root ─────────────────────────────────────────────────────────────────────
+.video-interview {
+  min-height: 100vh;
+  background: $bg-page;
+  color: $text-primary;
+  font-family: $font-body;
+  position: relative;
+
+  > * { position: relative; z-index: 1; }
+
+  // ── Setup Screen ──────────────────────────────────────────────────────────
+  &__setup {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 24px;
+    animation: vi-fadeup 0.4s ease both;
+  }
+
+  &__setup-card {
+    width: 100%;
+    max-width: 480px;
+    background: $bg-card;
+    border: 1px solid $border;
+    border-radius: $radius-lg;
+    padding: 40px 36px;
+
+    @media (max-width: 600px) {
+      padding: 28px 20px;
+    }
+  }
+
+  &__setup-header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  &__setup-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: $radius-full;
+    background: $bg-elevated;
+    border: 1px solid $border;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    color: $text-secondary;
+  }
+
+  &__setup-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: $text-primary;
+    margin: 0 0 6px;
+    letter-spacing: -0.01em;
+  }
+
+  &__setup-sub {
+    color: $text-muted;
+    font-size: 0.82rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  &__form-group {
+    margin-bottom: 20px;
+
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: $text-muted;
+      margin-bottom: 8px;
+    }
+  }
+
+  &__select {
+    width: 100%;
+    background: $bg-page;
+    border: 1px solid $border;
+    border-radius: $radius-sm;
+    padding: 11px 14px;
+    color: $text-primary;
+    font-family: $font-body;
+    font-size: 0.875rem;
+    outline: none;
+    transition: border-color $transition;
+    appearance: none;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2371717a' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 40px;
+
+    &:hover { border-color: $border-hover; }
+    &:focus { border-color: #3f3f46; }
+    option { background: $bg-card; color: $text-primary; }
+  }
+
+  &__segment {
+    display: flex;
+    gap: 8px;
+  }
+
+  &__segment-btn {
+    flex: 1;
+    padding: 9px 4px;
+    border-radius: $radius-sm;
+    border: 1px solid $border;
+    background: transparent;
+    color: $text-muted;
+    font-family: $font-body;
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all $transition;
+
+    &:hover { border-color: $border-hover; color: $text-secondary; }
+
+    &--active {
+      background: $bg-elevated;
+      border-color: #3f3f46;
+      color: $text-primary;
+    }
+  }
+
+  &__start-btn {
+    width: 100%;
+    padding: 13px;
+    background: $green;
+    border: none;
+    border-radius: $radius-sm;
+    color: #fff;
+    font-family: $font-body;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all $transition;
+    margin-top: 8px;
+
+    &:hover:not(:disabled) {
+      background: #16a34a;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(34, 197, 94, 0.2);
+    }
+    &:active:not(:disabled) { transform: translateY(0); }
+    &:disabled { opacity: 0.5; cursor: not-allowed; }
+  }
+
+  // ── Loading Screen ────────────────────────────────────────────────────────
+  &__loading {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    animation: vi-fadeup 0.35s ease both;
+  }
+
+  &__spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid $border;
+    border-top-color: $text-secondary;
+    border-radius: $radius-full;
+    animation: vi-spin 0.8s linear infinite;
+    flex-shrink: 0;
+  }
+
+  &__loading-text {
+    font-size: 0.9rem;
+    color: $text-muted;
+    margin: 0;
+  }
+
+  // ── Active Interview Header ───────────────────────────────────────────────
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 28px;
+    border-bottom: 1px solid $border;
+    background: $bg-page;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    gap: 16px;
+
+    @media (max-width: 768px) {
+      padding: 12px 16px;
+    }
+  }
+
+  &__logo {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: $text-primary;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+
+    span { color: $green; }
+  }
+
+  &__progress-wrap {
+    flex: 1;
+    max-width: 280px;
+    margin: 0 16px;
+
+    @media (max-width: 600px) { display: none; }
+  }
+
+  &__progress-label {
+    font-size: 11px;
+    color: $text-muted;
+    text-align: center;
+    margin-bottom: 5px;
+    font-family: $font-mono;
+  }
+
+  &__progress-bar {
+    height: 3px;
+    background: $border;
+    border-radius: $radius-full;
+    overflow: hidden;
+  }
+
+  &__progress-fill {
+    height: 100%;
+    background: $green;
+    border-radius: $radius-full;
+    transition: width 0.5s ease;
+  }
+
+  &__end-btn {
+    background: $red-dim;
+    border: 1px solid rgba(239, 68, 68, 0.25);
+    color: $red;
+    border-radius: $radius-sm;
+    padding: 7px 14px;
+    font-family: $font-body;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all $transition;
+    white-space: nowrap;
+
+    &:hover { background: rgba(239, 68, 68, 0.18); }
+  }
+
+  // ── Interview Body Layout ─────────────────────────────────────────────────
+  &__body {
+    display: grid;
+    grid-template-columns: 60fr 40fr;
+    height: calc(100vh - 53px);
+
+    @media (max-width: 900px) {
+      grid-template-columns: 1fr;
+      height: auto;
+      min-height: calc(100vh - 53px);
+    }
+  }
+
+  // ── Avatar Panel ──────────────────────────────────────────────────────────
+  &__avatar-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    padding: 40px 28px;
+    border-right: 1px solid $border;
+
+    @media (max-width: 900px) {
+      padding: 32px 20px;
+      border-right: none;
+      border-bottom: 1px solid $border;
+    }
+  }
+
+  &__avatar-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 160px;
+    height: 160px;
+  }
+
+  &__avatar-ring-2 {
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    border-radius: $radius-full;
+    border: 1px solid $border;
+    transition: all 0.3s ease;
+
+    &--speaking {
+      border-color: #3f3f46;
+      animation: vi-ring-pulse 2s ease-in-out infinite 0.2s;
+    }
+  }
+
+  &__avatar-ring {
+    position: absolute;
+    width: 118px;
+    height: 118px;
+    border-radius: $radius-full;
+    border: 1px solid $border-hover;
+    transition: all 0.3s ease;
+
+    &--speaking {
+      border-color: $text-muted;
+      animation: vi-ring-pulse 1.6s ease-in-out infinite;
+    }
+  }
+
+  &__avatar {
+    width: 96px;
+    height: 96px;
+    border-radius: $radius-full;
+    background: $bg-card;
+    border: 1px solid $border;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s ease;
+
+    &--speaking {
+      background: $bg-elevated;
+      border-color: $border-hover;
+    }
+  }
+
+  &__ai-label {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: $text-muted;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__ai-status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: $radius-full;
+    background: $text-dim;
+    transition: all $transition;
+    flex-shrink: 0;
+
+    &--speaking {
+      background: $text-secondary;
+      animation: vi-pulse 1.2s ease-in-out infinite;
+    }
+
+    &--active {
+      background: $green;
+    }
+  }
+
+  // ── Waveform ──────────────────────────────────────────────────────────────
+  &__waveform {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: 40px;
+  }
+
+  &__wave-bar {
+    width: 4px;
+    border-radius: 2px;
+    transform-origin: bottom;
+    transition: height 0.15s ease, background $transition;
+
+    &--active {
+      background: $text-secondary;
+
+      @for $i from 1 through 7 {
+        &:nth-child(#{$i}) {
+          animation: vi-wave 0.9s ease-in-out infinite;
+          animation-delay: #{($i - 1) * 0.12}s;
+        }
+      }
+    }
+
+    &--inactive {
+      height: 5px !important;
+      background: $border;
+    }
+  }
+
+  // ── Question Display ──────────────────────────────────────────────────────
+  &__question-display {
+    max-width: 440px;
+    text-align: center;
+    padding: 0 16px;
+  }
+
+  &__question-label {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: $text-dim;
+    font-weight: 600;
+    margin: 0 0 8px;
+    font-family: $font-mono;
+  }
+
+  &__question-text {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: $text-primary;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  // ── Controls ──────────────────────────────────────────────────────────────
+  &__controls {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  &__mic-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__mic-btn {
+    position: relative;
+    width: 68px;
+    height: 68px;
+    border-radius: $radius-full;
+    border: 1px solid $border-hover;
+    background: $bg-card;
+    color: $text-secondary;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all $transition;
+    touch-action: none;
+    user-select: none;
+
+    &:hover:not(:disabled) {
+      background: $bg-elevated;
+      border-color: #3f3f46;
+    }
+
+    &--recording {
+      background: $red-dim;
+      border-color: rgba(239, 68, 68, 0.4);
+      color: $red;
+
+      &::before {
+        content: '';
+        position: absolute;
+        inset: -8px;
+        border-radius: $radius-full;
+        border: 1px solid rgba(239, 68, 68, 0.3);
+        animation: vi-ring-pulse 1.2s ease-in-out infinite;
+      }
+    }
+
+    &:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+  }
+
+  &__mic-label {
+    font-size: 11px;
+    color: $text-dim;
+    text-align: center;
+    font-family: $font-mono;
+    min-width: 90px;
+  }
+
+  &__skip-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: transparent;
+    border: 1px solid $border;
+    color: $text-dim;
+    border-radius: $radius-sm;
+    padding: 7px 16px;
+    font-family: $font-body;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all $transition;
+
+    &:hover:not(:disabled) {
+      color: $text-secondary;
+      border-color: $border-hover;
+    }
+
+    &:disabled { opacity: 0.3; cursor: not-allowed; }
+  }
+
+  // ── Error Banner ──────────────────────────────────────────────────────────
+  &__error {
+    background: $red-dim;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    border-radius: $radius-sm;
+    padding: 10px 14px;
+    color: #fca5a5;
+    font-size: 0.82rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    line-height: 1.5;
+    max-width: 400px;
+    margin-top: 8px;
+  }
+
+  // ── Transcript Panel ──────────────────────────────────────────────────────
+  &__transcript-panel {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.2);
+
+    @media (max-width: 900px) {
+      min-height: 280px;
+    }
+  }
+
+  &__transcript-header {
+    padding: 14px 20px 12px;
+    border-bottom: 1px solid $border;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: $text-dim;
+    font-family: $font-mono;
+    flex-shrink: 0;
+  }
+
+  &__transcript-scroll {
+    flex: 1;
+    overflow-y: auto;
+    padding: 14px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    &::-webkit-scrollbar { width: 3px; }
+    &::-webkit-scrollbar-track { background: transparent; }
+    &::-webkit-scrollbar-thumb {
+      background: $border;
+      border-radius: 2px;
+    }
+  }
+
+  &__transcript-empty {
+    color: $text-dim;
+    font-size: 0.82rem;
+    text-align: center;
+    padding-top: 28px;
+    font-style: italic;
+  }
+
+  &__message {
+    animation: vi-fadeup 0.25s ease both;
+    display: flex;
+    flex-direction: column;
+
+    &--interviewer { align-items: flex-start; }
+    &--candidate   { align-items: flex-end; }
+  }
+
+  &__message-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+
+  &__message-role {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-family: $font-mono;
+
+    .video-interview__message--interviewer & { color: $text-muted; }
+    .video-interview__message--candidate   & { color: $green; }
+  }
+
+  &__message-time {
+    font-size: 10px;
+    color: $text-dim;
+    font-family: $font-mono;
+  }
+
+  &__message-bubble {
+    padding: 10px 14px;
+    border-radius: $radius-md;
+    font-size: 0.84rem;
+    line-height: 1.55;
+    max-width: 90%;
+
+    .video-interview__message--interviewer & {
+      background: $bg-card;
+      border: 1px solid $border;
+      color: $text-primary;
+      border-radius: 3px $radius-md $radius-md $radius-md;
+    }
+
+    .video-interview__message--candidate & {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid $border;
+      color: $text-primary;
+      border-radius: $radius-md $radius-md 3px $radius-md;
+    }
+  }
+
+  // ── Processing Indicator ──────────────────────────────────────────────────
+  &__processing-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: $amber-dim;
+    border-top: 1px solid rgba(245, 158, 11, 0.15);
+    font-size: 12px;
+    color: $amber;
+    font-family: $font-mono;
+    flex-shrink: 0;
+  }
+
+  &__processing-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: $radius-full;
+    background: $amber;
+    animation: vi-pulse 1s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+
+  // ── Results Screen ────────────────────────────────────────────────────────
+  &__results {
+    min-height: 100vh;
+    padding: 48px 24px 80px;
+    max-width: 760px;
+    margin: 0 auto;
+    animation: vi-fadeup 0.4s ease both;
+  }
+
+  &__results-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  &__results-icon {
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  &__results-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin: 0 0 6px;
+    letter-spacing: -0.01em;
+  }
+
+  &__results-sub {
+    color: $text-muted;
+    font-size: 0.88rem;
+    margin: 0;
+  }
+
+  &__score-card {
+    background: $bg-card;
+    border: 1px solid $border;
+    border-radius: $radius-lg;
+    padding: 36px;
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  &__score-value {
+    font-size: 4rem;
+    font-weight: 800;
+    color: $text-primary;
+    line-height: 1;
+    margin: 0 0 6px;
+  }
+
+  &__score-label {
+    color: $text-muted;
+    font-size: 0.85rem;
+    margin: 0;
+  }
+
+  &__section-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: $text-primary;
+    margin: 0 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__feedback-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  &__feedback-item {
+    background: $bg-card;
+    border: 1px solid $border;
+    border-radius: $radius-md;
+    padding: 18px 20px;
+  }
+
+  &__feedback-q {
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: $text-primary;
+    margin: 0 0 6px;
+    line-height: 1.5;
+  }
+
+  &__feedback-a {
+    font-size: 0.82rem;
+    color: $text-muted;
+    margin: 0 0 10px;
+    line-height: 1.55;
+  }
+
+  &__feedback-score {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: $green-dim;
+    border: 1px solid rgba(34, 197, 94, 0.2);
+    border-radius: $radius-full;
+    padding: 3px 10px;
+    font-size: 12px;
+    font-weight: 700;
+    color: $green;
+    font-family: $font-mono;
+    margin-bottom: 8px;
+  }
+
+  &__feedback-comment {
+    font-size: 0.8rem;
+    color: $text-dim;
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  &__strengths-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 32px;
+
+    @media (max-width: 600px) { grid-template-columns: 1fr; }
+  }
+
+  &__strengths-card {
+    background: $bg-card;
+    border: 1px solid $border;
+    border-radius: $radius-md;
+    padding: 20px;
+  }
+
+  &__strengths-title {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin: 0 0 12px;
+    font-family: $font-mono;
+
+    &--green { color: $green; }
+    &--amber { color: $amber; }
+  }
+
+  &__strengths-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    li {
+      font-size: 0.84rem;
+      color: $text-secondary;
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      line-height: 1.45;
+
+      &::before {
+        content: '—';
+        color: $text-dim;
+        flex-shrink: 0;
+      }
+    }
+  }
+
+  &__results-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding-top: 8px;
+  }
+
+  &__restart-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: $green;
+    border: none;
+    border-radius: $radius-sm;
+    color: white;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all $transition;
+
+    &:hover {
+      background: #16a34a;
+      transform: translateY(-1px);
+    }
+  }
+}

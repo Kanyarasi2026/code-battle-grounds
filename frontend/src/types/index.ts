@@ -4,6 +4,7 @@ import type { Socket } from 'socket.io-client';
 export type { Session, User };
 
 export type Language = 'cpp' | 'c' | 'javascript' | 'java' | 'python';
+export type UserRole = 'faculty' | 'student';
 
 export interface Client {
   socketId: string;
@@ -18,8 +19,13 @@ export interface AuthContextValue {
   session: Session | null;
   loading: boolean;
   error: string | null;
+  roleData: {
+    requested: UserRole | null;
+    verified: UserRole | null;
+  };
   signInWithGoogle: () => Promise<void>;
   signOut: () => Promise<void>;
+  requestRole: (role: UserRole) => void;
 }
 
 // ── Room ──────────────────────────────────────────────────────

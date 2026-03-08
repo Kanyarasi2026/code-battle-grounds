@@ -1,0 +1,8094 @@
+{
+  "problems": [
+    {
+      "slug": "array_sum",
+      "title": "Array Sum",
+      "difficulty": "easy",
+      "topic": "arrays",
+      "tags": [
+        "arrays"
+      ],
+      "description": "Return the sum of all integers in the array.",
+      "functionSignature": "function arraySum(nums)",
+      "constraints": [
+        "nums is a non-empty array of integers"
+      ],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          "expected": 10
+        },
+        {
+          "input": {
+            "nums": [
+              -2,
+              5,
+              7
+            ]
+          },
+          "expected": 10
+        },
+        {
+          "input": {
+            "nums": [
+              0,
+              0,
+              0
+            ]
+          },
+          "expected": 0
+        }
+      ]
+    },
+    {
+      "slug": "count_even_numbers",
+      "title": "Count Even Numbers",
+      "difficulty": "easy",
+      "topic": "arrays",
+      "tags": [
+        "arrays"
+      ],
+      "description": "Count how many values in the array are even.",
+      "functionSignature": "function countEvenNumbers(nums)",
+      "constraints": [
+        "nums length >= 0"
+      ],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              3,
+              4,
+              6
+            ]
+          },
+          "expected": 3
+        },
+        {
+          "input": {
+            "nums": [
+              1,
+              3,
+              5
+            ]
+          },
+          "expected": 0
+        },
+        {
+          "input": {
+            "nums": [
+              0,
+              2,
+              8
+            ]
+          },
+          "expected": 3
+        }
+      ]
+    },
+    {
+      "slug": "maximum_value",
+      "title": "Maximum Value",
+      "difficulty": "easy",
+      "topic": "arrays",
+      "tags": [
+        "arrays"
+      ],
+      "description": "Return the largest value in the array.",
+      "functionSignature": "function maximumValue(nums)",
+      "constraints": [
+        "nums is non-empty"
+      ],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              9,
+              3,
+              7
+            ]
+          },
+          "expected": 9
+        },
+        {
+          "input": {
+            "nums": [
+              -5,
+              -2,
+              -11
+            ]
+          },
+          "expected": -2
+        },
+        {
+          "input": {
+            "nums": [
+              4
+            ]
+          },
+          "expected": 4
+        }
+      ]
+    },
+    {
+      "slug": "minimum_value",
+      "title": "Minimum Value",
+      "difficulty": "easy",
+      "topic": "arrays",
+      "tags": [
+        "arrays"
+      ],
+      "description": "Return the smallest value in the array.",
+      "functionSignature": "function minimumValue(nums)",
+      "constraints": [
+        "nums is non-empty"
+      ],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              9,
+              3,
+              7
+            ]
+          },
+          "expected": 1
+        },
+        {
+          "input": {
+            "nums": [
+              -5,
+              -2,
+              -11
+            ]
+          },
+          "expected": -11
+        },
+        {
+          "input": {
+            "nums": [
+              4
+            ]
+          },
+          "expected": 4
+        }
+      ]
+    },
+    {
+      "slug": "reverse_array",
+      "title": "Reverse Array",
+      "difficulty": "easy",
+      "topic": "arrays",
+      "tags": [
+        "arrays"
+      ],
+      "description": "Return a new array with the elements in reverse order.",
+      "functionSignature": "function reverseArray(nums)",
+      "constraints": [
+        ""
+      ],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              3
+            ]
+          },
+          "expected": [
+            3,
+            2,
+            1
+          ]
+        },
+        {
+          "input": {
+            "nums": [
+              5
+            ]
+          },
+          "expected": [
+            5
+          ]
+        },
+        {
+          "input": {
+            "nums": []
+          },
+          "expected": []
+        }
+      ]
+    },
+    {
+      "slug": "contains_target",
+      "title": "Contains Target",
+      "difficulty": "easy",
+      "topic": "arrays",
+      "tags": [
+        "arrays"
+      ],
+      "description": "Return true if target exists in the array, otherwise false.",
+      "functionSignature": "function containsTarget(nums, target)",
+      "constraints": [
+        ""
+      ],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              3
+            ],
+            "target": 2
+          },
+          "expected": true
+        },
+        {
+          "input": {
+            "nums": [
+              5,
+              6,
+              7
+            ],
+            "target": 4
+          },
+          "expected": false
+        },
+        {
+          "input": {
+            "nums": [],
+            "target": 1
+          },
+          "expected": false
+        }
+      ]
+    },
+    {
+      "slug": "first_index_of_target",
+      "title": "First Index Of Target",
+      "difficulty": "easy",
+      "topic": "arrays",
+      "tags": [
+        "arrays"
+      ],
+      "description": "Return the first index of target in the array, or -1 if not found.",
+      "functionSignature": "function firstIndexOfTarget(nums, target)",
+      "constraints": [
+        ""
+      ],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              4,
+              1,
+              2,
+              1
+            ],
+            "target": 1
+          },
+          "expected": 1
+        },
+        {
+          "input": {
+            "nums": [
+              5,
+              6,
+              7
+            ],
+            "target": 4
+          },
+          "expected": -1
+        },
+        {
+          "input": {
+            "nums": [
+              9
+            ],
+            "target": 9
+          },
+          "expected": 0
+        }
+      ]
+    },
+    {
+      "slug": "count_target_occurrences",
+      "title": "Count Target Occurrences",
+      "difficulty": "easy",
+      "topic": "arrays",
+      "tags": [
+        "arrays"
+      ],
+      "description": "Return how many times target appears in the array.",
+      "functionSignature": "function countTargetOccurrences(nums, target)",
+      "constraints": [
+        ""
+      ],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              1,
+              1,
+              3
+            ],
+            "target": 1
+          },
+          "expected": 3
+        },
+        {
+          "input": {
+            "nums": [
+              5,
+              6,
+              7
+            ],
+            "target": 4
+          },
+          "expected": 0
+        },
+        {
+          "input": {
+            "nums": [],
+            "target": 2
+          },
+          "expected": 0
+        }
+      ]
+    },
+    {
+      "slug": "find_last_element",
+      "title": "Find Last Element",
+      "difficulty": "easy",
+      "topic": "arrays",
+      "tags": [
+        "arrays"
+      ],
+      "description": "Return the last element of the array. Return null for an empty array.",
+      "functionSignature": "function findLastElement(nums)",
+      "constraints": [
+        ""
+      ],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              3
+            ]
+          },
+          "expected": 3
+        },
+        {
+          "input": {
+            "nums": [
+              9
+            ]
+          },
+          "expected": 9
+        },
+        {
+          "input": {
+            "nums": []
+          },
+          "expected": null
+        }
+      ]
+    },
+    {
+      "slug": "second_largest_distinct",
+      "title": "Second Largest Distinct",
+      "difficulty": "easy",
+      "topic": "arrays",
+      "tags": [
+        "arrays"
+      ],
+      "description": "Return the second largest distinct number in the array. Return null if it does not exist.",
+      "functionSignature": "function secondLargestDistinct(nums)",
+      "constraints": [
+        ""
+      ],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              5,
+              1,
+              4,
+              5,
+              3
+            ]
+          },
+          "expected": 4
+        },
+        {
+          "input": {
+            "nums": [
+              7,
+              7,
+              7
+            ]
+          },
+          "expected": null
+        },
+        {
+          "input": {
+            "nums": [
+              2,
+              9
+            ]
+          },
+          "expected": 2
+        }
+      ]
+    },
+    {
+      "slug": "remove_target_values",
+      "title": "Remove Target Values",
+      "difficulty": "easy",
+      "topic": "arrays",
+      "tags": [
+        "arrays"
+      ],
+      "description": "Return a new array with all occurrences of target removed.",
+      "functionSignature": "function removeTargetValues(nums, target)",
+      "constraints": [
+        ""
+      ],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              1,
+              3
+            ],
+            "target": 1
+          },
+          "expected": [
+            2,
+            3
+          ]
+        },
+        {
+          "input": {
+            "nums": [
+              4,
+              4
+            ],
+            "target": 4
+          },
+          "expected": []
+        },
+        {
+          "input": {
+            "nums": [],
+            "target": 2
+          },
+          "expected": []
+        }
+      ]
+    },
+    {
+      "slug": "move_zeroes_to_end",
+      "title": "Move Zeroes To End",
+      "difficulty": "easy",
+      "topic": "arrays",
+      "tags": [
+        "arrays"
+      ],
+      "description": "Return a new array with all zeroes moved to the end while keeping the order of non-zero values.",
+      "functionSignature": "function moveZeroesToEnd(nums)",
+      "constraints": [
+        ""
+      ],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              0,
+              1,
+              0,
+              3,
+              12
+            ]
+          },
+          "expected": [
+            1,
+            3,
+            12,
+            0,
+            0
+          ]
+        },
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              3
+            ]
+          },
+          "expected": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "input": {
+            "nums": [
+              0,
+              0
+            ]
+          },
+          "expected": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "sorted_squares",
+      "title": "Sorted Squares",
+      "difficulty": "easy",
+      "topic": "arrays",
+      "tags": [
+        "arrays"
+      ],
+      "description": "Given a sorted array of integers, return an array of their squares in sorted order.",
+      "functionSignature": "function sortedSquares(nums)",
+      "constraints": [
+        "nums sorted ascending"
+      ],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              -4,
+              -1,
+              0,
+              3,
+              10
+            ]
+          },
+          "expected": [
+            0,
+            1,
+            9,
+            16,
+            100
+          ]
+        },
+        {
+          "input": {
+            "nums": [
+              -3,
+              -2,
+              -1
+            ]
+          },
+          "expected": [
+            1,
+            4,
+            9
+          ]
+        },
+        {
+          "input": {
+            "nums": [
+              0,
+              2
+            ]
+          },
+          "expected": [
+            0,
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "palindrome_string",
+      "title": "Palindrome String",
+      "difficulty": "easy",
+      "topic": "strings",
+      "tags": [
+        "strings"
+      ],
+      "description": "Return true if the given string reads the same forward and backward.",
+      "functionSignature": "function palindromeString(s)",
+      "constraints": [
+        "case-sensitive, includes all characters"
+      ],
+      "testCases": [
+        {
+          "input": {
+            "s": "level"
+          },
+          "expected": true
+        },
+        {
+          "input": {
+            "s": "hello"
+          },
+          "expected": false
+        },
+        {
+          "input": {
+            "s": "a"
+          },
+          "expected": true
+        }
+      ]
+    },
+    {
+      "slug": "count_vowels",
+      "title": "Count Vowels",
+      "difficulty": "easy",
+      "topic": "strings",
+      "tags": [
+        "strings"
+      ],
+      "description": "Count lowercase vowels a, e, i, o, u in the string.",
+      "functionSignature": "function countVowels(s)",
+      "constraints": [
+        ""
+      ],
+      "testCases": [
+        {
+          "input": {
+            "s": "education"
+          },
+          "expected": 5
+        },
+        {
+          "input": {
+            "s": "rhythm"
+          },
+          "expected": 0
+        },
+        {
+          "input": {
+            "s": ""
+          },
+          "expected": 0
+        }
+      ]
+    },
+    {
+      "slug": "reverse_string",
+      "title": "Reverse String",
+      "difficulty": "easy",
+      "topic": "strings",
+      "tags": [
+        "strings"
+      ],
+      "description": "Return the reversed string.",
+      "functionSignature": "function reverseString(s)",
+      "constraints": [
+        ""
+      ],
+      "testCases": [
+        {
+          "input": {
+            "s": "code"
+          },
+          "expected": "edoc"
+        },
+        {
+          "input": {
+            "s": "a"
+          },
+          "expected": "a"
+        },
+        {
+          "input": {
+            "s": ""
+          },
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "slug": "title_case_words",
+      "title": "Title Case Words",
+      "difficulty": "easy",
+      "topic": "strings",
+      "tags": [
+        "strings"
+      ],
+      "description": "Capitalize the first letter of each space-separated word.",
+      "functionSignature": "function titleCaseWords(s)",
+      "constraints": [
+        "assume words are lowercase letters separated by single spaces"
+      ],
+      "testCases": [
+        {
+          "input": {
+            "s": "hello world"
+          },
+          "expected": "Hello World"
+        },
+        {
+          "input": {
+            "s": "open ai chat"
+          },
+          "expected": "Open Ai Chat"
+        },
+        {
+          "input": {
+            "s": "a"
+          },
+          "expected": "A"
+        }
+      ]
+    },
+    {
+      "slug": "remove_spaces",
+      "title": "Remove Spaces",
+      "difficulty": "easy",
+      "topic": "strings",
+      "tags": [
+        "strings"
+      ],
+      "description": "Return the string with all spaces removed.",
+      "functionSignature": "function removeSpaces(s)",
+      "constraints": [
+        ""
+      ],
+      "testCases": [
+        {
+          "input": {
+            "s": "a b c"
+          },
+          "expected": "abc"
+        },
+        {
+          "input": {
+            "s": " no spaces "
+          },
+          "expected": "nospaces"
+        },
+        {
+          "input": {
+            "s": ""
+          },
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "slug": "longest_word_length",
+      "title": "Longest Word Length",
+      "difficulty": "easy",
+      "topic": "strings",
+      "tags": [
+        "strings"
+      ],
+      "description": "Return the length of the longest word in a space-separated sentence.",
+      "functionSignature": "function longestWordLength(s)",
+      "constraints": [
+        ""
+      ],
+      "testCases": [
+        {
+          "input": {
+            "s": "we love coding"
+          },
+          "expected": 6
+        },
+        {
+          "input": {
+            "s": "a bb ccc"
+          },
+          "expected": 3
+        },
+        {
+          "input": {
+            "s": ""
+          },
+          "expected": 0
+        }
+      ]
+    },
+    {
+      "slug": "count_digits_in_string",
+      "title": "Count Digits In String",
+      "difficulty": "easy",
+      "topic": "strings",
+      "tags": [
+        "strings"
+      ],
+      "description": "Count how many characters in the string are digits.",
+      "functionSignature": "function countDigitsInString(s)",
+      "constraints": [
+        ""
+      ],
+      "testCases": [
+        {
+          "input": {
+            "s": "a1b2c3"
+          },
+          "expected": 3
+        },
+        {
+          "input": {
+            "s": "abc"
+          },
+          "expected": 0
+        },
+        {
+          "input": {
+            "s": "2026"
+          },
+          "expected": 4
+        }
+      ]
+    },
+    {
+      "slug": "string_starts_with",
+      "title": "String Starts With",
+      "difficulty": "easy",
+      "topic": "strings",
+      "tags": [
+        "strings"
+      ],
+      "description": "Return true if s starts with prefix.",
+      "functionSignature": "function stringStartsWith(s, prefix)",
+      "constraints": [
+        ""
+      ],
+      "testCases": [
+        {
+          "input": {
+            "s": "backend",
+            "prefix": "back"
+          },
+          "expected": true
+        },
+        {
+          "input": {
+            "s": "backend",
+            "prefix": "end"
+          },
+          "expected": false
+        },
+        {
+          "input": {
+            "s": "a",
+            "prefix": "a"
+          },
+          "expected": true
+        }
+      ]
+    },
+    {
+      "slug": "string_ends_with",
+      "title": "String Ends With",
+      "difficulty": "easy",
+      "topic": "strings",
+      "tags": [
+        "strings"
+      ],
+      "description": "Return true if s ends with suffix.",
+      "functionSignature": "function stringEndsWith(s, suffix)",
+      "constraints": [
+        ""
+      ],
+      "testCases": [
+        {
+          "input": {
+            "s": "backend",
+            "suffix": "end"
+          },
+          "expected": true
+        },
+        {
+          "input": {
+            "s": "backend",
+            "suffix": "back"
+          },
+          "expected": false
+        },
+        {
+          "input": {
+            "s": "a",
+            "suffix": "a"
+          },
+          "expected": true
+        }
+      ]
+    },
+    {
+      "slug": "unique_character_count",
+      "title": "Unique Character Count",
+      "difficulty": "easy",
+      "topic": "strings",
+      "tags": [
+        "strings"
+      ],
+      "description": "Return the number of distinct characters in the string.",
+      "functionSignature": "function uniqueCharacterCount(s)",
+      "constraints": [
+        ""
+      ],
+      "testCases": [
+        {
+          "input": {
+            "s": "banana"
+          },
+          "expected": 3
+        },
+        {
+          "input": {
+            "s": "abc"
+          },
+          "expected": 3
+        },
+        {
+          "input": {
+            "s": ""
+          },
+          "expected": 0
+        }
+      ]
+    },
+    {
+      "slug": "frequency_of_character",
+      "title": "Frequency Of Character",
+      "difficulty": "easy",
+      "topic": "hashing",
+      "tags": [
+        "hashing"
+      ],
+      "description": "Return how many times ch appears in s.",
+      "functionSignature": "function frequencyOfCharacter(s, ch)",
+      "constraints": [
+        ""
+      ],
+      "testCases": [
+        {
+          "input": {
+            "s": "banana",
+            "ch": "a"
+          },
+          "expected": 3
+        },
+        {
+          "input": {
+            "s": "hello",
+            "ch": "z"
+          },
+          "expected": 0
+        },
+        {
+          "input": {
+            "s": "x",
+            "ch": "x"
+          },
+          "expected": 1
+        }
+      ]
+    },
+    {
+      "slug": "valid_anagram",
+      "title": "Valid Anagram",
+      "difficulty": "easy",
+      "topic": "hashing",
+      "tags": [
+        "hashing"
+      ],
+      "description": "Return true if two strings are anagrams of each other.",
+      "functionSignature": "function validAnagram(a, b)",
+      "constraints": [
+        "lowercase only"
+      ],
+      "testCases": [
+        {
+          "input": {
+            "a": "listen",
+            "b": "silent"
+          },
+          "expected": true
+        },
+        {
+          "input": {
+            "a": "rat",
+            "b": "car"
+          },
+          "expected": false
+        },
+        {
+          "input": {
+            "a": "",
+            "b": ""
+          },
+          "expected": true
+        }
+      ]
+    },
+    {
+      "slug": "find_missing_number",
+      "title": "Find Missing Number",
+      "difficulty": "easy",
+      "topic": "math",
+      "tags": [
+        "math"
+      ],
+      "description": "The array contains distinct numbers from 0 to n with one missing. Return the missing number.",
+      "functionSignature": "function findMissingNumber(nums)",
+      "constraints": [
+        ""
+      ],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              3,
+              0,
+              1
+            ]
+          },
+          "expected": 2
+        },
+        {
+          "input": {
+            "nums": [
+              0,
+              1
+            ]
+          },
+          "expected": 2
+        },
+        {
+          "input": {
+            "nums": [
+              1
+            ]
+          },
+          "expected": 0
+        }
+      ]
+    },
+    {
+      "slug": "fizz_buzz",
+      "title": "Fizz Buzz",
+      "difficulty": "easy",
+      "topic": "math",
+      "tags": [
+        "math"
+      ],
+      "description": "Return an array of strings from 1 to n using Fizz for multiples of 3, Buzz for multiples of 5, and FizzBuzz for both.",
+      "functionSignature": "function fizzBuzz(n)",
+      "constraints": [
+        ""
+      ],
+      "testCases": [
+        {
+          "input": {
+            "n": 5
+          },
+          "expected": [
+            "1",
+            "2",
+            "Fizz",
+            "4",
+            "Buzz"
+          ]
+        },
+        {
+          "input": {
+            "n": 3
+          },
+          "expected": [
+            "1",
+            "2",
+            "Fizz"
+          ]
+        },
+        {
+          "input": {
+            "n": 1
+          },
+          "expected": [
+            "1"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "is_prime",
+      "title": "Is Prime",
+      "difficulty": "easy",
+      "topic": "math",
+      "tags": [
+        "math"
+      ],
+      "description": "Return true if n is a prime number.",
+      "functionSignature": "function isPrime(n)",
+      "constraints": [
+        "n >= 0"
+      ],
+      "testCases": [
+        {
+          "input": {
+            "n": 2
+          },
+          "expected": true
+        },
+        {
+          "input": {
+            "n": 18
+          },
+          "expected": false
+        },
+        {
+          "input": {
+            "n": 1
+          },
+          "expected": false
+        }
+      ]
+    },
+    {
+      "slug": "greatest_common_divisor",
+      "title": "Greatest Common Divisor",
+      "difficulty": "easy",
+      "topic": "math",
+      "tags": [
+        "math"
+      ],
+      "description": "Return the greatest common divisor of a and b.",
+      "functionSignature": "function greatestCommonDivisor(a, b)",
+      "constraints": [
+        "a,b >= 0"
+      ],
+      "testCases": [
+        {
+          "input": {
+            "a": 12,
+            "b": 18
+          },
+          "expected": 6
+        },
+        {
+          "input": {
+            "a": 7,
+            "b": 5
+          },
+          "expected": 1
+        },
+        {
+          "input": {
+            "a": 9,
+            "b": 3
+          },
+          "expected": 3
+        }
+      ]
+    },
+    {
+      "slug": "power_of_two",
+      "title": "Power Of Two",
+      "difficulty": "easy",
+      "topic": "math",
+      "tags": [
+        "math"
+      ],
+      "description": "Return true if n is a power of two.",
+      "functionSignature": "function powerOfTwo(n)",
+      "constraints": [
+        ""
+      ],
+      "testCases": [
+        {
+          "input": {
+            "n": 1
+          },
+          "expected": true
+        },
+        {
+          "input": {
+            "n": 16
+          },
+          "expected": true
+        },
+        {
+          "input": {
+            "n": 18
+          },
+          "expected": false
+        }
+      ]
+    },
+    {
+      "slug": "factorial_easy",
+      "title": "Factorial",
+      "difficulty": "easy",
+      "topic": "math",
+      "tags": [
+        "math"
+      ],
+      "description": "Return n factorial.",
+      "functionSignature": "function factorial(n)",
+      "constraints": [
+        "0 <= n <= 10"
+      ],
+      "testCases": [
+        {
+          "input": {
+            "n": 0
+          },
+          "expected": 1
+        },
+        {
+          "input": {
+            "n": 5
+          },
+          "expected": 120
+        },
+        {
+          "input": {
+            "n": 3
+          },
+          "expected": 6
+        }
+      ]
+    },
+    {
+      "slug": "sum_of_digits",
+      "title": "Sum Of Digits",
+      "difficulty": "easy",
+      "topic": "math",
+      "tags": [
+        "math"
+      ],
+      "description": "Return the sum of digits of a non-negative integer.",
+      "functionSignature": "function sumOfDigits(n)",
+      "constraints": [
+        ""
+      ],
+      "testCases": [
+        {
+          "input": {
+            "n": 123
+          },
+          "expected": 6
+        },
+        {
+          "input": {
+            "n": 909
+          },
+          "expected": 18
+        },
+        {
+          "input": {
+            "n": 0
+          },
+          "expected": 0
+        }
+      ]
+    },
+    {
+      "slug": "binary_search_insert_position",
+      "title": "Binary Search Insert Position",
+      "difficulty": "easy",
+      "topic": "binary-search",
+      "tags": [
+        "binary-search"
+      ],
+      "description": "Given a sorted array and a target, return the index if found, otherwise the index where it should be inserted.",
+      "functionSignature": "function binarySearchInsertPosition(nums, target)",
+      "constraints": [
+        "sorted ascending"
+      ],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              3,
+              5,
+              6
+            ],
+            "target": 5
+          },
+          "expected": 2
+        },
+        {
+          "input": {
+            "nums": [
+              1,
+              3,
+              5,
+              6
+            ],
+            "target": 2
+          },
+          "expected": 1
+        },
+        {
+          "input": {
+            "nums": [
+              1,
+              3,
+              5,
+              6
+            ],
+            "target": 7
+          },
+          "expected": 4
+        }
+      ]
+    },
+    {
+      "slug": "first_negative_index",
+      "title": "First Negative Index",
+      "difficulty": "easy",
+      "topic": "arrays",
+      "tags": [
+        "arrays"
+      ],
+      "description": "Return the first index containing a negative number, or -1 if none exists.",
+      "functionSignature": "function firstNegativeIndex(nums)",
+      "constraints": [
+        ""
+      ],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              5,
+              2,
+              -3,
+              4
+            ]
+          },
+          "expected": 2
+        },
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              3
+            ]
+          },
+          "expected": -1
+        },
+        {
+          "input": {
+            "nums": [
+              -1,
+              2
+            ]
+          },
+          "expected": 0
+        }
+      ]
+    },
+    {
+      "slug": "merge_two_sorted_arrays",
+      "title": "Merge Two Sorted Arrays",
+      "difficulty": "easy",
+      "topic": "two-pointers",
+      "tags": [
+        "two-pointers"
+      ],
+      "description": "Merge two sorted arrays into one sorted array.",
+      "functionSignature": "function mergeTwoSortedArrays(a, b)",
+      "constraints": [
+        ""
+      ],
+      "testCases": [
+        {
+          "input": {
+            "a": [
+              1,
+              3,
+              5
+            ],
+            "b": [
+              2,
+              4,
+              6
+            ]
+          },
+          "expected": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        },
+        {
+          "input": {
+            "a": [],
+            "b": [
+              1
+            ]
+          },
+          "expected": [
+            1
+          ]
+        },
+        {
+          "input": {
+            "a": [
+              2
+            ],
+            "b": []
+          },
+          "expected": [
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "intersection_two_arrays_unique",
+      "title": "Intersection Of Two Arrays Unique",
+      "difficulty": "easy",
+      "topic": "hashing",
+      "tags": [
+        "hashing"
+      ],
+      "description": "Return the unique intersection of two arrays in sorted order.",
+      "functionSignature": "function intersectionTwoArraysUnique(a, b)",
+      "constraints": [
+        ""
+      ],
+      "testCases": [
+        {
+          "input": {
+            "a": [
+              1,
+              2,
+              2,
+              3
+            ],
+            "b": [
+              2,
+              2,
+              4
+            ]
+          },
+          "expected": [
+            2
+          ]
+        },
+        {
+          "input": {
+            "a": [
+              5,
+              6
+            ],
+            "b": [
+              7,
+              8
+            ]
+          },
+          "expected": []
+        },
+        {
+          "input": {
+            "a": [
+              1,
+              2
+            ],
+            "b": [
+              2,
+              3
+            ]
+          },
+          "expected": [
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "count_positive_numbers",
+      "title": "Count Positive Numbers",
+      "difficulty": "easy",
+      "topic": "arrays",
+      "tags": [
+        "arrays"
+      ],
+      "description": "Count how many numbers are strictly greater than zero.",
+      "functionSignature": "function countPositiveNumbers(nums)",
+      "constraints": [
+        ""
+      ],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              -1,
+              0,
+              2,
+              3
+            ]
+          },
+          "expected": 2
+        },
+        {
+          "input": {
+            "nums": [
+              -5,
+              -2
+            ]
+          },
+          "expected": 0
+        },
+        {
+          "input": {
+            "nums": [
+              1,
+              1,
+              1
+            ]
+          },
+          "expected": 3
+        }
+      ]
+    },
+    {
+      "slug": "adjacent_difference_array",
+      "title": "Adjacent Difference Array",
+      "difficulty": "easy",
+      "topic": "arrays",
+      "tags": [
+        "arrays"
+      ],
+      "description": "Return an array of absolute differences between adjacent elements.",
+      "functionSignature": "function adjacentDifferenceArray(nums)",
+      "constraints": [
+        "If length < 2 return []"
+      ],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              4,
+              2,
+              8
+            ]
+          },
+          "expected": [
+            3,
+            2,
+            6
+          ]
+        },
+        {
+          "input": {
+            "nums": [
+              5
+            ]
+          },
+          "expected": []
+        },
+        {
+          "input": {
+            "nums": [
+              3,
+              3,
+              3
+            ]
+          },
+          "expected": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "running_sum",
+      "title": "Running Sum",
+      "difficulty": "easy",
+      "topic": "arrays",
+      "tags": [
+        "arrays"
+      ],
+      "description": "Return the running sum of the array.",
+      "functionSignature": "function runningSum(nums)",
+      "constraints": [
+        ""
+      ],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          "expected": [
+            1,
+            3,
+            6,
+            10
+          ]
+        },
+        {
+          "input": {
+            "nums": [
+              1
+            ]
+          },
+          "expected": [
+            1
+          ]
+        },
+        {
+          "input": {
+            "nums": [
+              0,
+              0,
+              0
+            ]
+          },
+          "expected": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "clamp_value",
+      "title": "Clamp Value",
+      "difficulty": "easy",
+      "topic": "math",
+      "tags": [
+        "math"
+      ],
+      "description": "Clamp value x to the inclusive range [low, high].",
+      "functionSignature": "function clampValue(x, low, high)",
+      "constraints": [
+        "low <= high"
+      ],
+      "testCases": [
+        {
+          "input": {
+            "x": 5,
+            "low": 1,
+            "high": 10
+          },
+          "expected": 5
+        },
+        {
+          "input": {
+            "x": -3,
+            "low": 0,
+            "high": 7
+          },
+          "expected": 0
+        },
+        {
+          "input": {
+            "x": 12,
+            "low": 0,
+            "high": 7
+          },
+          "expected": 7
+        }
+      ]
+    },
+    {
+      "slug": "count_words",
+      "title": "Count Words",
+      "difficulty": "easy",
+      "topic": "strings",
+      "tags": [
+        "strings"
+      ],
+      "description": "Return the number of words separated by single spaces. Empty string has 0 words.",
+      "functionSignature": "function countWords(s)",
+      "constraints": [
+        ""
+      ],
+      "testCases": [
+        {
+          "input": {
+            "s": "one two three"
+          },
+          "expected": 3
+        },
+        {
+          "input": {
+            "s": "hello"
+          },
+          "expected": 1
+        },
+        {
+          "input": {
+            "s": ""
+          },
+          "expected": 0
+        }
+      ]
+    },
+    {
+      "slug": "alternate_case_merge",
+      "title": "Alternate Case Merge",
+      "difficulty": "easy",
+      "topic": "strings",
+      "tags": [
+        "strings"
+      ],
+      "description": "Given two equal-length strings, return a new string by taking one char from a then one from b.",
+      "functionSignature": "function alternateCaseMerge(a, b)",
+      "constraints": [
+        "equal lengths"
+      ],
+      "testCases": [
+        {
+          "input": {
+            "a": "abc",
+            "b": "XYZ"
+          },
+          "expected": "aXbYcZ"
+        },
+        {
+          "input": {
+            "a": "12",
+            "b": "34"
+          },
+          "expected": "1324"
+        },
+        {
+          "input": {
+            "a": "",
+            "b": ""
+          },
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "slug": "remove_duplicates_keep_first",
+      "title": "Remove Duplicates Keep First",
+      "difficulty": "easy",
+      "topic": "arrays",
+      "tags": [
+        "arrays"
+      ],
+      "description": "Return a new array keeping only the first occurrence of each value.",
+      "functionSignature": "function removeDuplicatesKeepFirst(nums)",
+      "constraints": [
+        "preserve order"
+      ],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              1,
+              3,
+              2
+            ]
+          },
+          "expected": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "input": {
+            "nums": [
+              4,
+              4,
+              4
+            ]
+          },
+          "expected": [
+            4
+          ]
+        },
+        {
+          "input": {
+            "nums": []
+          },
+          "expected": []
+        }
+      ]
+    },
+    {
+      "slug": "smallest_string_lexicographically",
+      "title": "Smallest String Lexicographically",
+      "difficulty": "easy",
+      "topic": "strings",
+      "tags": [
+        "strings"
+      ],
+      "description": "Return the lexicographically smallest string from the array. Return null if empty.",
+      "functionSignature": "function smallestStringLexicographically(words)",
+      "constraints": [
+        ""
+      ],
+      "testCases": [
+        {
+          "input": {
+            "words": [
+              "pear",
+              "apple",
+              "banana"
+            ]
+          },
+          "expected": "apple"
+        },
+        {
+          "input": {
+            "words": [
+              "zoo"
+            ]
+          },
+          "expected": "zoo"
+        },
+        {
+          "input": {
+            "words": []
+          },
+          "expected": null
+        }
+      ]
+    },
+    {
+      "slug": "majority_element_simple",
+      "title": "Majority Element Simple",
+      "difficulty": "easy",
+      "topic": "hashing",
+      "tags": [
+        "hashing"
+      ],
+      "description": "Return the value that appears more than n/2 times. Assume it always exists.",
+      "functionSignature": "function majorityElementSimple(nums)",
+      "constraints": [
+        ""
+      ],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              3,
+              2,
+              3
+            ]
+          },
+          "expected": 3
+        },
+        {
+          "input": {
+            "nums": [
+              2,
+              2,
+              1,
+              1,
+              1,
+              2,
+              2
+            ]
+          },
+          "expected": 2
+        },
+        {
+          "input": {
+            "nums": [
+              5
+            ]
+          },
+          "expected": 5
+        }
+      ]
+    },
+    {
+      "slug": "balanced_parentheses_basic",
+      "title": "Balanced Parentheses Basic",
+      "difficulty": "easy",
+      "topic": "stack",
+      "tags": [
+        "stack"
+      ],
+      "description": "Return true if the string containing only '(' and ')' is balanced.",
+      "functionSignature": "function balancedParenthesesBasic(s)",
+      "constraints": [
+        ""
+      ],
+      "testCases": [
+        {
+          "input": {
+            "s": "(())"
+          },
+          "expected": true
+        },
+        {
+          "input": {
+            "s": "(()"
+          },
+          "expected": false
+        },
+        {
+          "input": {
+            "s": ")("
+          },
+          "expected": false
+        }
+      ]
+    },
+    {
+      "slug": "queue_peek_after_pushes",
+      "title": "Queue Peek After Pushes",
+      "difficulty": "easy",
+      "topic": "queue",
+      "tags": [
+        "queue"
+      ],
+      "description": "Return the front value after enqueuing all numbers. Return null if nums is empty.",
+      "functionSignature": "function queuePeekAfterPushes(nums)",
+      "constraints": [
+        ""
+      ],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              5,
+              6,
+              7
+            ]
+          },
+          "expected": 5
+        },
+        {
+          "input": {
+            "nums": [
+              1
+            ]
+          },
+          "expected": 1
+        },
+        {
+          "input": {
+            "nums": []
+          },
+          "expected": null
+        }
+      ]
+    },
+    {
+      "slug": "stack_top_after_pushes",
+      "title": "Stack Top After Pushes",
+      "difficulty": "easy",
+      "topic": "stack",
+      "tags": [
+        "stack"
+      ],
+      "description": "Return the top value after pushing all numbers. Return null if nums is empty.",
+      "functionSignature": "function stackTopAfterPushes(nums)",
+      "constraints": [
+        ""
+      ],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              5,
+              6,
+              7
+            ]
+          },
+          "expected": 7
+        },
+        {
+          "input": {
+            "nums": [
+              1
+            ]
+          },
+          "expected": 1
+        },
+        {
+          "input": {
+            "nums": []
+          },
+          "expected": null
+        }
+      ]
+    },
+    {
+      "slug": "count_down_list",
+      "title": "Count Down List",
+      "difficulty": "easy",
+      "topic": "math",
+      "tags": [
+        "math"
+      ],
+      "description": "Return an array counting down from n to 1. Return [] for n <= 0.",
+      "functionSignature": "function countDownList(n)",
+      "constraints": [
+        ""
+      ],
+      "testCases": [
+        {
+          "input": {
+            "n": 5
+          },
+          "expected": [
+            5,
+            4,
+            3,
+            2,
+            1
+          ]
+        },
+        {
+          "input": {
+            "n": 1
+          },
+          "expected": [
+            1
+          ]
+        },
+        {
+          "input": {
+            "n": 0
+          },
+          "expected": []
+        }
+      ]
+    },
+    {
+      "slug": "average_of_integers_floor",
+      "title": "Average Of Integers Floor",
+      "difficulty": "easy",
+      "topic": "math",
+      "tags": [
+        "math"
+      ],
+      "description": "Return the floor of the average of the numbers. Return null for an empty array.",
+      "functionSignature": "function averageOfIntegersFloor(nums)",
+      "constraints": [
+        ""
+      ],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          "expected": 2
+        },
+        {
+          "input": {
+            "nums": [
+              5,
+              5,
+              6
+            ]
+          },
+          "expected": 5
+        },
+        {
+          "input": {
+            "nums": []
+          },
+          "expected": null
+        }
+      ]
+    },
+    {
+      "slug": "two_sum_indices",
+      "title": "Two Sum Indices",
+      "difficulty": "medium",
+      "topic": "arrays",
+      "tags": [
+        "arrays"
+      ],
+      "description": "Return the indices of the two numbers whose sum equals target. Assume exactly one answer exists and return indices in ascending order.",
+      "functionSignature": "function twoSumIndices(nums, target)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              2,
+              7,
+              11,
+              15
+            ],
+            "target": 9
+          },
+          "expected": [
+            0,
+            1
+          ]
+        },
+        {
+          "input": {
+            "nums": [
+              3,
+              2,
+              4
+            ],
+            "target": 6
+          },
+          "expected": [
+            1,
+            2
+          ]
+        },
+        {
+          "input": {
+            "nums": [
+              3,
+              3
+            ],
+            "target": 6
+          },
+          "expected": [
+            0,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "best_time_buy_sell_once",
+      "title": "Best Time To Buy And Sell Once",
+      "difficulty": "medium",
+      "topic": "arrays",
+      "tags": [
+        "arrays"
+      ],
+      "description": "Return the maximum profit from one buy and one sell. Return 0 if no profit is possible.",
+      "functionSignature": "function bestTimeBuySellOnce(prices)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "prices": [
+              7,
+              1,
+              5,
+              3,
+              6,
+              4
+            ]
+          },
+          "expected": 5
+        },
+        {
+          "input": {
+            "prices": [
+              7,
+              6,
+              4,
+              3,
+              1
+            ]
+          },
+          "expected": 0
+        },
+        {
+          "input": {
+            "prices": [
+              2,
+              4,
+              1
+            ]
+          },
+          "expected": 2
+        }
+      ]
+    },
+    {
+      "slug": "product_except_self_basic",
+      "title": "Product Except Self Basic",
+      "difficulty": "medium",
+      "topic": "arrays",
+      "tags": [
+        "arrays"
+      ],
+      "description": "Return an array where each element is the product of all other elements without using division.",
+      "functionSignature": "function productExceptSelfBasic(nums)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          "expected": [
+            24,
+            12,
+            8,
+            6
+          ]
+        },
+        {
+          "input": {
+            "nums": [
+              -1,
+              1,
+              0,
+              -3,
+              3
+            ]
+          },
+          "expected": [
+            0,
+            0,
+            9,
+            0,
+            0
+          ]
+        },
+        {
+          "input": {
+            "nums": [
+              2,
+              3
+            ]
+          },
+          "expected": [
+            3,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "rotate_array_right",
+      "title": "Rotate Array Right",
+      "difficulty": "medium",
+      "topic": "arrays",
+      "tags": [
+        "arrays"
+      ],
+      "description": "Rotate the array to the right by k steps and return the new array.",
+      "functionSignature": "function rotateArrayRight(nums, k)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "k": 3
+          },
+          "expected": [
+            5,
+            6,
+            7,
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "input": {
+            "nums": [
+              1,
+              2
+            ],
+            "k": 5
+          },
+          "expected": [
+            2,
+            1
+          ]
+        },
+        {
+          "input": {
+            "nums": [],
+            "k": 2
+          },
+          "expected": []
+        }
+      ]
+    },
+    {
+      "slug": "group_by_parity",
+      "title": "Group By Parity",
+      "difficulty": "medium",
+      "topic": "arrays",
+      "tags": [
+        "arrays"
+      ],
+      "description": "Return a new array with all even numbers first, then all odd numbers, preserving relative order within each group.",
+      "functionSignature": "function groupByParity(nums)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              3,
+              1,
+              2,
+              4
+            ]
+          },
+          "expected": [
+            2,
+            4,
+            3,
+            1
+          ]
+        },
+        {
+          "input": {
+            "nums": [
+              2,
+              6,
+              8
+            ]
+          },
+          "expected": [
+            2,
+            6,
+            8
+          ]
+        },
+        {
+          "input": {
+            "nums": [
+              1,
+              3,
+              5
+            ]
+          },
+          "expected": [
+            1,
+            3,
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "longest_consecutive_streak_sorted",
+      "title": "Longest Consecutive Streak Sorted",
+      "difficulty": "medium",
+      "topic": "arrays",
+      "tags": [
+        "arrays"
+      ],
+      "description": "Given a sorted array, return the length of the longest streak of consecutive increasing integers.",
+      "functionSignature": "function longestConsecutiveStreakSorted(nums)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              3,
+              5,
+              6,
+              7,
+              8
+            ]
+          },
+          "expected": 4
+        },
+        {
+          "input": {
+            "nums": [
+              4,
+              4,
+              5,
+              6
+            ]
+          },
+          "expected": 3
+        },
+        {
+          "input": {
+            "nums": []
+          },
+          "expected": 0
+        }
+      ]
+    },
+    {
+      "slug": "subarray_sum_equals_target_count",
+      "title": "Subarray Sum Equals Target Count",
+      "difficulty": "medium",
+      "topic": "prefix-sum",
+      "tags": [
+        "prefix-sum"
+      ],
+      "description": "Return the count of contiguous subarrays whose sum equals k.",
+      "functionSignature": "function subarraySumEqualsTargetCount(nums, k)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              1,
+              1
+            ],
+            "k": 2
+          },
+          "expected": 2
+        },
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              3
+            ],
+            "k": 3
+          },
+          "expected": 2
+        },
+        {
+          "input": {
+            "nums": [
+              1,
+              -1,
+              0
+            ],
+            "k": 0
+          },
+          "expected": 3
+        }
+      ]
+    },
+    {
+      "slug": "longest_substring_without_repeat",
+      "title": "Longest Substring Without Repeat",
+      "difficulty": "medium",
+      "topic": "sliding-window",
+      "tags": [
+        "sliding-window"
+      ],
+      "description": "Return the length of the longest substring without repeating characters.",
+      "functionSignature": "function longestSubstringWithoutRepeat(s)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "s": "abcabcbb"
+          },
+          "expected": 3
+        },
+        {
+          "input": {
+            "s": "bbbbb"
+          },
+          "expected": 1
+        },
+        {
+          "input": {
+            "s": "pwwkew"
+          },
+          "expected": 3
+        }
+      ]
+    },
+    {
+      "slug": "minimum_size_subarray_sum",
+      "title": "Minimum Size Subarray Sum",
+      "difficulty": "medium",
+      "topic": "sliding-window",
+      "tags": [
+        "sliding-window"
+      ],
+      "description": "Return the minimum length of a contiguous subarray with sum at least target. Return 0 if none exists.",
+      "functionSignature": "function minimumSizeSubarraySum(target, nums)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "target": 7,
+            "nums": [
+              2,
+              3,
+              1,
+              2,
+              4,
+              3
+            ]
+          },
+          "expected": 2
+        },
+        {
+          "input": {
+            "target": 4,
+            "nums": [
+              1,
+              4,
+              4
+            ]
+          },
+          "expected": 1
+        },
+        {
+          "input": {
+            "target": 11,
+            "nums": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "expected": 0
+        }
+      ]
+    },
+    {
+      "slug": "max_consecutive_ones_with_one_flip",
+      "title": "Max Consecutive Ones With One Flip",
+      "difficulty": "medium",
+      "topic": "sliding-window",
+      "tags": [
+        "sliding-window"
+      ],
+      "description": "Given a binary array, return the maximum number of consecutive 1s if you can flip at most one 0.",
+      "functionSignature": "function maxConsecutiveOnesWithOneFlip(nums)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              0,
+              1,
+              1,
+              0
+            ]
+          },
+          "expected": 4
+        },
+        {
+          "input": {
+            "nums": [
+              1,
+              1,
+              1
+            ]
+          },
+          "expected": 3
+        },
+        {
+          "input": {
+            "nums": [
+              0,
+              0,
+              0
+            ]
+          },
+          "expected": 1
+        }
+      ]
+    },
+    {
+      "slug": "valid_parentheses_mixed",
+      "title": "Valid Parentheses Mixed",
+      "difficulty": "medium",
+      "topic": "stack",
+      "tags": [
+        "stack"
+      ],
+      "description": "Return true if the string containing (), [], and {} is valid.",
+      "functionSignature": "function validParenthesesMixed(s)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "s": "()[]{}"
+          },
+          "expected": true
+        },
+        {
+          "input": {
+            "s": "(]"
+          },
+          "expected": false
+        },
+        {
+          "input": {
+            "s": "([{}])"
+          },
+          "expected": true
+        }
+      ]
+    },
+    {
+      "slug": "evaluate_postfix_expression",
+      "title": "Evaluate Postfix Expression",
+      "difficulty": "medium",
+      "topic": "stack",
+      "tags": [
+        "stack"
+      ],
+      "description": "Evaluate the postfix expression tokens with +, -, *, /. Division truncates toward zero.",
+      "functionSignature": "function evaluatePostfixExpression(tokens)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "tokens": [
+              "2",
+              "1",
+              "+",
+              "3",
+              "*"
+            ]
+          },
+          "expected": 9
+        },
+        {
+          "input": {
+            "tokens": [
+              "4",
+              "13",
+              "5",
+              "/",
+              "+"
+            ]
+          },
+          "expected": 6
+        },
+        {
+          "input": {
+            "tokens": [
+              "10",
+              "6",
+              "9",
+              "3",
+              "+",
+              "-11",
+              "*",
+              "/",
+              "*",
+              "17",
+              "+",
+              "5",
+              "+"
+            ]
+          },
+          "expected": 22
+        }
+      ]
+    },
+    {
+      "slug": "daily_temperatures_wait",
+      "title": "Daily Temperatures Wait",
+      "difficulty": "medium",
+      "topic": "stack",
+      "tags": [
+        "stack"
+      ],
+      "description": "For each day, return how many days until a warmer temperature. If none, return 0.",
+      "functionSignature": "function dailyTemperaturesWait(temps)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "temps": [
+              73,
+              74,
+              75,
+              71,
+              69,
+              72,
+              76,
+              73
+            ]
+          },
+          "expected": [
+            1,
+            1,
+            4,
+            2,
+            1,
+            1,
+            0,
+            0
+          ]
+        },
+        {
+          "input": {
+            "temps": [
+              30,
+              40,
+              50,
+              60
+            ]
+          },
+          "expected": [
+            1,
+            1,
+            1,
+            0
+          ]
+        },
+        {
+          "input": {
+            "temps": [
+              30,
+              60,
+              90
+            ]
+          },
+          "expected": [
+            1,
+            1,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "next_greater_element_circular",
+      "title": "Next Greater Element Circular",
+      "difficulty": "medium",
+      "topic": "stack",
+      "tags": [
+        "stack"
+      ],
+      "description": "For each element in a circular array, return the next greater element, or -1 if none exists.",
+      "functionSignature": "function nextGreaterElementCircular(nums)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              1
+            ]
+          },
+          "expected": [
+            2,
+            -1,
+            2
+          ]
+        },
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              3,
+              4,
+              3
+            ]
+          },
+          "expected": [
+            2,
+            3,
+            4,
+            -1,
+            4
+          ]
+        },
+        {
+          "input": {
+            "nums": [
+              5
+            ]
+          },
+          "expected": [
+            -1
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "top_k_frequent_elements",
+      "title": "Top K Frequent Elements",
+      "difficulty": "medium",
+      "topic": "heap",
+      "tags": [
+        "heap"
+      ],
+      "description": "Return the k most frequent elements. If frequencies tie, smaller number comes first in the result.",
+      "functionSignature": "function topKFrequentElements(nums, k)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              1,
+              1,
+              2,
+              2,
+              3
+            ],
+            "k": 2
+          },
+          "expected": [
+            1,
+            2
+          ]
+        },
+        {
+          "input": {
+            "nums": [
+              1
+            ],
+            "k": 1
+          },
+          "expected": [
+            1
+          ]
+        },
+        {
+          "input": {
+            "nums": [
+              4,
+              4,
+              1,
+              1,
+              2,
+              2,
+              2
+            ],
+            "k": 2
+          },
+          "expected": [
+            2,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "kth_largest_element",
+      "title": "Kth Largest Element",
+      "difficulty": "medium",
+      "topic": "heap",
+      "tags": [
+        "heap"
+      ],
+      "description": "Return the kth largest element in the array.",
+      "functionSignature": "function kthLargestElement(nums, k)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              3,
+              2,
+              1,
+              5,
+              6,
+              4
+            ],
+            "k": 2
+          },
+          "expected": 5
+        },
+        {
+          "input": {
+            "nums": [
+              3,
+              2,
+              3,
+              1,
+              2,
+              4,
+              5,
+              5,
+              6
+            ],
+            "k": 4
+          },
+          "expected": 4
+        },
+        {
+          "input": {
+            "nums": [
+              1
+            ],
+            "k": 1
+          },
+          "expected": 1
+        }
+      ]
+    },
+    {
+      "slug": "merge_intervals_basic",
+      "title": "Merge Intervals Basic",
+      "difficulty": "medium",
+      "topic": "intervals",
+      "tags": [
+        "intervals"
+      ],
+      "description": "Merge all overlapping intervals and return the result sorted by start.",
+      "functionSignature": "function mergeIntervalsBasic(intervals)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "intervals": [
+              [
+                1,
+                3
+              ],
+              [
+                2,
+                6
+              ],
+              [
+                8,
+                10
+              ],
+              [
+                15,
+                18
+              ]
+            ]
+          },
+          "expected": [
+            [
+              1,
+              6
+            ],
+            [
+              8,
+              10
+            ],
+            [
+              15,
+              18
+            ]
+          ]
+        },
+        {
+          "input": {
+            "intervals": [
+              [
+                1,
+                4
+              ],
+              [
+                4,
+                5
+              ]
+            ]
+          },
+          "expected": [
+            [
+              1,
+              5
+            ]
+          ]
+        },
+        {
+          "input": {
+            "intervals": []
+          },
+          "expected": []
+        }
+      ]
+    },
+    {
+      "slug": "insert_interval",
+      "title": "Insert Interval",
+      "difficulty": "medium",
+      "topic": "intervals",
+      "tags": [
+        "intervals"
+      ],
+      "description": "Insert a new interval into a sorted non-overlapping list of intervals and merge if necessary.",
+      "functionSignature": "function insertInterval(intervals, newInterval)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "intervals": [
+              [
+                1,
+                3
+              ],
+              [
+                6,
+                9
+              ]
+            ],
+            "newInterval": [
+              2,
+              5
+            ]
+          },
+          "expected": [
+            [
+              1,
+              5
+            ],
+            [
+              6,
+              9
+            ]
+          ]
+        },
+        {
+          "input": {
+            "intervals": [
+              [
+                1,
+                2
+              ],
+              [
+                3,
+                5
+              ],
+              [
+                6,
+                7
+              ],
+              [
+                8,
+                10
+              ],
+              [
+                12,
+                16
+              ]
+            ],
+            "newInterval": [
+              4,
+              8
+            ]
+          },
+          "expected": [
+            [
+              1,
+              2
+            ],
+            [
+              3,
+              10
+            ],
+            [
+              12,
+              16
+            ]
+          ]
+        },
+        {
+          "input": {
+            "intervals": [],
+            "newInterval": [
+              5,
+              7
+            ]
+          },
+          "expected": [
+            [
+              5,
+              7
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "binary_search_matrix",
+      "title": "Binary Search Matrix",
+      "difficulty": "medium",
+      "topic": "binary-search",
+      "tags": [
+        "binary-search"
+      ],
+      "description": "Return true if target exists in the matrix where each row is sorted and first element of each row is greater than last of previous row.",
+      "functionSignature": "function binarySearchMatrix(matrix, target)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "matrix": [
+              [
+                1,
+                3,
+                5,
+                7
+              ],
+              [
+                10,
+                11,
+                16,
+                20
+              ],
+              [
+                23,
+                30,
+                34,
+                60
+              ]
+            ],
+            "target": 3
+          },
+          "expected": true
+        },
+        {
+          "input": {
+            "matrix": [
+              [
+                1,
+                3,
+                5,
+                7
+              ],
+              [
+                10,
+                11,
+                16,
+                20
+              ],
+              [
+                23,
+                30,
+                34,
+                60
+              ]
+            ],
+            "target": 13
+          },
+          "expected": false
+        },
+        {
+          "input": {
+            "matrix": [
+              [
+                1
+              ]
+            ],
+            "target": 1
+          },
+          "expected": true
+        }
+      ]
+    },
+    {
+      "slug": "search_rotated_sorted_array",
+      "title": "Search Rotated Sorted Array",
+      "difficulty": "medium",
+      "topic": "binary-search",
+      "tags": [
+        "binary-search"
+      ],
+      "description": "Return the index of target in a rotated sorted array, or -1 if not found.",
+      "functionSignature": "function searchRotatedSortedArray(nums, target)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              4,
+              5,
+              6,
+              7,
+              0,
+              1,
+              2
+            ],
+            "target": 0
+          },
+          "expected": 4
+        },
+        {
+          "input": {
+            "nums": [
+              4,
+              5,
+              6,
+              7,
+              0,
+              1,
+              2
+            ],
+            "target": 3
+          },
+          "expected": -1
+        },
+        {
+          "input": {
+            "nums": [
+              1
+            ],
+            "target": 0
+          },
+          "expected": -1
+        }
+      ]
+    },
+    {
+      "slug": "find_peak_element",
+      "title": "Find Peak Element",
+      "difficulty": "medium",
+      "topic": "binary-search",
+      "tags": [
+        "binary-search"
+      ],
+      "description": "Return any index of a peak element where nums[i] is greater than its neighbors.",
+      "functionSignature": "function findPeakElement(nums)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              3,
+              1
+            ]
+          },
+          "expected": 2
+        },
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              1,
+              3,
+              5,
+              6,
+              4
+            ]
+          },
+          "expected": 5
+        },
+        {
+          "input": {
+            "nums": [
+              1
+            ]
+          },
+          "expected": 0
+        }
+      ]
+    },
+    {
+      "slug": "find_first_and_last_position",
+      "title": "Find First And Last Position",
+      "difficulty": "medium",
+      "topic": "binary-search",
+      "tags": [
+        "binary-search"
+      ],
+      "description": "Return the starting and ending index of target in a sorted array, or [-1,-1] if not found.",
+      "functionSignature": "function findFirstAndLastPosition(nums, target)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              5,
+              7,
+              7,
+              8,
+              8,
+              10
+            ],
+            "target": 8
+          },
+          "expected": [
+            3,
+            4
+          ]
+        },
+        {
+          "input": {
+            "nums": [
+              5,
+              7,
+              7,
+              8,
+              8,
+              10
+            ],
+            "target": 6
+          },
+          "expected": [
+            -1,
+            -1
+          ]
+        },
+        {
+          "input": {
+            "nums": [],
+            "target": 0
+          },
+          "expected": [
+            -1,
+            -1
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "minimum_in_rotated_sorted_array",
+      "title": "Minimum In Rotated Sorted Array",
+      "difficulty": "medium",
+      "topic": "binary-search",
+      "tags": [
+        "binary-search"
+      ],
+      "description": "Return the minimum element in a rotated sorted array without duplicates.",
+      "functionSignature": "function minimumInRotatedSortedArray(nums)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              3,
+              4,
+              5,
+              1,
+              2
+            ]
+          },
+          "expected": 1
+        },
+        {
+          "input": {
+            "nums": [
+              4,
+              5,
+              6,
+              7,
+              0,
+              1,
+              2
+            ]
+          },
+          "expected": 0
+        },
+        {
+          "input": {
+            "nums": [
+              11,
+              13,
+              15,
+              17
+            ]
+          },
+          "expected": 11
+        }
+      ]
+    },
+    {
+      "slug": "number_of_islands",
+      "title": "Number Of Islands",
+      "difficulty": "medium",
+      "topic": "graphs",
+      "tags": [
+        "graphs"
+      ],
+      "description": "Given a grid of '1' and '0', return the number of islands using 4-directional adjacency.",
+      "functionSignature": "function numberOfIslands(grid)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "grid": [
+              [
+                "1",
+                "1",
+                "1",
+                "1",
+                "0"
+              ],
+              [
+                "1",
+                "1",
+                "0",
+                "1",
+                "0"
+              ],
+              [
+                "1",
+                "1",
+                "0",
+                "0",
+                "0"
+              ],
+              [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ]
+            ]
+          },
+          "expected": 1
+        },
+        {
+          "input": {
+            "grid": [
+              [
+                "1",
+                "1",
+                "0",
+                "0",
+                "0"
+              ],
+              [
+                "1",
+                "1",
+                "0",
+                "0",
+                "0"
+              ],
+              [
+                "0",
+                "0",
+                "1",
+                "0",
+                "0"
+              ],
+              [
+                "0",
+                "0",
+                "0",
+                "1",
+                "1"
+              ]
+            ]
+          },
+          "expected": 3
+        },
+        {
+          "input": {
+            "grid": [
+              [
+                "0"
+              ]
+            ]
+          },
+          "expected": 0
+        }
+      ]
+    },
+    {
+      "slug": "max_area_of_island",
+      "title": "Max Area Of Island",
+      "difficulty": "medium",
+      "topic": "graphs",
+      "tags": [
+        "graphs"
+      ],
+      "description": "Return the size of the largest island of 1s in a binary grid.",
+      "functionSignature": "function maxAreaOfIsland(grid)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "grid": [
+              [
+                0,
+                0,
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                1,
+                1,
+                0,
+                1
+              ],
+              [
+                0,
+                1,
+                0,
+                0,
+                1
+              ]
+            ]
+          },
+          "expected": 5
+        },
+        {
+          "input": {
+            "grid": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ]
+          },
+          "expected": 0
+        },
+        {
+          "input": {
+            "grid": [
+              [
+                1,
+                1
+              ],
+              [
+                1,
+                1
+              ]
+            ]
+          },
+          "expected": 4
+        }
+      ]
+    },
+    {
+      "slug": "flood_fill",
+      "title": "Flood Fill",
+      "difficulty": "medium",
+      "topic": "graphs",
+      "tags": [
+        "graphs"
+      ],
+      "description": "Recolor the starting pixel and all 4-directionally connected pixels with the same original color.",
+      "functionSignature": "function floodFill(image, sr, sc, color)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "image": [
+              [
+                1,
+                1,
+                1
+              ],
+              [
+                1,
+                1,
+                0
+              ],
+              [
+                1,
+                0,
+                1
+              ]
+            ],
+            "sr": 1,
+            "sc": 1,
+            "color": 2
+          },
+          "expected": [
+            [
+              2,
+              2,
+              2
+            ],
+            [
+              2,
+              2,
+              0
+            ],
+            [
+              2,
+              0,
+              1
+            ]
+          ]
+        },
+        {
+          "input": {
+            "image": [
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                1,
+                1
+              ]
+            ],
+            "sr": 1,
+            "sc": 1,
+            "color": 1
+          },
+          "expected": [
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              1
+            ]
+          ]
+        },
+        {
+          "input": {
+            "image": [
+              [
+                0
+              ]
+            ],
+            "sr": 0,
+            "sc": 0,
+            "color": 2
+          },
+          "expected": [
+            [
+              2
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "rotting_oranges",
+      "title": "Rotting Oranges",
+      "difficulty": "medium",
+      "topic": "graphs",
+      "tags": [
+        "graphs"
+      ],
+      "description": "Return minutes until all fresh oranges become rotten. Return -1 if impossible.",
+      "functionSignature": "function rottingOranges(grid)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "grid": [
+              [
+                2,
+                1,
+                1
+              ],
+              [
+                1,
+                1,
+                0
+              ],
+              [
+                0,
+                1,
+                1
+              ]
+            ]
+          },
+          "expected": 4
+        },
+        {
+          "input": {
+            "grid": [
+              [
+                2,
+                1,
+                1
+              ],
+              [
+                0,
+                1,
+                1
+              ],
+              [
+                1,
+                0,
+                1
+              ]
+            ]
+          },
+          "expected": -1
+        },
+        {
+          "input": {
+            "grid": [
+              [
+                0,
+                2
+              ]
+            ]
+          },
+          "expected": 0
+        }
+      ]
+    },
+    {
+      "slug": "course_schedule_possible",
+      "title": "Course Schedule Possible",
+      "difficulty": "medium",
+      "topic": "graphs",
+      "tags": [
+        "graphs"
+      ],
+      "description": "Return true if you can finish all courses given prerequisite pairs [a,b] meaning b must be taken before a.",
+      "functionSignature": "function courseSchedulePossible(numCourses, prerequisites)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "numCourses": 2,
+            "prerequisites": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          "expected": true
+        },
+        {
+          "input": {
+            "numCourses": 2,
+            "prerequisites": [
+              [
+                1,
+                0
+              ],
+              [
+                0,
+                1
+              ]
+            ]
+          },
+          "expected": false
+        },
+        {
+          "input": {
+            "numCourses": 3,
+            "prerequisites": [
+              [
+                1,
+                0
+              ],
+              [
+                2,
+                1
+              ]
+            ]
+          },
+          "expected": true
+        }
+      ]
+    },
+    {
+      "slug": "clone_graph_values_bfs",
+      "title": "Clone Graph Values BFS",
+      "difficulty": "medium",
+      "topic": "graphs",
+      "tags": [
+        "graphs"
+      ],
+      "description": "Given adjacency list of an undirected graph labeled 0..n-1, return a deep-cloned adjacency list sorted within each list.",
+      "functionSignature": "function cloneGraphValuesBFS(adj)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "adj": [
+              [
+                1,
+                2
+              ],
+              [
+                0,
+                2
+              ],
+              [
+                0,
+                1
+              ]
+            ]
+          },
+          "expected": [
+            [
+              1,
+              2
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              0,
+              1
+            ]
+          ]
+        },
+        {
+          "input": {
+            "adj": [
+              []
+            ]
+          },
+          "expected": [
+            []
+          ]
+        },
+        {
+          "input": {
+            "adj": []
+          },
+          "expected": []
+        }
+      ]
+    },
+    {
+      "slug": "level_order_traversal",
+      "title": "Level Order Traversal",
+      "difficulty": "medium",
+      "topic": "trees",
+      "tags": [
+        "trees"
+      ],
+      "description": "Given a binary tree in array form using nulls, return level order traversal as nested arrays.",
+      "functionSignature": "function levelOrderTraversal(root)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "root": [
+              3,
+              9,
+              20,
+              null,
+              null,
+              15,
+              7
+            ]
+          },
+          "expected": [
+            [
+              3
+            ],
+            [
+              9,
+              20
+            ],
+            [
+              15,
+              7
+            ]
+          ]
+        },
+        {
+          "input": {
+            "root": [
+              1
+            ]
+          },
+          "expected": [
+            [
+              1
+            ]
+          ]
+        },
+        {
+          "input": {
+            "root": []
+          },
+          "expected": []
+        }
+      ]
+    },
+    {
+      "slug": "maximum_depth_binary_tree",
+      "title": "Maximum Depth Binary Tree",
+      "difficulty": "medium",
+      "topic": "trees",
+      "tags": [
+        "trees"
+      ],
+      "description": "Return the maximum depth of a binary tree in array form using nulls.",
+      "functionSignature": "function maximumDepthBinaryTree(root)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "root": [
+              3,
+              9,
+              20,
+              null,
+              null,
+              15,
+              7
+            ]
+          },
+          "expected": 3
+        },
+        {
+          "input": {
+            "root": [
+              1,
+              null,
+              2
+            ]
+          },
+          "expected": 2
+        },
+        {
+          "input": {
+            "root": []
+          },
+          "expected": 0
+        }
+      ]
+    },
+    {
+      "slug": "invert_binary_tree_array",
+      "title": "Invert Binary Tree Array",
+      "difficulty": "medium",
+      "topic": "trees",
+      "tags": [
+        "trees"
+      ],
+      "description": "Invert a binary tree represented as an array and return the resulting array trimmed of trailing nulls.",
+      "functionSignature": "function invertBinaryTreeArray(root)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "root": [
+              4,
+              2,
+              7,
+              1,
+              3,
+              6,
+              9
+            ]
+          },
+          "expected": [
+            4,
+            7,
+            2,
+            9,
+            6,
+            3,
+            1
+          ]
+        },
+        {
+          "input": {
+            "root": [
+              2,
+              1,
+              3
+            ]
+          },
+          "expected": [
+            2,
+            3,
+            1
+          ]
+        },
+        {
+          "input": {
+            "root": []
+          },
+          "expected": []
+        }
+      ]
+    },
+    {
+      "slug": "diameter_of_binary_tree",
+      "title": "Diameter Of Binary Tree",
+      "difficulty": "medium",
+      "topic": "trees",
+      "tags": [
+        "trees"
+      ],
+      "description": "Return the diameter of the binary tree: the number of edges on the longest path between any two nodes.",
+      "functionSignature": "function diameterOfBinaryTree(root)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "root": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          },
+          "expected": 3
+        },
+        {
+          "input": {
+            "root": [
+              1,
+              2
+            ]
+          },
+          "expected": 1
+        },
+        {
+          "input": {
+            "root": []
+          },
+          "expected": 0
+        }
+      ]
+    },
+    {
+      "slug": "path_sum_exists",
+      "title": "Path Sum Exists",
+      "difficulty": "medium",
+      "topic": "trees",
+      "tags": [
+        "trees"
+      ],
+      "description": "Return true if the binary tree has a root-to-leaf path whose sum equals targetSum.",
+      "functionSignature": "function pathSumExists(root, targetSum)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "root": [
+              5,
+              4,
+              8,
+              11,
+              null,
+              13,
+              4,
+              7,
+              2,
+              null,
+              null,
+              null,
+              1
+            ],
+            "targetSum": 22
+          },
+          "expected": true
+        },
+        {
+          "input": {
+            "root": [
+              1,
+              2,
+              3
+            ],
+            "targetSum": 5
+          },
+          "expected": false
+        },
+        {
+          "input": {
+            "root": [],
+            "targetSum": 0
+          },
+          "expected": false
+        }
+      ]
+    },
+    {
+      "slug": "lowest_common_ancestor_bst",
+      "title": "Lowest Common Ancestor BST",
+      "difficulty": "medium",
+      "topic": "trees",
+      "tags": [
+        "trees"
+      ],
+      "description": "Given a BST in array form and values p and q, return the lowest common ancestor value.",
+      "functionSignature": "function lowestCommonAncestorBST(root, p, q)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "root": [
+              6,
+              2,
+              8,
+              0,
+              4,
+              7,
+              9,
+              null,
+              null,
+              3,
+              5
+            ],
+            "p": 2,
+            "q": 8
+          },
+          "expected": 6
+        },
+        {
+          "input": {
+            "root": [
+              6,
+              2,
+              8,
+              0,
+              4,
+              7,
+              9,
+              null,
+              null,
+              3,
+              5
+            ],
+            "p": 2,
+            "q": 4
+          },
+          "expected": 2
+        },
+        {
+          "input": {
+            "root": [
+              2,
+              1
+            ],
+            "p": 2,
+            "q": 1
+          },
+          "expected": 2
+        }
+      ]
+    },
+    {
+      "slug": "coin_change_minimum",
+      "title": "Coin Change Minimum",
+      "difficulty": "medium",
+      "topic": "dp",
+      "tags": [
+        "dp"
+      ],
+      "description": "Return the minimum number of coins needed to make amount. Return -1 if impossible.",
+      "functionSignature": "function coinChangeMinimum(coins, amount)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "coins": [
+              1,
+              2,
+              5
+            ],
+            "amount": 11
+          },
+          "expected": 3
+        },
+        {
+          "input": {
+            "coins": [
+              2
+            ],
+            "amount": 3
+          },
+          "expected": -1
+        },
+        {
+          "input": {
+            "coins": [
+              1
+            ],
+            "amount": 0
+          },
+          "expected": 0
+        }
+      ]
+    },
+    {
+      "slug": "house_robber_linear",
+      "title": "House Robber Linear",
+      "difficulty": "medium",
+      "topic": "dp",
+      "tags": [
+        "dp"
+      ],
+      "description": "Return the maximum amount you can rob without robbing adjacent houses.",
+      "functionSignature": "function houseRobberLinear(nums)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              3,
+              1
+            ]
+          },
+          "expected": 4
+        },
+        {
+          "input": {
+            "nums": [
+              2,
+              7,
+              9,
+              3,
+              1
+            ]
+          },
+          "expected": 12
+        },
+        {
+          "input": {
+            "nums": [
+              2,
+              1,
+              1,
+              2
+            ]
+          },
+          "expected": 4
+        }
+      ]
+    },
+    {
+      "slug": "climbing_stairs_ways",
+      "title": "Climbing Stairs Ways",
+      "difficulty": "medium",
+      "topic": "dp",
+      "tags": [
+        "dp"
+      ],
+      "description": "You can climb 1 or 2 steps. Return the number of distinct ways to reach step n.",
+      "functionSignature": "function climbingStairsWays(n)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "n": 2
+          },
+          "expected": 2
+        },
+        {
+          "input": {
+            "n": 3
+          },
+          "expected": 3
+        },
+        {
+          "input": {
+            "n": 5
+          },
+          "expected": 8
+        }
+      ]
+    },
+    {
+      "slug": "longest_increasing_subsequence_length",
+      "title": "Longest Increasing Subsequence Length",
+      "difficulty": "medium",
+      "topic": "dp",
+      "tags": [
+        "dp"
+      ],
+      "description": "Return the length of the longest strictly increasing subsequence.",
+      "functionSignature": "function longestIncreasingSubsequenceLength(nums)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              10,
+              9,
+              2,
+              5,
+              3,
+              7,
+              101,
+              18
+            ]
+          },
+          "expected": 4
+        },
+        {
+          "input": {
+            "nums": [
+              0,
+              1,
+              0,
+              3,
+              2,
+              3
+            ]
+          },
+          "expected": 4
+        },
+        {
+          "input": {
+            "nums": [
+              7,
+              7,
+              7,
+              7,
+              7
+            ]
+          },
+          "expected": 1
+        }
+      ]
+    },
+    {
+      "slug": "decode_ways_count",
+      "title": "Decode Ways Count",
+      "difficulty": "medium",
+      "topic": "dp",
+      "tags": [
+        "dp"
+      ],
+      "description": "A string of digits maps 1->A to 26->Z. Return number of ways to decode it.",
+      "functionSignature": "function decodeWaysCount(s)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "s": "12"
+          },
+          "expected": 2
+        },
+        {
+          "input": {
+            "s": "226"
+          },
+          "expected": 3
+        },
+        {
+          "input": {
+            "s": "06"
+          },
+          "expected": 0
+        }
+      ]
+    },
+    {
+      "slug": "word_break_possible",
+      "title": "Word Break Possible",
+      "difficulty": "medium",
+      "topic": "dp",
+      "tags": [
+        "dp"
+      ],
+      "description": "Return true if the string can be segmented into one or more words from wordDict.",
+      "functionSignature": "function wordBreakPossible(s, wordDict)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "s": "leetcode",
+            "wordDict": [
+              "leet",
+              "code"
+            ]
+          },
+          "expected": true
+        },
+        {
+          "input": {
+            "s": "applepenapple",
+            "wordDict": [
+              "apple",
+              "pen"
+            ]
+          },
+          "expected": true
+        },
+        {
+          "input": {
+            "s": "catsandog",
+            "wordDict": [
+              "cats",
+              "dog",
+              "sand",
+              "and",
+              "cat"
+            ]
+          },
+          "expected": false
+        }
+      ]
+    },
+    {
+      "slug": "unique_paths_grid",
+      "title": "Unique Paths Grid",
+      "difficulty": "medium",
+      "topic": "dp",
+      "tags": [
+        "dp"
+      ],
+      "description": "Return the number of unique paths from top-left to bottom-right in an m by n grid moving only down or right.",
+      "functionSignature": "function uniquePathsGrid(m, n)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "m": 3,
+            "n": 7
+          },
+          "expected": 28
+        },
+        {
+          "input": {
+            "m": 3,
+            "n": 2
+          },
+          "expected": 3
+        },
+        {
+          "input": {
+            "m": 1,
+            "n": 5
+          },
+          "expected": 5
+        }
+      ]
+    },
+    {
+      "slug": "can_jump_to_end",
+      "title": "Can Jump To End",
+      "difficulty": "medium",
+      "topic": "greedy",
+      "tags": [
+        "greedy"
+      ],
+      "description": "Return true if you can reach the last index.",
+      "functionSignature": "function canJumpToEnd(nums)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              2,
+              3,
+              1,
+              1,
+              4
+            ]
+          },
+          "expected": true
+        },
+        {
+          "input": {
+            "nums": [
+              3,
+              2,
+              1,
+              0,
+              4
+            ]
+          },
+          "expected": false
+        },
+        {
+          "input": {
+            "nums": [
+              0
+            ]
+          },
+          "expected": true
+        }
+      ]
+    },
+    {
+      "slug": "partition_labels",
+      "title": "Partition Labels",
+      "difficulty": "medium",
+      "topic": "greedy",
+      "tags": [
+        "greedy"
+      ],
+      "description": "Partition the string into as many parts as possible so each letter appears in at most one part. Return the part lengths.",
+      "functionSignature": "function partitionLabels(s)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "s": "ababcbacadefegdehijhklij"
+          },
+          "expected": [
+            9,
+            7,
+            8
+          ]
+        },
+        {
+          "input": {
+            "s": "eccbbbbdec"
+          },
+          "expected": [
+            10
+          ]
+        },
+        {
+          "input": {
+            "s": "qiejxqfnqceocmy"
+          },
+          "expected": [
+            13,
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "gas_station_start",
+      "title": "Gas Station Start",
+      "difficulty": "medium",
+      "topic": "greedy",
+      "tags": [
+        "greedy"
+      ],
+      "description": "Return the starting gas station index if you can travel around the circuit once, else -1.",
+      "functionSignature": "function gasStationStart(gas, cost)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "gas": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "cost": [
+              3,
+              4,
+              5,
+              1,
+              2
+            ]
+          },
+          "expected": 3
+        },
+        {
+          "input": {
+            "gas": [
+              2,
+              3,
+              4
+            ],
+            "cost": [
+              3,
+              4,
+              3
+            ]
+          },
+          "expected": -1
+        },
+        {
+          "input": {
+            "gas": [
+              5
+            ],
+            "cost": [
+              4
+            ]
+          },
+          "expected": 0
+        }
+      ]
+    },
+    {
+      "slug": "container_with_most_water",
+      "title": "Container With Most Water",
+      "difficulty": "medium",
+      "topic": "two-pointers",
+      "tags": [
+        "two-pointers"
+      ],
+      "description": "Return the maximum area of water a container can store.",
+      "functionSignature": "function containerWithMostWater(height)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "height": [
+              1,
+              8,
+              6,
+              2,
+              5,
+              4,
+              8,
+              3,
+              7
+            ]
+          },
+          "expected": 49
+        },
+        {
+          "input": {
+            "height": [
+              1,
+              1
+            ]
+          },
+          "expected": 1
+        },
+        {
+          "input": {
+            "height": [
+              4,
+              3,
+              2,
+              1,
+              4
+            ]
+          },
+          "expected": 16
+        }
+      ]
+    },
+    {
+      "slug": "three_sum_zero",
+      "title": "Three Sum Zero",
+      "difficulty": "medium",
+      "topic": "two-pointers",
+      "tags": [
+        "two-pointers"
+      ],
+      "description": "Return all unique triplets [a,b,c] such that a+b+c=0, sorted within each triplet and overall.",
+      "functionSignature": "function threeSumZero(nums)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              -1,
+              0,
+              1,
+              2,
+              -1,
+              -4
+            ]
+          },
+          "expected": [
+            [
+              -1,
+              -1,
+              2
+            ],
+            [
+              -1,
+              0,
+              1
+            ]
+          ]
+        },
+        {
+          "input": {
+            "nums": [
+              0,
+              1,
+              1
+            ]
+          },
+          "expected": []
+        },
+        {
+          "input": {
+            "nums": [
+              0,
+              0,
+              0
+            ]
+          },
+          "expected": [
+            [
+              0,
+              0,
+              0
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "sort_colors_dutch_flag",
+      "title": "Sort Colors Dutch Flag",
+      "difficulty": "medium",
+      "topic": "two-pointers",
+      "tags": [
+        "two-pointers"
+      ],
+      "description": "Sort an array containing only 0, 1, and 2 in-place conceptually and return it.",
+      "functionSignature": "function sortColorsDutchFlag(nums)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              2,
+              0,
+              2,
+              1,
+              1,
+              0
+            ]
+          },
+          "expected": [
+            0,
+            0,
+            1,
+            1,
+            2,
+            2
+          ]
+        },
+        {
+          "input": {
+            "nums": [
+              2,
+              0,
+              1
+            ]
+          },
+          "expected": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "input": {
+            "nums": [
+              0
+            ]
+          },
+          "expected": [
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "minimum_window_simple",
+      "title": "Minimum Window Simple",
+      "difficulty": "medium",
+      "topic": "sliding-window",
+      "tags": [
+        "sliding-window"
+      ],
+      "description": "Return the minimum window substring of s containing all characters of t. Return empty string if none exists.",
+      "functionSignature": "function minimumWindowSimple(s, t)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "s": "ADOBECODEBANC",
+            "t": "ABC"
+          },
+          "expected": "BANC"
+        },
+        {
+          "input": {
+            "s": "a",
+            "t": "a"
+          },
+          "expected": "a"
+        },
+        {
+          "input": {
+            "s": "a",
+            "t": "aa"
+          },
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "slug": "custom_sort_by_order",
+      "title": "Custom Sort By Order",
+      "difficulty": "medium",
+      "topic": "hashing",
+      "tags": [
+        "hashing"
+      ],
+      "description": "Sort characters in s so that chars appearing in order string come first in that order; other chars follow in original relative order.",
+      "functionSignature": "function customSortByOrder(order, s)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "order": "cba",
+            "s": "abcd"
+          },
+          "expected": "cbad"
+        },
+        {
+          "input": {
+            "order": "kqep",
+            "s": "pekeq"
+          },
+          "expected": "kqeep"
+        },
+        {
+          "input": {
+            "order": "",
+            "s": "abc"
+          },
+          "expected": "abc"
+        }
+      ]
+    },
+    {
+      "slug": "median_of_two_sorted_arrays",
+      "title": "Median Of Two Sorted Arrays",
+      "difficulty": "hard",
+      "topic": "binary-search",
+      "tags": [
+        "binary-search"
+      ],
+      "description": "Given two sorted arrays, return the median of the combined sorted array in O(log(m+n)) target complexity.",
+      "functionSignature": "function medianOfTwoSortedArrays(a, b)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "a": [
+              1,
+              3
+            ],
+            "b": [
+              2
+            ]
+          },
+          "expected": 2.0
+        },
+        {
+          "input": {
+            "a": [
+              1,
+              2
+            ],
+            "b": [
+              3,
+              4
+            ]
+          },
+          "expected": 2.5
+        },
+        {
+          "input": {
+            "a": [
+              0,
+              0
+            ],
+            "b": [
+              0,
+              0
+            ]
+          },
+          "expected": 0.0
+        }
+      ]
+    },
+    {
+      "slug": "trapping_rain_water",
+      "title": "Trapping Rain Water",
+      "difficulty": "hard",
+      "topic": "two-pointers",
+      "tags": [
+        "two-pointers"
+      ],
+      "description": "Given an elevation map, return how much rain water can be trapped after raining.",
+      "functionSignature": "function trappingRainWater(height)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "height": [
+              0,
+              1,
+              0,
+              2,
+              1,
+              0,
+              1,
+              3,
+              2,
+              1,
+              2,
+              1
+            ]
+          },
+          "expected": 6
+        },
+        {
+          "input": {
+            "height": [
+              4,
+              2,
+              0,
+              3,
+              2,
+              5
+            ]
+          },
+          "expected": 9
+        },
+        {
+          "input": {
+            "height": [
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          "expected": 0
+        }
+      ]
+    },
+    {
+      "slug": "largest_rectangle_in_histogram",
+      "title": "Largest Rectangle In Histogram",
+      "difficulty": "hard",
+      "topic": "stack",
+      "tags": [
+        "stack"
+      ],
+      "description": "Return the area of the largest rectangle in the histogram.",
+      "functionSignature": "function largestRectangleInHistogram(heights)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "heights": [
+              2,
+              1,
+              5,
+              6,
+              2,
+              3
+            ]
+          },
+          "expected": 10
+        },
+        {
+          "input": {
+            "heights": [
+              2,
+              4
+            ]
+          },
+          "expected": 4
+        },
+        {
+          "input": {
+            "heights": [
+              1,
+              1
+            ]
+          },
+          "expected": 2
+        }
+      ]
+    },
+    {
+      "slug": "sliding_window_maximum",
+      "title": "Sliding Window Maximum",
+      "difficulty": "hard",
+      "topic": "deque",
+      "tags": [
+        "deque"
+      ],
+      "description": "Return the maximum value in each sliding window of size k.",
+      "functionSignature": "function slidingWindowMaximum(nums, k)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              3,
+              -1,
+              -3,
+              5,
+              3,
+              6,
+              7
+            ],
+            "k": 3
+          },
+          "expected": [
+            3,
+            3,
+            5,
+            5,
+            6,
+            7
+          ]
+        },
+        {
+          "input": {
+            "nums": [
+              1
+            ],
+            "k": 1
+          },
+          "expected": [
+            1
+          ]
+        },
+        {
+          "input": {
+            "nums": [
+              9,
+              8,
+              7,
+              6,
+              5
+            ],
+            "k": 2
+          },
+          "expected": [
+            9,
+            8,
+            7,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "minimum_window_subsequence",
+      "title": "Minimum Window Subsequence",
+      "difficulty": "hard",
+      "topic": "dp",
+      "tags": [
+        "dp"
+      ],
+      "description": "Return the shortest substring of s where t appears as a subsequence. Return empty string if none exists.",
+      "functionSignature": "function minimumWindowSubsequence(s, t)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "s": "abcdebdde",
+            "t": "bde"
+          },
+          "expected": "bcde"
+        },
+        {
+          "input": {
+            "s": "jmeqksfrsdcmsiwvaovztaqenprpvnbstl",
+            "t": "u"
+          },
+          "expected": ""
+        },
+        {
+          "input": {
+            "s": "fgrqsqsnodwmxzkzxwqegkndaa",
+            "t": "kzed"
+          },
+          "expected": "kzxwqegknd"
+        }
+      ]
+    },
+    {
+      "slug": "word_ladder_length",
+      "title": "Word Ladder Length",
+      "difficulty": "hard",
+      "topic": "graphs",
+      "tags": [
+        "graphs"
+      ],
+      "description": "Return the length of the shortest transformation sequence from beginWord to endWord by changing one letter at a time.",
+      "functionSignature": "function wordLadderLength(beginWord, endWord, wordList)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "beginWord": "hit",
+            "endWord": "cog",
+            "wordList": [
+              "hot",
+              "dot",
+              "dog",
+              "lot",
+              "log",
+              "cog"
+            ]
+          },
+          "expected": 5
+        },
+        {
+          "input": {
+            "beginWord": "hit",
+            "endWord": "cog",
+            "wordList": [
+              "hot",
+              "dot",
+              "dog",
+              "lot",
+              "log"
+            ]
+          },
+          "expected": 0
+        },
+        {
+          "input": {
+            "beginWord": "a",
+            "endWord": "c",
+            "wordList": [
+              "a",
+              "b",
+              "c"
+            ]
+          },
+          "expected": 2
+        }
+      ]
+    },
+    {
+      "slug": "word_search_board",
+      "title": "Word Search Board",
+      "difficulty": "hard",
+      "topic": "backtracking",
+      "tags": [
+        "backtracking"
+      ],
+      "description": "Return true if the word exists in the grid by sequentially adjacent cells, without reusing a cell.",
+      "functionSignature": "function wordSearchBoard(board, word)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "board": [
+              [
+                "A",
+                "B",
+                "C",
+                "E"
+              ],
+              [
+                "S",
+                "F",
+                "C",
+                "S"
+              ],
+              [
+                "A",
+                "D",
+                "E",
+                "E"
+              ]
+            ],
+            "word": "ABCCED"
+          },
+          "expected": true
+        },
+        {
+          "input": {
+            "board": [
+              [
+                "A",
+                "B",
+                "C",
+                "E"
+              ],
+              [
+                "S",
+                "F",
+                "C",
+                "S"
+              ],
+              [
+                "A",
+                "D",
+                "E",
+                "E"
+              ]
+            ],
+            "word": "SEE"
+          },
+          "expected": true
+        },
+        {
+          "input": {
+            "board": [
+              [
+                "A",
+                "B",
+                "C",
+                "E"
+              ],
+              [
+                "S",
+                "F",
+                "C",
+                "S"
+              ],
+              [
+                "A",
+                "D",
+                "E",
+                "E"
+              ]
+            ],
+            "word": "ABCB"
+          },
+          "expected": false
+        }
+      ]
+    },
+    {
+      "slug": "n_queens_count",
+      "title": "N Queens Count",
+      "difficulty": "hard",
+      "topic": "backtracking",
+      "tags": [
+        "backtracking"
+      ],
+      "description": "Return the number of distinct valid ways to place n queens on an n x n board.",
+      "functionSignature": "function nQueensCount(n)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "n": 4
+          },
+          "expected": 2
+        },
+        {
+          "input": {
+            "n": 1
+          },
+          "expected": 1
+        },
+        {
+          "input": {
+            "n": 5
+          },
+          "expected": 10
+        }
+      ]
+    },
+    {
+      "slug": "sudoku_valid_fill",
+      "title": "Sudoku Valid Fill",
+      "difficulty": "hard",
+      "topic": "backtracking",
+      "tags": [
+        "backtracking"
+      ],
+      "description": "Return true if the partially filled 9x9 Sudoku board is valid.",
+      "functionSignature": "function sudokuValidFill(board)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "board": [
+              [
+                "5",
+                "3",
+                ".",
+                ".",
+                "7",
+                ".",
+                ".",
+                ".",
+                "."
+              ],
+              [
+                "6",
+                ".",
+                ".",
+                "1",
+                "9",
+                "5",
+                ".",
+                ".",
+                "."
+              ],
+              [
+                ".",
+                "9",
+                "8",
+                ".",
+                ".",
+                ".",
+                ".",
+                "6",
+                "."
+              ],
+              [
+                "8",
+                ".",
+                ".",
+                ".",
+                "6",
+                ".",
+                ".",
+                ".",
+                "3"
+              ],
+              [
+                "4",
+                ".",
+                ".",
+                "8",
+                ".",
+                "3",
+                ".",
+                ".",
+                "1"
+              ],
+              [
+                "7",
+                ".",
+                ".",
+                ".",
+                "2",
+                ".",
+                ".",
+                ".",
+                "6"
+              ],
+              [
+                ".",
+                "6",
+                ".",
+                ".",
+                ".",
+                ".",
+                "2",
+                "8",
+                "."
+              ],
+              [
+                ".",
+                ".",
+                ".",
+                "4",
+                "1",
+                "9",
+                ".",
+                ".",
+                "5"
+              ],
+              [
+                ".",
+                ".",
+                ".",
+                ".",
+                "8",
+                ".",
+                ".",
+                "7",
+                "9"
+              ]
+            ]
+          },
+          "expected": true
+        },
+        {
+          "input": {
+            "board": [
+              [
+                "8",
+                "3",
+                ".",
+                ".",
+                "7",
+                ".",
+                ".",
+                ".",
+                "."
+              ],
+              [
+                "6",
+                ".",
+                ".",
+                "1",
+                "9",
+                "5",
+                ".",
+                ".",
+                "."
+              ],
+              [
+                ".",
+                "9",
+                "8",
+                ".",
+                ".",
+                ".",
+                ".",
+                "6",
+                "."
+              ],
+              [
+                "8",
+                ".",
+                ".",
+                ".",
+                "6",
+                ".",
+                ".",
+                ".",
+                "3"
+              ],
+              [
+                "4",
+                ".",
+                ".",
+                "8",
+                ".",
+                "3",
+                ".",
+                ".",
+                "1"
+              ],
+              [
+                "7",
+                ".",
+                ".",
+                ".",
+                "2",
+                ".",
+                ".",
+                ".",
+                "6"
+              ],
+              [
+                ".",
+                "6",
+                ".",
+                ".",
+                ".",
+                ".",
+                "2",
+                "8",
+                "."
+              ],
+              [
+                ".",
+                ".",
+                ".",
+                "4",
+                "1",
+                "9",
+                ".",
+                ".",
+                "5"
+              ],
+              [
+                ".",
+                ".",
+                ".",
+                ".",
+                "8",
+                ".",
+                ".",
+                "7",
+                "9"
+              ]
+            ]
+          },
+          "expected": false
+        },
+        {
+          "input": {
+            "board": [
+              [
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                "."
+              ],
+              [
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                "."
+              ],
+              [
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                "."
+              ],
+              [
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                "."
+              ],
+              [
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                "."
+              ],
+              [
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                "."
+              ],
+              [
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                "."
+              ],
+              [
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                "."
+              ],
+              [
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                "."
+              ]
+            ]
+          },
+          "expected": true
+        }
+      ]
+    },
+    {
+      "slug": "regular_expression_matching",
+      "title": "Regular Expression Matching",
+      "difficulty": "hard",
+      "topic": "dp",
+      "tags": [
+        "dp"
+      ],
+      "description": "Implement regex matching with support for '.' and '*' where match must cover the entire string.",
+      "functionSignature": "function regularExpressionMatching(s, p)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "s": "aa",
+            "p": "a"
+          },
+          "expected": false
+        },
+        {
+          "input": {
+            "s": "aa",
+            "p": "a*"
+          },
+          "expected": true
+        },
+        {
+          "input": {
+            "s": "ab",
+            "p": ".*"
+          },
+          "expected": true
+        }
+      ]
+    },
+    {
+      "slug": "wildcard_matching",
+      "title": "Wildcard Matching",
+      "difficulty": "hard",
+      "topic": "dp",
+      "tags": [
+        "dp"
+      ],
+      "description": "Implement wildcard matching with support for '?' and '*' where '*' matches any sequence.",
+      "functionSignature": "function wildcardMatching(s, p)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "s": "aa",
+            "p": "a"
+          },
+          "expected": false
+        },
+        {
+          "input": {
+            "s": "aa",
+            "p": "*"
+          },
+          "expected": true
+        },
+        {
+          "input": {
+            "s": "cb",
+            "p": "?a"
+          },
+          "expected": false
+        }
+      ]
+    },
+    {
+      "slug": "edit_distance",
+      "title": "Edit Distance",
+      "difficulty": "hard",
+      "topic": "dp",
+      "tags": [
+        "dp"
+      ],
+      "description": "Return the minimum number of insertions, deletions, and replacements to convert word1 into word2.",
+      "functionSignature": "function editDistance(word1, word2)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "word1": "horse",
+            "word2": "ros"
+          },
+          "expected": 3
+        },
+        {
+          "input": {
+            "word1": "intention",
+            "word2": "execution"
+          },
+          "expected": 5
+        },
+        {
+          "input": {
+            "word1": "",
+            "word2": "abc"
+          },
+          "expected": 3
+        }
+      ]
+    },
+    {
+      "slug": "distinct_subsequences_count",
+      "title": "Distinct Subsequences Count",
+      "difficulty": "hard",
+      "topic": "dp",
+      "tags": [
+        "dp"
+      ],
+      "description": "Return how many distinct subsequences of s equal t.",
+      "functionSignature": "function distinctSubsequencesCount(s, t)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "s": "rabbbit",
+            "t": "rabbit"
+          },
+          "expected": 3
+        },
+        {
+          "input": {
+            "s": "babgbag",
+            "t": "bag"
+          },
+          "expected": 5
+        },
+        {
+          "input": {
+            "s": "abc",
+            "t": "abcd"
+          },
+          "expected": 0
+        }
+      ]
+    },
+    {
+      "slug": "longest_valid_parentheses",
+      "title": "Longest Valid Parentheses",
+      "difficulty": "hard",
+      "topic": "stack",
+      "tags": [
+        "stack"
+      ],
+      "description": "Return the length of the longest valid parentheses substring.",
+      "functionSignature": "function longestValidParentheses(s)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "s": "(()"
+          },
+          "expected": 2
+        },
+        {
+          "input": {
+            "s": ")()())"
+          },
+          "expected": 4
+        },
+        {
+          "input": {
+            "s": ""
+          },
+          "expected": 0
+        }
+      ]
+    },
+    {
+      "slug": "serialize_deserialize_binary_tree_compact",
+      "title": "Serialize Deserialize Binary Tree Compact",
+      "difficulty": "hard",
+      "topic": "trees",
+      "tags": [
+        "trees"
+      ],
+      "description": "Given a binary tree array, return its preorder serialization with null markers, then reconstruct and return the trimmed array. Output should be an object with serialized and rebuilt.",
+      "functionSignature": "function serializeDeserializeBinaryTreeCompact(root)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "root": [
+              1,
+              2,
+              3,
+              null,
+              null,
+              4,
+              5
+            ]
+          },
+          "expected": {
+            "serialized": "1,2,#,#,3,4,#,#,5,#,#",
+            "rebuilt": [
+              1,
+              2,
+              3,
+              null,
+              null,
+              4,
+              5
+            ]
+          }
+        },
+        {
+          "input": {
+            "root": []
+          },
+          "expected": {
+            "serialized": "#",
+            "rebuilt": []
+          }
+        },
+        {
+          "input": {
+            "root": [
+              1
+            ]
+          },
+          "expected": {
+            "serialized": "1,#,#",
+            "rebuilt": [
+              1
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "slug": "binary_tree_maximum_path_sum",
+      "title": "Binary Tree Maximum Path Sum",
+      "difficulty": "hard",
+      "topic": "trees",
+      "tags": [
+        "trees"
+      ],
+      "description": "Return the maximum path sum of any non-empty path in the binary tree.",
+      "functionSignature": "function binaryTreeMaximumPathSum(root)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "root": [
+              1,
+              2,
+              3
+            ]
+          },
+          "expected": 6
+        },
+        {
+          "input": {
+            "root": [
+              -10,
+              9,
+              20,
+              null,
+              null,
+              15,
+              7
+            ]
+          },
+          "expected": 42
+        },
+        {
+          "input": {
+            "root": [
+              -3
+            ]
+          },
+          "expected": -3
+        }
+      ]
+    },
+    {
+      "slug": "recover_bst_swapped_values",
+      "title": "Recover BST Swapped Values",
+      "difficulty": "hard",
+      "topic": "trees",
+      "tags": [
+        "trees"
+      ],
+      "description": "Two nodes in a BST are swapped. Return the two values that should be swapped back in ascending order.",
+      "functionSignature": "function recoverBSTSwappedValues(root)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "root": [
+              1,
+              3,
+              null,
+              null,
+              2
+            ]
+          },
+          "expected": [
+            1,
+            3
+          ]
+        },
+        {
+          "input": {
+            "root": [
+              3,
+              1,
+              4,
+              null,
+              null,
+              2
+            ]
+          },
+          "expected": [
+            2,
+            3
+          ]
+        },
+        {
+          "input": {
+            "root": [
+              2,
+              3,
+              1
+            ]
+          },
+          "expected": [
+            1,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "lowest_common_ancestor_binary_tree",
+      "title": "Lowest Common Ancestor Binary Tree",
+      "difficulty": "hard",
+      "topic": "trees",
+      "tags": [
+        "trees"
+      ],
+      "description": "Given a binary tree array and node values p and q, return their lowest common ancestor value.",
+      "functionSignature": "function lowestCommonAncestorBinaryTree(root, p, q)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "root": [
+              3,
+              5,
+              1,
+              6,
+              2,
+              0,
+              8,
+              null,
+              null,
+              7,
+              4
+            ],
+            "p": 5,
+            "q": 1
+          },
+          "expected": 3
+        },
+        {
+          "input": {
+            "root": [
+              3,
+              5,
+              1,
+              6,
+              2,
+              0,
+              8,
+              null,
+              null,
+              7,
+              4
+            ],
+            "p": 5,
+            "q": 4
+          },
+          "expected": 5
+        },
+        {
+          "input": {
+            "root": [
+              1,
+              2
+            ],
+            "p": 1,
+            "q": 2
+          },
+          "expected": 1
+        }
+      ]
+    },
+    {
+      "slug": "all_nodes_distance_k",
+      "title": "All Nodes Distance K",
+      "difficulty": "hard",
+      "topic": "trees",
+      "tags": [
+        "trees"
+      ],
+      "description": "Return all node values at distance k from target in the binary tree, sorted ascending.",
+      "functionSignature": "function allNodesDistanceK(root, target, k)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "root": [
+              3,
+              5,
+              1,
+              6,
+              2,
+              0,
+              8,
+              null,
+              null,
+              7,
+              4
+            ],
+            "target": 5,
+            "k": 2
+          },
+          "expected": [
+            1,
+            4,
+            7
+          ]
+        },
+        {
+          "input": {
+            "root": [
+              1
+            ],
+            "target": 1,
+            "k": 3
+          },
+          "expected": []
+        },
+        {
+          "input": {
+            "root": [
+              0,
+              1,
+              null,
+              3,
+              2
+            ],
+            "target": 2,
+            "k": 1
+          },
+          "expected": [
+            1,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "merge_k_sorted_lists_arrays",
+      "title": "Merge K Sorted Lists Arrays",
+      "difficulty": "hard",
+      "topic": "heap",
+      "tags": [
+        "heap"
+      ],
+      "description": "Given an array of sorted arrays, merge them into one sorted array.",
+      "functionSignature": "function mergeKSortedListsArrays(lists)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "lists": [
+              [
+                1,
+                4,
+                5
+              ],
+              [
+                1,
+                3,
+                4
+              ],
+              [
+                2,
+                6
+              ]
+            ]
+          },
+          "expected": [
+            1,
+            1,
+            2,
+            3,
+            4,
+            4,
+            5,
+            6
+          ]
+        },
+        {
+          "input": {
+            "lists": []
+          },
+          "expected": []
+        },
+        {
+          "input": {
+            "lists": [
+              [],
+              [
+                1
+              ]
+            ]
+          },
+          "expected": [
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "find_kth_smallest_in_matrix",
+      "title": "Find Kth Smallest In Matrix",
+      "difficulty": "hard",
+      "topic": "heap",
+      "tags": [
+        "heap"
+      ],
+      "description": "Given an n x n matrix where rows and columns are sorted, return the kth smallest element.",
+      "functionSignature": "function findKthSmallestInMatrix(matrix, k)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "matrix": [
+              [
+                1,
+                5,
+                9
+              ],
+              [
+                10,
+                11,
+                13
+              ],
+              [
+                12,
+                13,
+                15
+              ]
+            ],
+            "k": 8
+          },
+          "expected": 13
+        },
+        {
+          "input": {
+            "matrix": [
+              [
+                -5
+              ]
+            ],
+            "k": 1
+          },
+          "expected": -5
+        },
+        {
+          "input": {
+            "matrix": [
+              [
+                1,
+                2
+              ],
+              [
+                1,
+                3
+              ]
+            ],
+            "k": 2
+          },
+          "expected": 1
+        }
+      ]
+    },
+    {
+      "slug": "median_finder_stream",
+      "title": "Median Finder Stream",
+      "difficulty": "hard",
+      "topic": "heap",
+      "tags": [
+        "heap"
+      ],
+      "description": "Process a stream of numbers and return the median after each insertion.",
+      "functionSignature": "function medianFinderStream(nums)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              3
+            ]
+          },
+          "expected": [
+            1,
+            1.5,
+            2
+          ]
+        },
+        {
+          "input": {
+            "nums": [
+              5,
+              15,
+              1,
+              3
+            ]
+          },
+          "expected": [
+            5,
+            10,
+            5,
+            4
+          ]
+        },
+        {
+          "input": {
+            "nums": [
+              2
+            ]
+          },
+          "expected": [
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "skyline_critical_points",
+      "title": "Skyline Critical Points",
+      "difficulty": "hard",
+      "topic": "heap",
+      "tags": [
+        "heap"
+      ],
+      "description": "Given buildings as [left,right,height], return the skyline critical points.",
+      "functionSignature": "function skylineCriticalPoints(buildings)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "buildings": [
+              [
+                2,
+                9,
+                10
+              ],
+              [
+                3,
+                7,
+                15
+              ],
+              [
+                5,
+                12,
+                12
+              ],
+              [
+                15,
+                20,
+                10
+              ],
+              [
+                19,
+                24,
+                8
+              ]
+            ]
+          },
+          "expected": [
+            [
+              2,
+              10
+            ],
+            [
+              3,
+              15
+            ],
+            [
+              7,
+              12
+            ],
+            [
+              12,
+              0
+            ],
+            [
+              15,
+              10
+            ],
+            [
+              20,
+              8
+            ],
+            [
+              24,
+              0
+            ]
+          ]
+        },
+        {
+          "input": {
+            "buildings": [
+              [
+                0,
+                2,
+                3
+              ],
+              [
+                2,
+                5,
+                3
+              ]
+            ]
+          },
+          "expected": [
+            [
+              0,
+              3
+            ],
+            [
+              5,
+              0
+            ]
+          ]
+        },
+        {
+          "input": {
+            "buildings": []
+          },
+          "expected": []
+        }
+      ]
+    },
+    {
+      "slug": "alien_dictionary_order",
+      "title": "Alien Dictionary Order",
+      "difficulty": "hard",
+      "topic": "graphs",
+      "tags": [
+        "graphs"
+      ],
+      "description": "Given sorted words in an alien language, return one valid character order string. Return empty string if invalid.",
+      "functionSignature": "function alienDictionaryOrder(words)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "words": [
+              "wrt",
+              "wrf",
+              "er",
+              "ett",
+              "rftt"
+            ]
+          },
+          "expected": "wertf"
+        },
+        {
+          "input": {
+            "words": [
+              "z",
+              "x"
+            ]
+          },
+          "expected": "zx"
+        },
+        {
+          "input": {
+            "words": [
+              "z",
+              "x",
+              "z"
+            ]
+          },
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "slug": "network_delay_time",
+      "title": "Network Delay Time",
+      "difficulty": "hard",
+      "topic": "graphs",
+      "tags": [
+        "graphs"
+      ],
+      "description": "Return the time it takes for all nodes to receive a signal sent from k. Return -1 if unreachable.",
+      "functionSignature": "function networkDelayTime(times, n, k)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "times": [
+              [
+                2,
+                1,
+                1
+              ],
+              [
+                2,
+                3,
+                1
+              ],
+              [
+                3,
+                4,
+                1
+              ]
+            ],
+            "n": 4,
+            "k": 2
+          },
+          "expected": 2
+        },
+        {
+          "input": {
+            "times": [
+              [
+                1,
+                2,
+                1
+              ]
+            ],
+            "n": 2,
+            "k": 1
+          },
+          "expected": 1
+        },
+        {
+          "input": {
+            "times": [
+              [
+                1,
+                2,
+                1
+              ]
+            ],
+            "n": 2,
+            "k": 2
+          },
+          "expected": -1
+        }
+      ]
+    },
+    {
+      "slug": "cheapest_flight_within_k_stops",
+      "title": "Cheapest Flight Within K Stops",
+      "difficulty": "hard",
+      "topic": "graphs",
+      "tags": [
+        "graphs"
+      ],
+      "description": "Return the cheapest price from src to dst with at most k stops, or -1 if impossible.",
+      "functionSignature": "function cheapestFlightWithinKStops(n, flights, src, dst, k)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "n": 4,
+            "flights": [
+              [
+                0,
+                1,
+                100
+              ],
+              [
+                1,
+                2,
+                100
+              ],
+              [
+                2,
+                0,
+                100
+              ],
+              [
+                1,
+                3,
+                600
+              ],
+              [
+                2,
+                3,
+                200
+              ]
+            ],
+            "src": 0,
+            "dst": 3,
+            "k": 1
+          },
+          "expected": 700
+        },
+        {
+          "input": {
+            "n": 3,
+            "flights": [
+              [
+                0,
+                1,
+                100
+              ],
+              [
+                1,
+                2,
+                100
+              ],
+              [
+                0,
+                2,
+                500
+              ]
+            ],
+            "src": 0,
+            "dst": 2,
+            "k": 1
+          },
+          "expected": 200
+        },
+        {
+          "input": {
+            "n": 3,
+            "flights": [
+              [
+                0,
+                1,
+                100
+              ],
+              [
+                1,
+                2,
+                100
+              ],
+              [
+                0,
+                2,
+                500
+              ]
+            ],
+            "src": 0,
+            "dst": 2,
+            "k": 0
+          },
+          "expected": 500
+        }
+      ]
+    },
+    {
+      "slug": "find_itinerary_lexicographic",
+      "title": "Find Itinerary Lexicographic",
+      "difficulty": "hard",
+      "topic": "graphs",
+      "tags": [
+        "graphs"
+      ],
+      "description": "Given airline tickets [from,to], reconstruct itinerary starting at JFK using all tickets once and choose lexical order when multiple answers exist.",
+      "functionSignature": "function findItineraryLexicographic(tickets)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "tickets": [
+              [
+                "MUC",
+                "LHR"
+              ],
+              [
+                "JFK",
+                "MUC"
+              ],
+              [
+                "SFO",
+                "SJC"
+              ],
+              [
+                "LHR",
+                "SFO"
+              ]
+            ]
+          },
+          "expected": [
+            "JFK",
+            "MUC",
+            "LHR",
+            "SFO",
+            "SJC"
+          ]
+        },
+        {
+          "input": {
+            "tickets": [
+              [
+                "JFK",
+                "SFO"
+              ],
+              [
+                "JFK",
+                "ATL"
+              ],
+              [
+                "SFO",
+                "ATL"
+              ],
+              [
+                "ATL",
+                "JFK"
+              ],
+              [
+                "ATL",
+                "SFO"
+              ]
+            ]
+          },
+          "expected": [
+            "JFK",
+            "ATL",
+            "JFK",
+            "SFO",
+            "ATL",
+            "SFO"
+          ]
+        },
+        {
+          "input": {
+            "tickets": [
+              [
+                "JFK",
+                "KUL"
+              ],
+              [
+                "JFK",
+                "NRT"
+              ],
+              [
+                "NRT",
+                "JFK"
+              ]
+            ]
+          },
+          "expected": [
+            "JFK",
+            "NRT",
+            "JFK",
+            "KUL"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "swim_in_rising_water",
+      "title": "Swim In Rising Water",
+      "difficulty": "hard",
+      "topic": "graphs",
+      "tags": [
+        "graphs"
+      ],
+      "description": "Return the minimum time required to travel from top-left to bottom-right where time must be at least the max elevation seen on the path.",
+      "functionSignature": "function swimInRisingWater(grid)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "grid": [
+              [
+                0,
+                2
+              ],
+              [
+                1,
+                3
+              ]
+            ]
+          },
+          "expected": 3
+        },
+        {
+          "input": {
+            "grid": [
+              [
+                0,
+                1,
+                2,
+                3,
+                4
+              ],
+              [
+                24,
+                23,
+                22,
+                21,
+                5
+              ],
+              [
+                12,
+                13,
+                14,
+                15,
+                16
+              ],
+              [
+                11,
+                17,
+                18,
+                19,
+                20
+              ],
+              [
+                10,
+                9,
+                8,
+                7,
+                6
+              ]
+            ]
+          },
+          "expected": 16
+        },
+        {
+          "input": {
+            "grid": [
+              [
+                7
+              ]
+            ]
+          },
+          "expected": 7
+        }
+      ]
+    },
+    {
+      "slug": "shortest_bridge",
+      "title": "Shortest Bridge",
+      "difficulty": "hard",
+      "topic": "graphs",
+      "tags": [
+        "graphs"
+      ],
+      "description": "Given a binary grid with exactly two islands, return the smallest number of 0s to flip to connect them.",
+      "functionSignature": "function shortestBridge(grid)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "grid": [
+              [
+                0,
+                1
+              ],
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          "expected": 1
+        },
+        {
+          "input": {
+            "grid": [
+              [
+                0,
+                1,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                1
+              ]
+            ]
+          },
+          "expected": 2
+        },
+        {
+          "input": {
+            "grid": [
+              [
+                1,
+                1,
+                1,
+                1,
+                1
+              ],
+              [
+                1,
+                0,
+                0,
+                0,
+                1
+              ],
+              [
+                1,
+                0,
+                1,
+                0,
+                1
+              ],
+              [
+                1,
+                0,
+                0,
+                0,
+                1
+              ],
+              [
+                1,
+                1,
+                1,
+                1,
+                1
+              ]
+            ]
+          },
+          "expected": 1
+        }
+      ]
+    },
+    {
+      "slug": "critical_connections_bridges",
+      "title": "Critical Connections Bridges",
+      "difficulty": "hard",
+      "topic": "graphs",
+      "tags": [
+        "graphs"
+      ],
+      "description": "Return all critical connections in the network sorted ascending by pair then overall.",
+      "functionSignature": "function criticalConnectionsBridges(n, connections)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "n": 4,
+            "connections": [
+              [
+                0,
+                1
+              ],
+              [
+                1,
+                2
+              ],
+              [
+                2,
+                0
+              ],
+              [
+                1,
+                3
+              ]
+            ]
+          },
+          "expected": [
+            [
+              1,
+              3
+            ]
+          ]
+        },
+        {
+          "input": {
+            "n": 2,
+            "connections": [
+              [
+                0,
+                1
+              ]
+            ]
+          },
+          "expected": [
+            [
+              0,
+              1
+            ]
+          ]
+        },
+        {
+          "input": {
+            "n": 5,
+            "connections": [
+              [
+                1,
+                0
+              ],
+              [
+                2,
+                0
+              ],
+              [
+                3,
+                2
+              ],
+              [
+                4,
+                2
+              ],
+              [
+                3,
+                4
+              ],
+              [
+                4,
+                0
+              ]
+            ]
+          },
+          "expected": [
+            [
+              0,
+              1
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "longest_increasing_path_matrix",
+      "title": "Longest Increasing Path Matrix",
+      "difficulty": "hard",
+      "topic": "dp",
+      "tags": [
+        "dp"
+      ],
+      "description": "Return the length of the longest strictly increasing path in the matrix moving 4 directions.",
+      "functionSignature": "function longestIncreasingPathMatrix(matrix)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "matrix": [
+              [
+                9,
+                9,
+                4
+              ],
+              [
+                6,
+                6,
+                8
+              ],
+              [
+                2,
+                1,
+                1
+              ]
+            ]
+          },
+          "expected": 4
+        },
+        {
+          "input": {
+            "matrix": [
+              [
+                3,
+                4,
+                5
+              ],
+              [
+                3,
+                2,
+                6
+              ],
+              [
+                2,
+                2,
+                1
+              ]
+            ]
+          },
+          "expected": 4
+        },
+        {
+          "input": {
+            "matrix": [
+              [
+                1
+              ]
+            ]
+          },
+          "expected": 1
+        }
+      ]
+    },
+    {
+      "slug": "burst_balloons_max_coins",
+      "title": "Burst Balloons Max Coins",
+      "difficulty": "hard",
+      "topic": "dp",
+      "tags": [
+        "dp"
+      ],
+      "description": "Return the maximum coins you can collect by bursting balloons wisely.",
+      "functionSignature": "function burstBalloonsMaxCoins(nums)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              3,
+              1,
+              5,
+              8
+            ]
+          },
+          "expected": 167
+        },
+        {
+          "input": {
+            "nums": [
+              1,
+              5
+            ]
+          },
+          "expected": 10
+        },
+        {
+          "input": {
+            "nums": [
+              7
+            ]
+          },
+          "expected": 7
+        }
+      ]
+    },
+    {
+      "slug": "palindrome_partition_minimum_cuts",
+      "title": "Palindrome Partition Minimum Cuts",
+      "difficulty": "hard",
+      "topic": "dp",
+      "tags": [
+        "dp"
+      ],
+      "description": "Return the minimum cuts needed to partition the string into palindromic substrings.",
+      "functionSignature": "function palindromePartitionMinimumCuts(s)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "s": "aab"
+          },
+          "expected": 1
+        },
+        {
+          "input": {
+            "s": "a"
+          },
+          "expected": 0
+        },
+        {
+          "input": {
+            "s": "ab"
+          },
+          "expected": 1
+        }
+      ]
+    },
+    {
+      "slug": "interleaving_string",
+      "title": "Interleaving String",
+      "difficulty": "hard",
+      "topic": "dp",
+      "tags": [
+        "dp"
+      ],
+      "description": "Return true if s3 is formed by interleaving s1 and s2 while preserving character order in each.",
+      "functionSignature": "function interleavingString(s1, s2, s3)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "s1": "aabcc",
+            "s2": "dbbca",
+            "s3": "aadbbcbcac"
+          },
+          "expected": true
+        },
+        {
+          "input": {
+            "s1": "aabcc",
+            "s2": "dbbca",
+            "s3": "aadbbbaccc"
+          },
+          "expected": false
+        },
+        {
+          "input": {
+            "s1": "",
+            "s2": "",
+            "s3": ""
+          },
+          "expected": true
+        }
+      ]
+    },
+    {
+      "slug": "maximal_rectangle_binary_matrix",
+      "title": "Maximal Rectangle Binary Matrix",
+      "difficulty": "hard",
+      "topic": "dp",
+      "tags": [
+        "dp"
+      ],
+      "description": "Return the area of the largest rectangle containing only 1s in a binary matrix.",
+      "functionSignature": "function maximalRectangleBinaryMatrix(matrix)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "matrix": [
+              [
+                "1",
+                "0",
+                "1",
+                "0",
+                "0"
+              ],
+              [
+                "1",
+                "0",
+                "1",
+                "1",
+                "1"
+              ],
+              [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              [
+                "1",
+                "0",
+                "0",
+                "1",
+                "0"
+              ]
+            ]
+          },
+          "expected": 6
+        },
+        {
+          "input": {
+            "matrix": [
+              [
+                "0"
+              ]
+            ]
+          },
+          "expected": 0
+        },
+        {
+          "input": {
+            "matrix": [
+              [
+                "1"
+              ]
+            ]
+          },
+          "expected": 1
+        }
+      ]
+    },
+    {
+      "slug": "russian_doll_envelopes",
+      "title": "Russian Doll Envelopes",
+      "difficulty": "hard",
+      "topic": "dp",
+      "tags": [
+        "dp"
+      ],
+      "description": "Return the maximum number of envelopes you can Russian doll.",
+      "functionSignature": "function russianDollEnvelopes(envelopes)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "envelopes": [
+              [
+                5,
+                4
+              ],
+              [
+                6,
+                4
+              ],
+              [
+                6,
+                7
+              ],
+              [
+                2,
+                3
+              ]
+            ]
+          },
+          "expected": 3
+        },
+        {
+          "input": {
+            "envelopes": [
+              [
+                1,
+                1
+              ],
+              [
+                1,
+                1
+              ],
+              [
+                1,
+                1
+              ]
+            ]
+          },
+          "expected": 1
+        },
+        {
+          "input": {
+            "envelopes": [
+              [
+                4,
+                5
+              ],
+              [
+                4,
+                6
+              ],
+              [
+                6,
+                7
+              ],
+              [
+                2,
+                3
+              ],
+              [
+                1,
+                1
+              ]
+            ]
+          },
+          "expected": 4
+        }
+      ]
+    },
+    {
+      "slug": "split_array_largest_sum",
+      "title": "Split Array Largest Sum",
+      "difficulty": "hard",
+      "topic": "binary-search",
+      "tags": [
+        "binary-search"
+      ],
+      "description": "Split nums into k non-empty subarrays minimizing the largest subarray sum. Return that minimum largest sum.",
+      "functionSignature": "function splitArrayLargestSum(nums, k)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              7,
+              2,
+              5,
+              10,
+              8
+            ],
+            "k": 2
+          },
+          "expected": 18
+        },
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "k": 2
+          },
+          "expected": 9
+        },
+        {
+          "input": {
+            "nums": [
+              1,
+              4,
+              4
+            ],
+            "k": 3
+          },
+          "expected": 4
+        }
+      ]
+    },
+    {
+      "slug": "count_smaller_numbers_after_self",
+      "title": "Count Smaller Numbers After Self",
+      "difficulty": "hard",
+      "topic": "fenwick-tree",
+      "tags": [
+        "fenwick-tree"
+      ],
+      "description": "Return an array where each element is the count of smaller numbers to its right.",
+      "functionSignature": "function countSmallerNumbersAfterSelf(nums)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              5,
+              2,
+              6,
+              1
+            ]
+          },
+          "expected": [
+            2,
+            1,
+            1,
+            0
+          ]
+        },
+        {
+          "input": {
+            "nums": [
+              -1
+            ]
+          },
+          "expected": [
+            0
+          ]
+        },
+        {
+          "input": {
+            "nums": [
+              -1,
+              -1
+            ]
+          },
+          "expected": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "reverse_pairs_count",
+      "title": "Reverse Pairs Count",
+      "difficulty": "hard",
+      "topic": "merge-sort",
+      "tags": [
+        "merge-sort"
+      ],
+      "description": "Return the number of reverse pairs (i,j) such that i<j and nums[i] > 2*nums[j].",
+      "functionSignature": "function reversePairsCount(nums)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              3,
+              2,
+              3,
+              1
+            ]
+          },
+          "expected": 2
+        },
+        {
+          "input": {
+            "nums": [
+              2,
+              4,
+              3,
+              5,
+              1
+            ]
+          },
+          "expected": 3
+        },
+        {
+          "input": {
+            "nums": []
+          },
+          "expected": 0
+        }
+      ]
+    },
+    {
+      "slug": "create_maximum_number",
+      "title": "Create Maximum Number",
+      "difficulty": "hard",
+      "topic": "greedy",
+      "tags": [
+        "greedy"
+      ],
+      "description": "Given two arrays of digits and k, create the maximum number of length k while preserving order within each array.",
+      "functionSignature": "function createMaximumNumber(nums1, nums2, k)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "nums1": [
+              3,
+              4,
+              6,
+              5
+            ],
+            "nums2": [
+              9,
+              1,
+              2,
+              5,
+              8,
+              3
+            ],
+            "k": 5
+          },
+          "expected": [
+            9,
+            8,
+            6,
+            5,
+            3
+          ]
+        },
+        {
+          "input": {
+            "nums1": [
+              6,
+              7
+            ],
+            "nums2": [
+              6,
+              0,
+              4
+            ],
+            "k": 5
+          },
+          "expected": [
+            6,
+            7,
+            6,
+            0,
+            4
+          ]
+        },
+        {
+          "input": {
+            "nums1": [
+              3,
+              9
+            ],
+            "nums2": [
+              8,
+              9
+            ],
+            "k": 3
+          },
+          "expected": [
+            9,
+            8,
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "candy_distribution",
+      "title": "Candy Distribution",
+      "difficulty": "hard",
+      "topic": "greedy",
+      "tags": [
+        "greedy"
+      ],
+      "description": "Children with higher rating than neighbors must get more candy. Return the minimum candies needed.",
+      "functionSignature": "function candyDistribution(ratings)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "ratings": [
+              1,
+              0,
+              2
+            ]
+          },
+          "expected": 5
+        },
+        {
+          "input": {
+            "ratings": [
+              1,
+              2,
+              2
+            ]
+          },
+          "expected": 4
+        },
+        {
+          "input": {
+            "ratings": [
+              1,
+              3,
+              4,
+              5,
+              2
+            ]
+          },
+          "expected": 11
+        }
+      ]
+    },
+    {
+      "slug": "first_missing_positive",
+      "title": "First Missing Positive",
+      "difficulty": "hard",
+      "topic": "arrays",
+      "tags": [
+        "arrays"
+      ],
+      "description": "Return the smallest missing positive integer.",
+      "functionSignature": "function firstMissingPositive(nums)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              0
+            ]
+          },
+          "expected": 3
+        },
+        {
+          "input": {
+            "nums": [
+              3,
+              4,
+              -1,
+              1
+            ]
+          },
+          "expected": 2
+        },
+        {
+          "input": {
+            "nums": [
+              7,
+              8,
+              9,
+              11,
+              12
+            ]
+          },
+          "expected": 1
+        }
+      ]
+    },
+    {
+      "slug": "substring_concatenation_all_words",
+      "title": "Substring Concatenation All Words",
+      "difficulty": "hard",
+      "topic": "sliding-window",
+      "tags": [
+        "sliding-window"
+      ],
+      "description": "Return all starting indices where the substring is a concatenation of each word in words exactly once.",
+      "functionSignature": "function substringConcatenationAllWords(s, words)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "s": "barfoothefoobarman",
+            "words": [
+              "foo",
+              "bar"
+            ]
+          },
+          "expected": [
+            0,
+            9
+          ]
+        },
+        {
+          "input": {
+            "s": "wordgoodgoodgoodbestword",
+            "words": [
+              "word",
+              "good",
+              "best",
+              "word"
+            ]
+          },
+          "expected": []
+        },
+        {
+          "input": {
+            "s": "barfoofoobarthefoobarman",
+            "words": [
+              "bar",
+              "foo",
+              "the"
+            ]
+          },
+          "expected": [
+            6,
+            9,
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "minimum_number_of_refueling_stops",
+      "title": "Minimum Number Of Refueling Stops",
+      "difficulty": "hard",
+      "topic": "heap",
+      "tags": [
+        "heap"
+      ],
+      "description": "Return the minimum number of refueling stops to reach the target, or -1 if impossible.",
+      "functionSignature": "function minimumNumberOfRefuelingStops(target, startFuel, stations)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "target": 100,
+            "startFuel": 10,
+            "stations": [
+              [
+                10,
+                60
+              ],
+              [
+                20,
+                30
+              ],
+              [
+                30,
+                30
+              ],
+              [
+                60,
+                40
+              ]
+            ]
+          },
+          "expected": 2
+        },
+        {
+          "input": {
+            "target": 1,
+            "startFuel": 1,
+            "stations": []
+          },
+          "expected": 0
+        },
+        {
+          "input": {
+            "target": 100,
+            "startFuel": 1,
+            "stations": [
+              [
+                10,
+                100
+              ]
+            ]
+          },
+          "expected": -1
+        }
+      ]
+    },
+    {
+      "slug": "max_points_on_a_line",
+      "title": "Max Points On A Line",
+      "difficulty": "hard",
+      "topic": "geometry",
+      "tags": [
+        "geometry"
+      ],
+      "description": "Given points, return the maximum number of points lying on the same straight line.",
+      "functionSignature": "function maxPointsOnALine(points)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "points": [
+              [
+                1,
+                1
+              ],
+              [
+                2,
+                2
+              ],
+              [
+                3,
+                3
+              ]
+            ]
+          },
+          "expected": 3
+        },
+        {
+          "input": {
+            "points": [
+              [
+                1,
+                1
+              ],
+              [
+                3,
+                2
+              ],
+              [
+                5,
+                3
+              ],
+              [
+                4,
+                1
+              ],
+              [
+                2,
+                3
+              ],
+              [
+                1,
+                4
+              ]
+            ]
+          },
+          "expected": 4
+        },
+        {
+          "input": {
+            "points": [
+              [
+                0,
+                0
+              ]
+            ]
+          },
+          "expected": 1
+        }
+      ]
+    },
+    {
+      "slug": "text_justification",
+      "title": "Text Justification",
+      "difficulty": "hard",
+      "topic": "strings",
+      "tags": [
+        "strings"
+      ],
+      "description": "Fully justify text so each line has exactly maxWidth characters, except the last line which is left-justified.",
+      "functionSignature": "function textJustification(words, maxWidth)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "words": [
+              "This",
+              "is",
+              "an",
+              "example",
+              "of",
+              "text",
+              "justification."
+            ],
+            "maxWidth": 16
+          },
+          "expected": [
+            "This    is    an",
+            "example  of text",
+            "justification.  "
+          ]
+        },
+        {
+          "input": {
+            "words": [
+              "What",
+              "must",
+              "be",
+              "acknowledgment",
+              "shall",
+              "be"
+            ],
+            "maxWidth": 16
+          },
+          "expected": [
+            "What   must   be",
+            "acknowledgment  ",
+            "shall be        "
+          ]
+        },
+        {
+          "input": {
+            "words": [
+              "Science",
+              "is",
+              "what",
+              "we",
+              "understand",
+              "well"
+            ],
+            "maxWidth": 20
+          },
+          "expected": [
+            "Science  is  what we",
+            "understand well    "
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "minimum_cost_to_connect_points",
+      "title": "Minimum Cost To Connect Points",
+      "difficulty": "hard",
+      "topic": "graphs",
+      "tags": [
+        "graphs"
+      ],
+      "description": "Given points on a 2D plane, return the minimum cost to connect all points using Manhattan distance.",
+      "functionSignature": "function minimumCostToConnectPoints(points)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "points": [
+              [
+                0,
+                0
+              ],
+              [
+                2,
+                2
+              ],
+              [
+                3,
+                10
+              ],
+              [
+                5,
+                2
+              ],
+              [
+                7,
+                0
+              ]
+            ]
+          },
+          "expected": 20
+        },
+        {
+          "input": {
+            "points": [
+              [
+                3,
+                12
+              ],
+              [
+                -2,
+                5
+              ],
+              [
+                -4,
+                1
+              ]
+            ]
+          },
+          "expected": 18
+        },
+        {
+          "input": {
+            "points": [
+              [
+                0,
+                0
+              ]
+            ]
+          },
+          "expected": 0
+        }
+      ]
+    },
+    {
+      "slug": "freedom_trail_steps",
+      "title": "Freedom Trail Steps",
+      "difficulty": "hard",
+      "topic": "dp",
+      "tags": [
+        "dp"
+      ],
+      "description": "Given ring and key, return the minimum steps to spell key by rotating the ring and pressing a button.",
+      "functionSignature": "function freedomTrailSteps(ring, key)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "ring": "godding",
+            "key": "gd"
+          },
+          "expected": 4
+        },
+        {
+          "input": {
+            "ring": "abcde",
+            "key": "ade"
+          },
+          "expected": 6
+        },
+        {
+          "input": {
+            "ring": "aaa",
+            "key": "aaaa"
+          },
+          "expected": 4
+        }
+      ]
+    },
+    {
+      "slug": "remove_invalid_parentheses_minimum",
+      "title": "Remove Invalid Parentheses Minimum",
+      "difficulty": "hard",
+      "topic": "backtracking",
+      "tags": [
+        "backtracking"
+      ],
+      "description": "Remove the minimum number of invalid parentheses to make the string valid. Return all possible results sorted ascending.",
+      "functionSignature": "function removeInvalidParenthesesMinimum(s)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "s": "()())()"
+          },
+          "expected": [
+            "(())()",
+            "()()()"
+          ]
+        },
+        {
+          "input": {
+            "s": "(a)())()"
+          },
+          "expected": [
+            "(a())()",
+            "(a)()()"
+          ]
+        },
+        {
+          "input": {
+            "s": ")("
+          },
+          "expected": [
+            ""
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "stickers_to_spell_word",
+      "title": "Stickers To Spell Word",
+      "difficulty": "hard",
+      "topic": "dp",
+      "tags": [
+        "dp"
+      ],
+      "description": "Given stickers and a target, return the minimum number of stickers required to spell the target, or -1 if impossible.",
+      "functionSignature": "function stickersToSpellWord(stickers, target)",
+      "constraints": [],
+      "testCases": [
+        {
+          "input": {
+            "stickers": [
+              "with",
+              "example",
+              "science"
+            ],
+            "target": "thehat"
+          },
+          "expected": 3
+        },
+        {
+          "input": {
+            "stickers": [
+              "notice",
+              "possible"
+            ],
+            "target": "basicbasic"
+          },
+          "expected": -1
+        },
+        {
+          "input": {
+            "stickers": [
+              "these",
+              "guess",
+              "about",
+              "garden",
+              "him"
+            ],
+            "target": "atomher"
+          },
+          "expected": 3
+        }
+      ]
+    }
+  ]
+}

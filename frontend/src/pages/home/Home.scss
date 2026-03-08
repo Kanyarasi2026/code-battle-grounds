@@ -4,7 +4,7 @@
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
-	background: var(--bg-primary);
+	background: linear-gradient(135deg, #0a0a0b 0%, #111113 60%, #0d0d0f 100%);
 	color: var(--text-primary);
 
 	&__header {
@@ -19,6 +19,12 @@
 		display: flex;
 		align-items: center;
 		gap: 10px;
+	}
+
+	&__header-right {
+		display: flex;
+		align-items: center;
+		gap: 8px;
 	}
 
 	&__user-email {
@@ -44,9 +50,10 @@
 			font-weight: 700;
 			letter-spacing: -0.03em;
 			color: var(--text-primary);
+			font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
 			span {
-				color: var(--accent-green);
+				color: #22c55e;
 			}
 		}
 	}

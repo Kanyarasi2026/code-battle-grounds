@@ -70,7 +70,10 @@ const Home = () => {
           <Avatar username={username || 'U'} size="sm" />
           <span className="home__user-email">{user?.email}</span>
         </div>
-        <Button variant="ghost" size="sm" iconLeft={<LogOut size={14} />} onClick={() => { void signOut(); }}>Sign out</Button>
+        <div className="home__header-right">
+          <Button variant="secondary" size="sm" onClick={() => navigate('/role')}>Explore Features</Button>
+          <Button variant="ghost" size="sm" iconLeft={<LogOut size={14} />} onClick={() => { void signOut(); }}>Sign out</Button>
+        </div>
       </header>
       <motion.main className="home__main" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease: 'easeOut' }}>
         <div className="home__brand">
@@ -92,7 +95,7 @@ const Home = () => {
           </div>
         </Card>
       </motion.main>
-      <footer className="home__footer"><p>Built by <a href="https://www.meghan31.me" target="_blank" rel="noreferrer">Meghan31</a></p></footer>
+      <footer className="home__footer"><p>Built by <a href="https://github.com/Kanyarasi2026/code-battle-grounds" target="_blank" rel="noreferrer">MSG-Kanyarashi</a></p></footer>
     </div>
   );
 };

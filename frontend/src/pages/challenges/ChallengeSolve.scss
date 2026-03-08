@@ -1,0 +1,516 @@
+@use '../../styles/variables' as v;
+
+.challenge-solve {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: #0a0a0b;
+  color: #fafafa;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow: hidden;
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  &--not-found {
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    font-size: 15px;
+    color: #71717a;
+
+    button {
+      background: #1a1a1f;
+      border: 1px solid #2a2a30;
+      color: #e4e4e7;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+  }
+
+  // ── Top bar ──────────────────────────────────────────────────
+  &__topbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    background: #111113;
+    border-bottom: 1px solid #1e1e22;
+    flex-shrink: 0;
+  }
+
+  &__back {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: transparent;
+    border: 1px solid #2a2a30;
+    color: #a1a1aa;
+    padding: 5px 10px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: inherit;
+    transition: color 0.2s, border-color 0.2s;
+    white-space: nowrap;
+
+    &:hover {
+      color: #fafafa;
+      border-color: #3f3f46;
+    }
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__diff {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: capitalize;
+    padding: 2px 8px;
+    border-radius: 5px;
+    border: 1px solid;
+    white-space: nowrap;
+  }
+
+  &__problem-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #e4e4e7;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__check {
+    color: #22c55e;
+    flex-shrink: 0;
+  }
+
+  &__nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  &__nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background: transparent;
+    border: 1px solid #2a2a30;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #a1a1aa;
+    transition: color 0.2s, border-color 0.2s;
+
+    &:hover:not(:disabled) {
+      color: #fafafa;
+      border-color: #3f3f46;
+    }
+
+    &:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    &--locked {
+      border-color: rgba(245, 158, 11, 0.35);
+      color: rgba(245, 158, 11, 0.5);
+
+      &:hover {
+        border-color: rgba(245, 158, 11, 0.5) !important;
+        color: rgba(245, 158, 11, 0.7) !important;
+      }
+    }
+  }
+
+  &__nav-label {
+    font-size: 12px;
+    color: #52525b;
+    min-width: 40px;
+    text-align: center;
+  }
+
+  // ── Body split ───────────────────────────────────────────────
+  &__body {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  // ── Panels ───────────────────────────────────────────────────
+  &__panel {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    &--left {
+      width: 360px;
+      min-width: 300px;
+      flex-shrink: 0;
+      background: #0d0d0f;
+      border-right: 1px solid #1e1e22;
+      overflow-y: auto;
+      padding: 20px;
+      gap: 20px;
+
+      &::-webkit-scrollbar { width: 4px; }
+      &::-webkit-scrollbar-track { background: #0a0a0b; }
+      &::-webkit-scrollbar-thumb { background: #2a2a30; border-radius: 2px; }
+    }
+
+    &--right {
+      flex: 1;
+      overflow: hidden;
+    }
+  }
+
+  // ── Problem description ──────────────────────────────────────
+  &__section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__section-heading {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #52525b;
+    margin: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  &__section-subheading {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #3f3f46;
+    margin: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  &__description {
+    font-size: 14px;
+    color: #d4d4d8;
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  &__list {
+    margin: 0;
+    padding-left: 18px;
+    font-size: 13px;
+    color: #a1a1aa;
+    line-height: 1.7;
+
+    li { margin-bottom: 2px; }
+  }
+
+  &__cases {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__case {
+    background: #111113;
+    border: 1px solid #1e1e22;
+    border-radius: 8px;
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__case-row {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    font-size: 12px;
+    flex-wrap: wrap;
+  }
+
+  &__case-label {
+    color: #52525b;
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  &__case-code {
+    font-family: 'Fira Code', 'Cascadia Code', monospace;
+    font-size: 12px;
+    color: #a3e635;
+    word-break: break-all;
+  }
+
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 4px;
+  }
+
+  &__tag {
+    background: #1a1a1f;
+    border: 1px solid #2a2a30;
+    color: #71717a;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    text-transform: capitalize;
+  }
+
+  // ── Editor ───────────────────────────────────────────────────
+  &__editor-wrap {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    border-bottom: 1px solid #1e1e22;
+  }
+
+  &__editor-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 16px;
+    background: #111113;
+    border-bottom: 1px solid #1e1e22;
+    flex-shrink: 0;
+  }
+
+  &__lang-select {
+    background: #1a1a1f;
+    border: 1px solid #2a2a30;
+    border-radius: 6px;
+    color: #e4e4e7;
+    font-size: 12px;
+    font-family: 'Fira Code', 'Cascadia Code', monospace;
+    padding: 4px 8px;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.2s;
+
+    &:hover, &:focus { border-color: #3f3f46; }
+
+    option { background: #111113; }
+  }
+
+  &__run-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #22c55e;
+    color: #0a0a0b;
+    border: none;
+    border-radius: 7px;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.2s, opacity 0.2s;
+
+    &:hover:not(:disabled) { background: #16a34a; }
+
+    &--loading,
+    &:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+  }
+
+  // ── Output panel ─────────────────────────────────────────────
+  &__output {
+    height: 220px;
+    flex-shrink: 0;
+    background: #080809;
+    border-top: 1px solid #1e1e22;
+    overflow-y: auto;
+    padding: 16px 20px;
+
+    &::-webkit-scrollbar { width: 4px; }
+    &::-webkit-scrollbar-track { background: #0a0a0b; }
+    &::-webkit-scrollbar-thumb { background: #2a2a30; border-radius: 2px; }
+  }
+
+  &__output-hint {
+    font-size: 13px;
+    color: #3f3f46;
+    margin: 0;
+
+    strong { color: #52525b; }
+  }
+
+  &__output-loading {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #71717a;
+    font-size: 13px;
+  }
+
+  &__error {
+    display: flex;
+    gap: 8px;
+    color: #ef4444;
+    font-size: 12px;
+    align-items: flex-start;
+
+    svg { flex-shrink: 0; margin-top: 2px; }
+
+    pre {
+      margin: 0;
+      font-family: 'Fira Code', monospace;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+  }
+
+  &__results {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__all-pass {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #22c55e;
+    font-size: 14px;
+    font-weight: 600;
+    background: rgba(34, 197, 94, 0.08);
+    border: 1px solid rgba(34, 197, 94, 0.2);
+    border-radius: 8px;
+    padding: 10px 14px;
+  }
+
+  &__unlocked {
+    margin-left: auto;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  &__partial {
+    font-size: 13px;
+    color: #f59e0b;
+    font-weight: 500;
+    margin: 0;
+  }
+
+  &__test-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  &__test-item {
+    border-radius: 7px;
+    padding: 8px 12px;
+    font-size: 12px;
+
+    &--pass {
+      background: rgba(34, 197, 94, 0.06);
+      border: 1px solid rgba(34, 197, 94, 0.15);
+      color: #22c55e;
+    }
+
+    &--fail {
+      background: rgba(239, 68, 68, 0.06);
+      border: 1px solid rgba(239, 68, 68, 0.15);
+      color: #ef4444;
+    }
+  }
+
+  &__test-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+  }
+
+  &__test-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 6px;
+    padding-left: 2px;
+  }
+
+  &__test-row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+
+    &--pass {
+      background: rgba(34, 197, 94, 0.06);
+      border: 1px solid rgba(34, 197, 94, 0.15);
+    }
+
+    &--got {
+      background: rgba(239, 68, 68, 0.08);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+    }
+
+    &--expected {
+      background: rgba(34, 197, 94, 0.08);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+    }
+  }
+
+  &__test-row-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    min-width: 90px;
+    color: #71717a;
+
+    .challenge-solve__test-row--got & { color: #fca5a5; }
+    .challenge-solve__test-row--expected & { color: #86efac; }
+    .challenge-solve__test-row--pass & { color: #86efac; }
+  }
+
+  &__test-row-value {
+    font-family: 'Fira Code', 'Cascadia Code', monospace;
+    font-size: 12px;
+    color: #d4d4d8;
+    word-break: break-all;
+  }
+
+  &__test-error {
+    color: #fca5a5;
+    font-family: 'Fira Code', monospace;
+  }
+}
+
+// Spinner animation
+.spin {
+  animation: spin-kf 0.7s linear infinite;
+}
+
+@keyframes spin-kf {
+  to { transform: rotate(360deg); }
+}

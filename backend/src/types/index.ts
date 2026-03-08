@@ -1,4 +1,56 @@
 import type { Socket } from 'socket.io';
+import type { Request } from 'express';
+
+// ── Role-Based Access Control ──────────────────────────────────
+
+/**
+ * User roles in the system (matches database enum)
+ */
+export type UserRole = 'faculty' | 'student';
+
+/**
+ * Role verification status (matches database enum)
+ */
+export type RoleStatus = 'pending' | 'approved' | 'rejected' | 'revoked';
+
+/**
+ * User profile from database (matches user_profiles table)
+ */
+export interface UserProfile {
+  id: string;
+  email: string;
+  full_name: string | null;
+  role: UserRole | null;
+  role_status: RoleStatus;
+  role_requested_at: string | null;
+  role_verified_at: string | null;
+  role_verified_by: string | null;
+  role_verification_note: string | null;
+  institution: string | null;
+  department: string | null;
+  student_id: string | null;
+  employee_id: string | null;
+  created_at: string;
+  updated_at: string;
+  last_login_at: string | null;
+}
+
+/**
+ * Authenticated user data attached to Express requests
+ */
+export interface AuthenticatedUser {
+  id: string;
+  email: string | undefined;
+  role?: UserRole;
+  metadata?: Record<string, unknown>;
+}
+
+/**
+ * Express Request extended with authenticated user
+ */
+export interface AuthRequest extends Request {
+  user?: AuthenticatedUser;
+}
 
 // ── Room / Client ──────────────────────────────────────────────
 
