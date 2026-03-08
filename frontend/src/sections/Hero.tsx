@@ -1,500 +1,455 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-// ── Motion variants ──────────────────────────────────────────────────────────
+gsap.registerPlugin(ScrollTrigger);
+
+const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 const HERO_CONTAINER = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.09, delayChildren: 0.05 } },
+  visible: { transition: { staggerChildren: 0.1, delayChildren: 0.04 } },
 };
 const HERO_ITEM = {
-  hidden: { opacity: 0, y: 16 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
-  },
+  hidden: { opacity: 0, y: 18 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } },
 };
-const LIFT_FAST = { duration: 0.2, ease: 'easeOut' as const };
 
-// ── TypingTerminal ──────────────────────────────────────────────────────────
+// ── Badge pills ────────────────────────────────────────────────────────────────
 
-const SCENARIOS = [
-  {
-    label: '// solo practice',
-    accentColor: 'rgba(255,255,255,0.88)',
-    lines: [
-      'def two_sum(nums, target):',
-      '    seen = {}',
-      '    for i, n in enumerate(nums):',
-      '        diff = target - n',
-      '        if diff in seen:',
-      '            return [seen[diff], i]',
-      '        seen[n] = i',
-    ],
-  },
-  {
-    label: '// pair programming',
-    accentColor: 'rgba(255,255,255,0.60)',
-    lines: [
-      '// Alex is typing...',
-      'function mergeIntervals(intervals) {',
-      '  intervals.sort((a,b) => a[0]-b[0]);',
-      '  const res = [intervals[0]];',
-      '  for (let [s,e] of intervals.slice(1)) {',
-      '    if (s <= res.at(-1)[1])',
-      '      res.at(-1)[1] = Math.max(res.at(-1)[1], e);',
-    ],
-  },
-  {
-    label: '// assessment mode',
-    accentColor: 'rgba(255,255,255,0.72)',
-    lines: [
-      'public class Solution {',
-      '  // Time remaining: 34:12',
-      '  // AI hints disabled',
-      '  public int[] findMedian(',
-      '    int[] arr1, int[] arr2) {',
-      '    // your implementation',
-      '    int m = arr1.length;',
-    ],
-  },
+const BADGES = [
+  { label: 'AI Powered', dot: 'rgba(130,210,160,0.80)', glow: 'rgba(130,210,160,0.28)', delay: 0 },
+  { label: 'Real Time', dot: 'rgba(120,170,240,0.80)', glow: 'rgba(120,170,240,0.28)', delay: 0.12 },
+  { label: 'Fair Assessment', dot: 'rgba(210,170,100,0.80)', glow: 'rgba(210,170,100,0.28)', delay: 0.24 },
 ];
 
-const KEYWORDS = ['def', 'return', 'for', 'if', 'function', 'public', 'class', 'let', 'const', 'import', 'from'];
+// ── App UI Preview ──────────────────────────────────────────────────────────────
 
-function highlightLine(line: string, accentColor: string): React.ReactNode {
-  const isComment = line.trimStart().startsWith('//') || line.trimStart().startsWith('#');
-  if (isComment) {
-    return <span style={{ color: 'rgba(255,255,255,0.28)', fontStyle: 'italic' }}>{line}</span>;
-  }
-  const firstWord = line.trimStart().split(/[\s(]/)[0] ?? '';
-  if (KEYWORDS.includes(firstWord)) {
-    const idx = line.indexOf(firstWord);
-    return (
-      <>
-        <span style={{ color: 'rgba(255,255,255,0.72)' }}>{line.slice(0, idx)}</span>
-        <span style={{ color: accentColor }}>{firstWord}</span>
-        <span style={{ color: 'rgba(255,255,255,0.72)' }}>{line.slice(idx + firstWord.length)}</span>
-      </>
-    );
-  }
-  return <span style={{ color: 'rgba(255,255,255,0.72)' }}>{line}</span>;
-}
+const CODE_LINES = [
+  { n: 1, content: 'def two_sum(nums, target):', kind: 'keyword' },
+  { n: 2, content: '    seen = {}', kind: 'code' },
+  { n: 3, content: '    for i, n in enumerate(nums):', kind: 'keyword' },
+  { n: 4, content: '        diff = target - n', kind: 'code' },
+  { n: 5, content: '        if diff in seen:', kind: 'keyword' },
+  { n: 6, content: '            return [seen[diff], i]', kind: 'return' },
+  { n: 7, content: '        seen[n] = i', kind: 'code' },
+  { n: 8, content: '    return -1', kind: 'return' },
+];
 
-function TypingTerminal() {
-  const [scenarioIdx, setScenarioIdx] = useState(0);
-  const [displayedLines, setDisplayedLines] = useState<string[]>([]);
-  const [currentLine, setCurrentLine] = useState('');
-  const [lineIdx, setLineIdx] = useState(0);
-  const [charIdx, setCharIdx] = useState(0);
-  const [phase, setPhase] = useState<'typing' | 'pause' | 'clearing'>('typing');
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const scenario = SCENARIOS[scenarioIdx]!;
-
-  useEffect(() => {
-    if (timerRef.current) clearTimeout(timerRef.current);
-
-    if (phase === 'typing') {
-      const targetLine = scenario.lines[lineIdx];
-      if (targetLine === undefined) {
-        timerRef.current = setTimeout(() => setPhase('pause'), 0);
-        return;
-      }
-      if (charIdx < targetLine.length) {
-        const delay = 28 + Math.random() * 20;
-        timerRef.current = setTimeout(() => {
-          setCurrentLine(targetLine.slice(0, charIdx + 1));
-          setCharIdx(c => c + 1);
-        }, delay);
-      } else {
-        // Line complete
-        timerRef.current = setTimeout(() => {
-          setDisplayedLines(prev => [...prev, targetLine]);
-          setCurrentLine('');
-          setCharIdx(0);
-          setLineIdx(l => l + 1);
-        }, 80);
-      }
-    } else if (phase === 'pause') {
-      timerRef.current = setTimeout(() => setPhase('clearing'), 2200);
-    } else if (phase === 'clearing') {
-      timerRef.current = setTimeout(() => {
-        setDisplayedLines([]);
-        setCurrentLine('');
-        setLineIdx(0);
-        setCharIdx(0);
-        setScenarioIdx(i => (i + 1) % SCENARIOS.length);
-        setPhase('typing');
-      }, 400);
-    }
-
-    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
-  }, [phase, charIdx, lineIdx, scenarioIdx]);
-
-  const containerStyle: React.CSSProperties = {
-    background: '#0d1117',
-    border: '1px solid rgba(255,255,255,0.08)',
-    borderRadius: '12px',
-    boxShadow: '0 32px 80px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.06)',
-    overflow: 'hidden',
-  };
-
-  const headerStyle: React.CSSProperties = {
-    background: '#161b22',
-    borderBottom: '1px solid rgba(255,255,255,0.08)',
-    cursor: 'default',
-    padding: '12px 16px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  };
-
-  const dotsStyle: React.CSSProperties = { display: 'flex', gap: '6px', alignItems: 'center' };
-
-  const bodyStyle: React.CSSProperties = {
-    padding: '20px 24px',
-    minHeight: '280px',
-    overflow: 'hidden',
-    position: 'relative',
-  };
-
-  const modeLabel =
-    scenarioIdx === 0 ? 'solo' : scenarioIdx === 1 ? 'pair' : 'assess';
-
+function AppPreview() {
   return (
-    <div style={containerStyle}>
-      <div style={headerStyle}>
-        <div style={dotsStyle}>
+    <div style={{
+      background: '#0a0d12',
+      border: '1px solid rgba(255,255,255,0.08)',
+      borderTop: '1px solid rgba(255,255,255,0.14)',
+      borderRadius: '14px',
+      overflow: 'hidden',
+      boxShadow: '0 40px 120px rgba(0,0,0,0.72), 0 0 0 1px rgba(255,255,255,0.04)',
+      userSelect: 'none',
+      pointerEvents: 'none',
+    }}>
+
+      {/* Title bar */}
+      <div style={{
+        background: 'rgba(255,255,255,0.025)',
+        borderBottom: '1px solid rgba(255,255,255,0.07)',
+        padding: '10px 16px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+      }}>
+        <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
           {['#ff5f57', '#febc2e', '#28c840'].map(c => (
-            <div key={c} style={{ width: '12px', height: '12px', borderRadius: '50%', background: c }} />
+            <div key={c} style={{ width: '10px', height: '10px', borderRadius: '50%', background: c, opacity: 0.75 }} />
           ))}
         </div>
-        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: scenario.accentColor }}>
-          {scenario.label}
-        </span>
-        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: '#e2e8f0' }}>
-          code_battlegrounds
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'rgba(255,255,255,0.30)', letterSpacing: '0.06em' }}>
+            Assessment #3 · Problem 2/3
+          </span>
+          <span style={{
+            fontFamily: 'JetBrains Mono, monospace', fontSize: '11px',
+            color: 'rgba(210,170,100,0.82)', letterSpacing: '0.04em',
+            background: 'rgba(210,170,100,0.08)', border: '1px solid rgba(210,170,100,0.18)',
+            padding: '2px 9px', borderRadius: '6px',
+          }}>
+            34:12
+          </span>
+        </div>
+        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'rgba(255,255,255,0.18)' }}>
+          maya_k
         </span>
       </div>
 
-      <div style={bodyStyle}>
-        {/* Command prompt line */}
-        <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: '#cbd5e0', marginBottom: '12px' }}>
-          {`> cbg run --mode ${modeLabel}`}
+      {/* Main split pane */}
+      <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr' }}>
+
+        {/* Left: Problem panel */}
+        <div style={{ borderRight: '1px solid rgba(255,255,255,0.06)', padding: '16px', background: 'rgba(255,255,255,0.012)' }}>
+          <div style={{ marginBottom: '12px' }}>
+            <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', color: 'rgba(255,255,255,0.20)', letterSpacing: '0.14em', marginBottom: '5px' }}>PROBLEM</div>
+            <div style={{ fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: '14px', color: 'rgba(255,255,255,0.82)', marginBottom: '4px' }}>Two Sum</div>
+            <div style={{ display: 'flex', gap: '5px', alignItems: 'center', marginBottom: '10px' }}>
+              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', color: 'rgba(130,210,160,0.65)', background: 'rgba(130,210,160,0.07)', border: '1px solid rgba(130,210,160,0.15)', padding: '2px 7px', borderRadius: '5px' }}>Easy</span>
+              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', color: 'rgba(255,255,255,0.22)' }}>25 pts</span>
+            </div>
+            <div style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '11px', color: 'rgba(255,255,255,0.34)', lineHeight: 1.65 }}>
+              Given an array <span style={{ fontFamily: 'JetBrains Mono, monospace', color: 'rgba(255,255,255,0.52)', fontSize: '10px' }}>nums</span> and a target, return indices of two numbers that add up to target.
+            </div>
+          </div>
+
+          <div style={{ borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '12px' }}>
+            <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', color: 'rgba(255,255,255,0.18)', letterSpacing: '0.12em', marginBottom: '8px' }}>EXAMPLES</div>
+            <div style={{ background: 'rgba(255,255,255,0.025)', borderRadius: '6px', padding: '8px 10px', marginBottom: '6px' }}>
+              <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'rgba(255,255,255,0.28)', marginBottom: '3px' }}>Input:</div>
+              <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'rgba(120,170,240,0.75)' }}>[2,7,11,15], 9</div>
+              <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'rgba(255,255,255,0.28)', marginTop: '4px', marginBottom: '3px' }}>Output:</div>
+              <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'rgba(130,210,160,0.75)' }}>[0, 1]</div>
+            </div>
+          </div>
+
+          {/* Test results */}
+          <div style={{ borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '12px', marginTop: '4px' }}>
+            <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', color: 'rgba(255,255,255,0.18)', letterSpacing: '0.12em', marginBottom: '8px' }}>TEST CASES</div>
+            {[
+              { label: 'Case 1', pass: true },
+              { label: 'Case 2', pass: true },
+              { label: 'Case 3', pass: false },
+            ].map(tc => (
+              <div key={tc.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '5px' }}>
+                <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'rgba(255,255,255,0.28)' }}>{tc.label}</span>
+                <span style={{
+                  fontFamily: 'JetBrains Mono, monospace', fontSize: '9px',
+                  color: tc.pass ? 'rgba(130,210,160,0.72)' : 'rgba(251,146,60,0.72)',
+                }}>
+                  {tc.pass ? '✓ pass' : '✗ fail'}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* Displayed lines */}
-        {displayedLines.map((line, i) => (
-          <div key={i} style={{ display: 'flex', gap: '16px', lineHeight: '1.6', marginBottom: '2px' }}>
-            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '12px', color: '#edf2f7', minWidth: '16px', textAlign: 'right' }}>
-              {i + 1}
-            </span>
-            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '13px' }}>
-              {highlightLine(line, scenario.accentColor)}
-            </span>
+        {/* Right: Code editor */}
+        <div style={{ background: '#0c1018' }}>
+          {/* Editor toolbar */}
+          <div style={{ background: 'rgba(255,255,255,0.018)', borderBottom: '1px solid rgba(255,255,255,0.05)', padding: '7px 14px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'rgba(255,255,255,0.32)' }}>solution.py</span>
+              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', color: 'rgba(130,210,160,0.50)', background: 'rgba(130,210,160,0.07)', padding: '1px 6px', borderRadius: '4px' }}>Python 3</span>
+            </div>
+            <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', color: 'rgba(255,255,255,0.16)' }}>AI hints disabled · assessment mode</div>
           </div>
-        ))}
 
-        {/* Currently typing line */}
-        {phase === 'typing' && (
-          <div style={{ display: 'flex', gap: '16px', lineHeight: '1.6' }}>
-            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '12px', color: '#edf2f7', minWidth: '16px', textAlign: 'right' }}>
-              {displayedLines.length + 1}
-            </span>
-            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '13px' }}>
-              {highlightLine(currentLine, scenario.accentColor)}
-              <span style={{
-                display: 'inline-block',
-                width: '2px',
-                height: '1em',
-                background: 'rgba(255,255,255,0.7)',
-                verticalAlign: 'text-bottom',
-                animation: 'blink 1s step-end infinite',
-                marginLeft: '1px',
-              }} />
-            </span>
+          {/* Code */}
+          <div style={{ padding: '16px 0', minHeight: '190px' }}>
+            {CODE_LINES.map((line) => (
+              <div key={line.n} style={{ display: 'flex', gap: '0', lineHeight: '1.7' }}>
+                <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: 'rgba(255,255,255,0.12)', minWidth: '40px', textAlign: 'right', paddingRight: '16px' }}>{line.n}</span>
+                <span style={{
+                  fontFamily: 'JetBrains Mono, monospace', fontSize: '12px',
+                  color: line.kind === 'keyword' ? 'rgba(120,170,240,0.80)'
+                    : line.kind === 'return' ? 'rgba(130,210,160,0.75)'
+                    : 'rgba(255,255,255,0.55)',
+                }}>
+                  {line.content}
+                </span>
+              </div>
+            ))}
+            {/* Active cursor line */}
+            <div style={{ display: 'flex', lineHeight: '1.7' }}>
+              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: 'rgba(255,255,255,0.12)', minWidth: '40px', textAlign: 'right', paddingRight: '16px' }}>9</span>
+              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '12px', color: 'rgba(255,255,255,0.55)' }}>
+                {'    '}
+                <span style={{ display: 'inline-block', width: '2px', height: '14px', background: 'rgba(120,170,240,0.7)', verticalAlign: 'text-bottom', borderRadius: '1px', animation: 'blink 1.1s step-end infinite' }} />
+              </span>
+            </div>
           </div>
-        )}
 
-        {/* Bottom fade */}
-        <div style={{
-          position: 'absolute',
-          bottom: 0,
-          left: 0,
-          right: 0,
-          height: '60px',
-          background: 'linear-gradient(transparent, rgba(13, 17, 23, 0.97))',
-          pointerEvents: 'none',
-        }} />
+          {/* Bottom status bar */}
+          <div style={{ borderTop: '1px solid rgba(255,255,255,0.05)', padding: '8px 14px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'rgba(255,255,255,0.015)' }}>
+            <div style={{ display: 'flex', gap: '14px', alignItems: 'center' }}>
+              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', background: 'rgba(120,170,240,0.10)', border: '1px solid rgba(120,170,240,0.18)', color: 'rgba(120,170,240,0.72)', padding: '3px 10px', borderRadius: '5px', cursor: 'default' }}>▶ Run Code</span>
+              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', background: 'rgba(130,210,160,0.08)', border: '1px solid rgba(130,210,160,0.15)', color: 'rgba(130,210,160,0.65)', padding: '3px 10px', borderRadius: '5px' }}>Submit</span>
+            </div>
+            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', color: 'rgba(255,255,255,0.18)' }}>2 / 3 tests passing</span>
+          </div>
+        </div>
+      </div>
+
+      {/* AI Hint row — shown as subtle bottom banner */}
+      <div style={{ borderTop: '1px solid rgba(255,255,255,0.05)', padding: '10px 16px', background: 'rgba(130,210,160,0.03)', display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', color: 'rgba(130,210,160,0.55)', background: 'rgba(130,210,160,0.08)', border: '1px solid rgba(130,210,160,0.15)', padding: '2px 8px', borderRadius: '5px', flexShrink: 0 }}>AI HINT · T1</span>
+        <span style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '11px', color: 'rgba(255,255,255,0.32)', fontStyle: 'italic', lineHeight: 1.5 }}>What happens when <span style={{ fontFamily: 'JetBrains Mono, monospace', color: 'rgba(130,210,160,0.65)', fontStyle: 'normal' }}>nums</span> has duplicates? Your lookup might overwrite an earlier index.</span>
       </div>
     </div>
   );
 }
 
-// ── Hero ────────────────────────────────────────────────────────────────────
+// ── Stats ──────────────────────────────────────────────────────────────────────
 
 const STATS = [
-  { value: '3', label: 'Core Modes', sub: 'Practice · Pair · Assess' },
-  { value: '5+', label: 'Languages', sub: 'Python · JS · Java · C++ · C' },
-  { value: 'AI', label: 'Powered Coach', sub: 'Layered hints, zero spoilers' },
-  { value: '∞', label: 'Replay Sessions', sub: 'Every keystroke, replayed' },
+  { display: '3', target: 3, plus: false, numeric: true, label: 'Core Modes', sub: 'Practice · Pair · Assess' },
+  { display: '5+', target: 5, plus: true, numeric: true, label: 'Languages', sub: 'Python · JS · Java · C++' },
+  { display: 'AI', target: null, plus: false, numeric: false, label: 'Powered Coach', sub: 'Hints, zero spoilers' },
+  { display: '∞', target: null, plus: false, numeric: false, label: 'Replay Sessions', sub: 'Every keystroke' },
 ];
+
+// ── Hero ───────────────────────────────────────────────────────────────────────
 
 const Hero = () => {
   const [hoveredStat, setHoveredStat] = useState<number | null>(null);
+  const statsRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
 
-  const sectionStyle: React.CSSProperties = {
-    minHeight: '100vh',
-    display: 'flex',
-    alignItems: 'center',
-    padding: '100px 32px 60px',
-    position: 'relative',
-    overflow: 'hidden',
-    maxWidth: '1200px',
-    margin: '0 auto',
-  };
+  useEffect(() => {
+    if (!statsRef.current) return;
+    const numericEls = statsRef.current.querySelectorAll<HTMLElement>('[data-counter]');
+    const ctx = gsap.context(() => {
+      numericEls.forEach(el => {
+        const target = parseInt(el.dataset.target ?? '0', 10);
+        const plus = el.dataset.plus === 'true';
+        const obj = { val: 0 };
+        gsap.to(obj, {
+          val: target,
+          duration: 1.6,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: el, start: 'top 92%', once: true },
+          onUpdate() { el.textContent = `${Math.round(obj.val)}${plus ? '+' : ''}`; },
+        });
+      });
+    });
+    return () => ctx.revert();
+  }, []);
 
-  const wrapperStyle: React.CSSProperties = {
-    position: 'relative',
-    minHeight: '100vh',
-    background: 'linear-gradient(160deg, #ffffff 0%, #f0f2f5 60%, #e8ecf0 100%)',
-  };
-
-  const gridStyle: React.CSSProperties = {
-    display: 'grid',
-    gridTemplateColumns: '1fr 1fr',
-    gap: '64px',
-    alignItems: 'center',
-    width: '100%',
-  };
-
-  const statusBadgeStyle: React.CSSProperties = {
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: '8px',
-    border: '1px solid rgba(0,0,0,0.1)',
-    background: 'rgba(0,0,0,0.04)',
-    borderRadius: '999px',
-    padding: '6px 14px',
-    marginBottom: '28px',
-  };
-
-  const h1Style: React.CSSProperties = {
-    fontFamily: 'Syne, sans-serif',
-    fontWeight: 800,
-    fontSize: '66px',
-    lineHeight: 1.08,
-    letterSpacing: '-0.03em',
-    margin: '0 0 28px',
-    color: '#2d3748',
-  };
-
-  const primaryBtnStyle: React.CSSProperties = {
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: '8px',
-    background: '#2d3748',
-    color: '#ffffff',
-    fontFamily: 'DM Sans, sans-serif',
-    fontWeight: 600,
-    fontSize: '15px',
-    padding: '13px 26px',
-    borderRadius: '10px',
-    border: 'none',
-    cursor: 'pointer',
-    textDecoration: 'none',
-    letterSpacing: '-0.01em',
-    boxShadow: '0 2px 12px rgba(0,0,0,0.18)',
-    transition: 'box-shadow 0.22s, background 0.2s',
-  };
-
-  const secondaryBtnStyle: React.CSSProperties = {
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: '8px',
-    background: 'transparent',
-    color: '#4a5568',
-    fontFamily: 'DM Sans, sans-serif',
-    fontWeight: 500,
-    fontSize: '15px',
-    padding: '13px 20px',
-    borderRadius: '10px',
-    border: '1px solid rgba(0,0,0,0.15)',
-    cursor: 'pointer',
-    letterSpacing: '-0.01em',
-    transition: 'background 0.2s, border-color 0.2s',
-  };
+  useEffect(() => {
+    if (!gridRef.current) return;
+    const ctx = gsap.context(() => {
+      gsap.to(gridRef.current, {
+        y: 80,
+        ease: 'none',
+        scrollTrigger: { trigger: document.body, start: 'top top', end: '40% top', scrub: true },
+      });
+    });
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <div style={wrapperStyle}>
-      {/* Background grid texture — fine, low-contrast */}
-      <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px)', backgroundSize: '48px 48px', maskImage: 'radial-gradient(ellipse at 50% 50%, black 20%, transparent 70%)', pointerEvents: 'none' }} />
-      {/* Ambient haze — restrained, center-right */}
-      <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 72% 36%, rgba(255,255,255,0.022) 0%, transparent 40%)', pointerEvents: 'none' }} />
-      {/* Counter-haze — bottom-left depth */}
-      <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 14% 80%, rgba(255,255,255,0.009) 0%, transparent 38%)', pointerEvents: 'none' }} />
-      {/* Edge vignette */}
-      <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 50%, transparent 32%, rgba(0,0,0,0.52) 100%)', pointerEvents: 'none' }} />
+    <div style={{ position: 'relative', minHeight: '100vh', background: '#07090d', overflow: 'hidden' }}>
 
-      <div style={sectionStyle}>
-        <div style={gridStyle} className="hp-hero-grid">
+      {/* Dot-grid background */}
+      <div ref={gridRef} style={{
+        position: 'absolute',
+        inset: '-10%',
+        backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.055) 1px, transparent 1px)',
+        backgroundSize: '26px 26px',
+        maskImage: 'radial-gradient(ellipse 80% 70% at 50% 38%, rgba(0,0,0,0.55) 0%, transparent 100%)',
+        WebkitMaskImage: 'radial-gradient(ellipse 80% 70% at 50% 38%, rgba(0,0,0,0.55) 0%, transparent 100%)',
+        pointerEvents: 'none',
+      }} />
 
-          {/* Left content — stagger container */}
+      {/* Ambient glows */}
+      <div style={{ position: 'absolute', top: '-8%', left: '-6%', width: '55%', height: '65%', background: 'radial-gradient(ellipse at center, rgba(80,100,150,0.09) 0%, transparent 60%)', pointerEvents: 'none' }} />
+      <div style={{ position: 'absolute', bottom: '5%', right: '-8%', width: '45%', height: '55%', background: 'radial-gradient(ellipse at center, rgba(60,80,120,0.06) 0%, transparent 60%)', pointerEvents: 'none' }} />
+
+      {/* Bottom edge fade */}
+      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '200px', background: 'linear-gradient(transparent, #07090d)', pointerEvents: 'none' }} />
+
+      <div style={{ position: 'relative', maxWidth: '1200px', margin: '0 auto', padding: '128px 32px 96px', minHeight: '100vh', display: 'flex', alignItems: 'center' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '72px', alignItems: 'center', width: '100%' }} className="hp-hero-grid">
+
+          {/* Left — text */}
           <motion.div initial="hidden" animate="visible" variants={HERO_CONTAINER}>
 
-            {/* Status badge */}
+            {/* Three badge pills with effects */}
             <motion.div variants={HERO_ITEM}>
-              <div style={statusBadgeStyle}>
-                <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#22c55e', animation: 'shimmer 3.5s ease-in-out infinite', display: 'inline-block', flexShrink: 0 }} />
-                <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: '#718096', letterSpacing: '0.04em' }}>
-                  AI-Powered · Real-Time · Fair Assessment
-                </span>
+              <div style={{ display: 'flex', gap: '7px', flexWrap: 'wrap', marginBottom: '32px' }}>
+                {BADGES.map((badge) => (
+                  <motion.div
+                    key={badge.label}
+                    initial={{ opacity: 0, y: 8, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{ duration: 0.55, delay: 0.3 + badge.delay, ease: EASE }}
+                    style={{
+                      display: 'inline-flex', alignItems: 'center', gap: '7px',
+                      border: '1px solid rgba(255,255,255,0.08)',
+                      background: 'rgba(255,255,255,0.03)',
+                      borderRadius: '999px', padding: '5px 13px',
+                      position: 'relative',
+                      overflow: 'hidden',
+                    }}
+                  >
+                    {/* Glow behind dot */}
+                    <span style={{
+                      position: 'absolute', left: '11px', top: '50%', transform: 'translateY(-50%)',
+                      width: '16px', height: '16px', borderRadius: '50%',
+                      background: badge.glow,
+                      filter: 'blur(6px)',
+                      pointerEvents: 'none',
+                    }} />
+                    <span style={{
+                      width: '5px', height: '5px', borderRadius: '50%',
+                      background: badge.dot,
+                      display: 'inline-block', flexShrink: 0, position: 'relative',
+                      animation: 'livePulse 2.8s ease-in-out infinite',
+                    }} />
+                    <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'rgba(255,255,255,0.42)', letterSpacing: '0.04em', position: 'relative' }}>
+                      {badge.label}
+                    </span>
+                  </motion.div>
+                ))}
               </div>
             </motion.div>
 
-            {/* H1 */}
+            {/* Headline */}
             <motion.div variants={HERO_ITEM}>
-              <h1 style={h1Style} className="hp-hero-h1">
-                <span style={{ display: 'block', color: '#4a5568', fontWeight: 700 }}>The Arena</span>
-                <span style={{ display: 'block' }}>Where Code</span>
-                <span style={{ display: 'block' }}>
-                  Meets{' '}
-                  <span style={{
-                    background: 'linear-gradient(175deg, #1a202c 0%, #4a5568 100%)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text',
-                  }}>
-                    Learning
-                  </span>
+              <h1 style={{
+                fontFamily: 'Syne, sans-serif',
+                fontWeight: 800,
+                fontSize: '68px',
+                lineHeight: 1.03,
+                letterSpacing: '-0.036em',
+                margin: '0 0 10px',
+              }} className="hp-hero-h1">
+                <span style={{ display: 'block', fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', fontWeight: 400, letterSpacing: '0.20em', color: 'rgba(255,255,255,0.24)', marginBottom: '14px' }}>
+                  CODE BATTLEGROUNDS
                 </span>
+                {['Learn,', 'Code,', 'Compete,', 'Conquer!'].map((word, i) => (
+                  <motion.span
+                    key={word}
+                    style={{
+                      display: 'block',
+                      color: i < 2 ? 'rgba(255,255,255,0.90)' : i === 2 ? 'rgba(255,255,255,0.60)' : 'rgba(255,255,255,0.28)',
+                      lineHeight: 1.05,
+                    }}
+                    initial={{ opacity: 0, x: -12 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.65, delay: 0.15 + i * 0.08, ease: EASE }}
+                  >
+                    {word}
+                  </motion.span>
+                ))}
               </h1>
             </motion.div>
 
             {/* Description */}
             <motion.div variants={HERO_ITEM}>
-              <p style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '17px', color: '#4a5568', lineHeight: 1.75, maxWidth: '520px', margin: '0 0 28px' }}>
-                One platform for solo coding practice, pair programming, and instructor-led assessments — with an AI coach that guides without spoiling and integrity tools that inform without accusing.
+              <p style={{
+                fontFamily: 'DM Sans, sans-serif',
+                fontSize: '16px',
+                color: 'rgba(255,255,255,0.38)',
+                lineHeight: 1.82,
+                maxWidth: '460px',
+                margin: '18px 0 36px',
+                fontWeight: 400,
+              }}>
+                One platform for solo coding practice, pair programming, and instructor-led assessments — with an AI coach that guides without spoiling.
               </p>
             </motion.div>
 
-            {/* Audience pills */}
+            {/* CTA — Watch Demo only */}
             <motion.div variants={HERO_ITEM}>
-              <div style={{ display: 'flex', gap: '10px', marginBottom: '32px' }} className="hp-audience-pills">
-                <span style={{ background: 'rgba(107, 114, 128, 0.12)', border: '1px solid rgba(107, 114, 128, 0.3)', color: '#4b5563', fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', letterSpacing: '0.05em', padding: '5px 13px', borderRadius: '999px' }}>STUDENT</span>
-                <span style={{ background: 'rgba(107, 114, 128, 0.06)', border: '1px solid rgba(107, 114, 128, 0.15)', color: '#a0aec0', fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', letterSpacing: '0.05em', padding: '5px 13px', borderRadius: '999px' }}>FACULTY</span>
-              </div>
-            </motion.div>
-
-            {/* CTA buttons */}
-            <motion.div variants={HERO_ITEM}>
-              <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '52px' }}>
-                <motion.div
-                  whileHover={{ y: -2 }}
-                  whileTap={{ y: 0 }}
-                  transition={LIFT_FAST}
-                  style={{ display: 'inline-flex' }}
-                >
-                  <Link
-                    to="/login"
-                    style={primaryBtnStyle}
-                    onMouseEnter={e => {
-                      const el = e.currentTarget as HTMLElement;
-                      el.style.background = '#1a202c';
-                      el.style.boxShadow = '0 8px 24px rgba(0,0,0,0.25)';
-                    }}
-                    onMouseLeave={e => {
-                      const el = e.currentTarget as HTMLElement;
-                      el.style.background = '#2d3748';
-                      el.style.boxShadow = '0 2px 12px rgba(0,0,0,0.18)';
-                    }}
-                  >
-                    Continue with Google &rarr;
-                  </Link>
-                </motion.div>
+              <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '56px' }}>
                 <motion.button
-                  style={secondaryBtnStyle}
-                  whileHover={{ y: -1 }}
-                  whileTap={{ y: 0 }}
-                  transition={LIFT_FAST}
+                  style={{
+                    display: 'inline-flex', alignItems: 'center', gap: '9px',
+                    background: 'rgba(255,255,255,0.06)',
+                    color: 'rgba(255,255,255,0.72)',
+                    fontFamily: 'DM Sans, sans-serif', fontWeight: 600, fontSize: '15px',
+                    padding: '13px 26px', borderRadius: '10px',
+                    border: '1px solid rgba(255,255,255,0.12)',
+                    cursor: 'pointer', letterSpacing: '-0.01em',
+                    transition: 'background 0.2s, border-color 0.2s, color 0.2s',
+                  }}
+                  whileHover={{ y: -2 }} whileTap={{ y: 0 }}
+                  transition={{ duration: 0.18, ease: 'easeOut' }}
                   onMouseEnter={e => {
-                    e.currentTarget.style.background = 'rgba(0,0,0,0.05)';
-                    e.currentTarget.style.borderColor = 'rgba(0,0,0,0.22)';
+                    e.currentTarget.style.background = 'rgba(255,255,255,0.10)';
+                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.22)';
+                    e.currentTarget.style.color = 'rgba(255,255,255,0.92)';
                   }}
                   onMouseLeave={e => {
-                    e.currentTarget.style.background = 'transparent';
-                    e.currentTarget.style.borderColor = 'rgba(0,0,0,0.15)';
+                    e.currentTarget.style.background = 'rgba(255,255,255,0.06)';
+                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.12)';
+                    e.currentTarget.style.color = 'rgba(255,255,255,0.72)';
                   }}
                 >
-                  Watch Demo &rarr;
+                  <span style={{ fontSize: '14px', opacity: 0.8 }}>▶</span>
+                  Watch Demo
                 </motion.button>
               </div>
             </motion.div>
 
-            {/* Stats */}
+            {/* Stats row */}
             <motion.div variants={HERO_ITEM}>
-              <div style={{ display: 'flex', borderTop: '1px solid rgba(0,0,0,0.1)', paddingTop: '28px' }} className="hp-stats">
+              <div
+                ref={statsRef}
+                style={{ display: 'flex', borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '28px' }}
+                className="hp-stats"
+              >
                 {STATS.map((stat, i) => (
                   <div
                     key={i}
                     style={{
-                      flex: 1,
-                      padding: '0 18px',
-                      borderRight: i < STATS.length - 1 ? '1px solid rgba(0,0,0,0.08)' : 'none',
+                      flex: 1, padding: '0 16px',
+                      borderRight: i < STATS.length - 1 ? '1px solid rgba(255,255,255,0.06)' : 'none',
                       cursor: 'default',
                     }}
                     onMouseEnter={() => setHoveredStat(i)}
                     onMouseLeave={() => setHoveredStat(null)}
                   >
-                    <div style={{ fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: '26px', letterSpacing: '-0.02em', color: hoveredStat === i ? '#2d3748' : '#718096', transition: 'color 0.3s ease' }}>{stat.value}</div>
-                    <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', color: '#a0aec0', letterSpacing: '0.1em', textTransform: 'uppercase', margin: '3px 0 4px' }}>{stat.label}</div>
-                    <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: '#718096' }}>{stat.sub}</div>
+                    <div style={{
+                      fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: '26px',
+                      letterSpacing: '-0.025em',
+                      color: hoveredStat === i ? 'rgba(255,255,255,0.92)' : 'rgba(255,255,255,0.46)',
+                      transition: 'color 0.28s ease',
+                    }}>
+                      {stat.numeric ? (
+                        <span data-counter data-target={stat.target} data-plus={stat.plus ? 'true' : 'false'}>
+                          {stat.display}
+                        </span>
+                      ) : stat.display}
+                    </div>
+                    <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', color: 'rgba(255,255,255,0.20)', letterSpacing: '0.12em', textTransform: 'uppercase', margin: '5px 0 4px' }}>
+                      {stat.label}
+                    </div>
+                    <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'rgba(255,255,255,0.26)' }}>
+                      {stat.sub}
+                    </div>
                   </div>
                 ))}
               </div>
             </motion.div>
+
           </motion.div>
 
-          {/* Right - Terminal with entry animation + hover float */}
+          {/* Right — App UI Preview */}
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.45, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
-            whileHover={{ y: -2, transition: { duration: 0.3, ease: 'easeOut' } }}
+            transition={{ duration: 0.9, delay: 0.28, ease: EASE }}
+            whileHover={{ y: -4, transition: { duration: 0.35, ease: 'easeOut' } }}
           >
-            <TypingTerminal />
-            <div style={{ marginTop: '12px', fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: '#718096' }}>
-              <span style={{ color: '#22c55e' }}>&#x25CF;</span> Live preview &middot; cycling through all 3 modes
+            <AppPreview />
+            <div style={{ marginTop: '12px', display: 'flex', alignItems: 'center', gap: '8px', fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'rgba(255,255,255,0.18)', letterSpacing: '0.04em' }}>
+              <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: 'rgba(130,210,160,0.55)', display: 'inline-block' }} />
+              App preview · assessment mode shown
             </div>
           </motion.div>
-        </div>
 
-        {/* Scroll indicator */}
-        <motion.div
-          style={{ position: 'absolute', bottom: '32px', left: '50%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}
-          initial={{ opacity: 0, y: 8, x: '-50%' }}
-          animate={{ opacity: 1, y: 0, x: '-50%' }}
-          transition={{ duration: 0.65, delay: 1.1, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
-        >
-          <div style={{ width: '1px', height: '28px', background: 'linear-gradient(to bottom, rgba(0,0,0,0.25), transparent)', borderRadius: '2px' }} />
-          <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', color: 'rgba(0,0,0,0.35)', letterSpacing: '0.15em' }}>SCROLL</span>
-        </motion.div>
+        </div>
       </div>
 
       <style>{`
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+        @keyframes livePulse { 0%,100%{opacity:0.78} 50%{opacity:1} }
         @media (max-width: 1024px) { .hp-hero-h1 { font-size: 52px !important; } }
         @media (max-width: 768px) {
-          .hp-hero-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
-          .hp-hero-h1 { font-size: 42px !important; }
+          .hp-hero-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
+          .hp-hero-h1 { font-size: 44px !important; }
           .hp-stats { display: none !important; }
         }
-        @media (max-width: 480px) {
-          .hp-hero-h1 { font-size: 34px !important; }
-          .hp-audience-pills { display: none !important; }
-        }
+        @media (max-width: 480px) { .hp-hero-h1 { font-size: 36px !important; } }
       `}</style>
     </div>
   );

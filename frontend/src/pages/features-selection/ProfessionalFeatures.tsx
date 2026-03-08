@@ -1,100 +1,57 @@
 import { motion } from 'framer-motion';
-import type { LucideIcon } from 'lucide-react';
-import {
-  BarChart3,
-  BookMarked,
-  BookOpen,
-  Briefcase,
-  ClipboardCheck,
-  Code2,
-  Lightbulb,
-  Play,
-  Users,
-} from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Briefcase, Code2, Lightbulb, Users, BookMarked, Play, BarChart3 } from 'lucide-react';
 import { gsap } from 'gsap';
 import Button from '../../components/ui/Button';
 import './FeaturesSelection.scss';
 
-type Role = 'academic' | 'professional';
-
-interface Feature {
+interface ProfessionalFeature {
   id: string;
-  icon: LucideIcon;
+  icon: typeof Code2;
   title: string;
   description: string;
   badge?: string;
   route?: string;
 }
 
-interface FeaturesByRole {
-  academic: Feature[];
-  professional: Feature[];
-}
+const professionalFeatures: ProfessionalFeature[] = [
+  {
+    id: 'algorithm-practice',
+    icon: Code2,
+    title: 'Algorithm Challenges',
+    description: 'Practice data structures and algorithms at your own pace',
+    route: '/practice',
+  },
+  {
+    id: 'mock-interview',
+    icon: Lightbulb,
+    title: 'Mock Interviews',
+    description: 'Prepare for technical interviews with realistic scenarios',
+    route: '/interview',
+  },
+  {
+    id: 'pair-collab',
+    icon: Users,
+    title: 'Pair Programming',
+    description: 'Collaborate with peers on challenging problems',
+    route: '/pair',
+  },
+  {
+    id: 'practice-sets',
+    icon: BookMarked,
+    title: 'Curated Practice Sets',
+    description: 'Topic-based problem collections for focused learning',
+    route: '/sets',
+  },
+];
 
-const features: FeaturesByRole = {
-  academic: [
-    {
-      id: 'classrooms',
-      icon: Users,
-      title: 'Classrooms',
-      description: 'Real-time collaborative coding with live cursor presence',
-      badge: 'Collaborative',
-      route: '/pair',
-    },
-    {
-      id: 'assessment',
-      icon: ClipboardCheck,
-      title: 'Assessment Mode',
-      description: 'Timed coding assessments with transparent integrity tracking',
-      badge: 'Faculty',
-      route: '/assess',
-    },
-  ],
-  professional: [
-    {
-      id: 'algorithm-practice',
-      icon: Code2,
-      title: 'Algorithm Challenges',
-      description: 'Practice data structures and algorithms at your own pace',
-      route: '/practice',
-    },
-    {
-      id: 'mock-interview',
-      icon: Lightbulb,
-      title: 'Mock Interviews',
-      description: 'Prepare for technical interviews with realistic scenarios',
-      route: '/interview',
-    },
-    {
-      id: 'pair-collab',
-      icon: Users,
-      title: 'Pair Programming',
-      description: 'Collaborate with peers on challenging problems',
-      route: '/pair',
-    },
-    {
-      id: 'practice-sets',
-      icon: BookMarked,
-      title: 'Curated Practice Sets',
-      description: 'Topic-based problem collections for focused learning',
-      route: '/sets',
-    },
-  ],
-};
-
-const FeaturesSelection = () => {
-  const location = useLocation();
+const ProfessionalFeatures = () => {
   const navigate = useNavigate();
-  const role = (location.state as { role?: Role } | undefined)?.role || 'academic';
   const [selectedFeature, setSelectedFeature] = useState<string | null>(null);
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
-
-  const currentFeatures = features[role];
-  const roleTitle = role === 'academic' ? 'Academic Features' : 'Professional Tools';
 
   useEffect(() => {
     // GSAP animations on mount
@@ -124,7 +81,7 @@ const FeaturesSelection = () => {
     }
   }, []);
 
-  const handleFeatureClick = (feature: Feature) => {
+  const handleFeatureClick = (feature: ProfessionalFeature) => {
     setSelectedFeature(feature.id);
     
     // GSAP exit animation
@@ -214,7 +171,7 @@ const FeaturesSelection = () => {
 
       <motion.button
         className="features-selection__back"
-        onClick={() => navigate(-1)}
+        onClick={() => navigate('/role')}
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.6, delay: 0.1 }}
@@ -224,21 +181,19 @@ const FeaturesSelection = () => {
         ← Back
       </motion.button>
 
-      {role === 'professional' && (
-        <motion.button
-          className="features-selection__progress-btn"
-          onClick={() => navigate('/progress')}
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          whileHover={{ scale: 1.08 }}
-          whileTap={{ scale: 0.95 }}
-          title="Progress Tracking"
-        >
-          <BarChart3 size={18} strokeWidth={1.5} />
-          <span>Progress</span>
-        </motion.button>
-      )}
+      <motion.button
+        className="features-selection__progress-btn"
+        onClick={() => navigate('/progress')}
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.6, delay: 0.1 }}
+        whileHover={{ scale: 1.08 }}
+        whileTap={{ scale: 0.95 }}
+        title="Progress Tracking"
+      >
+        <BarChart3 size={18} strokeWidth={1.5} />
+        <span>Progress</span>
+      </motion.button>
 
       <div className="features-selection__container">
         <div ref={headerRef} className="features-selection__header">
@@ -258,7 +213,7 @@ const FeaturesSelection = () => {
               transition: { duration: 0.5 },
             }}
           >
-            {role === 'academic' ? <BookOpen size={32} strokeWidth={1.5} /> : <Briefcase size={32} strokeWidth={1.5} />}
+            <Briefcase size={32} strokeWidth={1.5} />
           </motion.div>
           <motion.h1
             className="features-selection__title"
@@ -266,7 +221,7 @@ const FeaturesSelection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            {roleTitle}
+            Professional Tools
           </motion.h1>
           <motion.p
             className="features-selection__subtitle"
@@ -279,7 +234,7 @@ const FeaturesSelection = () => {
         </div>
 
         <div ref={cardsRef} className="features-selection__features-grid">
-          {currentFeatures.map((feature, index) => {
+          {professionalFeatures.map((feature, index) => {
             const Icon = feature.icon;
             const isSelected = selectedFeature === feature.id;
             const isHovered = hoveredCard === feature.id;
@@ -377,4 +332,4 @@ const FeaturesSelection = () => {
   );
 };
 
-export default FeaturesSelection;
+export default ProfessionalFeatures;

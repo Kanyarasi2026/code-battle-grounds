@@ -1,23 +1,21 @@
-import { Users } from 'lucide-react';
-import FeatureComingSoon from './FeatureComingSoon';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
 const PairProgramming = () => {
-  return (
-    <FeatureComingSoon
-      icon={Users}
-      title="Pair Programming"
-      description="Real-time collaborative coding with live cursor presence and synchronized editing"
-      badge="Collaborative"
-      features={[
-        'Live cursor tracking for all participants',
-        'Synchronized code editing in real-time',
-        'Voice and text chat integration',
-        'Screen sharing capabilities',
-        'Code annotation and commenting',
-        'Session recording and playback',
-      ]}
-    />
-  );
+  const navigate = useNavigate();
+  const { user } = useAuth();
+
+  useEffect(() => {
+    const roomId = crypto.randomUUID();
+    const username =
+      (user?.user_metadata?.['full_name'] as string | undefined) ??
+      user?.email ??
+      'User';
+    navigate(`/editor/${roomId}`, { replace: true, state: { username } });
+  }, [navigate, user]);
+
+  return null;
 };
 
 export default PairProgramming;

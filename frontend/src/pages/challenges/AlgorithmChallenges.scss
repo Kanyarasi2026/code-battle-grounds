@@ -2,8 +2,8 @@
 
 .algo-challenges {
   min-height: 100vh;
-  background: #f9fafb;
-  color: #111827;
+  background: #0a0a0b;
+  color: #e4e4e7;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   padding: 0 0 64px;
 
@@ -17,19 +17,19 @@
     align-items: center;
     gap: 16px;
     padding: 20px 32px;
-    background: #ffffff;
-    border-bottom: 1px solid #e5e7eb;
+    background: #111113;
+    border-bottom: 1px solid #1e1e22;
     flex-wrap: wrap;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.4);
   }
 
   &__back {
     display: flex;
     align-items: center;
     gap: 6px;
-    background: #f3f4f6;
-    border: 1px solid #d1d5db;
-    color: #374151;
+    background: transparent;
+    border: 1px solid #2a2a30;
+    color: #a1a1aa;
     padding: 6px 12px;
     border-radius: 8px;
     cursor: pointer;
@@ -38,8 +38,8 @@
     transition: color 0.2s, background 0.2s;
 
     &:hover {
-      color: #111827;
-      background: #e5e7eb;
+      color: #e4e4e7;
+      background: rgba(255,255,255,0.05);
     }
   }
 
@@ -58,7 +58,7 @@
     font-size: 22px;
     font-weight: 700;
     margin: 0;
-    color: #111827;
+    color: #fafafa;
     letter-spacing: -0.01em;
   }
 
@@ -66,12 +66,12 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    background: #dcfce7;
-    border: 1px solid #bbf7d0;
+    background: #1a1a1f;
+    border: 1px solid #2a2a30;
     border-radius: 20px;
     padding: 5px 12px;
     font-size: 12px;
-    color: #166534;
+    color: #22c55e;
     font-weight: 500;
 
     svg { opacity: 0.85; }
@@ -82,8 +82,8 @@
     display: flex;
     gap: 0;
     padding: 0 32px;
-    background: #ffffff;
-    border-bottom: 1px solid #e5e7eb;
+    background: #111113;
+    border-bottom: 1px solid #1e1e22;
   }
 
   &__tab {
@@ -93,7 +93,7 @@
     background: transparent;
     border: none;
     border-bottom: 2px solid transparent;
-    color: #9ca3af;
+    color: #52525b;
     padding: 14px 20px;
     cursor: pointer;
     font-size: 14px;
@@ -103,7 +103,7 @@
     margin-bottom: -1px;
 
     &:hover {
-      color: #374151;
+      color: #d4d4d8;
     }
 
     &--active {
@@ -119,18 +119,18 @@
   }
 
   &__tab-count {
-    background: #f3f4f6;
-    border: 1px solid #e5e7eb;
+    background: #1a1a1f;
+    border: 1px solid #2a2a30;
     border-radius: 10px;
     padding: 2px 7px;
     font-size: 11px;
-    color: #9ca3af;
+    color: #52525b;
   }
 
   // ── Progress bar ────────────────────────────────────────────
   &__bar-wrap {
     height: 3px;
-    background: #e5e7eb;
+    background: #1e1e22;
     margin: 0 32px;
     border-radius: 2px;
     overflow: hidden;
@@ -157,8 +157,8 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
+  background: #111113;
+  border: 1px solid #1e1e22;
   border-radius: 12px;
   padding: 16px;
   text-align: left;
@@ -168,12 +168,12 @@
   transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
 
   &--unlocked {
-    border-color: #e5e7eb;
+    border-color: #1e1e22;
 
     &:hover {
-      background: #f9fafb;
-      border-color: #d1d5db;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+      background: #1a1a1f;
+      border-color: #2a2a30;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
     }
   }
 
@@ -197,8 +197,8 @@
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    background: #f3f4f6;
-    color: #374151;
+    background: #2a2a30;
+    color: #e4e4e7;
     font-size: 11px;
     font-weight: 600;
     padding: 3px 9px;
@@ -206,7 +206,7 @@
     width: fit-content;
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #3f3f46;
   }
 
   &__body {
@@ -217,7 +217,7 @@
 
   &__topic {
     font-size: 11px;
-    color: #9ca3af;
+    color: #52525b;
     text-transform: capitalize;
     margin: 0;
     letter-spacing: 0.03em;
@@ -226,7 +226,7 @@
   &__name {
     font-size: 14px;
     font-weight: 600;
-    color: #111827;
+    color: #e4e4e7;
     margin: 0;
     line-height: 1.4;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;

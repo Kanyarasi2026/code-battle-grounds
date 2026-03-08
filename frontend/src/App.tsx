@@ -7,6 +7,8 @@ import { RoomProvider, useRoom } from './context/RoomContext';
 import AlreadyInRoom from './pages/404/AlreadyInRoom';
 import EditorPage from './pages/code-editor/EditorPage';
 import FeaturesSelection from './pages/features-selection/FeaturesSelection';
+import AcademicFeatures from './pages/features-selection/AcademicFeatures';
+import ProfessionalFeatures from './pages/features-selection/ProfessionalFeatures';
 import AssessmentMode from './pages/features/AssessmentMode';
 import ClassAnalytics from './pages/features/ClassAnalytics';
 import IntegrityTimeline from './pages/features/IntegrityTimeline';
@@ -65,8 +67,10 @@ function App() {
                 <Route path="/landing" element={<LandingPage />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/already-in-room" element={<AlreadyInRoom />} />
-                <Route path="/role" element={<ProtectedRoute><RoleSelection /></ProtectedRoute>} />
-                <Route path="/features" element={<ProtectedRoute><FeaturesSelection /></ProtectedRoute>} />
+                <Route path="/role" element={<RoleSelection />} />
+                <Route path="/features" element={<FeaturesSelection />} />
+                <Route path="/features/academic" element={<AcademicFeatures />} />
+                <Route path="/features/professional" element={<ProfessionalFeatures />} />
                 
                 {/* Feature Pages */}
                 <Route path="/practice" element={<ProtectedRoute><AlgorithmChallenges /></ProtectedRoute>} />

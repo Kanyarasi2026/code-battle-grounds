@@ -61,7 +61,7 @@ const Navbar = () => {
         transition={{ duration: 0.3, ease: 'easeOut' }}
       >
         {/* Logo */}
-        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
+        <Link to="/login" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
           <motion.div
             style={{
               width: '34px',
@@ -139,46 +139,8 @@ const Navbar = () => {
           })}
         </div>
 
-        {/* Right — pills + CTA */}
+        {/* Right — CTA */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }} className="hp-nav-right">
-          <motion.span
-            style={{
-              background: 'rgba(255,255,255,0.04)',
-              border: '1px solid rgba(255,255,255,0.14)',
-              color: 'rgba(255,255,255,0.78)',
-              fontFamily: 'JetBrains Mono, monospace',
-              fontSize: '10px',
-              letterSpacing: '0.1em',
-              padding: '4px 10px',
-              borderRadius: '999px',
-              cursor: 'default',
-              display: 'inline-block',
-            }}
-            whileHover={{ scale: 1.02, background: 'rgba(255,255,255,0.07)', borderColor: 'rgba(255,255,255,0.22)' }}
-            transition={SMOOTH}
-          >
-            STUDENT
-          </motion.span>
-
-          <motion.span
-            style={{
-              background: 'rgba(255,255,255,0.02)',
-              border: '1px solid rgba(255,255,255,0.08)',
-              color: 'rgba(255,255,255,0.44)',
-              fontFamily: 'JetBrains Mono, monospace',
-              fontSize: '10px',
-              letterSpacing: '0.1em',
-              padding: '4px 10px',
-              borderRadius: '999px',
-              cursor: 'default',
-              display: 'inline-block',
-            }}
-            whileHover={{ scale: 1.02, background: 'rgba(255,255,255,0.04)', borderColor: 'rgba(255,255,255,0.14)' }}
-            transition={SMOOTH}
-          >
-            FACULTY
-          </motion.span>
-
           <motion.div
             style={{ display: 'inline-flex' }}
             whileHover={{ y: -1 }}
@@ -303,11 +265,6 @@ const Navbar = () => {
                     {link}
                   </motion.a>
                 ))}
-              </div>
-
-              <div style={{ display: 'flex', gap: '8px' }}>
-                <span style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.14)', color: 'rgba(255,255,255,0.78)', fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', letterSpacing: '0.1em', padding: '4px 10px', borderRadius: '999px' }}>STUDENT</span>
-                <span style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.44)', fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', letterSpacing: '0.1em', padding: '4px 10px', borderRadius: '999px' }}>FACULTY</span>
               </div>
 
               <Link

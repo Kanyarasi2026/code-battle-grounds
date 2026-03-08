@@ -27,7 +27,7 @@ const roles: RoleCard[] = [
       'Solo practice with tiered AI hints',
       'Pair programming sessions',
       'Instructor-led assessments',
-      'Session replay & analytics',
+      'Academic progress tracking',
     ],
   },
   {
@@ -81,7 +81,8 @@ const RoleSelection = () => {
     setIsAnimating(true);
 
     setTimeout(() => {
-      navigate('/features', { state: { role } });
+      const routePath = role === 'academic' ? '/features/academic' : '/features/professional';
+      navigate(routePath);
     }, 600);
   };
 
