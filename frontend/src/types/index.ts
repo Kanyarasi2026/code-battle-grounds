@@ -159,3 +159,21 @@ export interface ClientToServerEvents {
 }
 
 export type AppSocket = Socket<ServerToClientEvents, ClientToServerEvents>;
+
+// ── Integrity Timeline ─────────────────────────────────────────
+export type IntegrityEventKind = 'neutral' | 'flagged' | 'done' | 'info';
+
+export interface IntegrityEvent {
+  id: string;
+  timestamp: number;
+  elapsed: string; // MM:SS from session start
+  label: string;
+  detail: string;
+  kind: IntegrityEventKind;
+}
+
+export interface IntegritySummary {
+  tabSwitches: number;
+  fullscreenExits: number;
+  largePastes: number;
+}

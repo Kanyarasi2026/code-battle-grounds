@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
 	BookOpen,
 	CheckCircle2,
@@ -20,6 +20,8 @@ import { useState } from 'react';
 import Button from '../../components/ui/Button';
 import Card from '../../components/ui/Card';
 import Input from '../../components/ui/Input';
+import IntegrityTimelinePanel from '../../components/integrity/IntegrityTimeline';
+import type { IntegrityEvent, IntegritySummary } from '../../types';
 import './FacultyAssessmentPage.scss';
 
 // Mock data
@@ -81,6 +83,34 @@ const mockSubmissions = [
 	},
 ];
 
+// Per-student mock integrity events
+const mockStudentIntegrityEvents: Record<string, { events: IntegrityEvent[]; summary: IntegritySummary }> = {
+  '1': {
+    summary: { tabSwitches: 0, fullscreenExits: 0, largePastes: 0 },
+    events: [
+      { id: 'e1', timestamp: 0, elapsed: '00:00', label: 'Assessment started', detail: 'Fullscreen enabled', kind: 'neutral' },
+      { id: 'e2', timestamp: 1640000, elapsed: '27:20', label: 'Idle spike detected', detail: '2 min 45s without keystroke', kind: 'neutral' },
+      { id: 'e3', timestamp: 2598000, elapsed: '43:18', label: 'Assessment submitted', detail: '3 of 3 problems attempted', kind: 'done' },
+    ],
+  },
+  '2': {
+    summary: { tabSwitches: 1, fullscreenExits: 0, largePastes: 1 },
+    events: [
+      { id: 'e1', timestamp: 0, elapsed: '00:00', label: 'Assessment started', detail: 'Fullscreen enabled', kind: 'neutral' },
+      { id: 'e2', timestamp: 767000, elapsed: '12:47', label: 'Left assessment tab', detail: 'Duration: 3 seconds', kind: 'flagged' },
+      { id: 'e3', timestamp: 1113000, elapsed: '18:33', label: 'Large paste detected', detail: '347 characters pasted', kind: 'flagged' },
+    ],
+  },
+  '3': {
+    summary: { tabSwitches: 0, fullscreenExits: 1, largePastes: 0 },
+    events: [
+      { id: 'e1', timestamp: 0, elapsed: '00:00', label: 'Assessment started', detail: 'Fullscreen enabled', kind: 'neutral' },
+      { id: 'e2', timestamp: 1880000, elapsed: '31:20', label: 'Exited fullscreen', detail: 'Returned after 3 seconds', kind: 'neutral' },
+      { id: 'e3', timestamp: 2830000, elapsed: '47:10', label: 'Assessment submitted', detail: '3 of 3 problems attempted', kind: 'done' },
+    ],
+  },
+};
+
 const mockRubricItems = [
 	{ criterion: 'Code correctness', weight: 40 },
 	{ criterion: 'Code efficiency', weight: 25 },
@@ -112,6 +142,11 @@ const FacultyAssessmentPage = () => {
 	const [copyPasteRestricted, setCopyPasteRestricted] = useState(true);
 	const [tabSwitchTracking, setTabSwitchTracking] = useState(true);
 	const [aiHelpDisabled, setAiHelpDisabled] = useState(false);
+
+  // Per-student integrity review modal
+  const [reviewingStudentId, setReviewingStudentId] = useState<string | null>(null);
+  const reviewingStudent = reviewingStudentId ? mockSubmissions.find(s => s.id === reviewingStudentId) : null;
+  const reviewingIntegrity = reviewingStudentId ? mockStudentIntegrityEvents[reviewingStudentId] : null;
 
 	const selectedQuestions = questions.filter((q) => q.selected);
 	const displayedQuestions = questions.filter(
@@ -689,7 +724,12 @@ const FacultyAssessmentPage = () => {
 															/>
 														)}
 													</div>
-													<button className="review-btn-small">Review</button>
+													<button
+                            className="review-btn-small"
+                            onClick={() => setReviewingStudentId(submission.id)}
+                          >
+                            Review
+                          </button>
 												</div>
 											))}
 										</div>
@@ -768,6 +808,67 @@ const FacultyAssessmentPage = () => {
 					</div>
 				</div>
 			</div>
+
+      {/* Per-student integrity review modal */}
+      <AnimatePresence>
+        {reviewingStudent && reviewingIntegrity && (
+          <motion.div
+            key="integrity-modal-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="integrity-modal-overlay"
+            onClick={() => setReviewingStudentId(null)}
+          >
+            <motion.div
+              key="integrity-modal"
+              initial={{ opacity: 0, y: 28, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 20, scale: 0.97 }}
+              transition={{ duration: 0.26, ease: [0.16, 1, 0.3, 1] }}
+              className="integrity-modal"
+              onClick={e => e.stopPropagation()}
+            >
+              {/* Modal header */}
+              <div className="integrity-modal__header">
+                <div className="integrity-modal__title-row">
+                  <Shield size={16} strokeWidth={1.8} />
+                  <h2 className="integrity-modal__title">Integrity Review</h2>
+                  <span className="integrity-modal__student">{reviewingStudent.student}</span>
+                  {reviewingStudent.integrityFlags > 0 && (
+                    <span className="integrity-modal__flag-pill">{reviewingStudent.integrityFlags} flag</span>
+                  )}
+                </div>
+                <button
+                  className="integrity-modal__close"
+                  onClick={() => setReviewingStudentId(null)}
+                  aria-label="Close review"
+                >
+                  <X size={16} strokeWidth={2} />
+                </button>
+              </div>
+
+              {/* Timeline panel */}
+              <div className="integrity-modal__body">
+                <IntegrityTimelinePanel
+                  events={reviewingIntegrity.events}
+                  summary={reviewingIntegrity.summary}
+                  studentName={reviewingStudent.student}
+                  assessmentName="Data Structures Midterm"
+                  onViewReplay={() => {}}
+                />
+              </div>
+
+              {/* Modal disclaimer */}
+              <div className="integrity-modal__footer">
+                <Shield size={13} strokeWidth={1.8} />
+                <span>No automated verdict. Use this data as context during your review conversation with the student.</span>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 		</div>
 	);
 };

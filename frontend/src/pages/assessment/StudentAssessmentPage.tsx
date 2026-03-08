@@ -20,7 +20,9 @@ import {
   Upload,
   X,
 } from 'lucide-react';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import { useIntegrityTracker } from '../../hooks/useIntegrityTracker';
+import IntegrityTimeline from '../../components/integrity/IntegrityTimeline';
 import { useNavigate } from 'react-router-dom';
 import Editor, { type OnMount } from '@monaco-editor/react';
 import type { editor } from 'monaco-editor';
@@ -113,8 +115,16 @@ const StudentAssessmentPage = () => {
   const [output, setOutput] = useState<string>('');
   const [isExecuting, setIsExecuting] = useState(false);
   const [executionError, setExecutionError] = useState<string>('');
-  const [codeRunCount, setCodeRunCount] = useState(0);
   const editorRef = useRef<editor.IStandaloneCodeEditor | null>(null);
+
+  // Integrity tracking — active until assessment is submitted
+  const { events: integrityEvents, summary: integritySummary, logEvent } = useIntegrityTracker(!isSubmitted);
+
+  // Log session lifecycle events
+  useEffect(() => {
+    logEvent('Assessment started', 'Fullscreen enabled', 'neutral');
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const questionsAnswered = mockQuestions.filter(q => q.status === 'answered').length;
   const progressPercent = (questionsAnswered / mockQuestions.length) * 100;
@@ -181,7 +191,7 @@ const StudentAssessmentPage = () => {
 
       setOutput(outputText);
       setExecutionError(hasError ? outputText : '');
-      setCodeRunCount(prev => prev + 1);
+      logEvent('Code executed', hasError ? 'Execution returned errors' : 'Ran successfully', 'info');
 
       if (hasError) {
         toast.error('Code execution completed with errors');
@@ -211,6 +221,11 @@ const StudentAssessmentPage = () => {
   };
 
   const handleSubmitAssessment = () => {
+    logEvent(
+      'Assessment submitted',
+      `${questionsAnswered} of ${mockAssessment.totalQuestions} problems attempted`,
+      'done',
+    );
     setIsSubmitted(true);
   };
 
@@ -853,7 +868,7 @@ const StudentAssessmentPage = () => {
               </Card>
             </motion.div>
 
-            {/* Assessment Timeline Card */}
+            {/* Integrity Timeline Card — live session log (student-facing) */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -862,46 +877,16 @@ const StudentAssessmentPage = () => {
               <Card className="assessment-card">
                 <div className="assessment-card__header">
                   <div className="assessment-card__header-left">
-                    <Clock size={18} strokeWidth={1.8} />
-                    <h3 className="assessment-card__title">Activity Timeline</h3>
+                    <Shield size={18} strokeWidth={1.8} />
+                    <h3 className="assessment-card__title">Integrity Timeline</h3>
                   </div>
                 </div>
                 <div className="assessment-card__body">
-                  <div className="timeline-item">
-                    <Save size={14} strokeWidth={1.8} />
-                    <div className="timeline-item__content">
-                      <span className="timeline-item__label">Last Autosave</span>
-                      <span className="timeline-item__value">{lastSaved}</span>
-                    </div>
-                  </div>
-                  <div className="timeline-item">
-                    <Play size={14} strokeWidth={1.8} />
-                    <div className="timeline-item__content">
-                      <span className="timeline-item__label">Code Runs</span>
-                      <span className="timeline-item__value">{codeRunCount} attempts</span>
-                    </div>
-                  </div>
-                  <div className="timeline-item timeline-item--warning">
-                    <AlertTriangle size={14} strokeWidth={1.8} />
-                    <div className="timeline-item__content">
-                      <span className="timeline-item__label">Warning Events</span>
-                      <span className="timeline-item__value">2 logged</span>
-                    </div>
-                  </div>
-                  <div className="timeline-item">
-                    <Clock size={14} strokeWidth={1.8} />
-                    <div className="timeline-item__content">
-                      <span className="timeline-item__label">Session Started</span>
-                      <span className="timeline-item__value">1:12 PM</span>
-                    </div>
-                  </div>
-                  <div className="timeline-item">
-                    <Clock size={14} strokeWidth={1.8} />
-                    <div className="timeline-item__content">
-                      <span className="timeline-item__label">Time Remaining</span>
-                      <span className="timeline-item__value">{timeRemaining} minutes</span>
-                    </div>
-                  </div>
+                  <IntegrityTimeline
+                    events={integrityEvents}
+                    summary={integritySummary}
+                    compact
+                  />
                 </div>
               </Card>
             </motion.div>

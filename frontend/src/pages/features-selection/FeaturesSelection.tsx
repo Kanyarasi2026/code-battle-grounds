@@ -33,55 +33,54 @@ interface FeaturesByRole {
 }
 
 const features: FeaturesByRole = {
-	academic: [
-		{
-			id: 'classrooms',
-			icon: Users,
-			title: 'Classrooms',
-			description: 'Real-time collaborative coding with live cursor presence',
-			badge: 'Collaborative',
-			route: '/home',
-		},
-		{
-			id: 'assessment',
-			icon: ClipboardCheck,
-			title: 'Assessment Mode',
-			description:
-				'Timed coding assessments with transparent integrity tracking',
-			badge: 'Faculty',
-			route: '/assess',
-		},
-	],
-	professional: [
-		{
-			id: 'algorithm-practice',
-			icon: Code2,
-			title: 'Algorithm Challenges',
-			description: 'Practice data structures and algorithms at your own pace',
-			route: '/practice',
-		},
-		{
-			id: 'mock-interview',
-			icon: Lightbulb,
-			title: 'Mock Interviews',
-			description: 'Prepare for technical interviews with realistic scenarios',
-			route: '/interview',
-		},
-		{
-			id: 'pair-collab',
-			icon: Users,
-			title: 'Pair Programming',
-			description: 'Collaborate with peers on challenging problems',
-			route: '/home',
-		},
-		{
-			id: 'practice-sets',
-			icon: BookMarked,
-			title: 'Curated Practice Sets',
-			description: 'Topic-based problem collections for focused learning',
-			route: '/sets',
-		},
-	],
+  academic: [
+    {
+      id: 'classrooms',
+      icon: Users,
+      title: 'Classrooms',
+      description: 'Real-time collaborative coding with live cursor presence',
+      badge: 'Collaborative',
+      route: '/classrooms',
+    },
+    {
+      id: 'assessment',
+      icon: ClipboardCheck,
+      title: 'Assessment Mode',
+      description: 'Timed coding assessments with transparent integrity tracking',
+      badge: 'Faculty',
+      route: '/assess',
+    },
+  ],
+  professional: [
+    {
+      id: 'algorithm-practice',
+      icon: Code2,
+      title: 'Algorithm Challenges',
+      description: 'Practice data structures and algorithms at your own pace',
+      route: '/practice',
+    },
+    {
+      id: 'mock-interview',
+      icon: Lightbulb,
+      title: 'Mock Interviews',
+      description: 'Prepare for technical interviews with realistic scenarios',
+      route: '/interview',
+    },
+    {
+      id: 'pair-collab',
+      icon: Users,
+      title: 'Pair Programming',
+      description: 'Collaborate with peers on challenging problems',
+      route: '/home',
+    },
+    {
+      id: 'practice-sets',
+      icon: BookMarked,
+      title: 'Curated Practice Sets',
+      description: 'Topic-based problem collections for focused learning',
+      route: '/sets',
+    },
+  ],
 };
 
 const FeaturesSelection = () => {

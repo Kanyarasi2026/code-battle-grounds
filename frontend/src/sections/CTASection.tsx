@@ -81,42 +81,6 @@ const CTASection = () => {
               Sign in with Google — It's free
             </Link>
           </motion.div>
-
-          {/* Secondary CTA */}
-          <motion.div whileHover={{ y: -1 }} whileTap={{ y: 0 }} transition={LIFT} style={{ display: 'inline-flex' }}>
-            <Link
-              to="/login1"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                background: 'transparent',
-                color: 'rgba(255,255,255,0.44)',
-                fontFamily: 'DM Sans, sans-serif',
-                fontWeight: 500,
-                fontSize: '15px',
-                padding: '14px 24px',
-                borderRadius: '10px',
-                border: '1px solid rgba(255,255,255,0.10)',
-                textDecoration: 'none',
-                letterSpacing: '-0.01em',
-                transition: 'background 0.2s, border-color 0.2s, color 0.2s',
-              }}
-              onMouseEnter={e => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.background = 'rgba(255,255,255,0.05)';
-                el.style.borderColor = 'rgba(255,255,255,0.22)';
-                el.style.color = 'rgba(255,255,255,0.82)';
-              }}
-              onMouseLeave={e => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.background = 'transparent';
-                el.style.borderColor = 'rgba(255,255,255,0.10)';
-                el.style.color = 'rgba(255,255,255,0.44)';
-              }}
-            >
-              I'm an Instructor &rarr;
-            </Link>
-          </motion.div>
         </div>
 
         {/* Trust signals */}

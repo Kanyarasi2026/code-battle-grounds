@@ -31,6 +31,7 @@ import AudioInterview from './pages/features/mock-interview/video-interview/Audi
 import PairProgramming from './pages/features/PairProgramming';
 import ProgressTracking from './pages/features/ProgressTracking';
 import SessionReplay from './pages/features/SessionReplay';
+import Classrooms from './pages/classrooms/Classrooms';
 import Home from './pages/home/Home';
 import LandingPage from './pages/landing/LandingPage';
 import Login from './pages/login/Login';
@@ -169,7 +170,8 @@ function App() {
                   <Route path="/progress" element={<ProtectedRoute><ProgressTracking /></ProtectedRoute>} />
                   <Route path="/sets" element={<ProtectedRoute><CuratedPracticePage /></ProtectedRoute>} />
 
-                  {/* Home & editor */}
+                  {/* Classrooms & Home */}
+                  <Route path="/classrooms" element={<ProtectedRoute><Classrooms /></ProtectedRoute>} />
                   <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
                 </Route>
 

@@ -3,16 +3,19 @@ import { gsap } from 'gsap';
 import { BookOpen, ClipboardCheck, Users } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { BookOpen, Users, ClipboardCheck, Shield } from 'lucide-react';
+import { gsap } from 'gsap';
 import { useAuth } from '../../context/AuthContext';
 import './FeaturesSelection.scss';
 
 interface AcademicFeature {
-	id: string;
-	icon: typeof Users;
-	title: string;
-	description: string;
-	badge?: string;
-	route?: string;
+  id: string;
+  icon: typeof Users;
+  title: string;
+  description: string;
+  badge?: string;
+  route?: string;
+  facultyOnly?: boolean;
 }
 
 const academicFeatures: AcademicFeature[] = [
@@ -22,7 +25,7 @@ const academicFeatures: AcademicFeature[] = [
 		title: 'Classrooms',
 		description: 'Real-time collaborative coding with live cursor presence',
 		badge: 'Collaborative',
-		route: '/home',
+		route: '/classrooms',
 	},
 	{
 		id: 'assessment',
@@ -32,6 +35,15 @@ const academicFeatures: AcademicFeature[] = [
 		badge: 'Faculty',
 		route: '/assess',
 	},
+  {
+    id: 'integrity',
+    icon: Shield,
+    title: 'Integrity Insights',
+    description: 'Factual session timeline — neutral activity log for instructor review',
+    badge: 'Transparency',
+    route: '/integrity',
+    facultyOnly: true,
+  },
 ];
 
 const AcademicFeatures = () => {
@@ -42,12 +54,16 @@ const AcademicFeatures = () => {
 	const headerRef = useRef<HTMLDivElement>(null);
 	const cardsRef = useRef<HTMLDivElement>(null);
 
-	// Redirect to role selection if user hasn't chosen faculty/student role
-	useEffect(() => {
-		if (loading) {
-			console.log('[AcademicFeatures] Auth still loading...');
-			return;
-		}
+  const visibleFeatures = roleData.requested === 'faculty'
+    ? academicFeatures
+    : academicFeatures.filter((f) => !f.facultyOnly);
+
+  // Redirect to role selection if user hasn't chosen faculty/student role
+  useEffect(() => {
+    if (loading) {
+      console.log('[AcademicFeatures] Auth still loading...');
+      return;
+    }
 
 		const hasAcademicRole =
 			roleData.requested === 'faculty' || roleData.requested === 'student';
@@ -227,11 +243,11 @@ const AcademicFeatures = () => {
 					</motion.p>
 				</div>
 
-				<div ref={cardsRef} className="features-selection__features-grid">
-					{academicFeatures.map((feature, index) => {
-						const Icon = feature.icon;
-						const isSelected = selectedFeature === feature.id;
-						const isHovered = hoveredCard === feature.id;
+        <div ref={cardsRef} className="features-selection__features-grid">
+          {visibleFeatures.map((feature, index) => {
+            const Icon = feature.icon;
+            const isSelected = selectedFeature === feature.id;
+            const isHovered = hoveredCard === feature.id;
 
 						return (
 							<motion.div
