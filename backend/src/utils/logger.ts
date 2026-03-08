@@ -15,7 +15,7 @@ export const logger = winston.createLogger({
     winston.format.splat(),
     winston.format.json(),
   ),
-  defaultMeta: { service: 'codesketch-backend' },
+  defaultMeta: { service: 'codebattleground-backend' },
   transports: [
     new winston.transports.Console({
       format: winston.format.combine(

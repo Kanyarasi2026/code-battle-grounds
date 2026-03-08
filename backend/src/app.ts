@@ -154,17 +154,17 @@ export function createApp() {
     res.set('Content-Type', 'text/plain');
     res.send(
       `
-# HELP codesketch_rooms_total Total number of active rooms
-# TYPE codesketch_rooms_total gauge
-codesketch_rooms_total ${stats.totalRooms}
+# HELP codebattleground_rooms_total Total number of active rooms
+# TYPE codebattleground_rooms_total gauge
+codebattleground_rooms_total ${stats.totalRooms}
 
-# HELP codesketch_clients_total Total number of connected clients
-# TYPE codesketch_clients_total gauge
-codesketch_clients_total ${stats.totalClients}
+# HELP codebattleground_clients_total Total number of connected clients
+# TYPE codebattleground_clients_total gauge
+codebattleground_clients_total ${stats.totalClients}
 
-# HELP codesketch_uptime_seconds Server uptime in seconds
-# TYPE codesketch_uptime_seconds counter
-codesketch_uptime_seconds ${Math.floor(process.uptime())}
+# HELP codebattleground_uptime_seconds Server uptime in seconds
+# TYPE codebattleground_uptime_seconds counter
+codebattleground_uptime_seconds ${Math.floor(process.uptime())}
   `.trim(),
     );
   });

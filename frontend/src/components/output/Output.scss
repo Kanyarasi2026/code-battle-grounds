@@ -1,0 +1,145 @@
+@use '../../styles/variables.scss' as *;
+
+.output-panel {
+	display: flex;
+	flex-direction: column;
+	border-top: 1px solid var(--border-primary);
+	flex-shrink: 0;
+	height: 240px;
+
+	&__header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		height: 36px;
+		padding: 0 12px;
+		border-bottom: 1px solid var(--border-primary);
+		flex-shrink: 0;
+	}
+
+	&__tabs {
+		display: flex;
+		align-items: center;
+		gap: 0;
+		height: 100%;
+	}
+
+	&__tab {
+		display: flex;
+		align-items: center;
+		height: 100%;
+		padding: 0 12px;
+		border: none;
+		background: transparent;
+		color: var(--text-tertiary);
+		font-size: 12px;
+		font-weight: 500;
+		font-family: var(--font-sans);
+		cursor: pointer;
+		position: relative;
+		transition: color var(--transition-fast);
+
+		&:hover {
+			color: var(--text-secondary);
+		}
+
+		&--active {
+			color: var(--text-primary);
+
+			&::after {
+				content: '';
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				height: 2px;
+				background: var(--accent-blue);
+				border-radius: 1px 1px 0 0;
+			}
+		}
+	}
+
+	&__actions {
+		display: flex;
+		align-items: center;
+		gap: 4px;
+	}
+
+	&__icon-btn {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 28px;
+		height: 28px;
+		border: none;
+		border-radius: var(--radius-sm);
+		background: transparent;
+		color: var(--text-tertiary);
+		cursor: pointer;
+		transition: all var(--transition-fast);
+
+		&:hover {
+			background: var(--bg-tertiary);
+			color: var(--text-primary);
+		}
+	}
+
+	&__content {
+		flex: 1;
+		overflow: hidden;
+		display: flex;
+	}
+
+	&__output {
+		flex: 1;
+		padding: 12px;
+		margin: 0;
+		font-family: var(--font-mono);
+		font-size: 13px;
+		line-height: 1.6;
+		color: var(--accent-green);
+		background: var(--bg-primary);
+		white-space: pre-wrap;
+		word-break: break-word;
+		overflow-y: auto;
+
+		&--error {
+			color: var(--accent-red);
+		}
+	}
+
+	&__input {
+		flex: 1;
+		padding: 12px;
+		margin: 0;
+		border: none;
+		outline: none;
+		resize: none;
+		font-family: var(--font-mono);
+		font-size: 13px;
+		line-height: 1.6;
+		color: var(--text-primary);
+		background: var(--bg-primary);
+
+		&::placeholder {
+			color: var(--text-tertiary);
+		}
+
+		&:disabled {
+			opacity: 0.5;
+		}
+	}
+
+	&__spinner {
+		animation: spin 1s linear infinite;
+	}
+}
+
+@keyframes spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}

@@ -65,15 +65,15 @@ describe('GET /metrics', () => {
 
   it('contains Prometheus gauge metrics', async () => {
     const res = await request(app).get('/metrics');
-    expect(res.text).toContain('codesketch_rooms_total 2');
-    expect(res.text).toContain('codesketch_clients_total 5');
-    expect(res.text).toContain('codesketch_uptime_seconds');
+    expect(res.text).toContain('codebattleground_rooms_total 2');
+    expect(res.text).toContain('codebattleground_clients_total 5');
+    expect(res.text).toContain('codebattleground_uptime_seconds');
   });
 
   it('includes HELP and TYPE annotations', async () => {
     const res = await request(app).get('/metrics');
-    expect(res.text).toContain('# HELP codesketch_rooms_total');
-    expect(res.text).toContain('# TYPE codesketch_rooms_total gauge');
+    expect(res.text).toContain('# HELP codebattleground_rooms_total');
+    expect(res.text).toContain('# TYPE codebattleground_rooms_total gauge');
   });
 });
 
