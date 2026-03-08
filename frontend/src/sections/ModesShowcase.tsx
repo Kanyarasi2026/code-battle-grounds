@@ -87,7 +87,6 @@ const ModesShowcase = () => {
 	const { user } = useAuth();
 
 	const handleLaunchPair = () => {
-		const roomId = crypto.randomUUID();
 		const username =
 			(user?.user_metadata?.['full_name'] as string | undefined) ??
 			user?.email ??
