@@ -87,14 +87,14 @@ kbd {
 
 /* ─── Focus Ring ─── */
 :focus-visible {
-	outline: 2px solid var(--accent-blue);
+	outline: 2px solid rgba(255, 255, 255, 0.3);
 	outline-offset: 2px;
 	border-radius: var(--radius-sm);
 }
 
 /* ─── Selection ─── */
 ::selection {
-	background: rgba(59, 130, 246, 0.3);
+	background: rgba(255, 255, 255, 0.12);
 	color: var(--text-primary);
 }
 

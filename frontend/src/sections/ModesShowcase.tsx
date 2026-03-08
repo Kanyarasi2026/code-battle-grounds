@@ -1,11 +1,17 @@
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+
+const TAB_SPRING = { type: 'spring' as const, stiffness: 420, damping: 36, mass: 0.8 };
+const EASE = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
 const MODES = [
   {
     id: 'solo',
     icon: '◈',
-    accent: '#00e5cc',
-    accentRgb: '0,229,204',
+    accent: 'rgba(255,255,255,0.88)',
+    accentRgb: '255,255,255',
+    accentBg: 'rgba(255,255,255,0.04)',
+    accentBorder: 'rgba(255,255,255,0.10)',
     title: 'Solo Practice',
     badge: 'STUDENT',
     desc: "Solve DSA problems at your own pace. The AI detects when you're stuck before you even ask — and delivers hints in tiers so you learn, not copy.",
@@ -17,8 +23,10 @@ const MODES = [
   {
     id: 'pair',
     icon: '⟡',
-    accent: '#a78bfa',
-    accentRgb: '167,139,250',
+    accent: 'rgba(255,255,255,0.60)',
+    accentRgb: '255,255,255',
+    accentBg: 'rgba(255,255,255,0.025)',
+    accentBorder: 'rgba(255,255,255,0.08)',
     title: 'Pair Programming',
     badge: 'COLLABORATIVE',
     desc: 'Two engineers, one editor. Real-time presence, contribution tracking, and an AI moderator that compares your approaches and suggests how to merge them.',
@@ -31,8 +39,10 @@ const MODES = [
   {
     id: 'assess',
     icon: '▣',
-    accent: '#f5a623',
-    accentRgb: '245,166,35',
+    accent: 'rgba(255,255,255,0.72)',
+    accentRgb: '255,255,255',
+    accentBg: 'rgba(255,255,255,0.03)',
+    accentBorder: 'rgba(255,255,255,0.09)',
     title: 'Assessment Mode',
     badge: 'FACULTY',
     desc: 'Faculty create timed, structured assessments. Students code under fair constraints. Every session is transparent — not proctored, but reviewable.',
@@ -46,27 +56,21 @@ const MODES = [
 
 const ModesShowcase = () => {
   const [activeId, setActiveId] = useState('solo');
-  const [panelOpacity, setPanelOpacity] = useState(1);
 
   const active = MODES.find(m => m.id === activeId) ?? MODES[0]!;
 
-  const switchMode = (id: string) => {
-    setPanelOpacity(0);
-    setTimeout(() => { setActiveId(id); setPanelOpacity(1); }, 200);
-  };
-
   const sectionStyle: React.CSSProperties = {
     padding: '100px 32px',
-    background: 'rgba(255,255,255,0.01)',
-    borderTop: '1px solid rgba(255,255,255,0.04)',
+    background: 'rgba(255,255,255,0.010)',
+    borderTop: '1px solid rgba(255,255,255,0.042)',
   };
 
   const innerStyle: React.CSSProperties = { maxWidth: '1200px', margin: '0 auto' };
 
   const tabBarStyle: React.CSSProperties = {
     display: 'flex',
-    gap: '12px',
-    marginBottom: '32px',
+    gap: '10px',
+    marginBottom: '28px',
     flexWrap: 'wrap' as const,
   };
 
@@ -74,94 +78,159 @@ const ModesShowcase = () => {
     <section id="modes" style={sectionStyle}>
       <div style={innerStyle}>
         {/* Section header */}
-        <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-          <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: '#00e5cc', letterSpacing: '0.2em', marginBottom: '12px' }}>PLATFORM MODES</div>
-          <h2 style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: '42px', color: '#e2e8f0', margin: '0 0 16px' }}>Three modes. One platform.</h2>
-          <p style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '16px', color: '#6b7280', lineHeight: 1.7, maxWidth: '560px', margin: '0 auto' }}>
+        <motion.div
+          style={{ textAlign: 'center', marginBottom: '48px' }}
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.18 }}
+          transition={{ duration: 0.65, ease: EASE }}
+        >
+          <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'rgba(255,255,255,0.32)', letterSpacing: '0.2em', marginBottom: '12px' }}>PLATFORM MODES</div>
+          <h2 style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: '42px', color: 'rgba(255,255,255,0.96)', margin: '0 0 16px' }}>Three modes. One platform.</h2>
+          <p style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '16px', color: 'rgba(255,255,255,0.36)', lineHeight: 1.7, maxWidth: '560px', margin: '0 auto' }}>
             Every mode is purpose-built. Practice AI helps freely. Assessment AI steps back. Instructor tools see everything — without judging.
           </p>
-        </div>
+        </motion.div>
 
         {/* Tab bar */}
         <div style={tabBarStyle}>
           {MODES.map(mode => {
             const isActive = mode.id === activeId;
             return (
-              <button
+              <motion.button
                 key={mode.id}
-                onClick={() => switchMode(mode.id)}
+                onClick={() => setActiveId(mode.id)}
                 style={{
+                  position: 'relative',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '8px',
-                  padding: '10px 20px',
+                  padding: '9px 18px',
                   borderRadius: '10px',
-                  border: isActive ? `1px solid ${mode.accent}` : '1px solid rgba(255,255,255,0.08)',
-                  background: isActive ? `rgba(${mode.accentRgb}, 0.08)` : 'transparent',
-                  color: isActive ? mode.accent : '#6b7280',
+                  border: isActive ? '1px solid rgba(255,255,255,0.16)' : '1px solid rgba(255,255,255,0.07)',
+                  background: 'transparent',
+                  color: isActive ? mode.accent : 'rgba(255,255,255,0.36)',
                   fontFamily: 'DM Sans, sans-serif',
                   fontWeight: 600,
                   fontSize: '14px',
                   cursor: 'pointer',
-                  transition: 'all 0.2s',
+                  overflow: 'hidden',
+                  transition: 'color 0.22s, border-color 0.2s',
+                }}
+                whileTap={{ scale: 0.97 }}
+                transition={TAB_SPRING}
+                onMouseEnter={e => {
+                  const el = e.currentTarget;
+                  if (!isActive) {
+                    el.style.borderColor = 'rgba(255,255,255,0.12)';
+                    el.style.background = 'rgba(255,255,255,0.025)';
+                  }
+                }}
+                onMouseLeave={e => {
+                  const el = e.currentTarget;
+                  el.style.borderColor = isActive ? 'rgba(255,255,255,0.16)' : 'rgba(255,255,255,0.07)';
+                  el.style.background = 'transparent';
                 }}
               >
-                <span>{mode.icon}</span>
-                <span>{mode.title}</span>
+                {/* Sliding active fill */}
+                {isActive && (
+                  <motion.div
+                    layoutId="active-tab-highlight"
+                    style={{
+                      position: 'absolute',
+                      inset: 0,
+                      background: 'rgba(255,255,255,0.05)',
+                      borderRadius: '9px',
+                    }}
+                    transition={TAB_SPRING}
+                  />
+                )}
+                {/* Active bottom strip */}
+                {isActive && (
+                  <motion.div
+                    layoutId="active-tab-strip"
+                    style={{
+                      position: 'absolute',
+                      bottom: 0,
+                      left: '14px',
+                      right: '14px',
+                      height: '1px',
+                      background: 'rgba(255,255,255,0.52)',
+                      borderRadius: '1px',
+                    }}
+                    initial={{ opacity: 0, scaleX: 0.4 }}
+                    animate={{ opacity: 1, scaleX: 1 }}
+                    exit={{ opacity: 0, scaleX: 0.4 }}
+                    transition={TAB_SPRING}
+                  />
+                )}
+                <span style={{ position: 'relative', zIndex: 1 }}>{mode.icon}</span>
+                <span style={{ position: 'relative', zIndex: 1 }}>{mode.title}</span>
                 <span style={{
+                  position: 'relative',
+                  zIndex: 1,
                   fontFamily: 'JetBrains Mono, monospace',
                   fontSize: '9px',
                   letterSpacing: '0.12em',
                   padding: '2px 7px',
                   borderRadius: '10px',
-                  background: isActive ? `rgba(${mode.accentRgb}, 0.15)` : 'rgba(255,255,255,0.05)',
-                  color: isActive ? mode.accent : '#4a5568',
+                  background: isActive ? 'rgba(255,255,255,0.07)' : 'rgba(255,255,255,0.03)',
+                  color: isActive ? mode.accent : 'rgba(255,255,255,0.20)',
+                  transition: 'background 0.22s, color 0.22s',
                 }}>
                   {mode.badge}
                 </span>
-              </button>
+              </motion.button>
             );
           })}
         </div>
 
         {/* Detail panel */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: '40px',
-          border: `1px solid rgba(${active.accentRgb}, 0.12)`,
-          background: `rgba(${active.accentRgb}, 0.02)`,
-          borderRadius: '16px',
-          padding: '40px',
-          opacity: panelOpacity,
-          transition: 'opacity 0.2s ease, border-color 0.3s, background 0.3s',
-        }} className="hp-modes-panel">
+        <AnimatePresence mode="wait">
+        <motion.div
+          key={activeId}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -5 }}
+          transition={{ type: 'tween', duration: 0.20, ease: [0.16, 1, 0.3, 1] }}
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+            gap: '40px',
+            border: `1px solid ${active.accentBorder}`,
+            background: active.accentBg,
+            borderRadius: '16px',
+            padding: '40px',
+          }}
+          className="hp-modes-panel"
+        >
           {/* Left */}
           <div>
-            <div style={{ fontSize: '36px', color: active.accent, marginBottom: '16px' }}>{active.icon}</div>
-            <h3 style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: '32px', color: '#e2e8f0', margin: '0 0 12px' }}>{active.title}</h3>
-            <p style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '15px', color: '#6b7280', lineHeight: 1.7, marginBottom: '24px' }}>{active.desc}</p>
+            <div style={{ fontSize: '26px', color: active.accent, marginBottom: '16px', fontFamily: 'JetBrains Mono, monospace' }}>{active.icon}</div>
+            <h3 style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: '32px', color: 'rgba(255,255,255,0.96)', margin: '0 0 12px' }}>{active.title}</h3>
+            <p style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '15px', color: 'rgba(255,255,255,0.36)', lineHeight: 1.7, marginBottom: '24px' }}>{active.desc}</p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
               {active.features.map((f, i) => (
                 <div key={i} style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-                  <span style={{ color: active.accent, fontSize: '10px' }}>&#x25A0;</span>
-                  <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '12px', color: '#9ca3af' }}>{f}</span>
+                  <span style={{ color: active.accent, fontSize: '10px', flexShrink: 0 }}>&#x25A0;</span>
+                  <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '12px', color: 'rgba(255,255,255,0.54)' }}>{f}</span>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Right - Code preview */}
-          <div style={{ background: '#0d1117', border: `1px solid rgba(${active.accentRgb}, 0.1)`, borderRadius: '12px', overflow: 'hidden', position: 'relative' }} className="hp-code-preview">
-            <div style={{ background: '#161b22', borderBottom: '1px solid rgba(255,255,255,0.05)', padding: '10px 16px', display: 'flex', justifyContent: 'flex-end' }}>
-              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: '#4a5568' }}>PREVIEW</span>
+          <div style={{ background: '#0f0f10', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '12px', overflow: 'hidden', position: 'relative' }} className="hp-code-preview">
+            <div style={{ background: '#141416', borderBottom: '1px solid rgba(255,255,255,0.05)', padding: '10px 16px', display: 'flex', justifyContent: 'flex-end' }}>
+              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: 'rgba(255,255,255,0.20)' }}>PREVIEW</span>
             </div>
-            <pre style={{ padding: '24px', fontFamily: 'JetBrains Mono, monospace', fontSize: '13px', lineHeight: 1.8, color: '#9ca3af', whiteSpace: 'pre-wrap', margin: 0 }}>
+            <pre style={{ padding: '24px', fontFamily: 'JetBrains Mono, monospace', fontSize: '13px', lineHeight: 1.8, color: 'rgba(255,255,255,0.52)', whiteSpace: 'pre-wrap', margin: 0 }}>
               {active.codeSnippet}
             </pre>
-            <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '40px', background: 'linear-gradient(transparent, #0d1117)', pointerEvents: 'none' }} />
+            <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '40px', background: 'linear-gradient(transparent, #0f0f10)', pointerEvents: 'none' }} />
           </div>
-        </div>
+        </motion.div>
+        </AnimatePresence>
       </div>
       <style>{`
         @media (max-width: 768px) { .hp-modes-panel { grid-template-columns: 1fr !important; } }

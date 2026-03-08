@@ -1,266 +1,339 @@
 import { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+
+const NAV_LINKS = ['Practice', 'Pair', 'Assess', 'Replay'];
+const SPRING = { type: 'spring' as const, stiffness: 380, damping: 28 };
+const SMOOTH = { type: 'tween' as const, duration: 0.22, ease: [0.16, 1, 0.3, 1] as number[] };
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const location = useLocation();
+  const [activeSection, setActiveSection] = useState<string | null>(null);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navStyle: React.CSSProperties = {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    right: 0,
-    zIndex: 100,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: '0 32px',
-    height: '64px',
-    background: scrolled ? 'rgba(8,12,16,0.95)' : 'transparent',
-    backdropFilter: scrolled ? 'blur(12px)' : 'none',
-    borderBottom: scrolled ? '1px solid rgba(0,229,204,0.08)' : '1px solid transparent',
-    transition: 'all 0.3s ease',
-  };
-
-  const logoStyle: React.CSSProperties = {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '10px',
-    textDecoration: 'none',
-  };
-
-  const logoIconStyle: React.CSSProperties = {
-    width: '36px',
-    height: '36px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    background: 'rgba(0,229,204,0.1)',
-    border: '1px solid rgba(0,229,204,0.3)',
-    borderRadius: '8px',
-    fontSize: '18px',
-    color: '#00e5cc',
-  };
-
-  const logoTextStyle: React.CSSProperties = {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '1px',
-  };
-
-  const logoNameStyle: React.CSSProperties = {
-    fontFamily: 'Syne, sans-serif',
-    fontWeight: 700,
-    fontSize: '15px',
-    color: '#e2e8f0',
-    lineHeight: 1,
-  };
-
-  const logoSubStyle: React.CSSProperties = {
-    fontFamily: 'JetBrains Mono, monospace',
-    fontSize: '9px',
-    color: '#00e5cc',
-    letterSpacing: '0.2em',
-    lineHeight: 1,
-  };
-
-  const centerNavStyle: React.CSSProperties = {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '32px',
-  };
-
-  const navLinkStyle: React.CSSProperties = {
-    fontFamily: 'JetBrains Mono, monospace',
-    fontSize: '12px',
-    letterSpacing: '0.08em',
-    color: '#6b7280',
-    textDecoration: 'none',
-    transition: 'color 0.2s',
-    background: 'none',
-    border: 'none',
-    cursor: 'pointer',
-    padding: 0,
-  };
-
-  const rightStyle: React.CSSProperties = {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '8px',
-  };
-
-  const studentPillStyle: React.CSSProperties = {
-    background: 'rgba(0,229,204,0.08)',
-    border: '1px solid rgba(0,229,204,0.2)',
-    color: '#00e5cc',
-    fontFamily: 'JetBrains Mono, monospace',
-    fontSize: '10px',
-    letterSpacing: '0.1em',
-    padding: '4px 10px',
-    borderRadius: '999px',
-    cursor: 'pointer',
-  };
-
-  const facultyPillStyle: React.CSSProperties = {
-    background: 'rgba(245,166,35,0.08)',
-    border: '1px solid rgba(245,166,35,0.2)',
-    color: '#f5a623',
-    fontFamily: 'JetBrains Mono, monospace',
-    fontSize: '10px',
-    letterSpacing: '0.1em',
-    padding: '4px 10px',
-    borderRadius: '999px',
-    cursor: 'pointer',
-  };
-
-  const ctaStyle: React.CSSProperties = {
-    background: '#00e5cc',
-    color: '#080c10',
-    fontFamily: 'DM Sans, sans-serif',
-    fontWeight: 500,
-    fontSize: '13px',
-    padding: '8px 16px',
-    borderRadius: '8px',
-    border: 'none',
-    cursor: 'pointer',
-    textDecoration: 'none',
-    display: 'inline-flex',
-    alignItems: 'center',
-  };
-
-  const hamburgerStyle: React.CSSProperties = {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '5px',
-    cursor: 'pointer',
-    background: 'none',
-    border: 'none',
-    padding: '4px',
-  };
-
-  const lineStyle: React.CSSProperties = {
-    width: '22px',
-    height: '2px',
-    background: '#e2e8f0',
-    borderRadius: '2px',
-  };
-
-  const drawerStyle: React.CSSProperties = {
-    position: 'fixed',
-    top: 0,
-    right: 0,
-    bottom: 0,
-    width: '280px',
-    background: '#0d1117',
-    zIndex: 200,
-    padding: '24px',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '24px',
-    transform: mobileOpen ? 'translateX(0)' : 'translateX(100%)',
-    transition: 'transform 0.3s ease',
-  };
-
-  const overlayStyle: React.CSSProperties = {
-    position: 'fixed',
-    inset: 0,
-    background: 'rgba(0,0,0,0.6)',
-    zIndex: 199,
-    display: mobileOpen ? 'block' : 'none',
-  };
-
-  const navLinks = ['Practice', 'Pair', 'Assess', 'Replay'];
-
-  // Suppress unused variable warning for location
-  void location;
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      entries => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+            break;
+          }
+        }
+      },
+      { rootMargin: '-40% 0px -50% 0px' }
+    );
+    NAV_LINKS.forEach(link => {
+      const el = document.getElementById(link.toLowerCase());
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <>
-      <nav style={navStyle}>
+      <motion.nav
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 100,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '0 32px',
+          height: '64px',
+        }}
+        animate={{
+          background: scrolled ? 'rgba(8,8,10,0.72)' : 'rgba(8,8,10,0)',
+          backdropFilter: scrolled ? 'blur(16px)' : 'blur(0px)',
+          borderBottom: scrolled
+            ? '1px solid rgba(255,255,255,0.06)'
+            : '1px solid rgba(255,255,255,0)',
+        }}
+        transition={{ duration: 0.3, ease: 'easeOut' }}
+      >
         {/* Logo */}
-        <Link to="/" style={logoStyle}>
-          <div style={logoIconStyle}>&#x2B21;</div>
-          <div style={logoTextStyle}>
-            <span style={logoNameStyle}>Code Battlegrounds</span>
-            <span style={logoSubStyle}>Arena</span>
+        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
+          <motion.div
+            style={{
+              width: '34px',
+              height: '34px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: 'rgba(255,255,255,0.04)',
+              border: '1px solid rgba(255,255,255,0.10)',
+              borderRadius: '8px',
+              fontSize: '16px',
+              color: 'rgba(255,255,255,0.72)',
+            }}
+            whileHover={{ background: 'rgba(255,255,255,0.07)', borderColor: 'rgba(255,255,255,0.18)' }}
+            transition={SMOOTH}
+          >
+            &#x2B21;
+          </motion.div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+            <span style={{ fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: '15px', color: 'rgba(255,255,255,0.92)', lineHeight: 1 }}>
+              Code Battlegrounds
+            </span>
+            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', color: 'rgba(255,255,255,0.28)', letterSpacing: '0.2em', lineHeight: 1 }}>
+              ARENA
+            </span>
           </div>
         </Link>
 
-        {/* Center Links - hidden on mobile */}
-        <div style={{ ...centerNavStyle, display: 'flex' }} className="hp-nav-center">
-          {navLinks.map(link => (
-            <a
-              key={link}
-              href={`#${link.toLowerCase()}`}
-              style={navLinkStyle}
-              onMouseEnter={e => (e.currentTarget.style.color = '#00e5cc')}
-              onMouseLeave={e => (e.currentTarget.style.color = '#6b7280')}
+        {/* Center nav links */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }} className="hp-nav-center">
+          {NAV_LINKS.map(link => {
+            const isActive = activeSection === link.toLowerCase();
+            return (
+              <div key={link} style={{ position: 'relative', paddingBottom: '5px' }}>
+                <motion.a
+                  href={`#${link.toLowerCase()}`}
+                  style={{
+                    fontFamily: 'JetBrains Mono, monospace',
+                    fontSize: '12px',
+                    letterSpacing: '0.06em',
+                    color: isActive ? 'rgba(255,255,255,0.96)' : 'rgba(255,255,255,0.42)',
+                    textDecoration: 'none',
+                    display: 'block',
+                    cursor: 'pointer',
+                  }}
+                  whileHover={{ y: -1, color: 'rgba(255,255,255,0.84)' }}
+                  whileTap={{ y: 0 }}
+                  transition={SPRING}
+                  onClick={() => setActiveSection(link.toLowerCase())}
+                >
+                  {link}
+                </motion.a>
+                <AnimatePresence>
+                  {isActive && (
+                    <motion.div
+                      layoutId="nav-underline"
+                      style={{
+                        position: 'absolute',
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        height: '1px',
+                        background: 'rgba(255,255,255,0.72)',
+                        borderRadius: '1px',
+                      }}
+                      initial={{ opacity: 0, scaleX: 0.5 }}
+                      animate={{ opacity: 1, scaleX: 1 }}
+                      exit={{ opacity: 0, scaleX: 0.5 }}
+                      transition={SPRING}
+                    />
+                  )}
+                </AnimatePresence>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Right — pills + CTA */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }} className="hp-nav-right">
+          <motion.span
+            style={{
+              background: 'rgba(255,255,255,0.04)',
+              border: '1px solid rgba(255,255,255,0.14)',
+              color: 'rgba(255,255,255,0.78)',
+              fontFamily: 'JetBrains Mono, monospace',
+              fontSize: '10px',
+              letterSpacing: '0.1em',
+              padding: '4px 10px',
+              borderRadius: '999px',
+              cursor: 'default',
+              display: 'inline-block',
+            }}
+            whileHover={{ scale: 1.02, background: 'rgba(255,255,255,0.07)', borderColor: 'rgba(255,255,255,0.22)' }}
+            transition={SMOOTH}
+          >
+            STUDENT
+          </motion.span>
+
+          <motion.span
+            style={{
+              background: 'rgba(255,255,255,0.02)',
+              border: '1px solid rgba(255,255,255,0.08)',
+              color: 'rgba(255,255,255,0.44)',
+              fontFamily: 'JetBrains Mono, monospace',
+              fontSize: '10px',
+              letterSpacing: '0.1em',
+              padding: '4px 10px',
+              borderRadius: '999px',
+              cursor: 'default',
+              display: 'inline-block',
+            }}
+            whileHover={{ scale: 1.02, background: 'rgba(255,255,255,0.04)', borderColor: 'rgba(255,255,255,0.14)' }}
+            transition={SMOOTH}
+          >
+            FACULTY
+          </motion.span>
+
+          <motion.div
+            style={{ display: 'inline-flex' }}
+            whileHover={{ y: -1 }}
+            whileTap={{ y: 0 }}
+            transition={SPRING}
+          >
+            <Link
+              to="/login"
+              style={{
+                background: 'rgba(255,255,255,0.92)',
+                color: '#0a0a0a',
+                fontFamily: 'DM Sans, sans-serif',
+                fontWeight: 600,
+                fontSize: '13px',
+                padding: '8px 16px',
+                borderRadius: '8px',
+                border: 'none',
+                cursor: 'pointer',
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                letterSpacing: '-0.01em',
+                boxShadow: '0 1px 8px rgba(0,0,0,0.22)',
+                transition: 'background 0.2s, box-shadow 0.2s',
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.background = 'rgba(255,255,255,1)';
+                e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.3)';
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.background = 'rgba(255,255,255,0.92)';
+                e.currentTarget.style.boxShadow = '0 1px 8px rgba(0,0,0,0.22)';
+              }}
             >
-              {link}
-            </a>
-          ))}
+              Sign in
+            </Link>
+          </motion.div>
         </div>
 
-        {/* Right - hidden on mobile */}
-        <div style={rightStyle} className="hp-nav-right">
-          <span style={studentPillStyle}>Student</span>
-          <span style={facultyPillStyle}>Faculty</span>
-          <Link to="/login" style={ctaStyle}>Sign in with Google</Link>
-        </div>
-
-        {/* Hamburger - mobile only */}
+        {/* Hamburger — mobile only */}
         <button
-          style={{ ...hamburgerStyle, display: 'none' }}
+          style={{ display: 'none', flexDirection: 'column', gap: '5px', cursor: 'pointer', background: 'none', border: 'none', padding: '4px' }}
           className="hp-hamburger"
           onClick={() => setMobileOpen(true)}
           aria-label="Open menu"
         >
-          <span style={lineStyle} />
-          <span style={lineStyle} />
-          <span style={lineStyle} />
+          <span style={{ width: '22px', height: '2px', background: 'rgba(255,255,255,0.7)', borderRadius: '2px', display: 'block' }} />
+          <span style={{ width: '22px', height: '2px', background: 'rgba(255,255,255,0.7)', borderRadius: '2px', display: 'block' }} />
+          <span style={{ width: '22px', height: '2px', background: 'rgba(255,255,255,0.7)', borderRadius: '2px', display: 'block' }} />
         </button>
-      </nav>
-
-      {/* Mobile drawer overlay */}
-      <div style={overlayStyle} onClick={() => setMobileOpen(false)} />
+      </motion.nav>
 
       {/* Mobile drawer */}
-      <div style={drawerStyle}>
-        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <button
-            onClick={() => setMobileOpen(false)}
-            style={{ background: 'none', border: 'none', color: '#e2e8f0', fontSize: '24px', cursor: 'pointer' }}
-          >
-            &#x2715;
-          </button>
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-          {navLinks.map(link => (
-            <a
-              key={link}
-              href={`#${link.toLowerCase()}`}
-              style={{ ...navLinkStyle, fontSize: '15px', color: '#9ca3af' }}
+      <AnimatePresence>
+        {mobileOpen && (
+          <>
+            <motion.div
+              key="mobile-overlay"
+              style={{
+                position: 'fixed',
+                inset: 0,
+                background: 'rgba(0,0,0,0.5)',
+                zIndex: 199,
+                backdropFilter: 'blur(4px)',
+              }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
               onClick={() => setMobileOpen(false)}
+            />
+            <motion.div
+              key="mobile-drawer"
+              style={{
+                position: 'fixed',
+                top: 0,
+                right: 0,
+                bottom: 0,
+                width: '280px',
+                background: 'rgba(8,8,10,0.92)',
+                backdropFilter: 'blur(20px)',
+                borderLeft: '1px solid rgba(255,255,255,0.06)',
+                zIndex: 200,
+                padding: '24px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '24px',
+              }}
+              initial={{ x: '100%', opacity: 0.6 }}
+              animate={{ x: '0%', opacity: 1 }}
+              exit={{ x: '100%', opacity: 0.6 }}
+              transition={{ type: 'tween', duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
             >
-              {link}
-            </a>
-          ))}
-        </div>
-        <div style={{ display: 'flex', gap: '8px' }}>
-          <span style={studentPillStyle}>Student</span>
-          <span style={facultyPillStyle}>Faculty</span>
-        </div>
-        <Link to="/login" style={{ ...ctaStyle, justifyContent: 'center' }} onClick={() => setMobileOpen(false)}>
-          Sign in with Google
-        </Link>
-      </div>
+              <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <button
+                  onClick={() => setMobileOpen(false)}
+                  style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.46)', fontSize: '20px', cursor: 'pointer', padding: '4px' }}
+                >
+                  &#x2715;
+                </button>
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                {NAV_LINKS.map(link => (
+                  <motion.a
+                    key={link}
+                    href={`#${link.toLowerCase()}`}
+                    style={{
+                      fontFamily: 'JetBrains Mono, monospace',
+                      fontSize: '13px',
+                      letterSpacing: '0.06em',
+                      color: 'rgba(255,255,255,0.52)',
+                      textDecoration: 'none',
+                      padding: '10px 12px',
+                      borderRadius: '8px',
+                      display: 'block',
+                    }}
+                    whileHover={{ background: 'rgba(255,255,255,0.04)', color: 'rgba(255,255,255,0.84)' }}
+                    transition={SMOOTH}
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    {link}
+                  </motion.a>
+                ))}
+              </div>
+
+              <div style={{ display: 'flex', gap: '8px' }}>
+                <span style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.14)', color: 'rgba(255,255,255,0.78)', fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', letterSpacing: '0.1em', padding: '4px 10px', borderRadius: '999px' }}>STUDENT</span>
+                <span style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.44)', fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', letterSpacing: '0.1em', padding: '4px 10px', borderRadius: '999px' }}>FACULTY</span>
+              </div>
+
+              <Link
+                to="/login"
+                style={{
+                  background: 'rgba(255,255,255,0.92)',
+                  color: '#0a0a0a',
+                  fontFamily: 'DM Sans, sans-serif',
+                  fontWeight: 600,
+                  fontSize: '14px',
+                  padding: '12px 20px',
+                  borderRadius: '8px',
+                  textDecoration: 'none',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  letterSpacing: '-0.01em',
+                }}
+                onClick={() => setMobileOpen(false)}
+              >
+                Sign in with Google
+              </Link>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
 
       <style>{`
         @media (max-width: 768px) {

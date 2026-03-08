@@ -2,26 +2,53 @@
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap');
 
 :root {
-  // Colors
-  --bg-base: #080c10;
-  --bg-surface: #0d1117;
-  --bg-elevated: #161b22;
-  --bg-hover: rgba(255,255,255,0.03);
+  // Background scale — 0.00 (black) → 1.00 (white)
+  --bg-0: #050505;
+  --bg-1: #0a0a0a;
+  --bg-2: #0f0f10;
+  --bg-3: #141416;
+  --bg-4: #1b1c1f;
 
-  --accent-teal: #00e5cc;
-  --accent-amber: #f5a623;
-  --accent-violet: #a78bfa;
-  --accent-red: #ff4444;
-  --accent-green: #28c840;
+  // Legacy aliases
+  --bg-base: #0a0a0a;
+  --bg-surface: #0f0f10;
+  --bg-elevated: #141416;
+  --bg-hover: rgba(255,255,255,0.02);
 
-  --text-primary: #e2e8f0;
-  --text-secondary: #9ca3af;
-  --text-muted: #6b7280;
-  --text-faint: #4a5568;
-  --text-ghost: #2d3748;
+  // Surface fills
+  --surface-1: rgba(255,255,255,0.02);
+  --surface-2: rgba(255,255,255,0.04);
+  --surface-3: rgba(255,255,255,0.06);
 
+  // Borders
+  --border-1: rgba(255,255,255,0.06);
+  --border-2: rgba(255,255,255,0.10);
+  --border-3: rgba(255,255,255,0.16);
   --border-subtle: rgba(255,255,255,0.06);
-  --border-light: rgba(255,255,255,0.1);
+  --border-light: rgba(255,255,255,0.10);
+
+  // Text scale
+  --text-1: rgba(255,255,255,0.96);
+  --text-2: rgba(255,255,255,0.78);
+  --text-3: rgba(255,255,255,0.56);
+  --text-4: rgba(255,255,255,0.34);
+  --text-primary: rgba(255,255,255,0.96);
+  --text-secondary: rgba(255,255,255,0.56);
+  --text-muted: rgba(255,255,255,0.34);
+  --text-faint: rgba(255,255,255,0.22);
+  --text-ghost: rgba(255,255,255,0.10);
+
+  // Accent — grayscale only, small doses (pills, tab underlines, tiny indicators)
+  --accent-student: rgba(255,255,255,0.88);   // student role
+  --accent-faculty: rgba(255,255,255,0.72);   // faculty role
+  --accent-collab: rgba(255,255,255,0.60);    // collaborative / pair
+
+  // Legacy accent aliases mapped to grayscale equivalents
+  --accent-teal: rgba(255,255,255,0.88);
+  --accent-amber: rgba(255,255,255,0.72);
+  --accent-violet: rgba(255,255,255,0.60);
+  --accent-red: rgba(255,255,255,0.50);
+  --accent-green: rgba(255,255,255,0.70);
 
   --radius-sm: 6px;
   --radius-md: 10px;
@@ -29,10 +56,20 @@
   --radius-xl: 20px;
   --radius-pill: 999px;
 
-  --shadow-card: 0 4px 24px rgba(0,0,0,0.4);
-  --shadow-terminal: 0 24px 64px rgba(0,0,0,0.6), 0 0 0 1px rgba(0,229,204,0.05);
-  --shadow-teal-lg: 0 12px 40px rgba(0,229,204,0.35);
-  --shadow-teal-sm: 0 4px 24px rgba(0,229,204,0.2);
+  --shadow-card: 0 4px 24px rgba(0,0,0,0.5);
+  --shadow-terminal: 0 28px 72px rgba(0,0,0,0.72), 0 0 0 1px rgba(255,255,255,0.05);
+  --shadow-terminal-hover: 0 36px 88px rgba(0,0,0,0.80), 0 0 0 1px rgba(255,255,255,0.07);
+  --shadow-elevation: 0 12px 40px rgba(0,0,0,0.6);
+  --shadow-elevation-hover: 0 20px 56px rgba(0,0,0,0.68), 0 0 0 1px rgba(255,255,255,0.06);
+  --shadow-sm: 0 4px 16px rgba(0,0,0,0.4);
+
+  // Section atmosphere
+  --section-alt: rgba(255,255,255,0.012);       // subtle alternating section bg
+  --section-border: rgba(255,255,255,0.042);    // inter-section divider
+
+  // Accent lines (student / faculty role differentiation)
+  --accent-student-line: rgba(255,255,255,0.20);
+  --accent-faculty-line: rgba(255,255,255,0.08);
 }
 
 // Keyframes
@@ -47,8 +84,8 @@
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 0.6; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.05); }
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.05); }
 }
 
 @keyframes gridFloat {
@@ -56,10 +93,21 @@
   50% { transform: translateY(-8px); }
 }
 
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes shimmer {
+  0%   { opacity: 0.45; }
+  50%  { opacity: 0.85; }
+  100% { opacity: 0.45; }
+}
+
 // Global resets
 *, *::before, *::after { box-sizing: border-box; }
 
-::selection { background: rgba(0,229,204,0.25); }
+::selection { background: rgba(255,255,255,0.12); }
 
 html { scroll-behavior: smooth; }
 
@@ -67,12 +115,12 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  background: #080c10;
-  color: #e2e8f0;
+  background: #0a0a0a;
+  color: rgba(255,255,255,0.96);
   font-family: 'DM Sans', sans-serif;
 }
 
 // Custom scrollbar
 ::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: #080c10; }
-::-webkit-scrollbar-thumb { background: #1e2d3d; border-radius: 2px; }
+::-webkit-scrollbar-track { background: #0a0a0a; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 2px; }
