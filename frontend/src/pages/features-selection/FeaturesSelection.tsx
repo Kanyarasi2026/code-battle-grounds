@@ -40,7 +40,7 @@ const features: FeaturesByRole = {
       title: 'Classrooms',
       description: 'Real-time collaborative coding with live cursor presence',
       badge: 'Collaborative',
-      route: '/pair',
+      route: '/home',
     },
     {
       id: 'assessment',
@@ -71,7 +71,7 @@ const features: FeaturesByRole = {
       icon: Users,
       title: 'Pair Programming',
       description: 'Collaborate with peers on challenging problems',
-      route: '/pair',
+      route: '/home',
     },
     {
       id: 'practice-sets',

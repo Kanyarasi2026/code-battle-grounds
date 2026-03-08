@@ -80,7 +80,7 @@ export default function AlgorithmChallenges() {
     <div className="algo-challenges">
       {/* Header */}
       <header className="algo-challenges__header">
-        <button className="algo-challenges__back" onClick={() => goBack()}>
+        <button className="algo-challenges__back" onClick={() => navigate('/features/professional')}>
           <ArrowLeft size={18} />
           <span>Back</span>
         </button>

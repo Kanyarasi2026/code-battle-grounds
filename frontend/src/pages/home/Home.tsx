@@ -1,10 +1,9 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Copy, LogOut, Sparkles } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Copy, Sparkles } from 'lucide-react';
 import { useEffect, useState, type ChangeEvent, type FormEvent, type KeyboardEvent } from 'react';
 import toast from 'react-hot-toast';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { v4 } from 'uuid';
-import Avatar from '../../components/ui/Avatar';
 import Button from '../../components/ui/Button';
 import Card from '../../components/ui/Card';
 import Input from '../../components/ui/Input';
@@ -16,7 +15,7 @@ interface LocationState { toastMessage?: string; }
 const Home = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { user, signOut } = useAuth();
+  const { user } = useAuth();
   const [roomId, setRoomId] = useState('');
   const [username, setUsername] = useState((user?.user_metadata?.['full_name'] as string | undefined) ?? user?.email ?? '');
   const [isJoining, setIsJoining] = useState(false);
@@ -67,12 +66,10 @@ const Home = () => {
     <div className="home">
       <header className="home__header">
         <div className="home__header-left">
-          <Avatar username={username || 'U'} size="sm" />
-          <span className="home__user-email">{user?.email}</span>
-        </div>
-        <div className="home__header-right">
-          <Button variant="secondary" size="sm" onClick={() => navigate('/role')}>Explore Features</Button>
-          <Button variant="ghost" size="sm" iconLeft={<LogOut size={14} />} onClick={() => { void signOut(); }}>Sign out</Button>
+          <button className="home__back-btn" onClick={() => navigate('/role')}>
+            <ArrowLeft size={16} />
+            Explore Features
+          </button>
         </div>
       </header>
       <motion.main className="home__main" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease: 'easeOut' }}>
@@ -95,7 +92,7 @@ const Home = () => {
           </div>
         </Card>
       </motion.main>
-      <footer className="home__footer"><p>Built by <a href="https://github.com/Kanyarasi2026/code-battle-grounds" target="_blank" rel="noreferrer">MSG-Kanyarashi</a></p></footer>
+      <footer className="home__footer"><p>Built by <a href="https://github.com/Kanyarasi2026/code-battle-grounds" target="_blank" rel="noreferrer">MSG-Kanyarasi</a></p></footer>
     </div>
   );
 };

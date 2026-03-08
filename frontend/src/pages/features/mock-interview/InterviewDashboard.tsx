@@ -285,7 +285,7 @@ export default function InterviewDashboard() {
           </button>
           <span style={{ fontWeight: 600, fontSize: 15, color: '#f4f4f5' }}>Dashboard</span>
         </div>
-        <div style={{ display: 'flex', gap: 8 }}>
+        <div style={{ display: 'flex', gap: 8, marginRight: 52 }}>
           {sessions.length > 0 && (
             <button
               onClick={clearAll}

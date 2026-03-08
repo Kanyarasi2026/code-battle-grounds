@@ -15,6 +15,8 @@ import { useNavStack } from '../../context/NavigationStackContext';
 import { executeCode } from '../../api/api';
 import { buildTestRunner, dsaProblems, type DSAProblem } from '../../data/dsaProblems';
 import type { Language } from '../../types';
+import HintPanel from '../../components/ai/HintPanel';
+import AIChatBot from '../../components/ai/AIChatBot';
 import './ChallengeSolve.scss';
 
 const STORAGE_KEY = 'cbg_completed_challenges';
@@ -174,7 +176,7 @@ export default function ChallengeSolve() {
     return (
       <div className="challenge-solve challenge-solve--not-found">
         <p>Problem not found.</p>
-        <button onClick={() => goBack()}>← Back to challenges</button>
+        <button onClick={() => navigate('/practice')}>← Back to challenges</button>
       </div>
     );
   }
@@ -187,7 +189,7 @@ export default function ChallengeSolve() {
       <header className="challenge-solve__topbar">
         <button
           className="challenge-solve__back"
-          onClick={() => goBack()}
+          onClick={() => navigate('/practice')}
         >
           <ChevronLeft size={16} />
           Challenges
@@ -278,6 +280,15 @@ export default function ChallengeSolve() {
               </span>
             ))}
           </div>
+
+          {/* AI Hint Panel */}
+          <HintPanel
+            key={problem.slug}
+            problemTitle={problem.title}
+            problemDescription={problem.description}
+            constraints={problem.constraints}
+            userCode={code}
+          />
         </aside>
 
         {/* Right panel: editor + output */}
@@ -428,6 +439,13 @@ export default function ChallengeSolve() {
           </div>
         </main>
       </div>
+
+      {/* AI Chat Bot */}
+      <AIChatBot
+        problemTitle={problem.title}
+        problemDescription={problem.description}
+        userCode={code}
+      />
     </div>
   );
 }

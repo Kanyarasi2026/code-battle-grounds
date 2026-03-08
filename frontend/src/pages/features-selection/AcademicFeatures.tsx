@@ -22,7 +22,7 @@ const academicFeatures: AcademicFeature[] = [
     title: 'Classrooms',
     description: 'Real-time collaborative coding with live cursor presence',
     badge: 'Collaborative',
-    route: '/pair',
+    route: '/home',
   },
   {
     id: 'assessment',
