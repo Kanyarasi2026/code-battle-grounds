@@ -155,6 +155,22 @@ function App() {
                 <Route path="/analytics" element={<ProtectedRoute><ClassAnalytics /></ProtectedRoute>} />
                 <Route path="/integrity" element={<ProtectedRoute><IntegrityTimeline /></ProtectedRoute>} />
                 <Route path="/interview" element={<ProtectedRoute><MockInterview /></ProtectedRoute>} />
+                <Route
+									path="/video-interview"
+									element={
+										<ProtectedRoute>
+											<AudioInterview />
+										</ProtectedRoute>
+									}
+								/>
+								<Route
+									path="/interview-dashboard"
+									element={
+										<ProtectedRoute>
+											<InterviewDashboard />
+										</ProtectedRoute>
+									}
+								/>
                 <Route path="/progress" element={<ProtectedRoute><ProgressTracking /></ProtectedRoute>} />
                 <Route path="/sets" element={<ProtectedRoute><PracticeSets /></ProtectedRoute>} />
 
