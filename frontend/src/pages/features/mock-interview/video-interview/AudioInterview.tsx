@@ -1,4 +1,4 @@
-import { Mic, MicOff, RotateCcw, SkipForward } from 'lucide-react';
+import { ArrowLeft, Mic, MicOff, RotateCcw, SkipForward } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './AudioInterview.scss';
@@ -39,6 +39,7 @@ function SetupScreen({
 	isLoading: boolean;
 	error: string | null;
 }) {
+	const navigate = useNavigate();
 	const [form, setForm] = useState<SetupFormState>({
 		role: 'Software Engineer',
 		experienceLevel: 'Mid',
@@ -47,6 +48,29 @@ function SetupScreen({
 
 	return (
 		<div className="video-interview__setup">
+			<button
+				type="button"
+				className="video-interview__back-btn"
+				onClick={() => navigate(-1)}
+				aria-label="Go back"
+				style={{
+					position: 'absolute',
+					top: 16,
+					left: 16,
+					background: 'none',
+					border: 'none',
+					cursor: 'pointer',
+					padding: 8,
+					display: 'flex',
+					alignItems: 'center',
+					justifyContent: 'center',
+					borderRadius: 6,
+					color: 'inherit',
+					zIndex: 10,
+				}}
+			>
+				<ArrowLeft size={20} />
+			</button>
 			<div className="video-interview__setup-card">
 				<div className="video-interview__setup-header">
 					<div className="video-interview__setup-icon">
@@ -54,8 +78,8 @@ function SetupScreen({
 					</div>
 					<h1 className="video-interview__setup-title">Mock Interview</h1>
 					<p className="video-interview__setup-sub">
-						Practice with voice-based interview simulation.
-						Choose your setup below to get started.
+						Practice with voice-based interview simulation. Choose your setup
+						below to get started.
 					</p>
 				</div>
 
@@ -238,6 +262,28 @@ export default function AudioInterview() {
 	if (state === 'results') {
 		return (
 			<div className="video-interview">
+				<button
+					type="button"
+					onClick={() => navigate(-1)}
+					aria-label="Go back"
+					style={{
+						position: 'absolute',
+						top: 16,
+						left: 16,
+						background: 'none',
+						border: 'none',
+						cursor: 'pointer',
+						padding: 8,
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'center',
+						borderRadius: 6,
+						color: 'inherit',
+						zIndex: 10,
+					}}
+				>
+					<ArrowLeft size={20} />
+				</button>
 				<div className="video-interview__results">
 					<div className="video-interview__results-header">
 						<span className="video-interview__results-icon">🎉</span>
@@ -350,6 +396,25 @@ export default function AudioInterview() {
 		<div className="video-interview">
 			{/* ── Header ───────────────────────────────────────────────────────── */}
 			<header className="video-interview__header">
+				<button
+					type="button"
+					onClick={() => navigate(-1)}
+					aria-label="Go back"
+					style={{
+						background: 'none',
+						border: 'none',
+						cursor: 'pointer',
+						padding: '8px',
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'center',
+						borderRadius: '6px',
+						color: 'inherit',
+					}}
+				>
+					<ArrowLeft size={20} />
+				</button>
+
 				<div className="video-interview__logo">
 					<Mic size={16} />
 					Interview

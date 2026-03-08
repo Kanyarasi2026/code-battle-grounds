@@ -1,1288 +1,1357 @@
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import {
-  Activity,
-  AlertCircle,
-  BookmarkCheck,
-  BookOpen,
-  Brain,
-  Calendar,
-  CheckCircle2,
-  ChevronDown,
-  ChevronRight,
-  Clock,
-  Flame,
-  GraduationCap,
-  HelpCircle,
-  Lightbulb,
-  Play,
-  RotateCcw,
-  Sparkles,
-  Target,
-  TrendingDown,
-  TrendingUp,
-  Zap,
+	ArrowLeft,
+	BookOpen,
+	Brain,
+	CheckCircle2,
+	ChevronRight,
+	Clock,
+	Code2,
+	GitBranch,
+	Layers,
+	Lightbulb,
+	Network,
+	Search,
+	SortDesc,
+	Sparkles,
+	Target,
+	Volume2,
+	VolumeX,
+	X,
 } from 'lucide-react';
-import { useState, type ReactNode } from 'react';
-import Button from '../../components/ui/Button';
-import Card from '../../components/ui/Card';
-import Input from '../../components/ui/Input';
+import { useCallback, useRef, useState, type ReactNode } from 'react';
+import { useNavStack } from '../../context/NavigationStackContext';
+import './CuratedPracticePage.scss';
 
-// ================= UTILITY COMPONENTS =================
+// ===================== TYPES =====================
 
-interface BadgeProps {
-  children: ReactNode;
-  variant?: 'primary' | 'secondary' | 'success' | 'warning' | 'info';
-  icon?: ReactNode;
+type Difficulty = 'Easy' | 'Medium' | 'Hard';
+
+interface Problem {
+	id: string;
+	title: string;
+	difficulty: Difficulty;
+	topic: string;
+	timeEstimate: number;
+	description: string;
 }
 
-const Badge = ({ children, variant = 'primary', icon }: BadgeProps) => {
-  const variants = {
-    primary: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30',
-    secondary: 'bg-purple-500/20 text-purple-400 border-purple-500/30',
-    success: 'bg-green-500/20 text-green-400 border-green-500/30',
-    warning: 'bg-amber-500/20 text-amber-400 border-amber-500/30',
-    info: 'bg-blue-500/20 text-blue-400 border-blue-500/30',
-  };
+interface PracticeSet {
+	id: string;
+	title: string;
+	description: string;
+	icon: ReactNode;
+	category: string;
+	accent: string;
+	borderGlow: string;
+	problems: Problem[];
+}
 
-  return (
-    <span
-      className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium border ${variants[variant]}`}
-    >
-      {icon && <span className="w-3 h-3">{icon}</span>}
-      {children}
-    </span>
-  );
+// ===================== DATA =====================
+
+const PRACTICE_SETS: PracticeSet[] = [
+	{
+		id: 'blind-75',
+		title: 'Blind 75',
+		description:
+			'The definitive 75 must-solve problems curated for top-tier technical interviews',
+		icon: <Target size={20} />,
+		category: 'Interview Prep',
+		accent: '#22c55e',
+		borderGlow: 'rgba(34,197,94,0.2)',
+		problems: [
+			{
+				id: 'b1',
+				title: 'Two Sum',
+				difficulty: 'Easy',
+				topic: 'Arrays',
+				timeEstimate: 15,
+				description: 'Find two indices in array that add to target sum',
+			},
+			{
+				id: 'b2',
+				title: 'Best Time to Buy and Sell Stock',
+				difficulty: 'Easy',
+				topic: 'Arrays',
+				timeEstimate: 15,
+				description: 'Maximize profit from a single buy/sell transaction',
+			},
+			{
+				id: 'b3',
+				title: 'Contains Duplicate',
+				difficulty: 'Easy',
+				topic: 'Arrays',
+				timeEstimate: 10,
+				description: 'Check if any value appears at least twice in array',
+			},
+			{
+				id: 'b4',
+				title: 'Product of Array Except Self',
+				difficulty: 'Medium',
+				topic: 'Arrays',
+				timeEstimate: 25,
+				description:
+					'Return product of all elements except itself without division',
+			},
+			{
+				id: 'b5',
+				title: 'Maximum Subarray',
+				difficulty: 'Medium',
+				topic: 'Arrays',
+				timeEstimate: 20,
+				description:
+					"Find contiguous subarray with largest sum using Kadane's algorithm",
+			},
+			{
+				id: 'b6',
+				title: '3Sum',
+				difficulty: 'Medium',
+				topic: 'Two Pointers',
+				timeEstimate: 30,
+				description: 'Find all unique triplets that sum to zero',
+			},
+			{
+				id: 'b7',
+				title: 'Container With Most Water',
+				difficulty: 'Medium',
+				topic: 'Two Pointers',
+				timeEstimate: 20,
+				description:
+					'Maximize water between two vertical lines using two pointers',
+			},
+			{
+				id: 'b8',
+				title: 'Climbing Stairs',
+				difficulty: 'Easy',
+				topic: 'DP',
+				timeEstimate: 15,
+				description: 'Count distinct ways to climb n stairs (Fibonacci DP)',
+			},
+			{
+				id: 'b9',
+				title: 'House Robber',
+				difficulty: 'Medium',
+				topic: 'DP',
+				timeEstimate: 20,
+				description: 'Max money robbed without hitting adjacent houses',
+			},
+			{
+				id: 'b10',
+				title: 'Longest Common Subsequence',
+				difficulty: 'Medium',
+				topic: 'DP',
+				timeEstimate: 30,
+				description: 'Length of longest subsequence common to both strings',
+			},
+			{
+				id: 'b11',
+				title: 'Word Break',
+				difficulty: 'Medium',
+				topic: 'DP',
+				timeEstimate: 30,
+				description: 'Check if string can be segmented using dictionary words',
+			},
+			{
+				id: 'b12',
+				title: 'Number of Islands',
+				difficulty: 'Medium',
+				topic: 'Graphs',
+				timeEstimate: 25,
+				description:
+					'Count connected land components in a 2D grid using DFS/BFS',
+			},
+			{
+				id: 'b13',
+				title: 'Clone Graph',
+				difficulty: 'Medium',
+				topic: 'Graphs',
+				timeEstimate: 30,
+				description: 'Deep clone an undirected connected graph',
+			},
+			{
+				id: 'b14',
+				title: 'Invert Binary Tree',
+				difficulty: 'Easy',
+				topic: 'Trees',
+				timeEstimate: 10,
+				description: 'Mirror a binary tree by swapping children recursively',
+			},
+			{
+				id: 'b15',
+				title: 'Validate Binary Search Tree',
+				difficulty: 'Medium',
+				topic: 'Trees',
+				timeEstimate: 20,
+				description: 'Check BST property with min/max bounds propagation',
+			},
+			{
+				id: 'b16',
+				title: 'Binary Tree Maximum Path Sum',
+				difficulty: 'Hard',
+				topic: 'Trees',
+				timeEstimate: 40,
+				description: 'Max path sum between any two nodes in binary tree',
+			},
+			{
+				id: 'b17',
+				title: 'Top K Frequent Elements',
+				difficulty: 'Medium',
+				topic: 'Heap',
+				timeEstimate: 20,
+				description: 'Return k most frequent elements using a min-heap',
+			},
+			{
+				id: 'b18',
+				title: 'Merge K Sorted Lists',
+				difficulty: 'Hard',
+				topic: 'Heap',
+				timeEstimate: 40,
+				description: 'Merge k sorted linked lists using priority queue',
+			},
+			{
+				id: 'b19',
+				title: 'Search in Rotated Sorted Array',
+				difficulty: 'Medium',
+				topic: 'Binary Search',
+				timeEstimate: 25,
+				description: 'Binary search on an array rotated at unknown pivot',
+			},
+			{
+				id: 'b20',
+				title: 'Median of Two Sorted Arrays',
+				difficulty: 'Hard',
+				topic: 'Binary Search',
+				timeEstimate: 50,
+				description:
+					'Find median in O(log(m+n)) using binary search on partition',
+			},
+		],
+	},
+	{
+		id: 'dp-patterns',
+		title: 'DP Patterns',
+		description:
+			'Master 12 core dynamic programming patterns from 1D to interval DP',
+		icon: <Brain size={20} />,
+		category: 'Algorithms',
+		accent: '#a855f7',
+		borderGlow: 'rgba(168,85,247,0.2)',
+		problems: [
+			{
+				id: 'dp1',
+				title: 'Fibonacci Number',
+				difficulty: 'Easy',
+				topic: '1D DP',
+				timeEstimate: 10,
+				description: 'Classic memoization and tabulation introduction',
+			},
+			{
+				id: 'dp2',
+				title: 'Coin Change',
+				difficulty: 'Medium',
+				topic: '1D DP',
+				timeEstimate: 25,
+				description: 'Min coins to reach amount — unbounded knapsack variant',
+			},
+			{
+				id: 'dp3',
+				title: 'Longest Increasing Subsequence',
+				difficulty: 'Medium',
+				topic: '1D DP',
+				timeEstimate: 25,
+				description:
+					'Find LIS length with DP or patience sorting in O(n log n)',
+			},
+			{
+				id: 'dp4',
+				title: 'Partition Equal Subset Sum',
+				difficulty: 'Medium',
+				topic: '0/1 Knapsack',
+				timeEstimate: 30,
+				description: 'Can array be split into two equal-sum subsets',
+			},
+			{
+				id: 'dp5',
+				title: 'Target Sum',
+				difficulty: 'Medium',
+				topic: '0/1 Knapsack',
+				timeEstimate: 25,
+				description: 'Count ways to assign +/- signs to reach target value',
+			},
+			{
+				id: 'dp6',
+				title: 'Edit Distance',
+				difficulty: 'Hard',
+				topic: '2D DP',
+				timeEstimate: 40,
+				description:
+					'Min operations (insert/delete/replace) to transform one string to another',
+			},
+			{
+				id: 'dp7',
+				title: 'Longest Common Subsequence',
+				difficulty: 'Medium',
+				topic: '2D DP',
+				timeEstimate: 30,
+				description: 'Classic 2D DP on two string sequences',
+			},
+			{
+				id: 'dp8',
+				title: 'Unique Paths',
+				difficulty: 'Medium',
+				topic: 'Grid DP',
+				timeEstimate: 20,
+				description: 'Count robot paths in grid from top-left to bottom-right',
+			},
+			{
+				id: 'dp9',
+				title: 'Minimum Path Sum',
+				difficulty: 'Medium',
+				topic: 'Grid DP',
+				timeEstimate: 20,
+				description: 'Min cost path through grid using DP table',
+			},
+			{
+				id: 'dp10',
+				title: 'Burst Balloons',
+				difficulty: 'Hard',
+				topic: 'Interval DP',
+				timeEstimate: 50,
+				description: 'Max coins from bursting balloons — choose order wisely',
+			},
+			{
+				id: 'dp11',
+				title: 'Regular Expression Matching',
+				difficulty: 'Hard',
+				topic: 'String DP',
+				timeEstimate: 45,
+				description: 'Implement regex matching with . and * using 2D DP',
+			},
+			{
+				id: 'dp12',
+				title: 'Palindrome Partitioning',
+				difficulty: 'Hard',
+				topic: 'Interval DP',
+				timeEstimate: 45,
+				description: 'Min cuts to partition string into palindromes',
+			},
+		],
+	},
+	{
+		id: 'graph-mastery',
+		title: 'Graph Mastery',
+		description:
+			'Complete graph algorithm coverage from BFS/DFS to Dijkstra and MST',
+		icon: <Network size={20} />,
+		category: 'Algorithms',
+		accent: '#60a5fa',
+		borderGlow: 'rgba(96,165,250,0.2)',
+		problems: [
+			{
+				id: 'g1',
+				title: 'Number of Islands',
+				difficulty: 'Medium',
+				topic: 'BFS/DFS',
+				timeEstimate: 25,
+				description: 'Count connected land components in 2D grid',
+			},
+			{
+				id: 'g2',
+				title: 'Rotting Oranges',
+				difficulty: 'Medium',
+				topic: 'Multi-Source BFS',
+				timeEstimate: 25,
+				description: 'Spread rot to all oranges — multi-source BFS problem',
+			},
+			{
+				id: 'g3',
+				title: 'Course Schedule',
+				difficulty: 'Medium',
+				topic: 'Topological Sort',
+				timeEstimate: 30,
+				description:
+					'Detect cycle in directed graph to determine course feasibility',
+			},
+			{
+				id: 'g4',
+				title: 'Pacific Atlantic Water Flow',
+				difficulty: 'Medium',
+				topic: 'DFS/BFS',
+				timeEstimate: 35,
+				description:
+					'Find cells that can flow to both Pacific and Atlantic oceans',
+			},
+			{
+				id: 'g5',
+				title: 'Network Delay Time',
+				difficulty: 'Medium',
+				topic: 'Dijkstra',
+				timeEstimate: 30,
+				description: "Shortest paths from source using Dijkstra's algorithm",
+			},
+			{
+				id: 'g6',
+				title: 'Min Cost to Connect Points',
+				difficulty: 'Medium',
+				topic: 'MST (Prim/Kruskal)',
+				timeEstimate: 35,
+				description: 'Find Minimum Spanning Tree using Prim or Kruskal',
+			},
+			{
+				id: 'g7',
+				title: 'Word Ladder',
+				difficulty: 'Hard',
+				topic: 'BFS',
+				timeEstimate: 45,
+				description: 'Shortest word transformation sequence using BFS',
+			},
+			{
+				id: 'g8',
+				title: 'Alien Dictionary',
+				difficulty: 'Hard',
+				topic: 'Topological Sort',
+				timeEstimate: 45,
+				description: 'Derive character ordering from alien sorted word list',
+			},
+			{
+				id: 'g9',
+				title: 'Longest Consecutive Sequence',
+				difficulty: 'Medium',
+				topic: 'Union Find',
+				timeEstimate: 25,
+				description: 'Find longest consecutive number sequence in O(n)',
+			},
+			{
+				id: 'g10',
+				title: 'Critical Connections (Bridges)',
+				difficulty: 'Hard',
+				topic: 'Tarjan',
+				timeEstimate: 50,
+				description: "Find bridge edges in undirected graph using Tarjan's",
+			},
+		],
+	},
+	{
+		id: 'sliding-window',
+		title: 'Sliding Window',
+		description:
+			'Two pointer and sliding window patterns for optimized array/string problems',
+		icon: <Layers size={20} />,
+		category: 'Patterns',
+		accent: '#fb923c',
+		borderGlow: 'rgba(251,146,60,0.2)',
+		problems: [
+			{
+				id: 'sw1',
+				title: 'Longest Substring Without Repeating Characters',
+				difficulty: 'Medium',
+				topic: 'Sliding Window',
+				timeEstimate: 20,
+				description:
+					'Expand window while tracking unique characters in a set/map',
+			},
+			{
+				id: 'sw2',
+				title: 'Minimum Window Substring',
+				difficulty: 'Hard',
+				topic: 'Sliding Window',
+				timeEstimate: 40,
+				description: 'Smallest window containing all characters of T',
+			},
+			{
+				id: 'sw3',
+				title: 'Sliding Window Maximum',
+				difficulty: 'Hard',
+				topic: 'Monotonic Deque',
+				timeEstimate: 35,
+				description: 'Max in each window of size k using monotonic deque',
+			},
+			{
+				id: 'sw4',
+				title: 'Permutation in String',
+				difficulty: 'Medium',
+				topic: 'Sliding Window',
+				timeEstimate: 25,
+				description: 'Check if any permutation of s1 exists as substring in s2',
+			},
+			{
+				id: 'sw5',
+				title: 'Longest Repeating Character Replacement',
+				difficulty: 'Medium',
+				topic: 'Sliding Window',
+				timeEstimate: 25,
+				description: 'Max window with at most k character replacements',
+			},
+			{
+				id: 'sw6',
+				title: 'Trapping Rain Water',
+				difficulty: 'Hard',
+				topic: 'Two Pointers',
+				timeEstimate: 30,
+				description:
+					'Compute trapped water using two-pointer or stack approach',
+			},
+			{
+				id: 'sw7',
+				title: 'Two Sum II - Sorted Array',
+				difficulty: 'Medium',
+				topic: 'Two Pointers',
+				timeEstimate: 15,
+				description:
+					'Two pointers on sorted array to find pair summing to target',
+			},
+			{
+				id: 'sw8',
+				title: 'Fruits Into Baskets',
+				difficulty: 'Medium',
+				topic: 'Sliding Window',
+				timeEstimate: 20,
+				description: 'Max fruits collecting at most 2 types — variable window',
+			},
+		],
+	},
+	{
+		id: 'binary-search',
+		title: 'Binary Search',
+		description:
+			'From classic to advanced — binary search on answer space and rotated arrays',
+		icon: <Search size={20} />,
+		category: 'Patterns',
+		accent: '#34d399',
+		borderGlow: 'rgba(52,211,153,0.2)',
+		problems: [
+			{
+				id: 'bs1',
+				title: 'Binary Search',
+				difficulty: 'Easy',
+				topic: 'Classic',
+				timeEstimate: 10,
+				description: 'Basic binary search on sorted array',
+			},
+			{
+				id: 'bs2',
+				title: 'Search in Rotated Sorted Array',
+				difficulty: 'Medium',
+				topic: 'Modified BS',
+				timeEstimate: 25,
+				description: 'Handle pivot by checking which half is sorted',
+			},
+			{
+				id: 'bs3',
+				title: 'Find Minimum in Rotated Sorted Array',
+				difficulty: 'Medium',
+				topic: 'Modified BS',
+				timeEstimate: 20,
+				description: 'Find the inflection point in rotated array',
+			},
+			{
+				id: 'bs4',
+				title: 'Koko Eating Bananas',
+				difficulty: 'Medium',
+				topic: 'BS on Answer',
+				timeEstimate: 25,
+				description: 'Binary search on eating speed — monotonic predicate',
+			},
+			{
+				id: 'bs5',
+				title: 'Capacity To Ship Packages Within D Days',
+				difficulty: 'Medium',
+				topic: 'BS on Answer',
+				timeEstimate: 25,
+				description: 'Binary search on minimum capacity feasibility',
+			},
+			{
+				id: 'bs6',
+				title: 'Split Array Largest Sum',
+				difficulty: 'Hard',
+				topic: 'BS on Answer',
+				timeEstimate: 40,
+				description: 'Minimize max sum when splitting array into k parts',
+			},
+			{
+				id: 'bs7',
+				title: 'Median of Two Sorted Arrays',
+				difficulty: 'Hard',
+				topic: 'Binary Search',
+				timeEstimate: 50,
+				description:
+					'Partition-based binary search to find median in O(log(min(m,n)))',
+			},
+		],
+	},
+	{
+		id: 'trees-bst',
+		title: 'Trees & BST',
+		description:
+			'Binary trees, BSTs, traversals and tree construction problems',
+		icon: <GitBranch size={20} />,
+		category: 'Data Structures',
+		accent: '#f59e0b',
+		borderGlow: 'rgba(245,158,11,0.2)',
+		problems: [
+			{
+				id: 't1',
+				title: 'Invert Binary Tree',
+				difficulty: 'Easy',
+				topic: 'DFS',
+				timeEstimate: 10,
+				description: 'Swap left and right subtrees recursively',
+			},
+			{
+				id: 't2',
+				title: 'Maximum Depth of Binary Tree',
+				difficulty: 'Easy',
+				topic: 'DFS',
+				timeEstimate: 10,
+				description: 'Recursive max depth via post-order traversal',
+			},
+			{
+				id: 't3',
+				title: 'Level Order Traversal',
+				difficulty: 'Medium',
+				topic: 'BFS',
+				timeEstimate: 20,
+				description: 'BFS with queue to traverse level by level',
+			},
+			{
+				id: 't4',
+				title: 'Validate Binary Search Tree',
+				difficulty: 'Medium',
+				topic: 'DFS',
+				timeEstimate: 20,
+				description: 'Propagate min/max bounds through recursive calls',
+			},
+			{
+				id: 't5',
+				title: 'Lowest Common Ancestor of BST',
+				difficulty: 'Medium',
+				topic: 'DFS',
+				timeEstimate: 20,
+				description:
+					'Split traversal when target nodes are in different subtrees',
+			},
+			{
+				id: 't6',
+				title: 'Binary Tree Right Side View',
+				difficulty: 'Medium',
+				topic: 'BFS',
+				timeEstimate: 20,
+				description: 'Record last node at each level from BFS traversal',
+			},
+			{
+				id: 't7',
+				title: 'Count Good Nodes in Binary Tree',
+				difficulty: 'Medium',
+				topic: 'DFS',
+				timeEstimate: 20,
+				description: 'Pass max value seen on path from root, count valid nodes',
+			},
+			{
+				id: 't8',
+				title: 'Kth Smallest Element in BST',
+				difficulty: 'Medium',
+				topic: 'In-order',
+				timeEstimate: 15,
+				description: 'In-order traversal produces sorted BST elements',
+			},
+			{
+				id: 't9',
+				title: 'Construct Binary Tree from Preorder and Inorder',
+				difficulty: 'Medium',
+				topic: 'Recursion',
+				timeEstimate: 30,
+				description: 'Use preorder root to split inorder traversal recursively',
+			},
+			{
+				id: 't10',
+				title: 'Binary Tree Maximum Path Sum',
+				difficulty: 'Hard',
+				topic: 'DFS',
+				timeEstimate: 40,
+				description: 'Track local and global max through post-order DFS',
+			},
+			{
+				id: 't11',
+				title: 'Serialize and Deserialize Binary Tree',
+				difficulty: 'Hard',
+				topic: 'BFS/DFS',
+				timeEstimate: 45,
+				description:
+					'Encode tree to string with null markers, reconstruct via queue',
+			},
+		],
+	},
+];
+
+const CATEGORIES = [
+	'All',
+	'Interview Prep',
+	'Algorithms',
+	'Patterns',
+	'Data Structures',
+];
+
+const STORAGE_KEY = 'cbg_curated_completed';
+
+const DIFFICULTY_COLORS: Record<Difficulty, { text: string; bg: string }> = {
+	Easy: { text: '#22c55e', bg: 'rgba(34,197,94,0.12)' },
+	Medium: { text: '#f59e0b', bg: 'rgba(245,158,11,0.12)' },
+	Hard: { text: '#ef4444', bg: 'rgba(239,68,68,0.12)' },
 };
 
-interface MetricCardProps {
-  label: string;
-  value: string | number;
-  icon?: ReactNode;
+// ===================== HELPERS =====================
+
+function loadCompleted(): Set<string> {
+	try {
+		const raw = localStorage.getItem(STORAGE_KEY);
+		return raw
+			? new Set<string>(JSON.parse(raw) as string[])
+			: new Set(['b1', 'b2', 'b8', 'b14', 'dp1', 'bs1', 't1', 't2']);
+	} catch {
+		return new Set(['b1', 'b2', 'b8', 'b14', 'dp1', 'bs1', 't1', 't2']);
+	}
 }
 
-const MetricCard = ({ label, value, icon }: MetricCardProps) => (
-  <div className="flex flex-col items-center gap-2 p-4 bg-gradient-to-br from-zinc-800/80 to-zinc-900/80 rounded-lg border border-zinc-700/50 hover:border-emerald-500/30 transition-all duration-300">
-    {icon && <div className="text-emerald-400">{icon}</div>}
-    <div className="text-2xl font-bold text-white">{value}</div>
-    <div className="text-xs text-zinc-400 text-center">{label}</div>
-  </div>
-);
-
-interface DayCompletion {
-  tasks: boolean[];
-  problems: boolean[];
+function saveCompleted(set: Set<string>) {
+	localStorage.setItem(STORAGE_KEY, JSON.stringify([...set]));
 }
 
-interface DayCompletions {
-  [key: number]: DayCompletion;
+// ===================== SUB-COMPONENTS =====================
+
+interface DiffBadgeProps {
+	difficulty: Difficulty;
 }
-
-interface TimelineCardProps {
-  day: number;
-  title: string;
-  description?: string;
-  tasks: string[];
-  problems: string[];
-  badge?: ReactNode;
-  isReview?: boolean;
-  isExpanded: boolean;
-  onToggleExpand: () => void;
-  completion: DayCompletion;
-  onTaskToggle: (idx: number) => void;
-  onProblemToggle: (idx: number) => void;
-  completionPercentage: number;
-  status: 'completed' | 'active' | 'upcoming';
-}
-
-const TimelineCard = ({ 
-  day, 
-  title, 
-  description, 
-  tasks, 
-  problems, 
-  badge, 
-  isReview,
-  isExpanded,
-  onToggleExpand,
-  completion,
-  onTaskToggle,
-  onProblemToggle,
-  completionPercentage,
-  status
-}: TimelineCardProps) => {
-  const isCompleted = completionPercentage === 100;
-
-  const getStatusStyle = () => {
-    switch (status) {
-      case 'completed':
-        return 'border-emerald-500/50 bg-gradient-to-br from-emerald-900/30 to-zinc-900/60';
-      case 'active':
-        return 'border-blue-500/50 bg-gradient-to-br from-blue-900/30 to-zinc-900/60';
-      default:
-        return 'border-zinc-700/50 bg-gradient-to-br from-zinc-800/60 to-zinc-900/60';
-    }
-  };
-
-  const getStatusDotStyle = () => {
-    switch (status) {
-      case 'completed':
-        return 'bg-emerald-500 shadow-lg shadow-emerald-500/50';
-      case 'active':
-        return 'bg-blue-500 shadow-lg shadow-blue-500/50 animate-pulse';
-      default:
-        return 'bg-zinc-600';
-    }
-  };
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, x: -20 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ delay: day * 0.05 }}
-      className="relative pl-8 pb-8 border-l-2 border-zinc-700/50 last:border-transparent"
-    >
-      {/* Timeline dot */}
-      <div className={`absolute left-[-9px] top-0 w-4 h-4 rounded-full border-4 border-zinc-900 transition-all duration-300 ${getStatusDotStyle()}`} />
-      
-      <motion.div
-        className={`rounded-lg border p-5 transition-all duration-300 cursor-pointer ${getStatusStyle()} hover:shadow-lg ${isExpanded ? 'shadow-lg' : ''}`}
-        onClick={onToggleExpand}
-        whileHover={{ scale: 1.01 }}
-        animate={isCompleted ? {
-          scale: [1, 1.02, 1],
-          borderColor: ['rgba(16, 185, 129, 0.5)', 'rgba(16, 185, 129, 0.8)', 'rgba(16, 185, 129, 0.5)'],
-        } : {}}
-        transition={isCompleted ? { duration: 2, repeat: 0 } : {}}
-      >
-        <div className="flex items-start justify-between">
-          <div className="flex-1">
-            <div className="flex items-center gap-2 mb-1">
-              <span className="text-xs font-semibold text-zinc-500">Day {day}</span>
-              {badge}
-              {status === 'completed' && <Badge variant="success" icon={<CheckCircle2 size={12} />}>Completed</Badge>}
-              {status === 'active' && <Badge variant="info" icon={<Play size={12} />}>Active</Badge>}
-            </div>
-            <div className="flex items-center gap-3">
-              <h4 className="text-lg font-semibold text-white flex items-center gap-2">
-                {isReview ? <RotateCcw size={16} className="text-amber-400" /> : <Target size={16} className="text-emerald-400" />}
-                {title}
-              </h4>
-              {completionPercentage > 0 && completionPercentage < 100 && (
-                <span className="text-xs font-medium text-blue-400 bg-blue-500/20 px-2 py-0.5 rounded-full">
-                  {completionPercentage}%
-                </span>
-              )}
-            </div>
-            {description && <p className="text-sm text-zinc-400 mt-1">{description}</p>}
-          </div>
-          <motion.div
-            animate={{ rotate: isExpanded ? 90 : 0 }}
-            transition={{ duration: 0.2 }}
-            className="flex-shrink-0 ml-3"
-          >
-            <ChevronRight size={20} className="text-zinc-400" />
-          </motion.div>
-        </div>
-
-        {/* Expanded Content */}
-        <AnimatePresence>
-          {isExpanded && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3, ease: 'easeInOut' }}
-              className="overflow-hidden"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="mt-4 pt-4 border-t border-zinc-700/50 space-y-4">
-                {/* Learning Objective */}
-                {description && (
-                  <div>
-                    <div className="text-xs font-medium text-zinc-500 mb-2 flex items-center gap-1">
-                      <Target size={12} />
-                      Learning Objective
-                    </div>
-                    <p className="text-sm text-zinc-300">{description}</p>
-                  </div>
-                )}
-
-                {/* Tasks */}
-                {tasks.length > 0 && (
-                  <div>
-                    <div className="text-xs font-medium text-zinc-500 mb-2">Tasks</div>
-                    <div className="space-y-2">
-                      {tasks.map((task, idx) => (
-                        <label
-                          key={idx}
-                          className="flex items-start gap-3 text-sm text-zinc-300 hover:text-white transition-colors cursor-pointer group"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          <input
-                            type="checkbox"
-                            checked={completion.tasks[idx] || false}
-                            onChange={() => onTaskToggle(idx)}
-                            className="mt-0.5 w-4 h-4 rounded border-2 border-zinc-600 bg-zinc-800 checked:bg-emerald-500 checked:border-emerald-500 focus:ring-2 focus:ring-emerald-500/50 cursor-pointer transition-all"
-                          />
-                          <span className={`flex-1 ${completion.tasks[idx] ? 'line-through text-zinc-500' : ''}`}>
-                            {task}
-                          </span>
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Problems */}
-                {problems.length > 0 && (
-                  <div>
-                    <div className="text-xs font-medium text-zinc-500 mb-2 flex items-center gap-2">
-                      <span>Problems for the Day</span>
-                      <span className="text-[10px] text-zinc-600 bg-zinc-800 px-2 py-0.5 rounded-full">
-                        {problems.filter((_, idx) => completion.problems[idx]).length}/{problems.length}
-                      </span>
-                    </div>
-                    <div className="space-y-2">
-                      {problems.map((problem, idx) => (
-                        <label
-                          key={idx}
-                          className="flex items-start gap-3 text-sm text-zinc-300 hover:text-white transition-colors cursor-pointer group"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          <input
-                            type="checkbox"
-                            checked={completion.problems[idx] || false}
-                            onChange={() => onProblemToggle(idx)}
-                            className="mt-0.5 w-4 h-4 rounded border-2 border-zinc-600 bg-zinc-800 checked:bg-emerald-500 checked:border-emerald-500 focus:ring-2 focus:ring-emerald-500/50 cursor-pointer transition-all"
-                          />
-                          <span className={`flex-1 ${completion.problems[idx] ? 'line-through text-zinc-500' : ''}`}>
-                            {problem}
-                          </span>
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Difficulty Breakdown & Estimated Time */}
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="p-3 bg-zinc-800/50 rounded-lg border border-zinc-700/50">
-                    <div className="text-xs text-zinc-500 mb-1">Difficulty</div>
-                    <div className="flex items-center gap-2">
-                      {isReview ? (
-                        <Badge variant="warning">Review</Badge>
-                      ) : (
-                        <><Badge variant="success">Easy: {Math.floor(problems.length * 0.4)}</Badge>
-                        <Badge variant="info">Med: {Math.ceil(problems.length * 0.6)}</Badge></>
-                      )}
-                    </div>
-                  </div>
-                  <div className="p-3 bg-zinc-800/50 rounded-lg border border-zinc-700/50">
-                    <div className="text-xs text-zinc-500 mb-1">Estimated Time</div>
-                    <div className="flex items-center gap-1.5 text-white font-semibold">
-                      <Clock size={14} className="text-blue-400" />
-                      <span>{isReview ? '30-45' : '45-60'} min</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.div>
-
-      {/* Completion Animation */}
-      <AnimatePresence>
-        {isCompleted && (
-          <motion.div
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0, opacity: 0 }}
-            className="absolute -right-2 -top-2 z-10"
-          >
-            <motion.div
-              animate={{
-                scale: [1, 1.2, 1],
-                rotate: [0, 10, -10, 0],
-              }}
-              transition={{ duration: 0.6, repeat: 0 }}
-              className="bg-emerald-500 rounded-full p-2 shadow-lg shadow-emerald-500/50"
-            >
-              <CheckCircle2 size={16} className="text-white" />
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.div>
-  );
+const DiffBadge = ({ difficulty }: DiffBadgeProps) => {
+	const colors = DIFFICULTY_COLORS[difficulty];
+	return (
+		<span
+			className="diff-badge"
+			style={{
+				color: colors.text,
+				background: colors.bg,
+				border: `1px solid ${colors.text}30`,
+			}}
+		>
+			{difficulty}
+		</span>
+	);
 };
 
-interface CircularProgressProps {
-  percentage: number;
-  size?: number;
-  strokeWidth?: number;
+interface SetCardProps {
+	set: PracticeSet;
+	solved: number;
+	total: number;
+	onClick: () => void;
 }
+const SetCard = ({ set, solved, total, onClick }: SetCardProps) => {
+	const pct = Math.round((solved / total) * 100);
+	return (
+		<motion.button
+			className="set-card"
+			onClick={onClick}
+			initial={{ opacity: 0, y: 16 }}
+			animate={{ opacity: 1, y: 0 }}
+			whileHover={{ y: -2 }}
+			whileTap={{ scale: 0.98 }}
+			style={
+				{
+					'--accent': set.accent,
+					'--glow': set.borderGlow,
+				} as React.CSSProperties
+			}
+		>
+			<div className="set-card__top">
+				<div
+					className="set-card__icon"
+					style={{ color: set.accent, background: `${set.accent}15` }}
+				>
+					{set.icon}
+				</div>
+				<span className="set-card__category">{set.category}</span>
+			</div>
 
-const CircularProgress = ({ percentage, size = 120, strokeWidth = 8 }: CircularProgressProps) => {
-  const radius = (size - strokeWidth) / 2;
-  const circumference = radius * 2 * Math.PI;
-  const offset = circumference - (percentage / 100) * circumference;
+			<div className="set-card__body">
+				<h3 className="set-card__title">{set.title}</h3>
+				<p className="set-card__desc">{set.description}</p>
+			</div>
 
-  return (
-    <div className="relative" style={{ width: size, height: size }}>
-      <svg className="transform -rotate-90" width={size} height={size}>
-        <circle
-          cx={size / 2}
-          cy={size / 2}
-          r={radius}
-          stroke="currentColor"
-          strokeWidth={strokeWidth}
-          fill="none"
-          className="text-zinc-800"
-        />
-        <motion.circle
-          cx={size / 2}
-          cy={size / 2}
-          r={radius}
-          stroke="currentColor"
-          strokeWidth={strokeWidth}
-          fill="none"
-          strokeDasharray={circumference}
-          strokeDashoffset={circumference}
-          className="text-emerald-500"
-          strokeLinecap="round"
-          animate={{ strokeDashoffset: offset }}
-          transition={{ duration: 1.5, ease: "easeOut" }}
-        />
-      </svg>
-      <motion.div
-        className="absolute inset-0 flex items-center justify-center"
-        initial={{ opacity: 0, scale: 0.5 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.3, duration: 0.5 }}
-      >
-        <span className="text-2xl font-bold text-white">{percentage}%</span>
-      </motion.div>
-    </div>
-  );
+			<div className="set-card__footer">
+				<div className="set-card__stats">
+					<span className="set-card__stat">
+						<Code2 size={12} />
+						{total} problems
+					</span>
+					<span className="set-card__stat">
+						<CheckCircle2 size={12} style={{ color: set.accent }} />
+						{solved} done
+					</span>
+				</div>
+				<div className="set-card__progress">
+					<div className="set-card__progress-bar">
+						<motion.div
+							className="set-card__progress-fill"
+							style={{ background: set.accent }}
+							initial={{ width: 0 }}
+							animate={{ width: `${pct}%` }}
+							transition={{ duration: 0.8, ease: 'easeOut', delay: 0.1 }}
+						/>
+					</div>
+					<span className="set-card__pct" style={{ color: set.accent }}>
+						{pct}%
+					</span>
+				</div>
+			</div>
+
+			<ChevronRight size={16} className="set-card__arrow" />
+		</motion.button>
+	);
 };
 
-interface SelectProps {
-  label: string;
-  value: string;
-  onChange: (value: string) => void;
-  options: string[];
+// ===================== MAIN COMPONENT =====================
+
+export default function CuratedPracticePage() {
+	const { goBack } = useNavStack();
+	const [category, setCategory] = useState('All');
+	const [activeSet, setActiveSet] = useState<PracticeSet | null>(null);
+	const [activeProblem, setActiveProblem] = useState<Problem | null>(null);
+	const [hint, setHint] = useState('');
+	const [hintLoading, setHintLoading] = useState(false);
+	const [hintError, setHintError] = useState('');
+	const [isSpeaking, setIsSpeaking] = useState(false);
+	const [ttsLoading, setTtsLoading] = useState(false);
+	const [completed, setCompleted] = useState<Set<string>>(loadCompleted);
+	const audioRef = useRef<HTMLAudioElement | null>(null);
+
+	const filteredSets =
+		category === 'All'
+			? PRACTICE_SETS
+			: PRACTICE_SETS.filter((s) => s.category === category);
+
+	const getProgress = useCallback(
+		(set: PracticeSet) => {
+			const solved = set.problems.filter((p) => completed.has(p.id)).length;
+			return { solved, total: set.problems.length };
+		},
+		[completed],
+	);
+
+	const toggleComplete = (id: string) => {
+		setCompleted((prev) => {
+			const next = new Set(prev);
+			if (next.has(id)) next.delete(id);
+			else next.add(id);
+			saveCompleted(next);
+			return next;
+		});
+	};
+
+	const fetchHint = async (problem: Problem) => {
+		if (hintLoading) return;
+		setActiveProblem(problem);
+		setHint('');
+		setHintError('');
+		setHintLoading(true);
+
+		const url = import.meta.env['VITE_GEMINI_FETCH_URL'] as string;
+		const key = import.meta.env['VITE_GEMINI_API_KEY'] as string;
+		const model = import.meta.env['VITE_GEMINI_MODEL'] as string;
+
+		try {
+			const res = await fetch(url, {
+				method: 'POST',
+				headers: {
+					Authorization: `Bearer ${key}`,
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					model,
+					messages: [
+						{
+							role: 'system',
+							content:
+								'You are a concise coding interview coach. Provide a focused, practical hint to help the student approach the problem — do NOT give the full solution. 2-3 sentences max. Be direct and use algorithm/data-structure terminology.',
+						},
+						{
+							role: 'user',
+							content: `Problem: ${problem.title}\nTopic: ${problem.topic}\nDifficulty: ${problem.difficulty}\nBrief: ${problem.description}\n\nGive me a targeted hint.`,
+						},
+					],
+					max_tokens: 180,
+					temperature: 0.7,
+				}),
+			});
+
+			if (!res.ok) throw new Error(`API error ${res.status}`);
+			const data = (await res.json()) as {
+				choices?: { message?: { content?: string } }[];
+			};
+			setHint(data.choices?.[0]?.message?.content ?? 'No hint returned.');
+		} catch {
+			setHintError('Failed to fetch hint. Check your API key or connection.');
+		} finally {
+			setHintLoading(false);
+		}
+	};
+
+	const speakHint = async () => {
+		if (!hint || isSpeaking || ttsLoading) return;
+
+		const elevenKey = import.meta.env['VITE_ELEVENLABS_API_KEY'] as string;
+		const voiceId = '21m00Tcm4TlvDq8ikWAM'; // Rachel
+
+		setTtsLoading(true);
+
+		try {
+			const res = await fetch(
+				`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`,
+				{
+					method: 'POST',
+					headers: {
+						'xi-api-key': elevenKey,
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						text: hint,
+						model_id: 'eleven_monolingual_v1',
+						voice_settings: { stability: 0.5, similarity_boost: 0.5 },
+					}),
+				},
+			);
+
+			if (!res.ok) throw new Error('TTS failed');
+
+			const blob = await res.blob();
+			const blobUrl = URL.createObjectURL(blob);
+			const audio = new Audio(blobUrl);
+			audioRef.current = audio;
+
+			audio.onended = () => {
+				setIsSpeaking(false);
+				URL.revokeObjectURL(blobUrl);
+			};
+
+			setTtsLoading(false);
+			setIsSpeaking(true);
+			await audio.play();
+		} catch {
+			setTtsLoading(false);
+		}
+	};
+
+	const stopSpeaking = () => {
+		if (audioRef.current) {
+			audioRef.current.pause();
+			audioRef.current.currentTime = 0;
+			audioRef.current = null;
+		}
+		setIsSpeaking(false);
+	};
+
+	const closeSet = () => {
+		setActiveSet(null);
+		setActiveProblem(null);
+		setHint('');
+		setHintError('');
+		stopSpeaking();
+	};
+
+	// ---- render: detail view ----
+	if (activeSet) {
+		const setCompleted = activeSet.problems.filter((p) =>
+			completed.has(p.id),
+		).length;
+		const pct = Math.round((setCompleted / activeSet.problems.length) * 100);
+
+		return (
+			<div className="curated-page">
+				{/* Header */}
+				<header className="curated-page__header">
+					<button className="curated-page__back" onClick={closeSet}>
+						<ArrowLeft size={16} />
+						<span>Back to Sets</span>
+					</button>
+					<div className="curated-page__header-title">
+						<span style={{ color: activeSet.accent }}>{activeSet.icon}</span>
+						<h1>{activeSet.title}</h1>
+					</div>
+					<div
+						className="curated-page__header-pill"
+						style={{
+							color: activeSet.accent,
+							borderColor: activeSet.borderGlow,
+						}}
+					>
+						<CheckCircle2 size={13} />
+						{setCompleted} / {activeSet.problems.length} solved
+					</div>
+				</header>
+
+				{/* Progress bar */}
+				<div className="curated-page__prog-wrap">
+					<motion.div
+						className="curated-page__prog-fill"
+						style={{ background: activeSet.accent }}
+						initial={{ width: 0 }}
+						animate={{ width: `${pct}%` }}
+						transition={{ duration: 0.7, ease: 'easeOut' }}
+					/>
+				</div>
+
+				{/* Body: problem list + hint panel */}
+				<div className="detail-layout">
+					{/* Problem list */}
+					<div className="problem-list">
+						<div className="problem-list__header">
+							<BookOpen size={16} />
+							<span>{activeSet.problems.length} Problems</span>
+						</div>
+
+						{activeSet.problems.map((problem, idx) => {
+							const isDone = completed.has(problem.id);
+							const isActive = activeProblem?.id === problem.id;
+							return (
+								<motion.div
+									key={problem.id}
+									className={`problem-row ${isActive ? 'problem-row--active' : ''} ${isDone ? 'problem-row--done' : ''}`}
+									initial={{ opacity: 0, x: -12 }}
+									animate={{ opacity: 1, x: 0 }}
+									transition={{ delay: idx * 0.03 }}
+									style={isActive ? { borderColor: activeSet.accent } : {}}
+								>
+									<button
+										className="problem-row__check"
+										onClick={() => toggleComplete(problem.id)}
+										style={
+											isDone
+												? {
+														background: activeSet.accent,
+														borderColor: activeSet.accent,
+													}
+												: {}
+										}
+										title={isDone ? 'Mark as unsolved' : 'Mark as solved'}
+									>
+										{isDone && <CheckCircle2 size={12} />}
+									</button>
+
+									<div
+										className="problem-row__body"
+										onClick={() => {
+											void fetchHint(problem);
+										}}
+									>
+										<div className="problem-row__meta">
+											<span className="problem-row__num">{idx + 1}</span>
+											<span className="problem-row__topic">
+												{problem.topic}
+											</span>
+											<DiffBadge difficulty={problem.difficulty} />
+										</div>
+										<p className="problem-row__title">{problem.title}</p>
+									</div>
+
+									<div className="problem-row__right">
+										<span className="problem-row__time">
+											<Clock size={11} />
+											{problem.timeEstimate}m
+										</span>
+										<button
+											className={`problem-row__hint-btn ${isActive && hint ? 'problem-row__hint-btn--active' : ''}`}
+											onClick={() => {
+												void fetchHint(problem);
+											}}
+											title="Get AI hint"
+											style={
+												isActive && hint
+													? {
+															color: activeSet.accent,
+															borderColor: activeSet.accent,
+														}
+													: {}
+											}
+										>
+											<Lightbulb size={13} />
+											Hint
+										</button>
+									</div>
+								</motion.div>
+							);
+						})}
+					</div>
+
+					{/* Hint panel */}
+					<div className="hint-panel">
+						<AnimatePresence mode="wait">
+							{!activeProblem && (
+								<motion.div
+									key="empty"
+									className="hint-panel__empty"
+									initial={{ opacity: 0 }}
+									animate={{ opacity: 1 }}
+									exit={{ opacity: 0 }}
+								>
+									<div className="hint-panel__empty-icon">
+										<Sparkles size={28} />
+									</div>
+									<p className="hint-panel__empty-title">AI Hint Assistant</p>
+									<p className="hint-panel__empty-sub">
+										Click a problem or press "Hint" to get a targeted hint
+										powered by AI — no full solutions, just the right nudge.
+									</p>
+									<div className="hint-panel__api-tags">
+										<span className="hint-panel__api-tag">Gemini-3-Flash</span>
+										<span className="hint-panel__api-tag">ElevenLabs TTS</span>
+									</div>
+								</motion.div>
+							)}
+
+							{activeProblem && (
+								<motion.div
+									key={activeProblem.id}
+									className="hint-panel__content"
+									initial={{ opacity: 0, y: 10 }}
+									animate={{ opacity: 1, y: 0 }}
+									exit={{ opacity: 0, y: -10 }}
+								>
+									<div className="hint-panel__prob-header">
+										<div>
+											<p className="hint-panel__prob-topic">
+												{activeProblem.topic}
+											</p>
+											<h3 className="hint-panel__prob-title">
+												{activeProblem.title}
+											</h3>
+										</div>
+										<DiffBadge difficulty={activeProblem.difficulty} />
+									</div>
+
+									<p className="hint-panel__prob-desc">
+										{activeProblem.description}
+									</p>
+
+									<div className="hint-panel__divider" />
+
+									{/* Hint area */}
+									<div className="hint-panel__hint-area">
+										<div className="hint-panel__hint-label">
+											<Lightbulb
+												size={14}
+												style={{ color: activeSet.accent }}
+											/>
+											<span style={{ color: activeSet.accent }}>AI Hint</span>
+										</div>
+
+										{hintLoading && (
+											<div className="hint-panel__loading">
+												<div className="hint-panel__dots">
+													{[0, 1, 2].map((i) => (
+														<motion.span
+															key={i}
+															className="hint-panel__dot"
+															animate={{ opacity: [0.3, 1, 0.3] }}
+															transition={{
+																duration: 1.2,
+																repeat: Infinity,
+																delay: i * 0.2,
+															}}
+															style={{ background: activeSet.accent }}
+														/>
+													))}
+												</div>
+												<span className="hint-panel__loading-text">
+													Generating hint...
+												</span>
+											</div>
+										)}
+
+										{hintError && !hintLoading && (
+											<div className="hint-panel__error">
+												<X size={14} />
+												{hintError}
+											</div>
+										)}
+
+										{hint && !hintLoading && (
+											<motion.div
+												className="hint-panel__hint-text"
+												initial={{ opacity: 0 }}
+												animate={{ opacity: 1 }}
+												transition={{ duration: 0.4 }}
+											>
+												{hint}
+											</motion.div>
+										)}
+
+										{!hint && !hintLoading && !hintError && (
+											<p className="hint-panel__hint-placeholder">
+												Fetching hint...
+											</p>
+										)}
+									</div>
+
+									{/* TTS controls */}
+									{hint && !hintLoading && (
+										<motion.div
+											className="hint-panel__tts"
+											initial={{ opacity: 0, y: 6 }}
+											animate={{ opacity: 1, y: 0 }}
+										>
+											<button
+												className={`hint-panel__tts-btn ${isSpeaking ? 'hint-panel__tts-btn--active' : ''}`}
+												onClick={
+													isSpeaking
+														? stopSpeaking
+														: () => {
+																void speakHint();
+															}
+												}
+												disabled={ttsLoading}
+												style={
+													isSpeaking
+														? {
+																background: `${activeSet.accent}20`,
+																borderColor: activeSet.accent,
+																color: activeSet.accent,
+															}
+														: {}
+												}
+											>
+												{ttsLoading ? (
+													<>
+														<motion.span
+															animate={{ rotate: 360 }}
+															transition={{
+																duration: 1,
+																repeat: Infinity,
+																ease: 'linear',
+															}}
+															style={{ display: 'inline-flex' }}
+														>
+															<SortDesc size={14} />
+														</motion.span>
+														Loading audio...
+													</>
+												) : isSpeaking ? (
+													<>
+														<VolumeX size={14} />
+														Stop Speaking
+													</>
+												) : (
+													<>
+														<Volume2 size={14} />
+														Read Hint Aloud
+													</>
+												)}
+											</button>
+											<button
+												className="hint-panel__refresh-btn"
+												onClick={() => {
+													void fetchHint(activeProblem);
+												}}
+												title="Get a different hint"
+											>
+												<Sparkles size={13} />
+												New Hint
+											</button>
+										</motion.div>
+									)}
+								</motion.div>
+							)}
+						</AnimatePresence>
+					</div>
+				</div>
+			</div>
+		);
+	}
+
+	// ---- render: browse view ----
+	return (
+		<div className="curated-page">
+			{/* Header */}
+			<header className="curated-page__header">
+				<button className="curated-page__back" onClick={() => goBack()}>
+					<ArrowLeft size={16} />
+					<span>Back</span>
+				</button>
+				<div className="curated-page__header-title">
+					<BookOpen size={20} style={{ color: '#22c55e' }} />
+					<h1>Curated Practice Sets</h1>
+				</div>
+				<div className="curated-page__header-pill">
+					<Target size={13} />
+					{PRACTICE_SETS.length} sets available
+				</div>
+			</header>
+
+			{/* Category tabs */}
+			<div className="curated-page__tabs">
+				{CATEGORIES.map((cat) => (
+					<button
+						key={cat}
+						className={`curated-page__tab ${category === cat ? 'curated-page__tab--active' : ''}`}
+						onClick={() => setCategory(cat)}
+					>
+						{cat}
+						{cat !== 'All' && (
+							<span className="curated-page__tab-count">
+								{PRACTICE_SETS.filter((s) => s.category === cat).length}
+							</span>
+						)}
+					</button>
+				))}
+			</div>
+
+			{/* Summary bar */}
+			<div className="curated-page__summary">
+				<div className="curated-page__summary-stat">
+					<Code2 size={14} style={{ color: '#22c55e' }} />
+					<span>
+						{PRACTICE_SETS.reduce((a, s) => a + s.problems.length, 0)} total
+						problems
+					</span>
+				</div>
+				<div className="curated-page__summary-stat">
+					<CheckCircle2 size={14} style={{ color: '#60a5fa' }} />
+					<span>
+						{PRACTICE_SETS.reduce(
+							(a, s) =>
+								a + s.problems.filter((p) => completed.has(p.id)).length,
+							0,
+						)}{' '}
+						solved
+					</span>
+				</div>
+				<div className="curated-page__summary-stat">
+					<Sparkles size={14} style={{ color: '#a855f7' }} />
+					<span>AI hints &amp; TTS on every problem</span>
+				</div>
+			</div>
+
+			{/* Set grid */}
+			<div className="curated-page__grid">
+				<AnimatePresence mode="popLayout">
+					{filteredSets.map((set, idx) => {
+						const { solved, total } = getProgress(set);
+						return (
+							<motion.div
+								key={set.id}
+								layout
+								initial={{ opacity: 0, scale: 0.95 }}
+								animate={{ opacity: 1, scale: 1 }}
+								exit={{ opacity: 0, scale: 0.95 }}
+								transition={{ duration: 0.2, delay: idx * 0.04 }}
+							>
+								<SetCard
+									set={set}
+									solved={solved}
+									total={total}
+									onClick={() => setActiveSet(set)}
+								/>
+							</motion.div>
+						);
+					})}
+				</AnimatePresence>
+			</div>
+		</div>
+	);
 }
-
-const Select = ({ label, value, onChange, options }: SelectProps) => (
-  <div className="space-y-2">
-    <label className="text-sm font-medium text-zinc-300">{label}</label>
-    <div className="relative">
-      <select
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className="w-full appearance-none bg-zinc-800/80 border border-zinc-700/50 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 transition-all cursor-pointer"
-      >
-        {options.map((option) => (
-          <option key={option} value={option}>
-            {option}
-          </option>
-        ))}
-      </select>
-      <ChevronDown size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" />
-    </div>
-  </div>
-);
-
-interface ToggleProps {
-  label: string;
-  checked: boolean;
-  onChange: (checked: boolean) => void;
-}
-
-const Toggle = ({ label, checked, onChange }: ToggleProps) => (
-  <div className="flex items-center justify-between">
-    <span className="text-sm font-medium text-zinc-300">{label}</span>
-    <button
-      onClick={() => onChange(!checked)}
-      className={`relative w-11 h-6 rounded-full transition-colors ${
-        checked ? 'bg-emerald-500' : 'bg-zinc-700'
-      }`}
-    >
-      <span
-        className={`absolute top-1 left-1 w-4 h-4 rounded-full bg-white transition-transform ${
-          checked ? 'translate-x-5' : 'translate-x-0'
-        }`}
-      />
-    </button>
-  </div>
-);
-
-// ================= LEARNING SPEED ANALYTICS =================
-
-interface SolveTimeTrend {
-  day: string;
-  time: number; // in minutes
-}
-
-interface LearningAnalytics {
-  problemsSolved: number;
-  avgSolveTime: number; // in minutes
-  hintsUsed: number;
-  dailyStreak: number;
-  solveTimeTrend: SolveTimeTrend[];
-  insights: string[];
-  paceImprovement: number; // percentage
-}
-
-const mockAnalytics: LearningAnalytics = {
-  problemsSolved: 23,
-  avgSolveTime: 18,
-  hintsUsed: 7,
-  dailyStreak: 5,
-  solveTimeTrend: [
-    { day: 'Mon', time: 25 },
-    { day: 'Tue', time: 22 },
-    { day: 'Wed', time: 20 },
-    { day: 'Thu', time: 19 },
-    { day: 'Fri', time: 17 },
-    { day: 'Sat', time: 16 },
-    { day: 'Sun', time: 18 },
-  ],
-  insights: [
-    'Your solve time improved by 12% this week',
-    'You are spending longer on graph problems',
-    'Consider adding a revision day after Day 10',
-  ],
-  paceImprovement: 12,
-};
-
-// Mini Chart Component
-interface MiniChartProps {
-  data: SolveTimeTrend[];
-  width?: number;
-  height?: number;
-}
-
-const MiniChart = ({ data, width = 280, height = 100 }: MiniChartProps) => {
-  const padding = 20;
-  const chartWidth = width - padding * 2;
-  const chartHeight = height - padding * 2;
-  
-  const maxTime = Math.max(...data.map(d => d.time));
-  const minTime = Math.min(...data.map(d => d.time));
-  const timeRange = maxTime - minTime || 1;
-  
-  const points = data.map((d, i) => {
-    const x = padding + (i / (data.length - 1)) * chartWidth;
-    const y = padding + chartHeight - ((d.time - minTime) / timeRange) * chartHeight;
-    return { x, y, time: d.time, day: d.day };
-  });
-  
-  const pathData = points.map((p, i) => 
-    `${i === 0 ? 'M' : 'L'} ${p.x},${p.y}`
-  ).join(' ');
-  
-  const areaPathData = `${pathData} L ${points[points.length - 1].x},${height - padding} L ${padding},${height - padding} Z`;
-  
-  return (
-    <div className="relative">
-      <svg width={width} height={height} className="overflow-visible">
-        {/* Grid lines */}
-        <line
-          x1={padding}
-          y1={height - padding}
-          x2={width - padding}
-          y2={height - padding}
-          stroke="#3f3f46"
-          strokeWidth="1"
-        />
-        
-        {/* Area fill */}
-        <path
-          d={areaPathData}
-          fill="url(#gradient)"
-          opacity="0.2"
-        />
-        
-        {/* Line */}
-        <path
-          d={pathData}
-          fill="none"
-          stroke="#10b981"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        
-        {/* Points */}
-        {points.map((p, i) => (
-          <g key={i}>
-            <circle
-              cx={p.x}
-              cy={p.y}
-              r="3"
-              fill="#10b981"
-              className="hover:r-5 transition-all"
-            />
-            <text
-              x={p.x}
-              y={height - 5}
-              textAnchor="middle"
-              className="text-[10px] fill-zinc-500"
-            >
-              {p.day}
-            </text>
-          </g>
-        ))}
-        
-        {/* Gradient definition */}
-        <defs>
-          <linearGradient id="gradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#10b981" stopOpacity="0.3" />
-            <stop offset="100%" stopColor="#10b981" stopOpacity="0" />
-          </linearGradient>
-        </defs>
-      </svg>
-    </div>
-  );
-};
-
-// Learning Speed Analytics Card
-const LearningSpeedAnalytics = ({ analytics }: { analytics: LearningAnalytics }) => {
-  const paceInfo = calculateLearningPace(analytics.avgSolveTime);
-  
-  return (
-    <Card className="bg-gradient-to-br from-zinc-900/90 to-zinc-800/90 border-zinc-700/50">
-      <div className="space-y-6">
-        {/* Header */}
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Activity size={20} className="text-emerald-400" />
-            <h3 className="text-lg font-semibold text-white">Learning Speed Analytics</h3>
-          </div>
-          <Badge variant={paceInfo.variant} icon={paceInfo.icon}>
-            {paceInfo.label}
-          </Badge>
-        </div>
-
-        {/* Metrics Grid */}
-        <div className="grid grid-cols-2 gap-3">
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="p-4 bg-gradient-to-br from-emerald-900/30 to-zinc-800/60 rounded-lg border border-emerald-500/30"
-          >
-            <div className="flex items-center gap-2 mb-1">
-              <CheckCircle2 size={16} className="text-emerald-400" />
-              <span className="text-xs text-zinc-500">Problems Solved</span>
-            </div>
-            <div className="text-2xl font-bold text-white">{analytics.problemsSolved}</div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="p-4 bg-gradient-to-br from-blue-900/30 to-zinc-800/60 rounded-lg border border-blue-500/30"
-          >
-            <div className="flex items-center gap-2 mb-1">
-              <Clock size={16} className="text-blue-400" />
-              <span className="text-xs text-zinc-500">Avg Solve Time</span>
-            </div>
-            <div className="text-2xl font-bold text-white">{analytics.avgSolveTime} min</div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="p-4 bg-gradient-to-br from-amber-900/30 to-zinc-800/60 rounded-lg border border-amber-500/30"
-          >
-            <div className="flex items-center gap-2 mb-1">
-              <HelpCircle size={16} className="text-amber-400" />
-              <span className="text-xs text-zinc-500">Hints Used</span>
-            </div>
-            <div className="text-2xl font-bold text-white">{analytics.hintsUsed}</div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="p-4 bg-gradient-to-br from-orange-900/30 to-zinc-800/60 rounded-lg border border-orange-500/30"
-          >
-            <div className="flex items-center gap-2 mb-1">
-              <Flame size={16} className="text-orange-400" />
-              <span className="text-xs text-zinc-500">Daily Streak</span>
-            </div>
-            <div className="text-2xl font-bold text-white">{analytics.dailyStreak} days</div>
-          </motion.div>
-        </div>
-
-        {/* Solve Time Trend Chart */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="p-4 bg-zinc-800/50 rounded-lg border border-zinc-700/50"
-        >
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center gap-2">
-              <TrendingDown size={16} className="text-emerald-400" />
-              <span className="text-sm font-medium text-zinc-300">Solve Time Trend (7 Days)</span>
-            </div>
-            <span className="text-xs text-emerald-400 font-semibold">
-              ↓ {analytics.paceImprovement}% improvement
-            </span>
-          </div>
-          <MiniChart data={analytics.solveTimeTrend} />
-        </motion.div>
-
-        {/* Insights Panel */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-          className="p-4 bg-gradient-to-br from-purple-900/20 to-zinc-800/60 rounded-lg border border-purple-500/30"
-        >
-          <div className="flex items-center gap-2 mb-3">
-            <Lightbulb size={16} className="text-purple-400" />
-            <span className="text-sm font-semibold text-purple-400">AI Insights</span>
-          </div>
-          <div className="space-y-2">
-            {analytics.insights.map((insight, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.7 + idx * 0.1 }}
-                className="flex items-start gap-2 text-sm text-zinc-300"
-              >
-                <Sparkles size={12} className="text-purple-400 mt-1 flex-shrink-0" />
-                <span>{insight}</span>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-      </div>
-    </Card>
-  );
-};
-
-// ================= PROGRESS TRACKING =================
-
-type LearningPace = 'fast' | 'balanced' | 'slow';
-
-interface LearningPaceInfo {
-  pace: LearningPace;
-  label: string;
-  variant: 'success' | 'info' | 'warning';
-  icon: ReactNode;
-}
-
-const calculateLearningPace = (averageTimeMinutes: number): LearningPaceInfo => {
-  if (averageTimeMinutes < 15) {
-    return {
-      pace: 'fast',
-      label: 'Fast Learner',
-      variant: 'success',
-      icon: <Zap size={14} />,
-    };
-  } else if (averageTimeMinutes <= 30) {
-    return {
-      pace: 'balanced',
-      label: 'Balanced Pace',
-      variant: 'info',
-      icon: <Activity size={14} />,
-    };
-  } else {
-    return {
-      pace: 'slow',
-      label: 'Needs Improvement',
-      variant: 'warning',
-      icon: <AlertCircle size={14} />,
-    };
-  }
-};
-
-interface LearningPaceBadgeProps {
-  averageTimeMinutes: number;
-}
-
-const LearningPaceBadge = ({ averageTimeMinutes }: LearningPaceBadgeProps) => {
-  const paceInfo = calculateLearningPace(averageTimeMinutes);
-  
-  return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ delay: 0.5, duration: 0.3 }}
-    >
-      <Badge variant={paceInfo.variant} icon={paceInfo.icon}>
-        {paceInfo.label}
-      </Badge>
-    </motion.div>
-  );
-};
-
-// ================= MOCK DATA =================
-
-const mockRoadmapData = {
-  summary: {
-    duration: '30 days',
-    topics: 6,
-    problems: 45,
-    revisionDays: 4,
-    mockTests: 2,
-  },
-  insights: [
-    'Starting with Arrays & Strings first',
-    'Graph focus in Week 2',
-    'Revision days placed for review',
-    'Mock interviews at key checkpoints',
-  ],
-  timeline: [
-    {
-      day: 1,
-      title: 'Arrays & Strings',
-      description: 'Basics + Easy Problems',
-      tasks: ['String Basics', 'String Manipulation', 'Array fundamentals'],
-      problems: ['Two Sum', 'Valid Anagram', 'Contains Duplicate'],
-      badge: <Badge variant="primary" icon={<Sparkles size={12} />}>Today's Focus</Badge>,
-    },
-    {
-      day: 2,
-      title: 'Two Pointers',
-      description: 'Medium challenges',
-      tasks: ['Two pointer technique', 'Sliding window intro'],
-      problems: ['Container With Most Water', '3Sum', 'Remove Duplicates'],
-    },
-    {
-      day: 3,
-      title: 'Sliding Window',
-      description: 'Pattern mastery',
-      tasks: ['Sliding window concepts', 'Fixed & variable windows'],
-      problems: ['Longest Substring', 'Min Window Substring', 'Max Subarray'],
-    },
-    {
-      day: 4,
-      title: 'Rest & Review',
-      description: 'Review past topics',
-      tasks: ['Review Arrays & Strings', 'Practice weak areas', 'Consolidate learning'],
-      problems: [],
-      isReview: true,
-      badge: <Badge variant="warning" icon={<RotateCcw size={12} />}>Review Day</Badge>,
-    },
-    {
-      day: 5,
-      title: 'Hash Maps & Sets',
-      description: 'Data structure patterns',
-      tasks: ['HashMap patterns', 'Frequency counting', 'Set operations'],
-      problems: ['Group Anagrams', 'Top K Frequent', 'Longest Consecutive'],
-    },
-    {
-      day: 6,
-      title: 'Linked Lists',
-      description: 'Pointer manipulation',
-      tasks: ['Linked list basics', 'Fast & slow pointers', 'Reversal techniques'],
-      problems: ['Reverse Linked List', 'Merge Two Lists', 'Cycle Detection'],
-    },
-    {
-      day: 7,
-      title: 'Weekly Review',
-      description: 'Consolidate Week 1',
-      tasks: ['Mock test preparation', 'Review all topics', 'Identify gaps'],
-      problems: [],
-      isReview: true,
-      badge: <Badge variant="warning" icon={<RotateCcw size={12} />}>Review Day</Badge>,
-    },
-  ],
-  progress: {
-    completion: 32,
-    completedDays: 9,
-    totalDays: 30,
-    accuracy: 78,
-    averageTimeMinutes: 18,
-    nextCheckpoint: 'Day 7 - Weekly Review',
-  },
-};
-
-// ================= MAIN COMPONENT =================
-
-const CuratedPracticePage = () => {
-  const [goal, setGoal] = useState('');
-  const [topics, setTopics] = useState('Arrays, Strings, Graphs');
-  const [difficulty, setDifficulty] = useState('Intermediate');
-  const [target, setTarget] = useState('Tech Interviews');
-  const [duration, setDuration] = useState('30 days');
-  const [studyDays, setStudyDays] = useState('Daily');
-  const [preferredTime, setPreferredTime] = useState('Evening');
-  const [includeRevision, setIncludeRevision] = useState(true);
-  const [roadmapGenerated, setRoadmapGenerated] = useState(true); // Set to true to show mock data
-  
-  // Interactive roadmap state
-  const [expandedDays, setExpandedDays] = useState<Set<number>>(new Set([1])); // Day 1 expanded by default
-  const [dayCompletions, setDayCompletions] = useState<DayCompletions>(() => {
-    // Initialize completions for all days
-    const initial: DayCompletions = {};
-    mockRoadmapData.timeline.forEach(day => {
-      initial[day.day] = {
-        tasks: new Array(day.tasks.length).fill(false),
-        problems: new Array(day.problems.length).fill(false),
-      };
-    });
-    return initial;
-  });
-
-  const quickExamples = [
-    'Learn DSA basics in 21 days',
-    'Master Graphs in 10 days',
-    'Revise Blind 75 in 14 days',
-  ];
-
-  const handleGenerateRoadmap = () => {
-    setRoadmapGenerated(true);
-  };
-
-  // Toggle day expansion
-  const toggleDayExpansion = (day: number) => {
-    setExpandedDays(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(day)) {
-        newSet.delete(day);
-      } else {
-        newSet.add(day);
-      }
-      return newSet;
-    });
-  };
-
-  // Toggle task completion
-  const toggleTaskCompletion = (day: number, taskIdx: number) => {
-    setDayCompletions(prev => ({
-      ...prev,
-      [day]: {
-        ...prev[day],
-        tasks: prev[day].tasks.map((completed, idx) => 
-          idx === taskIdx ? !completed : completed
-        ),
-      },
-    }));
-  };
-
-  // Toggle problem completion
-  const toggleProblemCompletion = (day: number, problemIdx: number) => {
-    setDayCompletions(prev => ({
-      ...prev,
-      [day]: {
-        ...prev[day],
-        problems: prev[day].problems.map((completed, idx) => 
-          idx === problemIdx ? !completed : completed
-        ),
-      },
-    }));
-  };
-
-  // Calculate day completion percentage
-  const calculateDayCompletion = (day: number): number => {
-    const dayData = mockRoadmapData.timeline.find(d => d.day === day);
-    if (!dayData) return 0;
-
-    const completion = dayCompletions[day];
-    if (!completion) return 0;
-
-    const totalItems = dayData.tasks.length + dayData.problems.length;
-    if (totalItems === 0) return 100; // Review days with no tasks
-
-    const completedItems = 
-      completion.tasks.filter(Boolean).length + 
-      completion.problems.filter(Boolean).length;
-
-    return Math.round((completedItems / totalItems) * 100);
-  };
-
-  // Calculate overall progress
-  const calculateOverallProgress = () => {
-    const totalDays = mockRoadmapData.timeline.length;
-    const completedDays = mockRoadmapData.timeline.filter(
-      day => calculateDayCompletion(day.day) === 100
-    ).length;
-
-    return {
-      percentage: Math.round((completedDays / totalDays) * 100),
-      completedDays,
-      totalDays,
-    };
-  };
-
-  // Determine day status
-  const getDayStatus = (day: number): 'completed' | 'active' | 'upcoming' => {
-    const completion = calculateDayCompletion(day);
-    if (completion === 100) return 'completed';
-
-    // Find first incomplete day
-    const firstIncomplete = mockRoadmapData.timeline.find(
-      d => calculateDayCompletion(d.day) < 100
-    );
-    
-    if (firstIncomplete && firstIncomplete.day === day) return 'active';
-    return 'upcoming';
-  };
-
-  const overallProgress = calculateOverallProgress();
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Page Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-8"
-        >
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-gradient-to-br from-emerald-500/20 to-emerald-600/20 rounded-xl border border-emerald-500/30">
-                <Brain size={32} className="text-emerald-400" />
-              </div>
-              <div>
-                <h1 className="text-3xl font-bold bg-gradient-to-r from-emerald-400 to-emerald-600 bg-clip-text text-transparent">
-                  Curated Practice Sets
-                </h1>
-                <p className="text-zinc-400 mt-1 text-sm">
-                  Build a day-by-day roadmap from your goal, time, and weaknesses
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3 flex-wrap">
-              <Button variant="ghost" size="md" iconLeft={<BookmarkCheck size={16} />}>
-                Saved Plans
-              </Button>
-              <Button variant="secondary" size="md" iconLeft={<Play size={16} />}>
-                Resume Plan
-              </Button>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Two Column Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 xl:gap-8">
-          {/* LEFT PANEL - Plan Builder (40%) */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2 }}
-            className="lg:col-span-5 space-y-6"
-          >
-            {/* Section 1: Learning Goal */}
-            <Card className="bg-gradient-to-br from-zinc-900/90 to-zinc-800/90 border-zinc-700/50">
-              <div className="space-y-4">
-                <div className="flex items-center gap-2">
-                  <Target size={20} className="text-emerald-400" />
-                  <h2 className="text-lg font-semibold text-white">Set Your Learning Goal</h2>
-                </div>
-                
-                <Input
-                  placeholder="What do you want to achieve?"
-                  value={goal}
-                  onChange={(e) => setGoal(e.target.value)}
-                  className="bg-zinc-800/80 border-zinc-700/50 text-white placeholder:text-zinc-500"
-                />
-
-                <div>
-                  <div className="text-xs text-zinc-500 mb-2">Quick Examples</div>
-                  <div className="flex flex-wrap gap-2">
-                    {quickExamples.map((example, idx) => (
-                      <button
-                        key={idx}
-                        onClick={() => setGoal(example)}
-                        className="px-3 py-1.5 bg-zinc-800/60 hover:bg-emerald-500/20 border border-zinc-700/50 hover:border-emerald-500/50 rounded-lg text-xs text-zinc-400 hover:text-emerald-400 transition-all"
-                      >
-                        {example}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </Card>
-
-            {/* Section 2: Plan Details */}
-            <Card className="bg-gradient-to-br from-zinc-900/90 to-zinc-800/90 border-zinc-700/50">
-              <div className="space-y-4">
-                <div className="flex items-center gap-2">
-                  <GraduationCap size={20} className="text-purple-400" />
-                  <h2 className="text-lg font-semibold text-white">Plan Details</h2>
-                </div>
-
-                <div className="space-y-4">
-                  <div>
-                    <label className="text-sm font-medium text-zinc-300 mb-2 block">Select Topics</label>
-                    <input
-                      type="text"
-                      value={topics}
-                      onChange={(e) => setTopics(e.target.value)}
-                      className="w-full bg-zinc-800/80 border border-zinc-700/50 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all"
-                      placeholder="Arrays, Strings, Graphs..."
-                    />
-                  </div>
-
-                  <Select
-                    label="Difficulty Level"
-                    value={difficulty}
-                    onChange={setDifficulty}
-                    options={['Beginner', 'Intermediate', 'Advanced']}
-                  />
-
-                  <Select
-                    label="Target"
-                    value={target}
-                    onChange={setTarget}
-                    options={['Tech Interviews', 'Company Prep', 'Concept Mastery']}
-                  />
-
-                  <Select
-                    label="Duration"
-                    value={duration}
-                    onChange={setDuration}
-                    options={['7 days', '14 days', '30 days', '60 days']}
-                  />
-                </div>
-              </div>
-            </Card>
-
-            {/* Section 3: Time Preferences */}
-            <Card className="bg-gradient-to-br from-zinc-900/90 to-zinc-800/90 border-zinc-700/50">
-              <div className="space-y-4">
-                <div className="flex items-center gap-2">
-                  <Clock size={20} className="text-blue-400" />
-                  <h2 className="text-lg font-semibold text-white">Time Preferences</h2>
-                </div>
-
-                <div className="space-y-4">
-                  <Select
-                    label="Study Days"
-                    value={studyDays}
-                    onChange={setStudyDays}
-                    options={['Weekdays only', 'Weekends only', 'Daily']}
-                  />
-
-                  <Select
-                    label="Preferred Time"
-                    value={preferredTime}
-                    onChange={setPreferredTime}
-                    options={['Morning', 'Afternoon', 'Evening']}
-                  />
-
-                  <Toggle
-                    label="Include Revision Days"
-                    checked={includeRevision}
-                    onChange={setIncludeRevision}
-                  />
-                </div>
-              </div>
-            </Card>
-
-            {/* Generate Button */}
-            <Button
-              variant="primary"
-              size="lg"
-              className="w-full bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 border-0 shadow-lg shadow-emerald-500/30"
-              iconLeft={<Sparkles size={18} />}
-              onClick={handleGenerateRoadmap}
-            >
-              Generate AI Roadmap
-            </Button>
-          </motion.div>
-
-          {/* RIGHT PANEL - AI Generated Roadmap (60%) */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.3 }}
-            className="lg:col-span-7 space-y-6"
-          >
-            {roadmapGenerated ? (
-              <>
-                {/* Summary Metrics */}
-                <Card className="bg-gradient-to-br from-zinc-900/90 to-zinc-800/90 border-zinc-700/50">
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-2 mb-4">
-                      <Lightbulb size={20} className="text-emerald-400" />
-                      <h2 className="text-lg font-semibold text-white">AI Generated Roadmap</h2>
-                    </div>
-
-                    <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-                      <MetricCard
-                        icon={<Calendar size={18} />}
-                        value={mockRoadmapData.summary.duration}
-                        label="Duration"
-                      />
-                      <MetricCard
-                        icon={<BookOpen size={18} />}
-                        value={mockRoadmapData.summary.topics}
-                        label="Topics"
-                      />
-                      <MetricCard
-                        icon={<Target size={18} />}
-                        value={mockRoadmapData.summary.problems}
-                        label="Problems"
-                      />
-                      <MetricCard
-                        icon={<RotateCcw size={18} />}
-                        value={mockRoadmapData.summary.revisionDays}
-                        label="Revision Days"
-                      />
-                      <MetricCard
-                        icon={<GraduationCap size={18} />}
-                        value={mockRoadmapData.summary.mockTests}
-                        label="Mock Tests"
-                      />
-                    </div>
-                  </div>
-                </Card>
-
-                {/* Learning Speed Analytics */}
-                <LearningSpeedAnalytics analytics={mockAnalytics} />
-
-                {/* AI Insights */}
-                <Card className="bg-gradient-to-br from-purple-900/20 to-zinc-900/90 border-purple-500/30">
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-2">
-                      <Brain size={18} className="text-purple-400" />
-                      <h3 className="text-sm font-semibold text-purple-400">AI Insights</h3>
-                    </div>
-                    <ul className="space-y-2">
-                      {mockRoadmapData.insights.map((insight, idx) => (
-                        <li key={idx} className="flex items-start gap-2 text-sm text-zinc-300">
-                          <Sparkles size={14} className="text-purple-400 mt-0.5 flex-shrink-0" />
-                          <span>{insight}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </Card>
-
-                {/* Roadmap Timeline and Progress Tracker */}
-                <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-                  {/* Timeline */}
-                  <div className="xl:col-span-2">
-                    <Card className="bg-gradient-to-br from-zinc-900/90 to-zinc-800/90 border-zinc-700/50">
-                      <div className="space-y-4">
-                        <h3 className="text-lg font-semibold text-white flex items-center gap-2">
-                          <TrendingUp size={20} className="text-emerald-400" />
-                          Roadmap Timeline
-                        </h3>
-                        <div className="space-y-0">
-                          {mockRoadmapData.timeline.map((day) => (
-                            <TimelineCard 
-                              key={day.day} 
-                              {...day}
-                              isExpanded={expandedDays.has(day.day)}
-                              onToggleExpand={() => toggleDayExpansion(day.day)}
-                              completion={dayCompletions[day.day] || { tasks: [], problems: [] }}
-                              onTaskToggle={(idx) => toggleTaskCompletion(day.day, idx)}
-                              onProblemToggle={(idx) => toggleProblemCompletion(day.day, idx)}
-                              completionPercentage={calculateDayCompletion(day.day)}
-                              status={getDayStatus(day.day)}
-                            />
-                          ))}
-                        </div>
-                      </div>
-                    </Card>
-                  </div>
-
-                  {/* Progress Tracker */}
-                  <div className="xl:col-span-1">
-                    <div className="sticky top-6">
-                      <Card className="bg-gradient-to-br from-zinc-900/90 to-zinc-800/90 border-zinc-700/50">
-                        <div className="space-y-6">
-                          <div className="flex items-center justify-between">
-                            <h3 className="text-lg font-semibold text-white flex items-center gap-2">
-                              <TrendingUp size={20} className="text-blue-400" />
-                              Progress
-                            </h3>
-                            <LearningPaceBadge averageTimeMinutes={mockRoadmapData.progress.averageTimeMinutes} />
-                          </div>
-
-                        <div className="flex justify-center">
-                          <CircularProgress percentage={overallProgress.percentage} />
-                        </div>
-
-                        <div className="space-y-3">
-                          <motion.div
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 0.4 }}
-                            className="flex justify-between items-center p-3 bg-zinc-800/60 rounded-lg border border-zinc-700/50"
-                          >
-                            <span className="text-sm text-zinc-400">Completed Days</span>
-                            <span className="text-sm font-semibold text-emerald-400">
-                              {overallProgress.completedDays} / {overallProgress.totalDays}
-                            </span>
-                          </motion.div>
-
-                          <motion.div
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 0.5 }}
-                            className="flex justify-between items-center p-3 bg-zinc-800/60 rounded-lg border border-zinc-700/50"
-                          >
-                            <span className="text-sm text-zinc-400">Accuracy</span>
-                            <span className="text-sm font-semibold text-emerald-400">
-                              {mockRoadmapData.progress.accuracy}%
-                            </span>
-                          </motion.div>
-
-                          <motion.div
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 0.6 }}
-                            className="flex justify-between items-center p-3 bg-zinc-800/60 rounded-lg border border-zinc-700/50"
-                          >
-                            <span className="text-sm text-zinc-400">Average Time</span>
-                            <span className="text-sm font-semibold text-blue-400">
-                              {mockRoadmapData.progress.averageTimeMinutes} min
-                            </span>
-                          </motion.div>
-
-                          <motion.div
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 0.7 }}
-                            className="p-3 bg-gradient-to-br from-purple-900/30 to-zinc-800/60 rounded-lg border border-purple-500/30"
-                          >
-                            <div className="text-xs text-purple-400 mb-1">Next Checkpoint</div>
-                            <div className="text-sm font-semibold text-white">
-                              {mockRoadmapData.progress.nextCheckpoint}
-                            </div>
-                          </motion.div>
-                        </div>
-                        </div>
-                      </Card>
-                    </div>
-                  </div>
-                </div>
-              </>
-            ) : (
-              <Card className="bg-gradient-to-br from-zinc-900/90 to-zinc-800/90 border-zinc-700/50">
-                <div className="flex flex-col items-center justify-center py-20 text-center">
-                  <Brain size={64} className="text-zinc-700 mb-4" />
-                  <h3 className="text-xl font-semibold text-zinc-400 mb-2">
-                    No Roadmap Generated Yet
-                  </h3>
-                  <p className="text-sm text-zinc-500">
-                    Fill in your learning goals and preferences, then click "Generate AI Roadmap"
-                  </p>
-                </div>
-              </Card>
-            )}
-          </motion.div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default CuratedPracticePage;
