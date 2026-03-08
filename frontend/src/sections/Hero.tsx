@@ -135,16 +135,17 @@ function TypingTerminal() {
   }, [phase, charIdx, lineIdx, scenarioIdx]);
 
   const containerStyle: React.CSSProperties = {
-    background: '#f8f9fa',
-    border: '1px solid rgba(107, 114, 128, 0.15)',
+    background: '#0d1117',
+    border: '1px solid rgba(255,255,255,0.08)',
     borderRadius: '12px',
-    boxShadow: '0 32px 80px rgba(107, 114, 128, 0.08), 0 0 0 1px rgba(107, 114, 128, 0.08)',
+    boxShadow: '0 32px 80px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.06)',
     overflow: 'hidden',
   };
 
   const headerStyle: React.CSSProperties = {
-    background: '#f1f3f5',
-    borderBottom: '1px solid rgba(107, 114, 128, 0.12)',
+    background: '#161b22',
+    borderBottom: '1px solid rgba(255,255,255,0.08)',
+    cursor: 'default',
     padding: '12px 16px',
     display: 'flex',
     alignItems: 'center',
@@ -225,7 +226,7 @@ function TypingTerminal() {
           left: 0,
           right: 0,
           height: '60px',
-          background: 'linear-gradient(transparent, rgba(248, 249, 250, 0.95))',
+          background: 'linear-gradient(transparent, rgba(13, 17, 23, 0.97))',
           pointerEvents: 'none',
         }} />
       </div>
@@ -259,7 +260,7 @@ const Hero = () => {
   const wrapperStyle: React.CSSProperties = {
     position: 'relative',
     minHeight: '100vh',
-    background: '#ffffff',
+    background: 'linear-gradient(160deg, #ffffff 0%, #f0f2f5 60%, #e8ecf0 100%)',
   };
 
   const gridStyle: React.CSSProperties = {
@@ -274,8 +275,8 @@ const Hero = () => {
     display: 'inline-flex',
     alignItems: 'center',
     gap: '8px',
-    border: '1px solid rgba(255,255,255,0.06)',
-    background: 'rgba(255,255,255,0.03)',
+    border: '1px solid rgba(0,0,0,0.1)',
+    background: 'rgba(0,0,0,0.04)',
     borderRadius: '999px',
     padding: '6px 14px',
     marginBottom: '28px',
@@ -295,8 +296,8 @@ const Hero = () => {
     display: 'inline-flex',
     alignItems: 'center',
     gap: '8px',
-    background: 'rgba(255,255,255,0.92)',
-    color: '#0a0a0a',
+    background: '#2d3748',
+    color: '#ffffff',
     fontFamily: 'DM Sans, sans-serif',
     fontWeight: 600,
     fontSize: '15px',
@@ -306,7 +307,7 @@ const Hero = () => {
     cursor: 'pointer',
     textDecoration: 'none',
     letterSpacing: '-0.01em',
-    boxShadow: '0 2px 12px rgba(0,0,0,0.35)',
+    boxShadow: '0 2px 12px rgba(0,0,0,0.18)',
     transition: 'box-shadow 0.22s, background 0.2s',
   };
 
@@ -321,7 +322,7 @@ const Hero = () => {
     fontSize: '15px',
     padding: '13px 20px',
     borderRadius: '10px',
-    border: '1px solid rgba(255,255,255,0.10)',
+    border: '1px solid rgba(0,0,0,0.15)',
     cursor: 'pointer',
     letterSpacing: '-0.01em',
     transition: 'background 0.2s, border-color 0.2s',
@@ -347,7 +348,7 @@ const Hero = () => {
             {/* Status badge */}
             <motion.div variants={HERO_ITEM}>
               <div style={statusBadgeStyle}>
-                <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'rgba(255,255,255,0.38)', animation: 'shimmer 3.5s ease-in-out infinite', display: 'inline-block', flexShrink: 0 }} />
+                <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#22c55e', animation: 'shimmer 3.5s ease-in-out infinite', display: 'inline-block', flexShrink: 0 }} />
                 <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: '#718096', letterSpacing: '0.04em' }}>
                   AI-Powered · Real-Time · Fair Assessment
                 </span>
@@ -362,7 +363,7 @@ const Hero = () => {
                 <span style={{ display: 'block' }}>
                   Meets{' '}
                   <span style={{
-                    background: 'linear-gradient(175deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.70) 100%)',
+                    background: 'linear-gradient(175deg, #1a202c 0%, #4a5568 100%)',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
                     backgroundClip: 'text',
@@ -402,13 +403,13 @@ const Hero = () => {
                     style={primaryBtnStyle}
                     onMouseEnter={e => {
                       const el = e.currentTarget as HTMLElement;
-                      el.style.background = 'rgba(255,255,255,1)';
-                      el.style.boxShadow = '0 8px 28px rgba(0,0,0,0.45)';
+                      el.style.background = '#1a202c';
+                      el.style.boxShadow = '0 8px 24px rgba(0,0,0,0.25)';
                     }}
                     onMouseLeave={e => {
                       const el = e.currentTarget as HTMLElement;
-                      el.style.background = 'rgba(255,255,255,0.92)';
-                      el.style.boxShadow = '0 2px 12px rgba(0,0,0,0.35)';
+                      el.style.background = '#2d3748';
+                      el.style.boxShadow = '0 2px 12px rgba(0,0,0,0.18)';
                     }}
                   >
                     Continue with Google &rarr;
@@ -420,12 +421,12 @@ const Hero = () => {
                   whileTap={{ y: 0 }}
                   transition={LIFT_FAST}
                   onMouseEnter={e => {
-                    e.currentTarget.style.background = 'rgba(255,255,255,0.04)';
-                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.18)';
+                    e.currentTarget.style.background = 'rgba(0,0,0,0.05)';
+                    e.currentTarget.style.borderColor = 'rgba(0,0,0,0.22)';
                   }}
                   onMouseLeave={e => {
                     e.currentTarget.style.background = 'transparent';
-                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.10)';
+                    e.currentTarget.style.borderColor = 'rgba(0,0,0,0.15)';
                   }}
                 >
                   Watch Demo &rarr;
@@ -435,22 +436,22 @@ const Hero = () => {
 
             {/* Stats */}
             <motion.div variants={HERO_ITEM}>
-              <div style={{ display: 'flex', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '28px' }} className="hp-stats">
+              <div style={{ display: 'flex', borderTop: '1px solid rgba(0,0,0,0.1)', paddingTop: '28px' }} className="hp-stats">
                 {STATS.map((stat, i) => (
                   <div
                     key={i}
                     style={{
                       flex: 1,
                       padding: '0 18px',
-                      borderRight: i < STATS.length - 1 ? '1px solid rgba(255,255,255,0.05)' : 'none',
+                      borderRight: i < STATS.length - 1 ? '1px solid rgba(0,0,0,0.08)' : 'none',
                       cursor: 'default',
                     }}
                     onMouseEnter={() => setHoveredStat(i)}
                     onMouseLeave={() => setHoveredStat(null)}
                   >
                     <div style={{ fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: '26px', letterSpacing: '-0.02em', color: hoveredStat === i ? '#2d3748' : '#718096', transition: 'color 0.3s ease' }}>{stat.value}</div>
-                    <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', color: '#cbd5e0', letterSpacing: '0.1em', textTransform: 'uppercase', margin: '3px 0 4px' }}>{stat.label}</div>
-                    <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: '#e2e8f0' }}>{stat.sub}</div>
+                    <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', color: '#a0aec0', letterSpacing: '0.1em', textTransform: 'uppercase', margin: '3px 0 4px' }}>{stat.label}</div>
+                    <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: '#718096' }}>{stat.sub}</div>
                   </div>
                 ))}
               </div>
@@ -465,8 +466,8 @@ const Hero = () => {
             whileHover={{ y: -2, transition: { duration: 0.3, ease: 'easeOut' } }}
           >
             <TypingTerminal />
-            <div style={{ marginTop: '12px', fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: '#e2e8f0' }}>
-              <span style={{ color: 'rgba(255,255,255,0.50)' }}>&#x25CF;</span> Live preview &middot; cycling through all 3 modes
+            <div style={{ marginTop: '12px', fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: '#718096' }}>
+              <span style={{ color: '#22c55e' }}>&#x25CF;</span> Live preview &middot; cycling through all 3 modes
             </div>
           </motion.div>
         </div>
@@ -478,8 +479,8 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0, x: '-50%' }}
           transition={{ duration: 0.65, delay: 1.1, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
         >
-          <div style={{ width: '1px', height: '28px', background: 'linear-gradient(to bottom, rgba(255,255,255,0.28), transparent)', borderRadius: '2px' }} />
-          <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', color: 'rgba(255,255,255,0.18)', letterSpacing: '0.15em' }}>SCROLL</span>
+          <div style={{ width: '1px', height: '28px', background: 'linear-gradient(to bottom, rgba(0,0,0,0.25), transparent)', borderRadius: '2px' }} />
+          <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', color: 'rgba(0,0,0,0.35)', letterSpacing: '0.15em' }}>SCROLL</span>
         </motion.div>
       </div>
 

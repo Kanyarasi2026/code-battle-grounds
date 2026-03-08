@@ -15,7 +15,8 @@ import PairProgramming from './pages/features/PairProgramming';
 import PracticeSets from './pages/features/PracticeSets';
 import ProgressTracking from './pages/features/ProgressTracking';
 import SessionReplay from './pages/features/SessionReplay';
-import SoloPractice from './pages/features/SoloPractice';
+import AlgorithmChallenges from './pages/challenges/AlgorithmChallenges';
+import ChallengeSolve from './pages/challenges/ChallengeSolve';
 import Home from './pages/home/Home';
 import LandingPage from './pages/landing/LandingPage';
 import Login from './pages/login/Login';
@@ -68,7 +69,8 @@ function App() {
                 <Route path="/features" element={<ProtectedRoute><FeaturesSelection /></ProtectedRoute>} />
                 
                 {/* Feature Pages */}
-                <Route path="/practice" element={<ProtectedRoute><SoloPractice /></ProtectedRoute>} />
+                <Route path="/practice" element={<ProtectedRoute><AlgorithmChallenges /></ProtectedRoute>} />
+                <Route path="/practice/:slug" element={<ProtectedRoute><ChallengeSolve /></ProtectedRoute>} />
                 <Route path="/pair" element={<ProtectedRoute><PairProgramming /></ProtectedRoute>} />
                 <Route path="/assess" element={<ProtectedRoute><AssessmentMode /></ProtectedRoute>} />
                 <Route path="/replay" element={<ProtectedRoute><SessionReplay /></ProtectedRoute>} />

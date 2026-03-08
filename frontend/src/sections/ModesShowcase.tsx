@@ -8,10 +8,10 @@ const MODES = [
   {
     id: 'solo',
     icon: '◈',
-    accent: 'rgba(255,255,255,0.88)',
-    accentRgb: '255,255,255',
-    accentBg: 'rgba(255,255,255,0.04)',
-    accentBorder: 'rgba(255,255,255,0.10)',
+    accent: '#4b5563',
+    accentRgb: '75,85,99',
+    accentBg: 'rgba(0,0,0,0.03)',
+    accentBorder: 'rgba(0,0,0,0.10)',
     title: 'Solo Practice',
     badge: 'STUDENT',
     desc: "Solve DSA problems at your own pace. The AI detects when you're stuck before you even ask — and delivers hints in tiers so you learn, not copy.",
@@ -23,10 +23,10 @@ const MODES = [
   {
     id: 'pair',
     icon: '⟡',
-    accent: 'rgba(255,255,255,0.60)',
-    accentRgb: '255,255,255',
-    accentBg: 'rgba(255,255,255,0.025)',
-    accentBorder: 'rgba(255,255,255,0.08)',
+    accent: '#6b7280',
+    accentRgb: '107,114,128',
+    accentBg: 'rgba(0,0,0,0.02)',
+    accentBorder: 'rgba(0,0,0,0.08)',
     title: 'Pair Programming',
     badge: 'COLLABORATIVE',
     desc: 'Two engineers, one editor. Real-time presence, contribution tracking, and an AI moderator that compares your approaches and suggests how to merge them.',
@@ -39,10 +39,10 @@ const MODES = [
   {
     id: 'assess',
     icon: '▣',
-    accent: 'rgba(255,255,255,0.72)',
-    accentRgb: '255,255,255',
-    accentBg: 'rgba(255,255,255,0.03)',
-    accentBorder: 'rgba(255,255,255,0.09)',
+    accent: '#374151',
+    accentRgb: '55,65,81',
+    accentBg: 'rgba(0,0,0,0.025)',
+    accentBorder: 'rgba(0,0,0,0.09)',
     title: 'Assessment Mode',
     badge: 'FACULTY',
     desc: 'Faculty create timed, structured assessments. Students code under fair constraints. Every session is transparent — not proctored, but reviewable.',
@@ -61,8 +61,8 @@ const ModesShowcase = () => {
 
   const sectionStyle: React.CSSProperties = {
     padding: '100px 32px',
-    background: 'rgba(255,255,255,0.010)',
-    borderTop: '1px solid rgba(255,255,255,0.042)',
+    background: 'linear-gradient(180deg, #f8f9fa 0%, #f0f2f5 100%)',
+    borderTop: '1px solid rgba(107, 114, 128, 0.12)',
   };
 
   const innerStyle: React.CSSProperties = { maxWidth: '1200px', margin: '0 auto' };
@@ -107,9 +107,9 @@ const ModesShowcase = () => {
                   gap: '8px',
                   padding: '9px 18px',
                   borderRadius: '10px',
-                  border: isActive ? '1px solid rgba(255,255,255,0.16)' : '1px solid rgba(255,255,255,0.07)',
+                  border: isActive ? '1px solid rgba(0,0,0,0.18)' : '1px solid rgba(0,0,0,0.08)',
                   background: 'transparent',
-                  color: isActive ? mode.accent : 'rgba(255,255,255,0.36)',
+                  color: isActive ? mode.accent : '#718096',
                   fontFamily: 'DM Sans, sans-serif',
                   fontWeight: 600,
                   fontSize: '14px',
@@ -122,13 +122,13 @@ const ModesShowcase = () => {
                 onMouseEnter={e => {
                   const el = e.currentTarget;
                   if (!isActive) {
-                    el.style.borderColor = 'rgba(255,255,255,0.12)';
-                    el.style.background = 'rgba(255,255,255,0.025)';
+                    el.style.borderColor = 'rgba(0,0,0,0.14)';
+                    el.style.background = 'rgba(0,0,0,0.03)';
                   }
                 }}
                 onMouseLeave={e => {
                   const el = e.currentTarget;
-                  el.style.borderColor = isActive ? 'rgba(255,255,255,0.16)' : 'rgba(255,255,255,0.07)';
+                  el.style.borderColor = isActive ? 'rgba(0,0,0,0.18)' : 'rgba(0,0,0,0.08)';
                   el.style.background = 'transparent';
                 }}
               >
@@ -139,7 +139,7 @@ const ModesShowcase = () => {
                     style={{
                       position: 'absolute',
                       inset: 0,
-                      background: 'rgba(255,255,255,0.05)',
+                      background: 'rgba(0,0,0,0.04)',
                       borderRadius: '9px',
                     }}
                     transition={TAB_SPRING}
@@ -155,7 +155,7 @@ const ModesShowcase = () => {
                       left: '14px',
                       right: '14px',
                       height: '1px',
-                      background: 'rgba(255,255,255,0.52)',
+                      background: 'rgba(0,0,0,0.2)',
                       borderRadius: '1px',
                     }}
                     initial={{ opacity: 0, scaleX: 0.4 }}
@@ -174,8 +174,8 @@ const ModesShowcase = () => {
                   letterSpacing: '0.12em',
                   padding: '2px 7px',
                   borderRadius: '10px',
-                  background: isActive ? 'rgba(255,255,255,0.07)' : 'rgba(255,255,255,0.03)',
-                  color: isActive ? mode.accent : 'rgba(255,255,255,0.20)',
+                  background: isActive ? 'rgba(0,0,0,0.06)' : 'rgba(0,0,0,0.03)',
+                  color: isActive ? mode.accent : '#9ca3af',
                   transition: 'background 0.22s, color 0.22s',
                 }}>
                   {mode.badge}
@@ -220,14 +220,14 @@ const ModesShowcase = () => {
           </div>
 
           {/* Right - Code preview */}
-          <div style={{ background: '#f8f9fa', border: '1px solid rgba(107, 114, 128, 0.15)', borderRadius: '12px', overflow: 'hidden', position: 'relative' }} className="hp-code-preview">
-            <div style={{ background: '#f1f3f5', borderBottom: '1px solid rgba(107, 114, 128, 0.12)', padding: '10px 16px', display: 'flex', justifyContent: 'flex-end' }}>
-              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: '#e2e8f0' }}>PREVIEW</span>
+          <div style={{ background: '#0d1117', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', overflow: 'hidden', position: 'relative' }} className="hp-code-preview">
+            <div style={{ background: '#161b22', borderBottom: '1px solid rgba(255,255,255,0.08)', padding: '10px 16px', display: 'flex', justifyContent: 'flex-end' }}>
+              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: 'rgba(255,255,255,0.4)' }}>PREVIEW</span>
             </div>
-            <pre style={{ padding: '24px', fontFamily: 'JetBrains Mono, monospace', fontSize: '13px', lineHeight: 1.8, color: '#718096', whiteSpace: 'pre-wrap', margin: 0 }}>
+            <pre style={{ padding: '24px', fontFamily: 'JetBrains Mono, monospace', fontSize: '13px', lineHeight: 1.8, color: '#a0aec0', whiteSpace: 'pre-wrap', margin: 0 }}>
               {active.codeSnippet}
             </pre>
-            <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '40px', background: 'linear-gradient(transparent, #f8f9fa)', pointerEvents: 'none' }} />
+            <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '40px', background: 'linear-gradient(transparent, #0d1117)', pointerEvents: 'none' }} />
           </div>
         </motion.div>
         </AnimatePresence>
