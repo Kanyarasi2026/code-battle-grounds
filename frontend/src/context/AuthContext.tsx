@@ -45,13 +45,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const requestRole = (role: UserRole) => {
+    console.log('[AuthContext] requestRole called with:', role);
     setRoleData({ requested: role, verified: null });
     // Optionally persist to user metadata
     if (user) {
       supabase.auth.updateUser({
         data: { role }
+      }).then(() => {
+        console.log('[AuthContext] Role successfully updated in metadata:', role);
       }).catch(err => {
-        console.error('Failed to update role in metadata:', err);
+        console.error('[AuthContext] Failed to update role in metadata:', err);
       });
     }
   };

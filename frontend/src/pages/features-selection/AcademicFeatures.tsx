@@ -36,7 +36,7 @@ const academicFeatures: AcademicFeature[] = [
 
 const AcademicFeatures = () => {
   const navigate = useNavigate();
-  const { roleData } = useAuth();
+  const { roleData, loading } = useAuth();
   const [selectedFeature, setSelectedFeature] = useState<string | null>(null);
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
   const headerRef = useRef<HTMLDivElement>(null);
@@ -44,8 +44,16 @@ const AcademicFeatures = () => {
 
   // Redirect to role selection if user hasn't chosen faculty/student role
   useEffect(() => {
+    if (loading) {
+      console.log('[AcademicFeatures] Auth still loading...');
+      return;
+    }
+
     const hasAcademicRole = roleData.requested === 'faculty' || roleData.requested === 'student';
+    console.log('[AcademicFeatures] Role data:', roleData, 'hasAcademicRole:', hasAcademicRole);
+    
     if (!hasAcademicRole) {
+      console.log('[AcademicFeatures] No academic role, redirecting to role selection...');
       // Redirect to role selection with academicOnly mode
       navigate('/role', { 
         state: { 
@@ -55,7 +63,7 @@ const AcademicFeatures = () => {
         replace: true 
       });
     }
-  }, [roleData, navigate]);
+  }, [roleData, loading, navigate]);
 
   useEffect(() => {
     // GSAP animations on mount
