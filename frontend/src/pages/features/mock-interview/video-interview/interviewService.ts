@@ -71,7 +71,7 @@ async function geminiRequest(prompt: string): Promise<string> {
 		body: JSON.stringify({
 			model: GEMINI_MODEL,
 			messages: [{ role: 'user', content: prompt }],
-			temperature: 0.7,
+			temperature: 1.1,
 			max_tokens: 2048,
 		}),
 	});
@@ -90,11 +90,14 @@ async function geminiRequest(prompt: string): Promise<string> {
 export async function generateQuestions(
 	config: InterviewConfig,
 ): Promise<string[]> {
-	const prompt = `You are an expert interviewer. Generate exactly 5 interview questions for:
+	const seed = Math.random().toString(36).slice(2, 8);
+	const prompt = `You are an expert interviewer. Generate exactly 5 UNIQUE and VARIED simple interview questions for:
 Role: ${config.role}
 Experience: ${config.experienceLevel}
 Type: ${config.interviewType}
+Session: ${seed}
 
+IMPORTANT: Each session must produce completely different questions — avoid common or repeated questions.
 Return ONLY a valid JSON array of strings. No markdown, no explanation.
 Example: ["Question 1?", "Question 2?", ...]`;
 
