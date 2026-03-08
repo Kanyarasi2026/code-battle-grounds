@@ -2,6 +2,7 @@ import { Component, type ReactNode } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { Navigate, Route, BrowserRouter as Router, Routes, useLocation } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute';
+import RoleProtectedRoute from './components/RoleProtectedRoute';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { RoomProvider, useRoom } from './context/RoomContext';
 import AlreadyInRoom from './pages/404/AlreadyInRoom';
@@ -10,6 +11,8 @@ import FeaturesSelection from './pages/features-selection/FeaturesSelection';
 import AcademicFeatures from './pages/features-selection/AcademicFeatures';
 import ProfessionalFeatures from './pages/features-selection/ProfessionalFeatures';
 import AssessmentMode from './pages/features/AssessmentMode';
+import FacultyAssessmentPage from './pages/assessment/FacultyAssessmentPage';
+import StudentAssessmentPage from './pages/assessment/StudentAssessmentPage';
 import ClassAnalytics from './pages/features/ClassAnalytics';
 import IntegrityTimeline from './pages/features/IntegrityTimeline';
 import MockInterview from './pages/features/MockInterview';
@@ -19,6 +22,7 @@ import ProgressTracking from './pages/features/ProgressTracking';
 import SessionReplay from './pages/features/SessionReplay';
 import AlgorithmChallenges from './pages/challenges/AlgorithmChallenges';
 import ChallengeSolve from './pages/challenges/ChallengeSolve';
+import CuratedPracticePage from './pages/curated-practice/CuratedPracticePage';
 import Home from './pages/home/Home';
 import LandingPage from './pages/landing/LandingPage';
 import Login from './pages/login/Login';
@@ -75,8 +79,28 @@ function App() {
                 {/* Feature Pages */}
                 <Route path="/practice" element={<ProtectedRoute><AlgorithmChallenges /></ProtectedRoute>} />
                 <Route path="/practice/:slug" element={<ProtectedRoute><ChallengeSolve /></ProtectedRoute>} />
+                <Route path="/curated-practice" element={<ProtectedRoute><CuratedPracticePage /></ProtectedRoute>} />
                 <Route path="/pair" element={<ProtectedRoute><PairProgramming /></ProtectedRoute>} />
                 <Route path="/assess" element={<ProtectedRoute><AssessmentMode /></ProtectedRoute>} />
+                
+                {/* Assessment Routes - Role Protected */}
+                <Route 
+                  path="/assessment/faculty" 
+                  element={
+                    <RoleProtectedRoute allowedRoles={['faculty']}>
+                      <FacultyAssessmentPage />
+                    </RoleProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/assessment/student" 
+                  element={
+                    <RoleProtectedRoute allowedRoles={['student']}>
+                      <StudentAssessmentPage />
+                    </RoleProtectedRoute>
+                  } 
+                />
+                
                 <Route path="/replay" element={<ProtectedRoute><SessionReplay /></ProtectedRoute>} />
                 <Route path="/analytics" element={<ProtectedRoute><ClassAnalytics /></ProtectedRoute>} />
                 <Route path="/integrity" element={<ProtectedRoute><IntegrityTimeline /></ProtectedRoute>} />

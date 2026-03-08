@@ -1,7 +1,25 @@
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ClipboardCheck } from 'lucide-react';
+import { useAuth } from '../../context/AuthContext';
 import FeatureComingSoon from './FeatureComingSoon';
 
 const AssessmentMode = () => {
+  const navigate = useNavigate();
+  const { roleData, loading } = useAuth();
+
+  useEffect(() => {
+    // If user has a role, redirect to appropriate assessment page
+    if (!loading && roleData.requested) {
+      if (roleData.requested === 'faculty') {
+        navigate('/assessment/faculty', { replace: true });
+      } else if (roleData.requested === 'student') {
+        navigate('/assessment/student', { replace: true });
+      }
+    }
+  }, [roleData, loading, navigate]);
+
+  // Show coming soon page while redirecting or if no role selected
   return (
     <FeatureComingSoon
       icon={ClipboardCheck}
