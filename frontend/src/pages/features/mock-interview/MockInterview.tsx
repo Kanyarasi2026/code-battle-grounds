@@ -5,21 +5,20 @@ import {
 	BarChart3,
 	Brain,
 	Building2,
-	CheckCircle2,
+	// CheckCircle2,
 	ChevronRight,
 	Clock,
 	Code2,
 	Lightbulb,
 	MessageSquare,
-	Mic,
 	Play,
-	Shield,
 	Sparkles,
-	Target,
 	Timer,
-	TrendingUp,
 	Video,
-	Zap,
+	// Shield,
+	// Target,
+	// TrendingUp,
+	// Zap,
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import './MockInterview.scss';
@@ -145,117 +144,7 @@ const MODES = [
 	},
 ];
 
-const FLOW_STEPS = [
-	{
-		num: '01',
-		title: 'Select Format',
-		desc: 'Pick interview type, company target, or topic focus.',
-	},
-	{
-		num: '02',
-		title: 'Enter the Arena',
-		desc: 'Timed session starts. No hints unless you ask the AI.',
-	},
-	{
-		num: '03',
-		title: 'Solve Under Pressure',
-		desc: 'Code, respond verbally, or structure your answer.',
-	},
-	{
-		num: '04',
-		title: 'AI Feedback',
-		desc: 'Instant multi-dimensional analysis of your response.',
-	},
-	{
-		num: '05',
-		title: 'Review & Iterate',
-		desc: 'Weakness detection, gap analysis, re-attempt paths.',
-	},
-];
-
-const TOPICS = [
-	{ icon: '⚡', name: 'DSA', count: '200+ problems' },
-	{ icon: '🏗️', name: 'System Design', count: '40 scenarios' },
-	{ icon: '💬', name: 'Behavioral', count: '90+ questions' },
-	{ icon: '🐛', name: 'Debugging', count: '50 sessions' },
-	{ icon: '🔧', name: 'OOP / Core CS', count: '60 topics' },
-	{ icon: '📄', name: 'Resume-Based', count: 'Dynamic' },
-	{ icon: '🔁', name: 'Follow-Up Rounds', count: 'Adaptive' },
-	{ icon: '🎙️', name: 'Communication', count: 'Under Pressure' },
-	{ icon: '🧮', name: 'Math / Logic', count: '35 problems' },
-	{ icon: '🌐', name: 'Networking', count: '25 topics' },
-	{ icon: '🔐', name: 'Security Concepts', count: '20 topics' },
-	{ icon: '🧵', name: 'Concurrency', count: '30 problems' },
-];
-
-const STATS = [
-	{
-		color: 'cyan',
-		iconColor: 'rgba(34,211,238,0.12)',
-		iconTextColor: 'var(--mi-cyan)',
-		icon: CheckCircle2,
-		label: 'Sessions Completed',
-		value: '1,284',
-		sub: 'Across all interview formats',
-		trend: 'up',
-		trendLabel: '+18% this week',
-	},
-	{
-		color: 'green',
-		iconColor: 'rgba(16,185,129,0.12)',
-		iconTextColor: 'var(--mi-green)',
-		icon: TrendingUp,
-		label: 'Accuracy Trend',
-		value: '76.4%',
-		sub: 'Avg. correct response rate',
-		trend: 'up',
-		trendLabel: '+4.2% from baseline',
-	},
-	{
-		color: 'blue',
-		iconColor: 'rgba(59,130,246,0.12)',
-		iconTextColor: 'var(--mi-blue)',
-		icon: Clock,
-		label: 'Avg. Response Time',
-		value: '24 min',
-		sub: 'Time-to-solution, medium problems',
-		trend: 'down',
-		trendLabel: '-6 min improvement',
-	},
-	{
-		color: 'amber',
-		iconColor: 'rgba(245,158,11,0.12)',
-		iconTextColor: 'var(--mi-amber)',
-		icon: Zap,
-		label: 'Strongest Area',
-		value: 'Graphs',
-		sub: 'Consistent high-accuracy category',
-		trend: 'neutral',
-		trendLabel: 'Stable performance',
-	},
-	{
-		color: 'red',
-		iconColor: 'rgba(244,63,94,0.12)',
-		iconTextColor: 'var(--mi-red)',
-		icon: Target,
-		label: 'Needs Improvement',
-		value: 'DP',
-		sub: 'Dynamic programming edge cases',
-		trend: 'neutral',
-		trendLabel: 'Practice recommended',
-	},
-	{
-		color: 'violet',
-		iconColor: 'rgba(139,92,246,0.12)',
-		iconTextColor: 'var(--mi-violet)',
-		icon: Shield,
-		label: 'Interview Readiness',
-		value: '83 / 100',
-		sub: 'AI composite readiness score',
-		trend: 'up',
-		trendLabel: '+7 pts since last week',
-	},
-];
+// Removed unused constants and icon import (Mic) to satisfy lint/typecheck until these sections are implemented
 
 // ── Component ───────────────────────────────────────────────────────────────
 const MockInterview = () => {

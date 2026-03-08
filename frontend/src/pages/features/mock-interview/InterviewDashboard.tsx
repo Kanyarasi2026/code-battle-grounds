@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Brain, ChevronDown, ChevronUp, Download, RotateCcw, Trash2 } from 'lucide-react';
 import {
@@ -27,13 +27,7 @@ function formatDate(iso: string): string {
 function SessionCard({ session, onDelete }: { session: InterviewSession; onDelete: () => void }) {
   const [expanded, setExpanded] = useState(false);
 
-  const qaMap: Array<{ question: string; answer: string }> = session.questions.map((q) => {
-    const answer = session.transcript.find(
-      (t) => t.role === 'candidate' && session.transcript.findIndex((x) => x.text === q && x.role === 'interviewer') !== -1
-    );
-    // Build QA pairs from transcript order
-    return { question: q, answer: '' };
-  });
+  // build QA pairs below by scanning transcript; `qaMap` not needed
 
   // Build Q&A pairs by pairing consecutive interviewer/candidate transcript entries
   const pairs: Array<{ question: string; answer: string }> = [];
@@ -238,11 +232,7 @@ function SessionCard({ session, onDelete }: { session: InterviewSession; onDelet
 
 export default function InterviewDashboard() {
   const navigate = useNavigate();
-  const [sessions, setSessions] = useState<InterviewSession[]>([]);
-
-  useEffect(() => {
-    setSessions(loadInterviewSessions());
-  }, []);
+  const [sessions, setSessions] = useState<InterviewSession[]>(() => loadInterviewSessions());
 
   const deleteSession = (id: string) => {
     const updated = sessions.filter((s) => s.id !== id);

@@ -8,16 +8,15 @@ import {
 	useLocation,
 } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute';
-import RoleProtectedRoute from './components/RoleProtectedRoute';
+// RoleProtectedRoute not used here — import removed to satisfy linter
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { RoomProvider, useRoom } from './context/RoomContext';
 import AlreadyInRoom from './pages/404/AlreadyInRoom';
-import FacultyAssessmentPage from './pages/assessment/FacultyAssessmentPage';
-import StudentAssessmentPage from './pages/assessment/StudentAssessmentPage';
+// Faculty/Student assessment pages are imported where needed; removed unused imports
 import AlgorithmChallenges from './pages/challenges/AlgorithmChallenges';
 import ChallengeSolve from './pages/challenges/ChallengeSolve';
 import EditorPage from './pages/code-editor/EditorPage';
-import CuratedPracticePage from './pages/curated-practice/CuratedPracticePage';
+// CuratedPracticePage import removed (unused in this file)
 import AcademicFeatures from './pages/features-selection/AcademicFeatures';
 import FeaturesSelection from './pages/features-selection/FeaturesSelection';
 import ProfessionalFeatures from './pages/features-selection/ProfessionalFeatures';

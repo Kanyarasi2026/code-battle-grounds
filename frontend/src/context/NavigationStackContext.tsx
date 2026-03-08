@@ -1,7 +1,8 @@
+/* eslint-disable react-refresh/only-export-components */
 import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-type NavEntry = { pathname: string; search: string; state?: any };
+type NavEntry = { pathname: string; search: string; state?: unknown };
 
 type NavStackContextValue = {
   stack: NavEntry[];
@@ -21,7 +22,7 @@ export function NavigationStackProvider({ children }: { children: React.ReactNod
   useEffect(() => {
     // push current location when it changes, avoid consecutive duplicates
     const last = stack[stack.length - 1];
-    const entry = { pathname: location.pathname, search: location.search, state: (location as any).state };
+    const entry = { pathname: location.pathname, search: location.search, state: (location as unknown as { state?: unknown }).state };
     if (!last || last.pathname !== entry.pathname || last.search !== entry.search) {
       setStack((s) => [...s, entry]);
     }
