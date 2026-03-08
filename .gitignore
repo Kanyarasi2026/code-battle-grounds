@@ -57,3 +57,10 @@ out/
 .dynamodb/
 .tern-port
 .vscode-test
+
+
+# agents and skills
+.agent/
+.skill/
+.claude/
+.agents/
