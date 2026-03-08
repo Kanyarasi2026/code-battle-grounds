@@ -108,7 +108,7 @@ function RootRedirect() {
 
 function NavigationGuard({ children }: { children: ReactNode }) {
 	const location = useLocation();
-	const { user, loading: authLoading } = useAuth();
+	const { user, loading: authLoading, roleData } = useAuth();
 	const { isInRoom, activeRoomId } = useRoom();
 	const path = location.pathname;
 	const isOnActiveRoom = path === `/editor/${activeRoomId}`;
@@ -117,8 +117,13 @@ function NavigationGuard({ children }: { children: ReactNode }) {
 	if (authLoading) return <>{children}</>;
 	if (user && isInRoom && activeRoomId && !isOnActiveRoom && !isOnAlreadyInRoom)
 		return <Navigate to="/already-in-room" replace />;
-	if (user && isPublicOnlyPath)
+	if (user && isPublicOnlyPath) {
+		// If the user already has a faculty/instructor role, go straight to academic features
+		if (roleData.requested === 'faculty') {
+			return <Navigate to="/features/academic" replace />;
+		}
 		return <Navigate to="/role" replace />;
+	}
 	return <>{children}</>;
 }
 
