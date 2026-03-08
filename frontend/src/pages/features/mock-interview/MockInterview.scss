@@ -1,13 +1,17 @@
 // ── MockInterview – Clean Dark Theme ──────────────────────────────────────────
 
 .mi-page {
-  min-height: 100vh;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   background: #0a0a0b;
   color: #f4f4f5;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
   &__header {
-    padding: 16px 32px;
+    flex-shrink: 0;
+    padding: 14px 28px;
     border-bottom: 1px solid #1e1e22;
   }
 
@@ -33,9 +37,11 @@
   }
 
   &__hero {
+    flex-shrink: 0;
     max-width: 680px;
+    width: 100%;
     margin: 0 auto;
-    padding: 80px 24px 48px;
+    padding: 36px 24px 24px;
     text-align: center;
   }
 
@@ -52,7 +58,7 @@
     border: 1px solid rgba(34, 197, 94, 0.2);
     border-radius: 20px;
     padding: 6px 16px;
-    margin-bottom: 20px;
+    margin-bottom: 14px;
     position: relative;
     overflow: hidden;
 
@@ -82,19 +88,19 @@
   }
 
   &__title {
-    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-size: clamp(1.5rem, 3.5vw, 2.1rem);
     font-weight: 700;
     letter-spacing: -0.02em;
     color: #fafafa;
-    margin: 0 0 14px;
+    margin: 0 0 10px;
   }
 
   &__subtitle {
-    font-size: 15px;
+    font-size: 14px;
     color: #71717a;
-    line-height: 1.65;
-    margin: 0 0 36px;
-    max-width: 520px;
+    line-height: 1.6;
+    margin: 0 0 24px;
+    max-width: 480px;
     margin-left: auto;
     margin-right: auto;
   }
@@ -148,19 +154,26 @@
 
   // Info section
   &__info {
+    flex: 1;
     max-width: 900px;
+    width: 100%;
     margin: 0 auto;
-    padding: 0 24px 80px;
+    padding: 0 24px 24px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    align-content: start;
+
+    @media (max-width: 680px) {
+      grid-template-columns: 1fr;
+    }
   }
 
   &__card {
     background: #111113;
     border: 1px solid #1e1e22;
     border-radius: 10px;
-    padding: 24px;
+    padding: 18px 20px;
     transition: border-color 0.2s ease;
 
     &:hover {

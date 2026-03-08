@@ -17,12 +17,16 @@
 		background: var(--bg-primary);
 		border: 1px solid var(--border);
 		border-radius: var(--radius-md);
-		transition: border-color var(--transition-fast);
+		transition: border-color var(--transition-fast), box-shadow 0.25s ease, transform 0.2s ease;
 		overflow: hidden;
+
+		&:hover:not(:focus-within) {
+			border-color: var(--border-hover);
+		}
 
 		&:focus-within {
 			border-color: var(--accent-blue);
-			box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+			box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1), 0 2px 8px rgba(0, 0, 0, 0.3);
 		}
 	}
 

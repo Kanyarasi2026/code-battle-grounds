@@ -1,22 +1,20 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
-// Mock env vars before importing the module
-vi.stubGlobal('import', { meta: { env: {} } });
-
 describe('aiService', () => {
   const mockApiUrl = 'https://api.example.com/v1/chat/completions';
   const mockApiKey = 'test-key-123';
   const mockModel = 'test-model';
 
   beforeEach(() => {
-    // Set env vars
-    import.meta.env.VITE_GEMINI_FETCH_URL = mockApiUrl;
-    import.meta.env.VITE_GEMINI_API_KEY = mockApiKey;
-    import.meta.env.VITE_GEMINI_MODEL = mockModel;
+    vi.resetModules();
+    vi.stubEnv('VITE_GEMINI_FETCH_URL', mockApiUrl);
+    vi.stubEnv('VITE_GEMINI_API_KEY', mockApiKey);
+    vi.stubEnv('VITE_GEMINI_MODEL', mockModel);
   });
 
   afterEach(() => {
     vi.restoreAllMocks();
+    vi.unstubAllEnvs();
   });
 
   describe('getHint', () => {
@@ -132,12 +130,11 @@ describe('aiService', () => {
 
   describe('configuration', () => {
     it('throws when env vars are missing', async () => {
-      import.meta.env.VITE_GEMINI_FETCH_URL = '';
-      import.meta.env.VITE_GEMINI_API_KEY = '';
-      import.meta.env.VITE_GEMINI_MODEL = '';
+      vi.unstubAllEnvs();
+      vi.stubEnv('VITE_GEMINI_FETCH_URL', '');
+      vi.stubEnv('VITE_GEMINI_API_KEY', '');
+      vi.stubEnv('VITE_GEMINI_MODEL', '');
 
-      // Need fresh import to pick up changed env vars
-      vi.resetModules();
       const { getHint } = await import('../aiService');
 
       await expect(getHint('P', 'D', [], '', 1)).rejects.toThrow('AI not configured');

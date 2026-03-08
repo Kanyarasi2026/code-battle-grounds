@@ -4,7 +4,18 @@ import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import type { UserRole } from '../../types';
+import ParticleField from '../../components/effects/ParticleField';
 import './RoleSelection.scss';
+
+// Extra mid-layer orbs added to both role-selection variants
+const ExtraOrbs = () => (
+  <>
+    <ParticleField />
+    <motion.div aria-hidden="true" style={{ position: 'absolute', top: '30%', left: '50%', width: 320, height: 320, borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,255,255,0.014) 0%, transparent 70%)', filter: 'blur(70px)', pointerEvents: 'none', transform: 'translateX(-50%)' }} animate={{ scale: [1, 1.12, 1], opacity: [0.5, 0.9, 0.5] }} transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut', delay: 4 }} />
+    <motion.div aria-hidden="true" style={{ position: 'absolute', top: '5%', left: '20%', width: 180, height: 180, borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,255,255,0.012) 0%, transparent 70%)', filter: 'blur(50px)', pointerEvents: 'none' }} animate={{ y: [0, -18, 0], x: [0, 12, 0], opacity: [0.4, 0.75, 0.4] }} transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut', delay: 2 }} />
+    <motion.div aria-hidden="true" style={{ position: 'absolute', bottom: '8%', right: '18%', width: 200, height: 200, borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,255,255,0.01) 0%, transparent 70%)', filter: 'blur(55px)', pointerEvents: 'none' }} animate={{ y: [0, 16, 0], x: [0, -10, 0], opacity: [0.35, 0.7, 0.35] }} transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut', delay: 7 }} />
+  </>
+);
 
 type Role = 'academic' | 'professional';
 type AcademicRole = 'faculty' | 'student';
@@ -170,6 +181,7 @@ const RoleSelection = () => {
     return (
       <div className="role-selection">
         <div className="role-selection__background">
+          <ExtraOrbs />
           <div className="role-selection__grid" />
           <motion.div
             className="role-selection__orb role-selection__orb--top"
@@ -348,6 +360,7 @@ const RoleSelection = () => {
   return (
     <div className="role-selection">
       <div className="role-selection__background">
+        <ExtraOrbs />
         <div className="role-selection__grid" />
         <motion.div
           className="role-selection__orb role-selection__orb--top"

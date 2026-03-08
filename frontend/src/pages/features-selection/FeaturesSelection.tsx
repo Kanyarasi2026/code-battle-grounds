@@ -14,6 +14,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useNavStack } from '../../context/NavigationStackContext';
 import { gsap } from 'gsap';
+import ParticleField from '../../components/effects/ParticleField';
 import './FeaturesSelection.scss';
 
 type Role = 'academic' | 'professional';
@@ -169,6 +170,10 @@ const FeaturesSelection = () => {
   return (
     <div className="features-selection">
       <div className="features-selection__background">
+        <ParticleField />
+        <motion.div aria-hidden="true" style={{ position: 'absolute', top: '20%', left: '50%', width: 300, height: 300, borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,255,255,0.013) 0%, transparent 70%)', filter: 'blur(65px)', pointerEvents: 'none', transform: 'translateX(-50%)' }} animate={{ scale: [1, 1.1, 1], opacity: [0.5, 0.85, 0.5] }} transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut', delay: 3 }} />
+        <motion.div aria-hidden="true" style={{ position: 'absolute', top: '5%', right: '15%', width: 160, height: 160, borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,255,255,0.012) 0%, transparent 70%)', filter: 'blur(45px)', pointerEvents: 'none' }} animate={{ y: [0, -16, 0], x: [0, 10, 0], opacity: [0.4, 0.75, 0.4] }} transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut', delay: 1 }} />
+        <motion.div aria-hidden="true" style={{ position: 'absolute', bottom: '10%', left: '20%', width: 190, height: 190, borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,255,255,0.011) 0%, transparent 70%)', filter: 'blur(52px)', pointerEvents: 'none' }} animate={{ y: [0, 14, 0], x: [0, -12, 0], opacity: [0.35, 0.7, 0.35] }} transition={{ duration: 26, repeat: Infinity, ease: 'easeInOut', delay: 6 }} />
         <div className="features-selection__grid-bg" />
         <motion.div
           className="features-selection__orb features-selection__orb--left"

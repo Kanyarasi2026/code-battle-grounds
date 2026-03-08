@@ -7,6 +7,7 @@ import { v4 } from 'uuid';
 import Button from '../../components/ui/Button';
 import Card from '../../components/ui/Card';
 import Input from '../../components/ui/Input';
+import ParticleField from '../../components/effects/ParticleField';
 import { useAuth } from '../../context/AuthContext';
 import './Home.scss';
 
@@ -105,8 +106,11 @@ const Home = () => {
 	};
 
   return (
-    <div className="home">
-      <header className="home__header">
+    <div className="home" style={{ position: 'relative', overflow: 'hidden' }}>
+      <ParticleField />
+      <motion.div aria-hidden="true" style={{ position: 'absolute', top: '-10%', right: '-5%', width: 500, height: 500, borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,255,255,0.02) 0%, transparent 70%)', filter: 'blur(80px)', pointerEvents: 'none', zIndex: 0 }} animate={{ y: [0, -32, 0], x: [0, 20, 0], opacity: [0.55, 1, 0.55] }} transition={{ duration: 24, repeat: Infinity, ease: 'easeInOut' }} />
+      <motion.div aria-hidden="true" style={{ position: 'absolute', bottom: '-12%', left: '-8%', width: 440, height: 440, borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,255,255,0.015) 0%, transparent 70%)', filter: 'blur(90px)', pointerEvents: 'none', zIndex: 0 }} animate={{ y: [0, 26, 0], x: [0, -18, 0], opacity: [0.45, 0.85, 0.45] }} transition={{ duration: 30, repeat: Infinity, ease: 'easeInOut', delay: 8 }} />
+      <header className="home__header" style={{ position: 'relative', zIndex: 1 }}>
         <div className="home__header-left">
           <button className="home__back-btn" onClick={() => navigate('/role')}>
             <ArrowLeft size={16} />
@@ -114,7 +118,7 @@ const Home = () => {
           </button>
         </div>
       </header>
-      <motion.main className="home__main" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease: 'easeOut' }}>
+      <motion.main className="home__main" style={{ position: 'relative', zIndex: 1 }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease: 'easeOut' }}>
         <div className="home__brand">
           <motion.h1 initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>Code<span>Battlegrounds</span></motion.h1>
           <p className="home__tagline">Real-time collaborative code editor</p>
