@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import type { LucideIcon } from 'lucide-react';
-import { ArrowLeft, Sparkles } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/ui/Button';
 import './FeatureComingSoon.scss';
