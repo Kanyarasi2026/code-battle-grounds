@@ -45,6 +45,7 @@ export const RoomProvider = ({ children }: { children: ReactNode }) => {
   return <RoomContext.Provider value={{ activeRoomId, activeUsername, isInRoom: !!activeRoomId, joinRoom, leaveRoom }}>{children}</RoomContext.Provider>;
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useRoom = (): RoomContextValue => {
   const ctx = useContext(RoomContext);
   if (!ctx) throw new Error('useRoom must be used within a RoomProvider');
