@@ -1,0 +1,17 @@
+.particle-field {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 1);
+
+  &--drift-a { animation: drift-a ease-in-out infinite; }
+  &--drift-b { animation: drift-b ease-in-out infinite; }
+  &--drift-c { animation: drift-c ease-in-out infinite; }
+}
