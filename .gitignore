@@ -61,4 +61,7 @@ out/
 
 # agents and skills
 .agents/
+# Agents and Skills
+.agents/
+.skills/
 .claude/
