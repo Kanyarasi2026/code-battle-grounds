@@ -1,0 +1,11 @@
+node_modules
+dist
+coverage
+logs
+.env
+.env.*
+!.env.example
+src/__tests__
+*.test.ts
+*.spec.ts
+README.md
