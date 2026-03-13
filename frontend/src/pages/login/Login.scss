@@ -6,7 +6,7 @@
 	align-items: center;
 	justify-content: center;
 	min-height: 100vh;
-	background: linear-gradient(135deg, #0a0a0b 0%, #111113 100%);
+	background: var(--bg-0);
 	color: var(--text-primary);
 	padding: 20px;
 
@@ -26,12 +26,10 @@
 
 		h1 {
 			font-size: 2.2rem;
-			font-weight: 700;
-			letter-spacing: -0.03em;
+			font-weight: 800;
+			letter-spacing: -0.04em;
 
-			span {
-				color: var(--accent-green);
-			}
+			span { color: var(--accent-primary); }
 		}
 
 		p {
@@ -47,10 +45,11 @@
 		align-items: center;
 		justify-content: center;
 		border-radius: var(--radius-lg);
-		background: rgba(34, 197, 94, 0.1);
-		border: 1px solid rgba(34, 197, 94, 0.2);
-		color: var(--accent-green);
+		background: var(--accent-primary-muted);
+		border: 1px solid var(--accent-primary-border);
+		color: var(--accent-primary);
 		margin-bottom: 4px;
+		box-shadow: var(--shadow-accent);
 	}
 
 	&__card {
@@ -80,16 +79,13 @@
 		width: 100%;
 		justify-content: center;
 
-		img {
-			width: 18px;
-			height: 18px;
-		}
+		img { width: 18px; height: 18px; }
 	}
 
 	&__secure {
 		margin-top: 16px;
 		font-size: 11px;
-		color: var(--text-tertiary);
+		color: var(--text-faint);
 	}
 
 	&__switch {
@@ -99,14 +95,12 @@
 	}
 
 	&__switch-link {
-		color: var(--accent-green);
+		color: var(--accent-primary);
 		text-decoration: none;
 		font-weight: 600;
-		transition: opacity var(--transition-fast);
+		transition: opacity 150ms ease;
 
-		&:hover {
-			opacity: 0.8;
-		}
+		&:hover { opacity: 0.8; }
 	}
 
 	&__footer {
@@ -114,17 +108,15 @@
 		bottom: 20px;
 		text-align: center;
 		font-size: 13px;
-		color: var(--text-tertiary);
+		color: var(--text-faint);
 
 		a {
 			color: var(--text-secondary);
 			text-decoration: none;
 			font-weight: 600;
-			transition: color var(--transition-fast);
+			transition: color 150ms ease;
 
-			&:hover {
-				color: var(--text-primary);
-			}
+			&:hover { color: var(--text-primary); }
 		}
 	}
 }

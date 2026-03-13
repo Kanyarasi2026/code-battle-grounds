@@ -1,7 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import {
   AlertTriangle,
-  ArrowLeft,
   CheckCircle2,
   ChevronDown,
   Clock,
@@ -13,7 +12,6 @@ import {
   Zap,
 } from 'lucide-react';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import type { IntegrityEvent, IntegrityEventKind } from '../../types';
 
 // ── Extended interfaces ────────────────────────────────────────
@@ -420,7 +418,6 @@ function ClusterCard({ cluster }: { cluster: ClusterData }) {
 
 // ── Main page component ─────────────────────────────────────────
 const IntegrityTimeline = () => {
-  const navigate = useNavigate();
   const [selectedSessionId, setSelectedSessionId] = useState(MOCK_SESSIONS[0].id);
   const [activeFilter, setActiveFilter] = useState<FilterOption>('all');
 
@@ -446,19 +443,6 @@ const IntegrityTimeline = () => {
       </div>
 
       <div style={{ position: 'relative', zIndex: 1, maxWidth: '1100px', margin: '0 auto', padding: '2rem 1.5rem 4rem', boxSizing: 'border-box' }}>
-
-        {/* Back button */}
-        <motion.button
-          initial={{ opacity: 0, x: -16 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, ease: EASE }}
-          whileHover={{ scale: 1.04, x: -3 }}
-          whileTap={{ scale: 0.96 }}
-          onClick={() => navigate(-1)}
-          style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', padding: '8px 16px', borderRadius: '9px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.50)', cursor: 'pointer', fontFamily: 'DM Sans,sans-serif', fontSize: '13px', fontWeight: 500, marginBottom: '40px' }}
-        >
-          <ArrowLeft size={15} strokeWidth={1.8} /> Back
-        </motion.button>
 
         {/* Hero */}
         <motion.div

@@ -91,7 +91,7 @@ const ModesShowcase = () => {
 			(user?.user_metadata?.['full_name'] as string | undefined) ??
 			user?.email ??
 			'User';
-		navigate(`/home`, { state: { username } });
+		navigate(`/create-room`, { state: { username } });
 	};
 
 	return (

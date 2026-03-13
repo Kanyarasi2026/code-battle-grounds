@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, ChevronDown, ChevronUp, Download, RotateCcw, Trash2 } from 'lucide-react';
+import { ChevronDown, ChevronUp, Download, RotateCcw, Trash2 } from 'lucide-react';
 import {
   loadInterviewSessions,
   type InterviewSession,
@@ -231,14 +231,6 @@ export default function InterviewDashboard() {
   const navigate = useNavigate();
   const [sessions, setSessions] = useState<InterviewSession[]>(() => loadInterviewSessions());
 
-  const handleBack = () => {
-    if (window.history.length > 1) {
-      navigate(-1);
-      return;
-    }
-    navigate('/interview', { replace: true });
-  };
-
   const deleteSession = (id: string) => {
     const updated = sessions.filter((s) => s.id !== id);
     setSessions(updated);
@@ -260,7 +252,7 @@ export default function InterviewDashboard() {
 
   return (
     <div style={{
-      minHeight: '100vh',
+      minHeight: 'calc(100vh - 52px)',
       background: '#0a0a0b',
       color: '#f4f4f5',
       fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
@@ -279,18 +271,6 @@ export default function InterviewDashboard() {
         zIndex: 10,
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <button
-            onClick={handleBack}
-            style={{
-              display: 'inline-flex', alignItems: 'center', gap: 6,
-              background: 'transparent', border: '1px solid #2a2a30',
-              borderRadius: 6, padding: '5px 12px', cursor: 'pointer',
-              color: '#a1a1aa', fontSize: 13, fontWeight: 500,
-            }}
-          >
-            <ArrowLeft size={13} />
-            Back
-          </button>
           <span style={{ fontWeight: 600, fontSize: 15, color: '#f4f4f5' }}>Dashboard</span>
         </div>
         <div style={{ display: 'flex', gap: 8, marginRight: 52 }}>

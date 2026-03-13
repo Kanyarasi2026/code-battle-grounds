@@ -1,25 +1,63 @@
 :root {
-	// Colors - Dark Grayscale Theme
-	--bg-primary: #0a0a0b;
-	--bg-secondary: #111113;
-	--bg-tertiary: #1a1a1f;
-	--border: #1e1e22;
-	--border-hover: #2a2a30;
+	// Background scale
+	--bg-0: #0a0d14;
+	--bg-1: #0f1219;
+	--bg-2: #141720;
+	--bg-3: #1a1e2a;
+	--bg-4: #1f2435;
 
-	--text-primary: #f4f4f5;
-	--text-secondary: #a1a1aa;
-	--text-muted: #71717a;
+	// Legacy aliases for backward compatibility
+	--bg-primary: #0a0d14;
+	--bg-secondary: #0f1219;
+	--bg-tertiary: #141720;
+	--border: rgba(255,255,255,0.08);
+	--border-hover: rgba(255,255,255,0.14);
+	--border-primary: rgba(255,255,255,0.08);
+	--border-secondary: rgba(255,255,255,0.14);
 
-	--accent-green: #22c55e;
-	--accent-green-hover: #16a34a;
-	--accent-blue: #60a5fa;
-	--accent-blue-hover: #3b82f6;
+	// Primary accent — electric indigo
+	--accent-primary: #6366f1;
+	--accent-primary-hover: #4f46e5;
+	--accent-primary-muted: rgba(99, 102, 241, 0.12);
+	--accent-primary-border: rgba(99, 102, 241, 0.25);
+
+	// Secondary accent — cyan/teal
+	--accent-cyan: #06b6d4;
+	--accent-cyan-muted: rgba(6, 182, 212, 0.10);
+
+	// Semantic colors
+	--color-success: #10b981;
+	--color-success-muted: rgba(16, 185, 129, 0.10);
+	--color-warning: #f59e0b;
+	--color-warning-muted: rgba(245, 158, 11, 0.10);
+	--color-error: #ef4444;
+	--color-error-muted: rgba(239, 68, 68, 0.10);
+
+	// Legacy accent aliases
+	--accent-green: #10b981;
+	--accent-green-hover: #059669;
+	--accent-blue: #6366f1;
+	--accent-blue-hover: #4f46e5;
 	--accent-red: #ef4444;
 	--accent-red-hover: #dc2626;
-	--accent-gray: #6b7280;
-	--accent-gray-hover: #9ca3af;
-	--accent-orange: #fb923c;
-	--accent-orange-hover: #f97316;
+	--accent-gray: #64748b;
+	--accent-gray-hover: #94a3b8;
+	--accent-orange: #f59e0b;
+	--accent-orange-hover: #d97706;
+
+	// Text
+	--text-primary: #f1f5f9;
+	--text-secondary: #94a3b8;
+	--text-muted: #64748b;
+	--text-faint: #3f4a5e;
+	--text-tertiary: #64748b;
+	--text-ghost: #3f4a5e;
+
+	// Borders
+	--border-subtle: rgba(255,255,255,0.05);
+	--border-default: rgba(255,255,255,0.08);
+	--border-strong: rgba(255,255,255,0.14);
+	--border-accent: rgba(99,102,241,0.3);
 
 	// Spacing (4px base)
 	--space-1: 4px;
@@ -33,9 +71,9 @@
 	--space-12: 48px;
 
 	// Typography
-	--font-sans: Arial, Helvetica, sans-serif;
-	--font-display: Arial, Helvetica, sans-serif;
-	--font-mono: 'Courier New', Courier, monospace;
+	--font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+	--font-display: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+	--font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
 	--text-xs: 0.75rem;
 	--text-sm: 0.875rem;
@@ -46,21 +84,25 @@
 	--text-3xl: 1.875rem;
 
 	// Transitions
-	--transition-fast: 100ms ease;
+	--transition-fast: 150ms ease;
 	--transition-normal: 200ms ease;
 	--transition-slow: 300ms ease;
 
 	// Radius
-	--radius-sm: 4px;
-	--radius-md: 6px;
-	--radius-lg: 8px;
-	--radius-xl: 12px;
+	--radius-sm: 6px;
+	--radius-md: 10px;
+	--radius-lg: 14px;
+	--radius-xl: 20px;
 	--radius-full: 9999px;
+	--radius-pill: 999px;
 
 	// Shadows
-	--shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
-	--shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
-	--shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.6);
+	--shadow-sm: 0 1px 2px rgba(0,0,0,0.4);
+	--shadow-md: 0 4px 12px rgba(0,0,0,0.5);
+	--shadow-lg: 0 8px 24px rgba(0,0,0,0.6);
+	--shadow-card: 0 1px 3px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.04);
+	--shadow-elevated: 0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06);
+	--shadow-accent: 0 0 0 1px rgba(99,102,241,0.3), 0 4px 24px rgba(99,102,241,0.12);
 
 	// Sidebar
 	--sidebar-width: 240px;

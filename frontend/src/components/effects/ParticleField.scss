@@ -9,9 +9,11 @@
 .particle {
   position: absolute;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 1);
+  background: rgba(99, 102, 241, 0.15);
 
-  &--drift-a { animation: drift-a ease-in-out infinite; }
-  &--drift-b { animation: drift-b ease-in-out infinite; }
-  &--drift-c { animation: drift-c ease-in-out infinite; }
+  &--drift-a,
+  &--drift-b,
+  &--drift-c {
+    animation: none;
+  }
 }

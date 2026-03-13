@@ -26,7 +26,7 @@ const AssessmentMode = () => {
     } else {
       console.log('[AssessmentMode] No role selected, redirecting to role selection...');
       // No role selected - redirect to role selection
-      navigate('/role', { 
+      navigate('/home', { 
         state: { 
           academicOnly: true, 
           returnTo: '/assess' 

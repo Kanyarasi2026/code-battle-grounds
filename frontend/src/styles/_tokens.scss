@@ -1,207 +1,75 @@
-// // Import Google Fonts at top of _tokens.scss
-// @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap');
-
-// :root {
-//   // Background scale — 0.00 (darkest) → 1.00 (lightest)
-//   --bg-0: #080c10;
-//   --bg-1: #0d1117;
-//   --bg-2: #0f1318;
-//   --bg-3: #161b22;
-//   --bg-4: #1c2128;
-
-//   // Legacy aliases
-//   --bg-base: #080c10;
-//   --bg-surface: #0d1117;
-//   --bg-elevated: #161b22;
-//   --bg-hover: rgba(255,255,255,0.03);
-
-//   // Surface fills
-//   --surface-1: rgba(255,255,255,0.02);
-//   --surface-2: rgba(255,255,255,0.04);
-//   --surface-3: rgba(255,255,255,0.06);
-
-//   // Borders
-//   --border-1: rgba(255,255,255,0.06);
-//   --border-2: rgba(255,255,255,0.10);
-//   --border-3: rgba(255,255,255,0.16);
-//   --border-subtle: rgba(255,255,255,0.06);
-//   --border-light: rgba(255,255,255,0.10);
-
-//   // Text scale
-//   --text-1: #e2e8f0;
-//   --text-2: #9ca3af;
-//   --text-3: #6b7280;
-//   --text-4: #4a5568;
-//   --text-primary: #e2e8f0;
-//   --text-secondary: #9ca3af;
-//   --text-muted: #6b7280;
-//   --text-faint: #4a5568;
-//   --text-ghost: #2d3748;
-
-//   // Accent colors
-//   --accent-teal: #00e5cc;
-//   --accent-amber: #f5a623;
-//   --accent-violet: #a78bfa;
-//   --accent-red: #ff4444;
-//   --accent-green: #28c840;
-
-//   // Role accents
-//   --accent-student: #00e5cc;   // student role
-//   --accent-faculty: #f5a623;   // faculty role
-//   --accent-collab: #a78bfa;    // collaborative / pair
-
-//   --radius-sm: 6px;
-//   --radius-md: 10px;
-//   --radius-lg: 14px;
-//   --radius-xl: 20px;
-//   --radius-pill: 999px;
-
-//   --shadow-card: 0 4px 24px rgba(0,0,0,0.4);
-//   --shadow-terminal: 0 24px 64px rgba(0,0,0,0.6), 0 0 0 1px rgba(0,229,204,0.05);
-//   --shadow-terminal-hover: 0 36px 88px rgba(0,0,0,0.80), 0 0 0 1px rgba(0,229,204,0.08);
-//   --shadow-elevation: 0 12px 40px rgba(0,0,0,0.6);
-//   --shadow-elevation-hover: 0 20px 56px rgba(0,0,0,0.68), 0 0 0 1px rgba(255,255,255,0.06);
-//   --shadow-sm: 0 4px 16px rgba(0,0,0,0.4);
-//   --shadow-teal-lg: 0 12px 40px rgba(0,229,204,0.35);
-//   --shadow-teal-sm: 0 4px 24px rgba(0,229,204,0.2);
-
-//   // Section atmosphere
-//   --section-alt: rgba(255,255,255,0.012);       // subtle alternating section bg
-//   --section-border: rgba(255,255,255,0.042);    // inter-section divider
-
-//   // Accent lines (student / faculty role differentiation)
-//   --accent-student-line: rgba(0,229,204,0.20);
-//   --accent-faculty-line: rgba(245,166,35,0.12);
-// }
-
-// // Keyframes
-// @keyframes fadeUp {
-//   from { opacity: 0; transform: translateY(24px); }
-//   to { opacity: 1; transform: translateY(0); }
-// }
-
-// @keyframes blink {
-//   0%, 100% { opacity: 1; }
-//   50% { opacity: 0; }
-// }
-
-// @keyframes pulse {
-//   0%, 100% { opacity: 0.6; transform: scale(1); }
-//   50% { opacity: 1; transform: scale(1.05); }
-// }
-
-// @keyframes gridFloat {
-//   0%, 100% { transform: translateY(0); }
-//   50% { transform: translateY(-8px); }
-// }
-
-// @keyframes float {
-//   0%, 100% { transform: translateY(0px); }
-//   50% { transform: translateY(-4px); }
-// }
-
-// @keyframes shimmer {
-//   0%   { opacity: 0.45; }
-//   50%  { opacity: 0.85; }
-//   100% { opacity: 0.45; }
-// }
-
-// // Global resets
-// *, *::before, *::after { box-sizing: border-box; }
-
-// ::selection { background: rgba(0,229,204,0.25); }
-
-// html { scroll-behavior: smooth; }
-
-// body {
-//   margin: 0;
-//   padding: 0;
-//   overflow-x: hidden;
-//   background: #080c10;
-//   color: #e2e8f0;
-//   font-family: Arial, Helvetica, sans-serif;
-// }
-
-// // Custom scrollbar
-// ::-webkit-scrollbar { width: 4px; }
-// ::-webkit-scrollbar-track { background: #080c10; }
-// ::-webkit-scrollbar-thumb { background: #1e2d3d; border-radius: 2px; }
-
-// Import Google Fonts at top of _tokens.scss
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap');
+// Import Google Fonts
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
 
 :root {
-  // Colors
-  --bg-base: #080c10;
-  --bg-surface: #0d1117;
-  --bg-elevated: #161b22;
-  --bg-hover: rgba(255,255,255,0.03);
+  // Background scale (deep navy-dark)
+  --bg-0: #0a0d14;
+  --bg-1: #0f1219;
+  --bg-2: #141720;
+  --bg-3: #1a1e2a;
+  --bg-4: #1f2435;
 
-  --accent-teal: #00e5cc;
-  --accent-amber: #f5a623;
-  --accent-violet: #a78bfa;
-  --accent-red: #ff4444;
-  --accent-green: #28c840;
+  // Primary accent — electric indigo/violet
+  --accent-primary: #6366f1;
+  --accent-primary-hover: #4f46e5;
+  --accent-primary-muted: rgba(99, 102, 241, 0.12);
+  --accent-primary-border: rgba(99, 102, 241, 0.25);
 
-  --text-primary: #e2e8f0;
-  --text-secondary: #9ca3af;
-  --text-muted: #6b7280;
-  --text-faint: #4a5568;
-  --text-ghost: #2d3748;
+  // Secondary accent — cyan/teal
+  --accent-cyan: #06b6d4;
+  --accent-cyan-muted: rgba(6, 182, 212, 0.10);
 
-  --border-subtle: rgba(255,255,255,0.06);
-  --border-light: rgba(255,255,255,0.1);
+  // Semantic colors
+  --color-success: #10b981;
+  --color-success-muted: rgba(16, 185, 129, 0.10);
+  --color-warning: #f59e0b;
+  --color-warning-muted: rgba(245, 158, 11, 0.10);
+  --color-error: #ef4444;
+  --color-error-muted: rgba(239, 68, 68, 0.10);
 
+  // Text
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --text-faint: #3f4a5e;
+
+  // Borders
+  --border-subtle: rgba(255,255,255,0.05);
+  --border-default: rgba(255,255,255,0.08);
+  --border-strong: rgba(255,255,255,0.14);
+  --border-accent: rgba(99,102,241,0.3);
+
+  // Typography
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  // Radius
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 14px;
   --radius-xl: 20px;
   --radius-pill: 999px;
 
-  --shadow-card: 0 4px 24px rgba(0,0,0,0.4);
-  --shadow-terminal: 0 24px 64px rgba(0,0,0,0.6), 0 0 0 1px rgba(0,229,204,0.05);
-  --shadow-teal-lg: 0 12px 40px rgba(0,229,204,0.35);
-  --shadow-teal-sm: 0 4px 24px rgba(0,229,204,0.2);
+  // Shadows
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.04);
+  --shadow-elevated: 0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06);
+  --shadow-accent: 0 0 0 1px rgba(99,102,241,0.3), 0 4px 24px rgba(99,102,241,0.12);
+
+  // Layout
+  --navbar-height: 52px;
 }
 
-// Keyframes
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes blink {
   0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+  50%       { opacity: 0; }
 }
 
-@keyframes pulse {
-  0%, 100% { opacity: 0.6; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.05); }
+@keyframes shimmer {
+  0%   { transform: translateX(-100%) skewX(-12deg); }
+  100% { transform: translateX(300%) skewX(-12deg); }
 }
-
-@keyframes gridFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-}
-
-// Global resets
-*, *::before, *::after { box-sizing: border-box; }
-
-::selection { background: rgba(0,229,204,0.25); }
-
-html { scroll-behavior: smooth; }
-
-body {
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-  background: #080c10;
-  color: #e2e8f0;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-// Custom scrollbar
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: #080c10; }
-::-webkit-scrollbar-thumb { background: #1e2d3d; border-radius: 2px; }

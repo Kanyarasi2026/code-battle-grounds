@@ -1,39 +1,36 @@
 import { motion } from 'framer-motion';
 import { ArrowLeft } from 'lucide-react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import './AuthLayout.scss';
 import ProfileIcon from './ProfileIcon';
+import { useNavStack } from '../../context/NavigationStackContext';
 
 export default function AuthLayout() {
-	const navigate = useNavigate();
+	const { goBack } = useNavStack();
 
 	return (
 		<>
-			<motion.div
-				className="auth-layout__home"
+			<motion.header
+				className="auth-layout__header"
 				initial={{ opacity: 0, y: -6 }}
 				animate={{ opacity: 1, y: 0 }}
-				transition={{ duration: 0.4, delay: 0.3, ease: 'easeOut' }}
+				transition={{ duration: 0.25, ease: 'easeOut' }}
 			>
 				<button
-					className="auth-layout__home-btn"
-					onClick={() => navigate('/role')}
-					title="Home"
-					aria-label="Go to home"
+					className="auth-layout__back-btn"
+					onClick={() => goBack()}
+					title="Go back"
+					aria-label="Go back"
 				>
-					<ArrowLeft size={16} />
-					<span>Home</span>
+					<ArrowLeft size={15} />
+					<span>Back</span>
 				</button>
-			</motion.div>
-			<motion.div
-				className="auth-layout__profile"
-				initial={{ opacity: 0, y: -6 }}
-				animate={{ opacity: 1, y: 0 }}
-				transition={{ duration: 0.4, delay: 0.3, ease: 'easeOut' }}
-			>
+				<span className="auth-layout__wordmark">Code Battlegrounds</span>
 				<ProfileIcon />
-			</motion.div>
-			<Outlet />
+			</motion.header>
+			<div className="auth-layout__content">
+				<Outlet />
+			</div>
 		</>
 	);
 }

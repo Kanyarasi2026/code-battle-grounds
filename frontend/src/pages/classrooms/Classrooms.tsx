@@ -1,6 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  ArrowLeft,
   ArrowRight,
   Clock,
   Copy,
@@ -10,11 +9,10 @@ import {
   Trash2,
   Users,
 } from 'lucide-react';
-import { useEffect, useRef, useState, type ChangeEvent, type FormEvent, type KeyboardEvent } from 'react';
+import { useState, type ChangeEvent, type FormEvent, type KeyboardEvent } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { v4 } from 'uuid';
-import { gsap } from 'gsap';
 import Button from '../../components/ui/Button';
 import Card from '../../components/ui/Card';
 import Input from '../../components/ui/Input';
@@ -68,7 +66,7 @@ function formatTimeAgo(timestamp: number): string {
 
 const Classrooms = () => {
   const navigate = useNavigate();
-  const { goBack } = useNavStack();
+  useNavStack(); // keep provider in context
   const { user, roleData } = useAuth();
   const isFaculty = roleData.requested === 'faculty';
 
@@ -80,30 +78,6 @@ const Classrooms = () => {
   const [isJoining, setIsJoining] = useState(false);
   const [recentClassrooms, setRecentClassrooms] = useState<RecentClassroom[]>(getRecentClassrooms);
 
-  const headerRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (headerRef.current) {
-      gsap.fromTo(
-        headerRef.current,
-        { opacity: 0, y: -30 },
-        { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }
-      );
-    }
-    if (cardsRef.current) {
-      const cards = cardsRef.current.querySelectorAll('.classrooms__action-card');
-      gsap.fromTo(
-        cards,
-        { opacity: 0, y: 40, scale: 0.95 },
-        {
-          opacity: 1, y: 0, scale: 1,
-          duration: 0.6, stagger: 0.1,
-          ease: 'power3.out', delay: 0.3,
-        }
-      );
-    }
-  }, []);
 
   const isValidUUID = (id: string) =>
     /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
@@ -225,35 +199,13 @@ const Classrooms = () => {
       <div className="classrooms__background">
         <ParticleField />
         <div className="classrooms__grid-bg" />
-        <motion.div
-          className="classrooms__orb classrooms__orb--1"
-          animate={{ x: [-20, 30, -20], y: [-15, 25, -15], opacity: [0.12, 0.22, 0.12] }}
-          transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
-        />
-        <motion.div
-          className="classrooms__orb classrooms__orb--2"
-          animate={{ x: [30, -25, 30], y: [20, -15, 20], opacity: [0.1, 0.18, 0.1] }}
-          transition={{ duration: 26, repeat: Infinity, ease: 'easeInOut', delay: 5 }}
-        />
+        <div className="classrooms__orb classrooms__orb--1" />
+        <div className="classrooms__orb classrooms__orb--2" />
       </div>
-
-      {/* Back button */}
-      <motion.button
-        className="classrooms__back"
-        onClick={() => goBack()}
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5, delay: 0.1 }}
-        whileHover={{ scale: 1.05, x: -4 }}
-        whileTap={{ scale: 0.95 }}
-      >
-        <ArrowLeft size={16} />
-        Back
-      </motion.button>
 
       <div className="classrooms__container">
         {/* Header */}
-        <div ref={headerRef} className="classrooms__header">
+        <div className="classrooms__header">
           <motion.div
             className="classrooms__hero-icon"
             initial={{ scale: 0, rotate: -180 }}
@@ -283,7 +235,7 @@ const Classrooms = () => {
         </div>
 
         {/* Action cards */}
-        <div ref={cardsRef} className={`classrooms__actions ${isFaculty ? 'classrooms__actions--single' : 'classrooms__actions--single'}`}>
+        <div className={`classrooms__actions ${isFaculty ? 'classrooms__actions--single' : 'classrooms__actions--single'}`}>
           {/* Faculty: Create Classroom */}
           {isFaculty && (
             <div className="classrooms__action-card">

@@ -3,35 +3,15 @@
 	align-items: center;
 	justify-content: center;
 	gap: var(--space-2);
+	font-family: var(--font-sans);
 	font-weight: 500;
 	border-radius: var(--radius-md);
-	transition: all var(--transition-fast), transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease;
+	transition: background 150ms ease, border-color 150ms ease, box-shadow 150ms ease, color 150ms ease;
 	white-space: nowrap;
 	user-select: none;
 	position: relative;
 	overflow: hidden;
 	letter-spacing: -0.01em;
-
-	// Shimmer streak
-	&::after {
-		content: '';
-		position: absolute;
-		top: 0;
-		left: -70%;
-		width: 40%;
-		height: 100%;
-		background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.10), transparent);
-		transform: skewX(-15deg);
-		pointer-events: none;
-	}
-
-	&:not(:disabled):hover {
-		transform: translateY(-1px);
-
-		&::after {
-			animation: slide-shimmer 0.55s ease forwards;
-		}
-	}
 
 	&:disabled {
 		opacity: 0.4;
@@ -39,44 +19,49 @@
 		pointer-events: none;
 	}
 
-	&:not(:disabled):active {
-		transform: scale(0.98);
+	&:focus-visible {
+		outline: 2px solid var(--accent-primary);
+		outline-offset: 2px;
 	}
 
 	// ─── Variants ───
 	&--primary {
-		background: var(--accent-green);
+		background: var(--accent-primary);
 		color: #fff;
+		border: none;
 
 		&:not(:disabled):hover {
-			background: var(--accent-green-hover);
+			background: var(--accent-primary-hover);
+			box-shadow: var(--shadow-accent);
 		}
 	}
 
 	&--secondary {
-		background: var(--bg-tertiary);
+		background: var(--bg-2);
 		color: var(--text-primary);
-		border: 1px solid var(--border);
+		border: 1px solid var(--border-default);
 
 		&:not(:disabled):hover {
-			background: var(--border);
-			border-color: var(--border-hover);
+			background: var(--bg-3);
+			border-color: var(--border-strong);
 		}
 	}
 
 	&--ghost {
 		background: transparent;
 		color: var(--text-secondary);
+		border: none;
 
 		&:not(:disabled):hover {
-			background: var(--bg-tertiary);
+			background: var(--bg-3);
 			color: var(--text-primary);
 		}
 	}
 
 	&--danger {
-		background: var(--accent-red);
+		background: var(--color-error);
 		color: #fff;
+		border: none;
 
 		&:not(:disabled):hover {
 			background: var(--accent-red-hover);
@@ -131,7 +116,5 @@
 }
 
 @keyframes spin {
-	to {
-		transform: rotate(360deg);
-	}
+	to { transform: rotate(360deg); }
 }

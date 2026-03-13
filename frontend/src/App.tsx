@@ -7,16 +7,18 @@ import {
 	Routes,
 	useLocation,
 } from 'react-router-dom';
-import ProtectedRoute from './components/ProtectedRoute';
 import AuthLayout from './components/layout/AuthLayout';
+import ProtectedRoute from './components/ProtectedRoute';
 // RoleProtectedRoute not used here — import removed to satisfy linter
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { NavigationStackProvider } from './context/NavigationStackContext';
 import { RoomProvider, useRoom } from './context/RoomContext';
 import AlreadyInRoom from './pages/404/AlreadyInRoom';
-import StudentAssessmentPage from './pages/assessment/StudentAssessmentPage';
 import FacultyAssessmentPage from './pages/assessment/FacultyAssessmentPage';
+import StudentAssessmentPage from './pages/assessment/StudentAssessmentPage';
 import AlgorithmChallenges from './pages/challenges/AlgorithmChallenges';
 import ChallengeSolve from './pages/challenges/ChallengeSolve';
+import Classrooms from './pages/classrooms/Classrooms';
 import EditorPage from './pages/code-editor/EditorPage';
 import CuratedPracticePage from './pages/curated-practice/CuratedPracticePage';
 import AcademicFeatures from './pages/features-selection/AcademicFeatures';
@@ -31,13 +33,11 @@ import AudioInterview from './pages/features/mock-interview/video-interview/Audi
 import PairProgramming from './pages/features/PairProgramming';
 import ProgressTracking from './pages/features/ProgressTracking';
 import SessionReplay from './pages/features/SessionReplay';
-import Classrooms from './pages/classrooms/Classrooms';
 import Home from './pages/home/Home';
 import LandingPage from './pages/landing/LandingPage';
 import Login from './pages/login/Login';
 import Signup from './pages/login/Signup';
 import RoleSelection from './pages/role-selection/RoleSelection';
-import { NavigationStackProvider } from './context/NavigationStackContext';
 
 interface ErrorBoundaryState {
 	hasError: boolean;
@@ -102,9 +102,20 @@ class ErrorBoundary extends Component<
 }
 
 function RootRedirect() {
-  const { user, loading } = useAuth();
-  if (loading) return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: '#0a0a0b' }} />;
-  return <Navigate to={user ? '/home' : '/login'} replace />;
+	const { user, loading } = useAuth();
+	if (loading)
+		return (
+			<div
+				style={{
+					display: 'flex',
+					justifyContent: 'center',
+					alignItems: 'center',
+					height: '100vh',
+					backgroundColor: '#0a0a0b',
+				}}
+			/>
+		);
+	return <Navigate to={user ? '/home' : '/login'} replace />;
 }
 
 function NavigationGuard({ children }: { children: ReactNode }) {
@@ -114,7 +125,11 @@ function NavigationGuard({ children }: { children: ReactNode }) {
 	const path = location.pathname;
 	const isOnActiveRoom = path === `/editor/${activeRoomId}`;
 	const isOnAlreadyInRoom = path === '/already-in-room';
-  const isPublicOnlyPath = path === '/login' || path === '/login1' || path === '/signup' || path === '/landing';
+	const isPublicOnlyPath =
+		path === '/login' ||
+		path === '/login1' ||
+		path === '/signup' ||
+		path === '/landing';
 	if (authLoading) return <>{children}</>;
 	if (user && isInRoom && activeRoomId && !isOnActiveRoom && !isOnAlreadyInRoom)
 		return <Navigate to="/already-in-room" replace />;
@@ -123,69 +138,236 @@ function NavigationGuard({ children }: { children: ReactNode }) {
 		if (roleData.requested === 'faculty') {
 			return <Navigate to="/features/academic" replace />;
 		}
-		return <Navigate to="/role" replace />;
+		return <Navigate to="/home" replace />;
 	}
 	return <>{children}</>;
 }
 
 function App() {
-  return (
-    <ErrorBoundary>
-      <AuthProvider>
-        <RoomProvider>
-          <Toaster position="top-right" toastOptions={{ style: { background: '#141417', color: '#fafafa', border: '1px solid #27272a', fontFamily: 'Inter, -apple-system, sans-serif', fontSize: '14px', borderRadius: '8px' }, success: { iconTheme: { primary: '#22c55e', secondary: '#141417' }, duration: 3000 }, error: { iconTheme: { primary: '#ef4444', secondary: '#141417' }, duration: 4000 } }} />
-          <Router>
-            <NavigationStackProvider>
-              <NavigationGuard>
-                <Routes>
-                {/* Public routes */}
-                <Route path="/" element={<RootRedirect />} />
-                <Route path="/login" element={<LandingPage />} />
-                <Route path="/landing" element={<LandingPage />} />
-                <Route path="/login1" element={<Login />} />
-                <Route path="/signup" element={<Signup />} />
-                <Route path="/already-in-room" element={<AlreadyInRoom />} />
+	return (
+		<ErrorBoundary>
+			<AuthProvider>
+				<RoomProvider>
+					<Toaster
+						position="top-right"
+						toastOptions={{
+							style: {
+								background: '#141417',
+								color: '#fafafa',
+								border: '1px solid #27272a',
+								fontFamily: 'Inter, -apple-system, sans-serif',
+								fontSize: '14px',
+								borderRadius: '8px',
+							},
+							success: {
+								iconTheme: { primary: '#22c55e', secondary: '#141417' },
+								duration: 3000,
+							},
+							error: {
+								iconTheme: { primary: '#ef4444', secondary: '#141417' },
+								duration: 4000,
+							},
+						}}
+					/>
+					<Router>
+						<NavigationStackProvider>
+							<NavigationGuard>
+								<Routes>
+									{/* Public routes */}
+									<Route path="/" element={<RootRedirect />} />
+									<Route path="/login" element={<LandingPage />} />
+									<Route path="/landing" element={<LandingPage />} />
+									<Route path="/login1" element={<Login />} />
+									<Route path="/signup" element={<Signup />} />
+									<Route path="/already-in-room" element={<AlreadyInRoom />} />
 
-                {/* Protected routes with profile icon */}
-                <Route element={<AuthLayout />}>
-                  {/* Role & features */}
-                  <Route path="/role" element={<ProtectedRoute><RoleSelection /></ProtectedRoute>} />
-                  <Route path="/features" element={<ProtectedRoute><FeaturesSelection /></ProtectedRoute>} />
-                  <Route path="/features/academic" element={<ProtectedRoute><AcademicFeatures /></ProtectedRoute>} />
-                  <Route path="/features/professional" element={<ProtectedRoute><ProfessionalFeatures /></ProtectedRoute>} />
+									{/* Protected routes with profile icon */}
+									<Route element={<AuthLayout />}>
+										{/* Role & features */}
+										<Route
+											path="/home"
+											element={
+												<ProtectedRoute>
+													<RoleSelection />
+												</ProtectedRoute>
+											}
+										/>
+										<Route
+											path="/features"
+											element={
+												<ProtectedRoute>
+													<FeaturesSelection />
+												</ProtectedRoute>
+											}
+										/>
+										<Route
+											path="/features/academic"
+											element={
+												<ProtectedRoute>
+													<AcademicFeatures />
+												</ProtectedRoute>
+											}
+										/>
+										<Route
+											path="/features/professional"
+											element={
+												<ProtectedRoute>
+													<ProfessionalFeatures />
+												</ProtectedRoute>
+											}
+										/>
 
-                  {/* Feature pages */}
-                  <Route path="/practice" element={<ProtectedRoute><AlgorithmChallenges /></ProtectedRoute>} />
-                  <Route path="/practice/:slug" element={<ProtectedRoute><ChallengeSolve /></ProtectedRoute>} />
-                  <Route path="/pair" element={<ProtectedRoute><PairProgramming /></ProtectedRoute>} />
-                  <Route path="/assess" element={<ProtectedRoute><AssessmentMode /></ProtectedRoute>} />
-                <Route path="/assessment/student" element={<ProtectedRoute><StudentAssessmentPage /></ProtectedRoute>} />
-                <Route path="/assessment/faculty" element={<ProtectedRoute><FacultyAssessmentPage /></ProtectedRoute>} />
-                  <Route path="/replay" element={<ProtectedRoute><SessionReplay /></ProtectedRoute>} />
-                  <Route path="/analytics" element={<ProtectedRoute><ClassAnalytics /></ProtectedRoute>} />
-                  <Route path="/integrity" element={<ProtectedRoute><IntegrityTimeline /></ProtectedRoute>} />
-                  <Route path="/interview" element={<ProtectedRoute><MockInterview /></ProtectedRoute>} />
-                  <Route path="/video-interview" element={<ProtectedRoute><AudioInterview /></ProtectedRoute>} />
-                  <Route path="/interview-dashboard" element={<ProtectedRoute><InterviewDashboard /></ProtectedRoute>} />
-                  <Route path="/progress" element={<ProtectedRoute><ProgressTracking /></ProtectedRoute>} />
-                  <Route path="/sets" element={<ProtectedRoute><CuratedPracticePage /></ProtectedRoute>} />
+										{/* Feature pages */}
+										<Route
+											path="/practice"
+											element={
+												<ProtectedRoute>
+													<AlgorithmChallenges />
+												</ProtectedRoute>
+											}
+										/>
+										<Route
+											path="/practice/:slug"
+											element={
+												<ProtectedRoute>
+													<ChallengeSolve />
+												</ProtectedRoute>
+											}
+										/>
+										<Route
+											path="/pair"
+											element={
+												<ProtectedRoute>
+													<PairProgramming />
+												</ProtectedRoute>
+											}
+										/>
+										<Route
+											path="/assess"
+											element={
+												<ProtectedRoute>
+													<AssessmentMode />
+												</ProtectedRoute>
+											}
+										/>
+										<Route
+											path="/assessment/student"
+											element={
+												<ProtectedRoute>
+													<StudentAssessmentPage />
+												</ProtectedRoute>
+											}
+										/>
+										<Route
+											path="/assessment/faculty"
+											element={
+												<ProtectedRoute>
+													<FacultyAssessmentPage />
+												</ProtectedRoute>
+											}
+										/>
+										<Route
+											path="/replay"
+											element={
+												<ProtectedRoute>
+													<SessionReplay />
+												</ProtectedRoute>
+											}
+										/>
+										<Route
+											path="/analytics"
+											element={
+												<ProtectedRoute>
+													<ClassAnalytics />
+												</ProtectedRoute>
+											}
+										/>
+										<Route
+											path="/integrity"
+											element={
+												<ProtectedRoute>
+													<IntegrityTimeline />
+												</ProtectedRoute>
+											}
+										/>
+										<Route
+											path="/interview"
+											element={
+												<ProtectedRoute>
+													<MockInterview />
+												</ProtectedRoute>
+											}
+										/>
+										<Route
+											path="/video-interview"
+											element={
+												<ProtectedRoute>
+													<AudioInterview />
+												</ProtectedRoute>
+											}
+										/>
+										<Route
+											path="/interview-dashboard"
+											element={
+												<ProtectedRoute>
+													<InterviewDashboard />
+												</ProtectedRoute>
+											}
+										/>
+										<Route
+											path="/progress"
+											element={
+												<ProtectedRoute>
+													<ProgressTracking />
+												</ProtectedRoute>
+											}
+										/>
+										<Route
+											path="/sets"
+											element={
+												<ProtectedRoute>
+													<CuratedPracticePage />
+												</ProtectedRoute>
+											}
+										/>
 
-                  {/* Classrooms & Home */}
-                  <Route path="/classrooms" element={<ProtectedRoute><Classrooms /></ProtectedRoute>} />
-                  <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
-                </Route>
+										{/* Classrooms & Home */}
+										<Route
+											path="/classrooms"
+											element={
+												<ProtectedRoute>
+													<Classrooms />
+												</ProtectedRoute>
+											}
+										/>
+										<Route
+											path="/create-room"
+											element={
+												<ProtectedRoute>
+													<Home />
+												</ProtectedRoute>
+											}
+										/>
+									</Route>
 
-                {/* Editor page without profile icon (has its own header) */}
-                <Route path="/editor/:roomId" element={<ProtectedRoute><EditorPage /></ProtectedRoute>} />
+									{/* Editor page without profile icon (has its own header) */}
+									<Route
+										path="/editor/:roomId"
+										element={
+											<ProtectedRoute>
+												<EditorPage />
+											</ProtectedRoute>
+										}
+									/>
 
-                <Route path="*" element={<Navigate to="/login" replace />} />
-                </Routes>
-              </NavigationGuard>
-            </NavigationStackProvider>
-          </Router>
-        </RoomProvider>
-      </AuthProvider>
-    </ErrorBoundary>
-  );
+									<Route path="*" element={<Navigate to="/login" replace />} />
+								</Routes>
+							</NavigationGuard>
+						</NavigationStackProvider>
+					</Router>
+				</RoomProvider>
+			</AuthProvider>
+		</ErrorBoundary>
+	);
 }
 export default App;

@@ -12,7 +12,7 @@ const PairProgramming = () => {
 			(user?.user_metadata?.['full_name'] as string | undefined) ??
 			user?.email ??
 			'User';
-		navigate(`/home`, { replace: true, state: { username } });
+		navigate(`/create-room`, { replace: true, state: { username } });
 	}, [navigate, user]);
 
 	return null;

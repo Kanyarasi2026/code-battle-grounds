@@ -49,7 +49,7 @@ const RoleProtectedRoute = ({
     // For assessment routes, use academic-only role selection
     if (isAcademicRoute) {
       return <Navigate 
-        to="/role" 
+        to="/home" 
         state={{ 
           academicOnly: true, 
           returnTo: location.pathname 
@@ -57,7 +57,7 @@ const RoleProtectedRoute = ({
         replace 
       />;
     }
-    return <Navigate to="/role" replace />;
+    return <Navigate to="/home" replace />;
   }
 
   // PRIMARY SECURITY CHECK: Use verified role for authorization
@@ -117,7 +117,7 @@ const RoleProtectedRoute = ({
   // Redirect to role selection with appropriate context
   if (isAcademicRoute) {
     return <Navigate 
-      to="/role" 
+      to="/home" 
       state={{ 
         academicOnly: true, 
         returnTo: location.pathname 
@@ -125,7 +125,7 @@ const RoleProtectedRoute = ({
       replace 
     />;
   }
-  return <Navigate to="/role?status=pending" replace />;
+  return <Navigate to="/home?status=pending" replace />;
 };
 
 export default RoleProtectedRoute;

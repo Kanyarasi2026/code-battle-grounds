@@ -149,7 +149,7 @@ const FeatureComingSoon = ({
 						<Button variant="primary" onClick={() => navigate('/')}>
 							Go to Code Editor
 						</Button>
-						<Button variant="ghost" onClick={() => navigate('/role')}>
+						<Button variant="ghost" onClick={() => navigate('/home')}>
 							Explore Other Features
 						</Button>
 					</motion.div>

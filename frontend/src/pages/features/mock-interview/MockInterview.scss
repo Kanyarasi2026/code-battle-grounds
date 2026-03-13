@@ -1,7 +1,7 @@
 // ── MockInterview – Clean Dark Theme ──────────────────────────────────────────
 
 .mi-page {
-  height: 100vh;
+  height: calc(100vh - 52px);
   display: flex;
   flex-direction: column;
   overflow: hidden;
