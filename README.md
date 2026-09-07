@@ -1,114 +1,105 @@
-# ⚔️ Code Battlegrounds
+# Code Battlegrounds
 
-![React](https://img.shields.io/badge/React_19-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
-![Vite](https://img.shields.io/badge/Vite_5-646CFF?style=for-the-badge&logo=vite&logoColor=white)
-![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
-![Socket.IO](https://img.shields.io/badge/Socket.IO-010101?style=for-the-badge&logo=socketdotio&logoColor=white)
-![Supabase](https://img.shields.io/badge/Supabase-3FCF8E?style=for-the-badge&logo=supabase&logoColor=white)
-![License](https://img.shields.io/badge/License-ISC-blue?style=for-the-badge)
-![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
+![React](https://img.shields.io/badge/React_19-20232A?style=flat&logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat&logo=typescript&logoColor=white)
+![Socket.IO](https://img.shields.io/badge/Socket.IO-010101?style=flat&logo=socketdotio&logoColor=white)
+![License](https://img.shields.io/badge/License-ISC-blue?style=flat)
 
-> A real-time collaborative code editor where developers battle it out, practice for interviews, and write code together
+**A real-time collaborative code editor with multi-language execution** — several people edit the same Monaco buffer over Socket.IO, run the result on Judge0, and see each other's presence live.
 
-> Built for **HackCU12** by **Sneha Nagaraju**, **Meghasrivardhan Pulakhandam**, and **Gunabhiram Aruru**
+Built at **HackCU12** by **Sneha Nagaraju**, **Meghasrivardhan Pulakhandam**, and **Gunabhiram Aruru**. Team project, hackathon scope.
 
-[🌐 Live Demo](https://code-battle-grounds.vercel.app) • [💻 Quick Start](#-getting-started) • [📚 Documentation](#-project-structure) • [🚀 Deploy](#-deployment)
+> **Maturity:** the collaboration and execution core is fully implemented and backed by the Express/Socket.IO server. The classroom, assessment, integrity and analytics surfaces are **UI built against in-file mock data** — see [Implementation status](#-implementation-status) before reading the feature list as a product claim.
+
+[Live demo](https://code-battle-grounds.vercel.app) · [Quick start](#-getting-started) · [Architecture](#-architecture)
 
 ---
 
-## ✨ Try it Live!
+## 🧩 Implementation status
 
-🌐 **https://code-battle-grounds.vercel.app/**
+**Fully implemented — server-backed**
 
-### Features You Can Explore
+| Feature | How it works |
+|---|---|
+| Real-time collaborative editing | Monaco editor; code and cursor/presence events synced over Socket.IO |
+| Ephemeral rooms | `RoomManager` holds rooms in an in-memory `Map` — 1 h inactivity TTL, 1000-room cap, background cleanup sweep. **Nothing is persisted; a server restart drops every room** |
+| One-room-per-user guard | `userEmail → roomId` map rejects joining a second room while connected |
+| Multi-language execution | `POST /execute` proxies to Judge0 — Python, JavaScript, C++, Java, C, with custom stdin |
+| Auth | Google OAuth via Supabase |
+| Hardening | Joi request validation, `rate-limiter-flexible`, CORS allowlist, Winston logging, `/health` and `/metrics` endpoints |
 
-- ⚔️ **Real-time Collaborative Coding** — Write code together with live cursor presence via Socket.IO
-- 🏫 **Classrooms** — Faculty create sessions, students join with a room code
-- 📝 **Assessment Mode** — Timed coding assessments with integrity tracking
-- 🧠 **AI-Powered Hints** — Gemini-driven tiered hints that nudge, not spoil
-- 🎙️ **Mock Interviews** — Voice-based interview practice with ElevenLabs TTS
-- 🗣️ **Voice & Text Chatbot** — Conversational AI assistant powered by ElevenLabs for natural speech interaction
-- 🏋️ **Algorithm Challenges** — Curated DSA problem sets (Blind 75, NeetCode, etc.)
-- 🔐 **Secure Auth** — Google OAuth via Supabase
-- 📱 **Fully Responsive** — Works seamlessly on desktop, tablet, and mobile
-- 🪄 **Antigravity Effects** — Fluid UI animations powered by the Antigravity library, bringing the interface to life
+**Optional — requires your own API keys, degrades cleanly without them**
 
----
+| Feature | How it works |
+|---|---|
+| AI hints | Tiered hints via a Google Gemini endpoint. The endpoint, key and model are all read from env (`VITE_GEMINI_FETCH_URL`, `VITE_GEMINI_API_KEY`, `VITE_GEMINI_MODEL`) — no model is hardcoded. Unset, the UI reports "AI not configured" instead of failing |
+| Voice features | ElevenLabs speech-to-text (`scribe_v1`) and TTS for mock-interview and read-aloud flows, with a browser `SpeechSynthesis` fallback |
 
-## 🎯 Features
+**Prototype / mock-backed UI — not wired to a datastore**
 
-| Feature                         | Description                                                                                                                                                            |
-| ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 🔄 **Real-time Collaboration**  | Multiple users edit the same file live — code changes sync instantly via Socket.IO                                                                                     |
-| 🏫 **Classrooms**               | Faculty create rooms, share codes with students — everyone sees the same editor in real-time                                                                           |
-| 📝 **Assessment Mode**          | Faculty create timed assessments; students take them with transparent integrity tracking                                                                               |
-| 🛡️ **Integrity Insights**       | Factual session timeline — tab switches, copy/paste events, neutral activity log for faculty review                                                                    |
-| 💡 **AI Hints**                 | Tiered hints via Gemini API + ElevenLabs TTS read-aloud — nudges, not answers                                                                                          |
-| 🗣️ **Voice & Text Chatbot**     | Full-featured conversational chatbot with both voice and text input/output — powered by ElevenLabs, one of the best speech-to-text and text-to-speech models available |
-| 🎙️ **Mock Interviews**          | Voice-based interview simulation with AI-powered speech                                                                                                                |
-| 🏋️ **Algorithm Challenges**     | Curated problem sets — Blind 75, NeetCode 150, topic-based collections                                                                                                 |
-| 🪄 **Antigravity Effects**      | Smooth, physics-inspired UI animations via Antigravity — dramatically improved user experience and visual polish                                                       |
-| ⚡ **Multi-Language Execution** | Run Python, JavaScript, C++, Java, and C                                                                                                                               |
-| 🎚️ **Custom stdin**             | Provide input to your programs before execution                                                                                                                        |
-| 👥 **Role-Based Access**        | Separate flows for students vs. faculty, professionals vs. academic users                                                                                              |
-| 📊 **Progress Tracking**        | Track solved problems, streaks, and challenge completion                                                                                                               |
-| 🌙 **Dark Mode**                | Sleek dark grayscale theme with glassmorphism UI                                                                                                                       |
+| Surface | Status |
+|---|---|
+| Assessment mode (`/assess`, `/assessment/*`) | Questions, submissions, rubric items and per-student integrity events are **hardcoded arrays** in the page components. The backend has an `assessmentController`, but these views do not read from it |
+| Integrity timeline (`/integrity`) | Renders `MOCK_SESSIONS` — a fixed demo dataset, not captured telemetry |
+| Class analytics (`/analytics`) | Demo UI only |
+| Progress tracking, curated practice sets | DSA problem sets are local data files; progress is not durably tracked server-side |
+
+There is **no proctoring, no durable assessment record, and no analytics pipeline**. Those screens exist to show the intended product shape.
 
 ---
 
-## 🏗️ Architecture
+## 🧠 Algorithm practice
 
-```
-┌─────────────────────────────┐
-│      User Browser           │
-│  (React 19 + TypeScript)    │
-│  Monaco Editor · GSAP · FM  │
-└──────────┬──────────────────┘
-           │ HTTP/REST + WebSocket
-           ▼
-┌─────────────────────────────────┐     ┌─────────────────────────────┐
-│   Backend API                   │────▶│   Supabase                  │
-│  (Node.js + Express + TS)       │◀────│  PostgreSQL + Auth + OAuth  │
-│  - Socket.IO (real-time sync)   │     └─────────────────────────────┘
-│  - Room Manager (in-memory)     │
-│  - Rate Limiting + Validation   │     ┌─────────────────────────────┐
-│                                 │────▶│   Judge0 API                │
-└─────────────────────────────────┘     │  (Code Execution Engine)    │
-                                        └─────────────────────────────┘
-                                        ┌─────────────────────────────┐
-                                   ────▶│   Gemini API (AI Hints)     │
-                                        │   ElevenLabs (Voice TTS)    │
-                                        └─────────────────────────────┘
+Curated DSA problem collections (Blind 75, NeetCode 150, topic-based sets) ship as local data, browsable by topic and difficulty and solvable in the same editor.
+
+---
+
+## 📐 Architecture
+
+```mermaid
+flowchart TD
+    subgraph FE["Browser — React 19 + TypeScript + Vite"]
+        A["Monaco editor · Framer Motion · GSAP"]
+        B["Socket.IO client"]
+    end
+
+    A --> B
+    B <-->|"WebSocket: code sync, cursor presence, join/leave"| C
+    A -->|"REST"| C
+
+    subgraph BE["Backend — Node.js + Express + TypeScript"]
+        C["Express app<br/>Joi validation · rate limiting · CORS · Winston"]
+        C --> D["RoomManager<br/>in-memory Map · 1 h TTL · 1000-room cap<br/>ephemeral, lost on restart"]
+    end
+
+    C -->|"POST /execute"| E["Judge0 API<br/>Python · JS · C++ · Java · C"]
+    A -->|"Google OAuth + session"| F["Supabase<br/>auth + PostgreSQL"]
+    A -.->|"optional, browser-side keys"| G["Gemini endpoint (AI hints)<br/>ElevenLabs (STT / TTS)"]
 ```
 
-**User Flow:**
+**Flow:** authenticate with Google via Supabase → pick a role (academic or professional) → create or join a room by code → edits propagate to every connected client over Socket.IO → run the buffer through the backend's Judge0 proxy → optionally request a tiered hint.
 
-1. User visits Code Battlegrounds and authenticates with Google OAuth
-2. Selects role — Academic (Student/Faculty) or Professional
-3. Chooses a feature — Classrooms, Assessments, Challenges, Interviews, Practice Sets
-4. Faculty creates a classroom → shares the room code → students join
-5. Code changes sync in real-time across all connected clients
-6. Execute code against Judge0, get AI hints from Gemini, hear hints read aloud
+**Room state is deliberately ephemeral.** Rooms live in server memory with a one-hour inactivity TTL and a background cleanup sweep. That keeps the hot path free of database round-trips, which is the right trade for a live editing session — and it means sessions do not survive a restart and cannot be replayed later.
 
----
+## 📊 Routes
 
-## 📊 Core Pages & Features
+Routes as registered in `frontend/src/App.tsx`. "Backing" says where the data actually comes from.
 
-| Page                  | Route                    | Description                                             |
-| --------------------- | ------------------------ | ------------------------------------------------------- |
-| Landing               | `/login`                 | Animated landing page with Google OAuth                 |
-| Role Selection        | `/role`                  | Choose Academic or Professional pathway                 |
-| Academic Features     | `/features/academic`     | Classrooms, Assessments, Integrity (faculty)            |
-| Professional Features | `/features/professional` | Challenges, Interviews, Pair Programming, Practice Sets |
-| Classrooms            | `/classrooms`            | Faculty creates rooms, students join with code          |
-| Code Editor           | `/editor/:roomId`        | Monaco editor with real-time sync, execution, AI hints  |
-| Assessment Mode       | `/assess`                | Faculty creates / student takes timed assessments       |
-| Algorithm Challenges  | `/practice`              | DSA problems by topic and difficulty                    |
-| Curated Practice Sets | `/sets`                  | Blind 75, NeetCode 150, and more                        |
-| Mock Interviews       | `/interview`             | Voice-based interview simulation                        |
-| Progress Tracking     | `/progress`              | Stats, streaks, solved problems                         |
-| Integrity Timeline    | `/integrity`             | Session activity log for faculty                        |
+| Page | Route | Backing |
+| --- | --- | --- |
+| Landing | `/login`, `/landing` | Google OAuth via Supabase |
+| Feature selection | `/features`, `/features/academic`, `/features/professional` | Static navigation |
+| Classrooms | `/classrooms`, `/create-room` | Socket.IO server, in-memory rooms |
+| Code editor | `/editor/:roomId` | Socket.IO sync + Judge0 execution |
+| Pair programming | `/pair` | Socket.IO server |
+| Algorithm challenges | `/practice`, `/practice/:slug` | Local DSA data files |
+| Curated practice sets | `/sets` | Local data (Blind 75, NeetCode 150) |
+| Mock interviews | `/interview`, `/interview-dashboard`, `/video-interview` | Optional ElevenLabs / Gemini; no keys → disabled |
+| Assessment mode | `/assess`, `/assessment/faculty`, `/assessment/student` | **Mock data in the page components** |
+| Integrity timeline | `/integrity` | **`MOCK_SESSIONS` fixture** |
+| Class analytics | `/analytics` | **Demo UI** |
+| Session replay | `/replay` | **Demo UI** |
+| Progress | `/progress` | Client-side |
 
 ---
 
@@ -116,38 +107,23 @@
 
 | Category                 | Technology                                                                 |
 | ------------------------ | -------------------------------------------------------------------------- |
-| **Frontend**             | React 19, TypeScript, Vite 5, SCSS (BEM)                                   |
+| **Frontend**             | React 19, TypeScript, Vite 7, SCSS (BEM)                                   |
 | **Editor**               | Monaco Editor (VS Code engine in browser)                                  |
 | **Real-time**            | Socket.IO (WebSocket transport)                                            |
-| **Animations**           | Framer Motion, GSAP, Antigravity                                           |
+| **Animations**           | Framer Motion, GSAP                                                        |
 | **Auth**                 | Supabase (Google OAuth)                                                    |
 | **Styling**              | SCSS, CSS Variables, Glassmorphism dark theme                              |
 | **State**                | React Context + Hooks                                                      |
 | **Backend**              | Node.js, Express, TypeScript                                               |
 | **Database**             | Supabase (PostgreSQL)                                                      |
 | **Code Execution**       | Judge0 API                                                                 |
-| **AI Hints**             | Gemini API (gemini-3-flash)                                                |
-| **Voice & Text Chatbot** | ElevenLabs (industry-leading STT + TTS) + Browser SpeechSynthesis fallback |
-| **Antigravity**          | Antigravity — physics-based animation library for fluid UI interactions    |
+| **AI Hints**             | Google Gemini — endpoint and model supplied via env, not pinned in source  |
+| **Voice**                | ElevenLabs STT (`scribe_v1`) + TTS, with browser SpeechSynthesis fallback  |
 | **Validation**           | Joi                                                                        |
 | **Rate Limiting**        | rate-limiter-flexible                                                      |
 | **Logging**              | Winston                                                                    |
-| **Testing**              | Vitest + Testing Library                                                   |
+| **Testing**              | Vitest + Testing Library (frontend and backend)                            |
 | **Deployment**           | Vercel (frontend), Docker (backend)                                        |
-
----
-
-## 📈 Performance Metrics
-
-| Metric                   | Value             |
-| ------------------------ | ----------------- |
-| Page Load Time           | < 2 seconds       |
-| First Contentful Paint   | < 1.2 seconds     |
-| Lighthouse Score         | 90+ (Performance) |
-| WebSocket Latency        | < 50ms (local)    |
-| Code Execution Roundtrip | < 3 seconds       |
-| Bundle Size              | ~150KB (gzipped)  |
-| Max Clients per Room     | 50                |
 
 ---
 
@@ -158,8 +134,8 @@
 - **Node.js 18+** and **npm 9+**
 - A [Supabase](https://supabase.com) project
 - A [Judge0](https://judge0.com) instance (self-hosted or RapidAPI)
-- A [Gemini API](https://aistudio.google.com) key
-- _(Optional)_ An [ElevenLabs](https://elevenlabs.io) API key for voice features
+- _(Optional)_ A [Gemini API](https://aistudio.google.com) key — only for AI hints
+- _(Optional)_ An [ElevenLabs](https://elevenlabs.io) API key — only for voice features
 
 ### 1. Clone the repo
 
@@ -209,9 +185,14 @@ VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 
 VITE_SOCKET_URL=http://localhost:3001
 
+# Optional — omit to run without AI/voice features
+VITE_GEMINI_FETCH_URL=your_gemini_endpoint_url
 VITE_GEMINI_API_KEY=your_gemini_api_key
+VITE_GEMINI_MODEL=your_gemini_model_id
 VITE_ELEVENLABS_API_KEY=your_elevenlabs_api_key
 ```
+
+> **Security note:** anything prefixed `VITE_` is inlined into the client bundle and is readable by anyone who loads the page. The Supabase anon key is designed for that; the Gemini and ElevenLabs keys are **not**. As built, AI and voice calls go directly from the browser to those providers, so use throwaway keys with hard spend limits and never a production key. Routing them through the backend is the fix, and it has not been done.
 
 Start the frontend:
 
@@ -308,18 +289,9 @@ code-battle-grounds/
 
 ## 🌐 Deployment
 
-### Currently Deployed on Vercel ✅
+The frontend is deployed on Vercel at [code-battle-grounds.vercel.app](https://code-battle-grounds.vercel.app), auto-deploying from `main`.
 
-- 🌐 **Live URL:** [https://code-battle-grounds.vercel.app](https://code-battle-grounds.vercel.app)
-- 🔄 Auto-deploys on push to `main` branch
-- ⚡ Global CDN for optimal performance
-- 📊 Built-in analytics and monitoring
-
-### Backend
-
-The backend can be deployed via **Docker** using the included `Dockerfile`, or on platforms like **Railway**, **Render**, or **Fly.io**.
-
----
+The backend ships with a `Dockerfile` and can run anywhere a container can — Railway, Render, Fly.io, or a plain VM. Because room state lives in process memory, the backend does not scale horizontally without sticky sessions or an external state store.
 
 ## 🔗 API Integration
 
@@ -331,6 +303,17 @@ The frontend communicates with the backend for:
 - **Authentication** — Supabase OAuth + JWT tokens
 - **AI hints** — Gemini API via frontend (with ElevenLabs TTS or browser fallback)
 - **Assessments** — CRUD operations for faculty assessment management
+
+---
+
+## ⚠️ Limitations
+
+- **Rooms are ephemeral.** In-memory only, one-hour inactivity TTL, 1000-room cap. A server restart ends every session. There is no persistence, history, or replay of real sessions.
+- **Assessment and integrity features are demo UI.** Mock data in the components; no durable assessment records, no submission storage, no proctoring, and no analytics pipeline.
+- **AI and voice keys are browser-side.** See the security note above.
+- **No horizontal scaling.** Room state in process memory means a second backend instance would not see the first one's rooms.
+- **Code execution depends on an external Judge0 instance** you supply; there is no sandbox of our own.
+- **Hackathon scope.** Built in a weekend at HackCU12 and not hardened since.
 
 ---
 
@@ -356,8 +339,4 @@ Contributions are welcome and appreciated! Here's how you can help:
 
 ---
 
-Made for **HackCU12**
-
-⭐ If you find Code Battlegrounds useful, give it a star!
-
-[🌐 Try Live Demo](https://code-battle-grounds.vercel.app)
+Built at **HackCU12**. Licensed ISC.
